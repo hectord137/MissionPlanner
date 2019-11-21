@@ -411,9 +411,13 @@ namespace MissionPlanner.SimpleGrid
         {
             if (grid != null && grid.Count > 0)
             {
-                MainV2.instance.FlightPlanner.quickadd = true;
+                MainV2.instance.FlightPlanner.FlightPlannerBase.quickadd = true;
 
                 PointLatLngAlt lastpnt = PointLatLngAlt.Zero;
+
+                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_CHANGE_SPEED, 1,
+                    (int)((float)NUM_UpDownFlySpeed.Value / CurrentState.multiplierspeed), 0, 0, 0, 0, 0,
+                    null);
 
                 grid.ForEach(plla =>
                 {
@@ -431,9 +435,9 @@ namespace MissionPlanner.SimpleGrid
                     }
                 });
 
-                MainV2.instance.FlightPlanner.quickadd = false;
+                MainV2.instance.FlightPlanner.FlightPlannerBase.quickadd = false;
 
-                MainV2.instance.FlightPlanner.writeKML();
+                MainV2.instance.FlightPlanner.FlightPlannerBase.writeKML();
 
                 savesettings();
 
@@ -453,6 +457,11 @@ namespace MissionPlanner.SimpleGrid
         private void GridUI_Load(object sender, EventArgs e)
         {
             loadsettings();
+        }
+
+        private void groupBox6_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

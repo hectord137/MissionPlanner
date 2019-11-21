@@ -541,7 +541,7 @@ namespace MissionPlanner
             if (MainV2.instance.FlightPlanner != null)
             {
                 //hide menu items 
-                MainV2.instance.FlightPlanner.updateDisplayView();
+                MainV2.instance.FlightPlanner.FlightPlannerBase.updateDisplayView();
             }
         }
 
@@ -567,6 +567,18 @@ namespace MissionPlanner
             Utilities.adsb.UpdatePlanePosition += adsb_UpdatePlanePosition;
 
             MAVLinkInterface.UpdateADSBPlanePosition += adsb_UpdatePlanePosition;
+
+            MAVLinkInterface.UpdateADSBCollision += (sender, tuple) =>
+            {
+                lock (adsblock)
+                {
+                    if (MainV2.instance.adsbPlanes.ContainsKey(tuple.id))
+                    {
+                        // update existing
+                        ((adsb.PointLatLngAltHdg) instance.adsbPlanes[tuple.id]).ThreatLevel = tuple.threat_level;
+                    }
+                }
+            };
 
             MAVLinkInterface.gcssysid = (byte)Settings.Instance.GetByte("gcsid", MAVLinkInterface.gcssysid);
 
@@ -1189,15 +1201,16 @@ namespace MissionPlanner
                     ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).Heading = adsb.Heading;
                     ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).Time = DateTime.Now;
                     ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).CallSign = adsb.CallSign;
+                    ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).Raw = adsb.Raw;
                 }
                 else
                 {
                     // create new plane
                     MainV2.instance.adsbPlanes[id] =
                         new adsb.PointLatLngAltHdg(adsb.Lat, adsb.Lng,
-                            adsb.Alt, adsb.Heading, adsb.Speed, id,
-                            DateTime.Now)
-                        { CallSign = adsb.CallSign };
+                                adsb.Alt, adsb.Heading, adsb.Speed, id,
+                                DateTime.Now)
+                            {CallSign = adsb.CallSign, Raw = adsb.Raw};
                 }
 
                 try
@@ -1699,7 +1712,7 @@ namespace MissionPlanner
                     if (comPort.BaseStream.IsOpen)
                     {
                         MenuFlightPlanner_Click(null, null);
-                        FlightPlanner.BUT_read_Click(null, null);
+                        FlightPlanner.FlightPlannerBase.BUT_read_Click(null, null);
                     }
                 }
 
@@ -1709,7 +1722,7 @@ namespace MissionPlanner
                 {
                     try
                     {
-                        FlightPlanner.getRallyPointsToolStripMenuItem_Click(null, null);
+                        FlightPlanner.FlightPlannerBase.getRallyPointsToolStripMenuItem_Click(null, null);
 
                         double maxdist = 0;
 
@@ -1744,7 +1757,7 @@ namespace MissionPlanner
                 {
                     try
                     {
-                        FlightPlanner.GeoFencedownloadToolStripMenuItem_Click(null, null);
+                        FlightPlanner.FlightPlannerBase.GeoFencedownloadToolStripMenuItem_Click(null, null);
                     } catch (Exception ex) { log.Warn(ex); }
                 }
                 //Add HUD custom items source 
@@ -1910,6 +1923,9 @@ namespace MissionPlanner
 
         private void CMB_serialport_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (_connectionControl.CMB_serialport.SelectedItem == _connectionControl.CMB_serialport.Text)
+                return;
+
             comPortName = _connectionControl.CMB_serialport.Text;
             if (comPortName == "UDP" || comPortName == "UDPCl" || comPortName == "TCP" || comPortName == "AUTO")
             {
@@ -2694,7 +2710,7 @@ namespace MissionPlanner
                                     if (MyView.current != null && MyView.current.Name == "FlightPlanner")
                                     {
                                         // update home if we are on flight data tab
-                                        this.BeginInvoke((Action)delegate { FlightPlanner.updateHome(); });
+                                        this.BeginInvoke((Action)delegate { FlightPlanner.FlightPlannerBase.updateHome(); });
                                     }
 
                                 }
@@ -3144,7 +3160,7 @@ namespace MissionPlanner
             {
                 if (image == null)
                     return;
-                var bmp = (image as Utilities.Drawing.Bitmap);
+                var bmp = (image as Drawing.Bitmap);
                 if (bmp == null)
                     return;
                 var old = GCSViews.FlightData.myhud.bgimage;
@@ -3160,7 +3176,7 @@ namespace MissionPlanner
             {
                 if (image == null)
                     return;
-                var bmp = (image as Utilities.Drawing.Bitmap);
+                var bmp = (image as Drawing.Bitmap);
                 if (bmp == null)
                     return;
                 var old = GCSViews.FlightData.myhud.bgimage;
@@ -3817,7 +3833,7 @@ namespace MissionPlanner
                             CurrentState.SpeedUnit = "m/s";
                             break;
                         case speeds.fps:
-                            CurrentState.multiplierdist = 3.2808399f;
+                            CurrentState.multiplierspeed = 3.2808399f;
                             CurrentState.SpeedUnit = "fps";
                             break;
                         case speeds.kph:

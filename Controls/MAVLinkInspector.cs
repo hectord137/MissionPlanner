@@ -49,7 +49,7 @@ namespace MissionPlanner.Controls
 
         private void MavOnOnPacketReceived(object o, MAVLink.MAVLinkMessage linkMessage)
         {
-            mavi.Add(linkMessage.sysid, linkMessage.compid, linkMessage.msgid, linkMessage);
+            mavi.Add(linkMessage.sysid, linkMessage.compid, linkMessage.msgid, linkMessage, linkMessage.Length);
         }
 
         public new void Update()
@@ -105,7 +105,8 @@ namespace MissionPlanner.Controls
 
                 var msgidheader = mavLinkMessage.msgtypename + " (" +
                                   (mavi.SeenRate(mavLinkMessage.sysid, mavLinkMessage.compid, mavLinkMessage.msgid))
-                                  .ToString("0.0 Hz") + ", #" + mavLinkMessage.msgid + ") ";
+                                  .ToString("0.0 Hz") + ", #" + mavLinkMessage.msgid + ") " + 
+                                  mavi.SeenBps(mavLinkMessage.sysid, mavLinkMessage.compid, mavLinkMessage.msgid).ToString("0bps");
 
                 if (msgidnode.Text != msgidheader)
                     msgidnode.Text = msgidheader;

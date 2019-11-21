@@ -107,6 +107,10 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 if (!port.IsOpen)
                     port.Open();
 
+                if(chk_log.Checked)
+                    can.LogFile = Settings.Instance.LogDir + Path.DirectorySeparatorChar +
+                              DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + ".can";
+
                 can.StartSLCAN(port.BaseStream);
 
                 can.SetupFileServer();
@@ -187,6 +191,11 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                             item.HardwareVersion = gnires.hardware_version.major + "." + gnires.hardware_version.minor;
                             item.SoftwareVersion  = gnires.software_version.major + "." + gnires.software_version.minor + "."+gnires.software_version.vcs_commit.ToString("X");
                             item.SoftwareCRC = gnires.software_version.image_crc;
+                            item.HardwareUID = gnires.hardware_version.unique_id.Select(a=>a.ToString("X2")).Aggregate((a, b) =>
+                                {
+                                    return a + " " + b;
+                                });
+                            item.RawMsg = gnires;
                         }
 
                         this.BeginInvoke((Action)delegate
@@ -211,7 +220,15 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
             if (e.ColumnIndex == myDataGridView1.Columns["Parameter"].Index)
             {
-                var paramlist = can.GetParameters(nodeID);
+                IProgressReporterDialogue prd = new ProgressReporterDialogue();
+                List<uavcan.uavcan_protocol_param_GetSet_res> paramlist =
+                    new List<uavcan.uavcan_protocol_param_GetSet_res>();
+                prd.DoWork += dialogue =>
+                {
+                    paramlist = can.GetParameters(nodeID);
+                };
+                prd.UpdateProgressAndStatus(-1, Strings.GettingParams);
+                prd.RunBackgroundOperationAsync();
 
                 new UAVCANParams(can, nodeID, paramlist).ShowUserControl();
             }
@@ -239,7 +256,14 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                                 var tempfile = Path.GetTempFileName();
                                 Download.getFilefromNet(url, tempfile);
 
-                                can.Update(nodeID, devicename, hwversion, tempfile);
+                                try
+                                {
+                                    can.Update(nodeID, devicename, hwversion, tempfile);
+                                }
+                                catch (Exception ex)
+                                {
+                                    throw;
+                                }
 
                                 return;
                             };
@@ -261,7 +285,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
                     FileDialog fd = new OpenFileDialog();
                     fd.RestoreDirectory = true;
-                    fd.Filter = "*-crc.bin|*-crc.bin";
+                    fd.Filter = "*.bin|*.bin";
                     var dia = fd.ShowDialog();
 
                     if (fd.CheckFileExists && dia == DialogResult.OK)
@@ -291,7 +315,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         public void Deactivate()
         {
-            can.Stop();
+            can?.Stop();
             can = null;
         }
 
@@ -311,6 +335,20 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             new UAVCANInspector(can).Show();
         }
 
+        private void myDataGridView1_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            var id = myDataGridView1[iDDataGridViewTextBoxColumn.Index, e.RowIndex].Value.ToString();
+
+            var node = allnodes.First(a => a.ID.ToString() == id);
+
+            //uAVCANModelBindingSource.ResetItem(e.RowIndex);
+
+            this.BeginInvoke((Action)delegate
+            {
+                //var index = uAVCANModelBindingSource.Find("ID", id);
+                //uAVCANModelBindingSource.Position = index;
+            });
+        }
     }
 
     public class UAVCANModel
@@ -323,5 +361,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         public string HardwareVersion { get; set; }
         public string SoftwareVersion { get; set; }
         public ulong SoftwareCRC { get; set; }
+        public uavcan.uavcan_protocol_GetNodeInfo_res RawMsg { get; set; }
+        public string HardwareUID { get; set; }
     }
 }

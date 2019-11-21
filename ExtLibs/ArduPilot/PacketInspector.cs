@@ -14,6 +14,8 @@ namespace MissionPlanner
 
         Dictionary<uint, Dictionary<uint, List<irate>>> _rate = new Dictionary<uint, Dictionary<uint, List<irate>>>();
 
+        Dictionary<uint, Dictionary<uint, List<irate>>> _bps = new Dictionary<uint, Dictionary<uint, List<irate>>>();
+
         public int RateHistory { get; set; } = 200;
 
         object _lock = new object();
@@ -76,17 +78,44 @@ namespace MissionPlanner
             }
         }
 
-        public void Add(byte sysid, byte compid, uint msgid, T message)
+        public double SeenBps(byte sysid, byte compid, uint msgid)
+        {
+            var id = GetID(sysid, compid);
+            var end = DateTime.Now;
+            var start = end.AddSeconds(-3);
+            var data = toArray(_bps[id][msgid]);
+            try
+            {
+                var starttime = data.First().dateTime;
+                starttime = starttime < start ? start : starttime;
+                var msgbps = data.Where(a =>
+                {
+                    return (a.dateTime > start && a.dateTime < end);
+                }).Sum(a => a.value / (end - starttime).TotalSeconds);
+                return msgbps;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        public void Add(byte sysid, byte compid, uint msgid, T message, int size)
         {
             var id = GetID(sysid, compid);
 
             lock (_lock)
             {
+                // must call clear on any new unseen item to init dictionarys
                 if (!_history.ContainsKey(id))
                     Clear(sysid, compid);
 
                 _history[id][msgid] = message;
 
+                if (!_bps[id].ContainsKey(msgid))
+                    _bps[id][msgid] = new List<irate>();
+
+                _bps[id][msgid].Add(new irate(DateTime.Now, size));
 
                 if (!_rate[id].ContainsKey(msgid))
                     _rate[id][msgid] = new List<irate>();
@@ -95,6 +124,9 @@ namespace MissionPlanner
 
                 while (_rate[id][msgid].Count > RateHistory)
                     _rate[id][msgid].RemoveAt(0);
+
+                while (_bps[id][msgid].Count > RateHistory)
+                    _bps[id][msgid].RemoveAt(0);
             }
         }
 
@@ -123,6 +155,7 @@ namespace MissionPlanner
             {
                 _history = new Dictionary<uint, Dictionary<uint, T>>();
                 _rate = new Dictionary<uint, Dictionary<uint, List<irate>>>();
+                _bps = new Dictionary<uint, Dictionary<uint, List<irate>>>();
             }
 
             NewSysidCompid?.Invoke(this, null);
@@ -135,6 +168,7 @@ namespace MissionPlanner
             {
                 _history[id] = new Dictionary<uint, T>();
                 _rate[id] = new Dictionary<uint, List<irate>>();
+                _bps[id] = new Dictionary<uint, List<irate>>();
             }
 
             NewSysidCompid?.Invoke(this, null);

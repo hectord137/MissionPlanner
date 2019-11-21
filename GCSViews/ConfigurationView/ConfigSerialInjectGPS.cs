@@ -8,12 +8,14 @@ using MissionPlanner.Comms;
 using System.Threading;
 using log4net;
 using System.Collections;
+using System.ComponentModel;
 using MissionPlanner.Controls;
 using MissionPlanner.Utilities;
 using System.Globalization;
 using System.IO;
 using System.Xml.Serialization;
 using Flurl.Util;
+using UAVCAN;
 
 namespace MissionPlanner.GCSViews.ConfigurationView
 {
@@ -31,6 +33,8 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         private static Utilities.Ubx ubx_m8p = new Utilities.Ubx();
 
         static nmea nmea = new nmea();
+
+        static uavcan can = new uavcan();
         // background thread 
         private static System.Threading.Thread t12;
         private static bool threadrun = false;
@@ -319,6 +323,9 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                     try
                     {
                         comPort.Open();
+
+                        comPort.Write(new byte[] { (byte)'\r', (byte)'\r', (byte)'\r' }, 0, 3);
+                        comPort.Write(new byte[] { (byte)'O', (byte)'\r' }, 0, 2);
                     }
                     catch (ArgumentException ex)
                     {
@@ -429,6 +436,37 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
             bool isrtcm = false;
             bool issbp = false;
+            bool iscan = false;
+
+            // feed the rtcm data into the rtcm parser if we get a can message
+            can.MessageReceived += (frame, msg, id) =>
+            {
+                if (frame.MsgTypeID == (ushort)uavcan.UAVCAN_EQUIPMENT_GNSS_RTCMSTREAM_DT_ID)
+                {
+                    var rtcm = (uavcan.uavcan_equipment_gnss_RTCMStream)msg;
+                    for (int a = 0; a < rtcm.data_len; a++)
+                    {
+                        int seenmsg = -1;
+
+                        if ((seenmsg = rtcm3.Read(rtcm.data[a])) > 0)
+                        {
+                            ubx_m8p.resetParser();
+                            nmea.resetParser();
+                            iscan = true;
+                            sendData(rtcm3.packet, (ushort) rtcm3.length);
+                            bpsusefull += rtcm3.length;
+                            string msgname = "Rtcm" + seenmsg;
+                            if (!msgseen.ContainsKey(msgname))
+                                msgseen[msgname] = 0;
+                            msgseen[msgname] = (int) msgseen[msgname] + 1;
+
+                            ExtractBasePos(seenmsg);
+
+                            seenRTCM(seenmsg);
+                        }
+                    }
+                }
+            };
 
             int reconnecttimeout = 10;
 
@@ -491,7 +529,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                         }
 
                         // if this is raw data transport of unknown packet types
-                        if (!(isrtcm || issbp))
+                        if (!(isrtcm || issbp || iscan))
                             sendData(buffer, (ushort) read);
 
                         // check for valid rtcm/sbp/ubx packets
@@ -549,6 +587,16 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                                 sbp.resetParser();
                                 ubx_m8p.resetParser();
                                 string msgname = "NMEA";
+                                if (!msgseen.ContainsKey(msgname))
+                                    msgseen[msgname] = 0;
+                                msgseen[msgname] = (int)msgseen[msgname] + 1;
+                            }
+                            // can_rtcm
+                            if ((seenmsg = can.Read(buffer[a])) > 0)
+                            {
+                                sbp.resetParser();
+                                ubx_m8p.resetParser();
+                                string msgname = "CAN";
                                 if (!msgseen.ContainsKey(msgname))
                                     msgseen[msgname] = 0;
                                 msgseen[msgname] = (int)msgseen[msgname] + 1;
@@ -941,14 +989,21 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         {
             try
             {
-                string[] bspos = Settings.Instance["base_pos"].Split(',');
+                if (Settings.Instance.ContainsKey("base_pos"))
+                {
+                    string[] bspos = Settings.Instance["base_pos"].Split(',');
 
-                log.Info("basepos: "+ Settings.Instance["base_pos"].ToString());
+                    log.Info("basepos: " + Settings.Instance["base_pos"].ToString());
 
-                basepos = new PointLatLngAlt(double.Parse(bspos[0], CultureInfo.InvariantCulture),
-                    double.Parse(bspos[1], CultureInfo.InvariantCulture),
-                    double.Parse(bspos[2], CultureInfo.InvariantCulture), 
-                    bspos[3]);
+                    basepos = new PointLatLngAlt(double.Parse(bspos[0], CultureInfo.InvariantCulture),
+                        double.Parse(bspos[1], CultureInfo.InvariantCulture),
+                        double.Parse(bspos[2], CultureInfo.InvariantCulture),
+                        bspos[3]);
+                }
+                else
+                {
+                    basepos = PointLatLngAlt.Zero;
+                }
             }
             catch
             {

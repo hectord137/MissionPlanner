@@ -46,6 +46,8 @@ namespace MissionPlanner.Controls
             _node = node;
 
             InitializeComponent();
+
+            this.Text = "UAVCAN Params - "+node;
         }
         
         public void Activate()
@@ -394,6 +396,8 @@ namespace MissionPlanner.Controls
                 }
             }
 
+            _can.SaveConfig(_node);
+
             CustomMessageBox.Show("Parameters successfully saved.", "Saved");
         }
 
@@ -603,13 +607,17 @@ namespace MissionPlanner.Controls
 
                 var value = (string) Params[e.ColumnIndex, e.RowIndex].Value;
 
-                var newvalue = float.Parse(value.Replace(',', '.'), CultureInfo.InvariantCulture);
-
-       
-
                 Params[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.Green;
-                _changes[Params[Command.Index, e.RowIndex].Value] =
-                    float.Parse(((string) Params[e.ColumnIndex, e.RowIndex].Value));
+                float asfloat = 0;
+                if (float.TryParse((string)Params[e.ColumnIndex, e.RowIndex].Value, out asfloat))
+                {
+                    _changes[Params[Command.Index, e.RowIndex].Value] = asfloat;
+                }
+                else
+                {
+                    _changes[Params[Command.Index, e.RowIndex].Value] =
+                        ((string) Params[e.ColumnIndex, e.RowIndex].Value);
+                }
             }
             catch (Exception)
             {
