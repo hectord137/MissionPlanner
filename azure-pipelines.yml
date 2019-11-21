@@ -46,4 +46,13 @@ steps:
   inputs:
     artifactName: 'MissionPlanner' 
     targetPath: '$(Build.ArtifactStagingDirectory)/MissionPlanner.zip'
-    
+
+
+- task: S3Upload@1
+  inputs:
+    awsCredentials: 'AWS S3'
+    regionName: 'us-east-1'
+    bucketName: 'qwe'
+    globExpressions: '**'
+    createBucket: true
+
