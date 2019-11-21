@@ -125,12 +125,15 @@ namespace MissionPlanner.GCSViews
 
         string updateBindingSourceThreadName = "";
 
+
         public FlightData()
         {
+            
             log.Info("Ctor Start");
 
             InitializeComponent();
 
+           
             log.Info("Components Done");
 
             instance = this;
@@ -285,9 +288,12 @@ namespace MissionPlanner.GCSViews
             }
 
             MainV2.comPort.ParamListChanged += FlightData_ParentChanged;
-
+            contextMenuStripHud.Visible = false;
+            contextMenuStripHud.Items.RemoveByKey("1"); ;
         }
 
+        
+     
         public void Activate()
         {
             log.Info("Activate Called");

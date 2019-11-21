@@ -2112,7 +2112,7 @@ namespace MissionPlanner.GCSViews
 
             writeKML();
         }
-
+       
         private void comboBoxMapType_SelectedValueChanged(object sender, EventArgs e)
         {
             try
