@@ -221,6 +221,17 @@ namespace WebCamService
                 m_bRunning = true;
             }
         }
+
+        public void stop()
+        {
+            if (m_bRunning)
+            {
+                int hr = m_mediaCtrl.Stop();
+                DsError.ThrowExceptionForHR(hr);
+
+                m_bRunning = false;
+            }
+        }
         // Pause the capture graph.
         // Running the graph takes up a lot of resources.  Pause it when it
         // isn't needed.

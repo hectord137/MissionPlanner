@@ -543,7 +543,14 @@ namespace MissionPlanner
                 //hide menu items 
                 MainV2.instance.FlightPlanner.FlightPlannerBase.updateDisplayView();
             }
-        }
+
+           // MenuSimulation.Visible = false;
+            MenuHelp.Visible = false;
+            MenuTerminal.Visible = false;
+            MenuHelp.Visible = false;
+            MenuDonate.Visible = false;
+            MenuInitConfig.Visible = false;
+                }
 
 
         public MainV2()
