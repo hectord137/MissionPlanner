@@ -31,8 +31,8 @@ namespace MissionPlanner
             get { return Application.ExecutablePath.Contains("WindowsApps"); }
         }
 
-        public static Image Logo = null;
-        public static Image Logo2 = null;
+        public static Image Logo = global::MissionPlanner.Properties.Resources.logorql;
+        public static Image Logo2 = global::MissionPlanner.Properties.Resources.logorql;
         public static Image IconFile = null;
 
         public static Splash Splash;

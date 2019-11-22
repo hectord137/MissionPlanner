@@ -128,12 +128,13 @@ namespace MissionPlanner.GCSViews
 
         public FlightData()
         {
-            
+
             log.Info("Ctor Start");
 
             InitializeComponent();
 
-           
+
+
             log.Info("Components Done");
 
             instance = this;
@@ -290,12 +291,15 @@ namespace MissionPlanner.GCSViews
             MainV2.comPort.ParamListChanged += FlightData_ParentChanged;
             contextMenuStripHud.Visible = false;
             contextMenuStripHud.Items.RemoveByKey("1"); ;
+
+
         }
 
-        
-     
+
+
         public void Activate()
         {
+
             log.Info("Activate Called");
 
             OnResize(EventArgs.Empty);
@@ -408,6 +412,16 @@ namespace MissionPlanner.GCSViews
             }
 
             hud1.doResize();
+            this.hidetabs();
+        }
+
+        private void hidetabs(){
+            //remove tabsss
+            tabControlactions.Controls.Remove(tabGauges);
+            tabControlactions.Controls.Remove(tabScripts);
+            tabControlactions.Controls.Remove(tabServo);
+            tabControlactions.Controls.Remove(tabPagePreFlight);
+            tabControlactions.Controls.Remove(tabPagemessages);
         }
 
         public void BUT_playlog_Click(object sender, EventArgs e)

@@ -13,6 +13,20 @@
             this.MainH = new System.Windows.Forms.SplitContainer();
             this.SubMainLeft = new System.Windows.Forms.SplitContainer();
             this.hud1 = new MissionPlanner.Controls.HUD();
+            this.contextMenuStripHud = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.videoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.recordHudToAVIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stopRecordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setMJPEGSourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.startCameraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setGStreamerSourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hereLinkVideoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gStreamerStopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setAspectRatioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.userItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.russianHudToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.swapWithMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.groundColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bindingSourceHud = new System.Windows.Forms.BindingSource(this.components);
             this.tabControlactions = new System.Windows.Forms.TabControl();
             this.contextMenuStripactionstab = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -50,7 +64,6 @@
             this.checkListControl1 = new MissionPlanner.Controls.PreFlight.CheckListControl();
             this.tabGauges = new System.Windows.Forms.TabPage();
             this.Gvspeed = new AGaugeApp.AGauge();
-            this.bindingSourceGaugesTab = new System.Windows.Forms.BindingSource(this.components);
             this.Gheading = new MissionPlanner.Controls.HSI();
             this.Galt = new AGaugeApp.AGauge();
             this.Gspeed = new AGaugeApp.AGauge();
@@ -147,10 +160,12 @@
             this.gMapControl1 = new MissionPlanner.Controls.myGMAP();
             this.TRK_zoom = new MissionPlanner.Controls.MyTrackBar();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.comboBoxMapType = new System.Windows.Forms.ComboBox();
             this.coords1 = new MissionPlanner.Controls.Coords();
             this.Zoomlevel = new System.Windows.Forms.NumericUpDown();
             this.CHK_autopan = new System.Windows.Forms.CheckBox();
             this.CB_tuning = new System.Windows.Forms.CheckBox();
+            this.bindingSourceGaugesTab = new System.Windows.Forms.BindingSource(this.components);
             this.contextMenuStripQuickView = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.setViewCountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bindingSourceQuickTab = new System.Windows.Forms.BindingSource(this.components);
@@ -162,21 +177,6 @@
             this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.Messagetabtimer = new System.Windows.Forms.Timer(this.components);
             this.bindingSourceStatusTab = new System.Windows.Forms.BindingSource(this.components);
-            this.comboBoxMapType = new System.Windows.Forms.ComboBox();
-            this.videoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.recordHudToAVIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stopRecordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setMJPEGSourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.startCameraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setGStreamerSourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hereLinkVideoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gStreamerStopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setAspectRatioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.userItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.russianHudToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.swapWithMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.groundColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStripHud = new System.Windows.Forms.ContextMenuStrip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.MainH)).BeginInit();
             this.MainH.Panel1.SuspendLayout();
             this.MainH.Panel2.SuspendLayout();
@@ -185,6 +185,7 @@
             this.SubMainLeft.Panel1.SuspendLayout();
             this.SubMainLeft.Panel2.SuspendLayout();
             this.SubMainLeft.SuspendLayout();
+            this.contextMenuStripHud.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).BeginInit();
             this.tabControlactions.SuspendLayout();
             this.contextMenuStripactionstab.SuspendLayout();
@@ -193,7 +194,6 @@
             this.tabActionsSimple.SuspendLayout();
             this.tabPagePreFlight.SuspendLayout();
             this.tabGauges.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceGaugesTab)).BeginInit();
             this.tabServo.SuspendLayout();
             this.flowLayoutPanelServos.SuspendLayout();
             this.tabTLogs.SuspendLayout();
@@ -221,10 +221,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.TRK_zoom)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Zoomlevel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceGaugesTab)).BeginInit();
             this.contextMenuStripQuickView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceQuickTab)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceStatusTab)).BeginInit();
-            this.contextMenuStripHud.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainH
@@ -363,6 +363,106 @@
             this.hud1.DoubleClick += new System.EventHandler(this.hud1_DoubleClick);
             this.hud1.Resize += new System.EventHandler(this.hud1_Resize);
             // 
+            // contextMenuStripHud
+            // 
+            resources.ApplyResources(this.contextMenuStripHud, "contextMenuStripHud");
+            this.contextMenuStripHud.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.videoToolStripMenuItem,
+            this.setAspectRatioToolStripMenuItem,
+            this.userItemsToolStripMenuItem,
+            this.russianHudToolStripMenuItem,
+            this.swapWithMapToolStripMenuItem,
+            this.groundColorToolStripMenuItem});
+            this.contextMenuStripHud.Name = "contextMenuStrip2";
+            this.contextMenuStripHud.TabStop = true;
+            this.contextMenuStripHud.UseWaitCursor = true;
+            // 
+            // videoToolStripMenuItem
+            // 
+            this.videoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.recordHudToAVIToolStripMenuItem,
+            this.stopRecordToolStripMenuItem,
+            this.setMJPEGSourceToolStripMenuItem,
+            this.startCameraToolStripMenuItem,
+            this.setGStreamerSourceToolStripMenuItem,
+            this.hereLinkVideoToolStripMenuItem,
+            this.gStreamerStopToolStripMenuItem});
+            resources.ApplyResources(this.videoToolStripMenuItem, "videoToolStripMenuItem");
+            this.videoToolStripMenuItem.Name = "videoToolStripMenuItem";
+            // 
+            // recordHudToAVIToolStripMenuItem
+            // 
+            this.recordHudToAVIToolStripMenuItem.Name = "recordHudToAVIToolStripMenuItem";
+            resources.ApplyResources(this.recordHudToAVIToolStripMenuItem, "recordHudToAVIToolStripMenuItem");
+            this.recordHudToAVIToolStripMenuItem.Click += new System.EventHandler(this.recordHudToAVIToolStripMenuItem_Click);
+            // 
+            // stopRecordToolStripMenuItem
+            // 
+            this.stopRecordToolStripMenuItem.Name = "stopRecordToolStripMenuItem";
+            resources.ApplyResources(this.stopRecordToolStripMenuItem, "stopRecordToolStripMenuItem");
+            this.stopRecordToolStripMenuItem.Click += new System.EventHandler(this.stopRecordToolStripMenuItem_Click);
+            // 
+            // setMJPEGSourceToolStripMenuItem
+            // 
+            this.setMJPEGSourceToolStripMenuItem.Name = "setMJPEGSourceToolStripMenuItem";
+            resources.ApplyResources(this.setMJPEGSourceToolStripMenuItem, "setMJPEGSourceToolStripMenuItem");
+            this.setMJPEGSourceToolStripMenuItem.Click += new System.EventHandler(this.setMJPEGSourceToolStripMenuItem_Click);
+            // 
+            // startCameraToolStripMenuItem
+            // 
+            this.startCameraToolStripMenuItem.Name = "startCameraToolStripMenuItem";
+            resources.ApplyResources(this.startCameraToolStripMenuItem, "startCameraToolStripMenuItem");
+            this.startCameraToolStripMenuItem.Click += new System.EventHandler(this.startCameraToolStripMenuItem_Click);
+            // 
+            // setGStreamerSourceToolStripMenuItem
+            // 
+            this.setGStreamerSourceToolStripMenuItem.Name = "setGStreamerSourceToolStripMenuItem";
+            resources.ApplyResources(this.setGStreamerSourceToolStripMenuItem, "setGStreamerSourceToolStripMenuItem");
+            this.setGStreamerSourceToolStripMenuItem.Click += new System.EventHandler(this.setGStreamerSourceToolStripMenuItem_Click);
+            // 
+            // hereLinkVideoToolStripMenuItem
+            // 
+            this.hereLinkVideoToolStripMenuItem.Name = "hereLinkVideoToolStripMenuItem";
+            resources.ApplyResources(this.hereLinkVideoToolStripMenuItem, "hereLinkVideoToolStripMenuItem");
+            this.hereLinkVideoToolStripMenuItem.Click += new System.EventHandler(this.HereLinkVideoToolStripMenuItem_Click);
+            // 
+            // gStreamerStopToolStripMenuItem
+            // 
+            this.gStreamerStopToolStripMenuItem.Name = "gStreamerStopToolStripMenuItem";
+            resources.ApplyResources(this.gStreamerStopToolStripMenuItem, "gStreamerStopToolStripMenuItem");
+            this.gStreamerStopToolStripMenuItem.Click += new System.EventHandler(this.GStreamerStopToolStripMenuItem_Click);
+            // 
+            // setAspectRatioToolStripMenuItem
+            // 
+            resources.ApplyResources(this.setAspectRatioToolStripMenuItem, "setAspectRatioToolStripMenuItem");
+            this.setAspectRatioToolStripMenuItem.Name = "setAspectRatioToolStripMenuItem";
+            this.setAspectRatioToolStripMenuItem.Click += new System.EventHandler(this.setAspectRatioToolStripMenuItem_Click);
+            // 
+            // userItemsToolStripMenuItem
+            // 
+            resources.ApplyResources(this.userItemsToolStripMenuItem, "userItemsToolStripMenuItem");
+            this.userItemsToolStripMenuItem.Name = "userItemsToolStripMenuItem";
+            this.userItemsToolStripMenuItem.Click += new System.EventHandler(this.hud_UserItem);
+            // 
+            // russianHudToolStripMenuItem
+            // 
+            resources.ApplyResources(this.russianHudToolStripMenuItem, "russianHudToolStripMenuItem");
+            this.russianHudToolStripMenuItem.Name = "russianHudToolStripMenuItem";
+            this.russianHudToolStripMenuItem.Click += new System.EventHandler(this.russianHudToolStripMenuItem_Click);
+            // 
+            // swapWithMapToolStripMenuItem
+            // 
+            resources.ApplyResources(this.swapWithMapToolStripMenuItem, "swapWithMapToolStripMenuItem");
+            this.swapWithMapToolStripMenuItem.Name = "swapWithMapToolStripMenuItem";
+            this.swapWithMapToolStripMenuItem.Click += new System.EventHandler(this.swapWithMapToolStripMenuItem_Click);
+            // 
+            // groundColorToolStripMenuItem
+            // 
+            this.groundColorToolStripMenuItem.CheckOnClick = true;
+            resources.ApplyResources(this.groundColorToolStripMenuItem, "groundColorToolStripMenuItem");
+            this.groundColorToolStripMenuItem.Name = "groundColorToolStripMenuItem";
+            this.groundColorToolStripMenuItem.Click += new System.EventHandler(this.groundColorToolStripMenuItem_Click);
+            // 
             // bindingSourceHud
             // 
             this.bindingSourceHud.DataSource = typeof(MissionPlanner.CurrentState);
@@ -408,7 +508,6 @@
             resources.ApplyResources(this.tabQuick, "tabQuick");
             this.tabQuick.Controls.Add(this.tableLayoutPanelQuick);
             this.tabQuick.Name = "tabQuick";
-            this.tabQuick.UseVisualStyleBackColor = true;
             this.tabQuick.Resize += new System.EventHandler(this.tabQuick_Resize);
             // 
             // tableLayoutPanelQuick
@@ -805,7 +904,6 @@
         ""};
             this.Gvspeed.CapText = "VSI";
             this.Gvspeed.Center = new System.Drawing.Point(75, 75);
-            this.Gvspeed.DataBindings.Add(new System.Windows.Forms.Binding("Value0", this.bindingSourceGaugesTab, "verticalspeed", true));
             this.Gvspeed.MaxValue = 10F;
             this.Gvspeed.MinValue = -10F;
             this.Gvspeed.Name = "Gvspeed";
@@ -915,16 +1013,10 @@
             this.Gvspeed.Value2 = 0F;
             this.Gvspeed.Value3 = 0F;
             // 
-            // bindingSourceGaugesTab
-            // 
-            this.bindingSourceGaugesTab.DataSource = typeof(MissionPlanner.CurrentState);
-            // 
             // Gheading
             // 
             this.Gheading.BackColor = System.Drawing.Color.Transparent;
             resources.ApplyResources(this.Gheading, "Gheading");
-            this.Gheading.DataBindings.Add(new System.Windows.Forms.Binding("Heading", this.bindingSourceGaugesTab, "yaw", true));
-            this.Gheading.DataBindings.Add(new System.Windows.Forms.Binding("NavHeading", this.bindingSourceGaugesTab, "nav_bearing", true));
             this.Gheading.Heading = 0;
             this.Gheading.Name = "Gheading";
             this.Gheading.NavHeading = 0;
@@ -961,9 +1053,6 @@
         ""};
             this.Galt.CapText = "Alt";
             this.Galt.Center = new System.Drawing.Point(75, 75);
-            this.Galt.DataBindings.Add(new System.Windows.Forms.Binding("Value0", this.bindingSourceGaugesTab, "altd100", true));
-            this.Galt.DataBindings.Add(new System.Windows.Forms.Binding("Value1", this.bindingSourceGaugesTab, "altd1000", true));
-            this.Galt.DataBindings.Add(new System.Windows.Forms.Binding("Value2", this.bindingSourceGaugesTab, "targetaltd100", true));
             this.Galt.MaxValue = 9.99F;
             this.Galt.MinValue = 0F;
             this.Galt.Name = "Galt";
@@ -1105,8 +1194,6 @@
         ""};
             this.Gspeed.CapText = "Speed";
             this.Gspeed.Center = new System.Drawing.Point(75, 75);
-            this.Gspeed.DataBindings.Add(new System.Windows.Forms.Binding("Value0", this.bindingSourceGaugesTab, "airspeed", true));
-            this.Gspeed.DataBindings.Add(new System.Windows.Forms.Binding("Value1", this.bindingSourceGaugesTab, "groundspeed", true));
             this.Gspeed.MaxValue = 60F;
             this.Gspeed.MinValue = 0F;
             this.Gspeed.Name = "Gspeed";
@@ -1926,7 +2013,7 @@
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSource1, "wind_dir", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSource1, "wind_vel", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.windDir1.Direction = 360D;
+            this.windDir1.Direction = 180D;
             resources.ApplyResources(this.windDir1, "windDir1");
             this.windDir1.Name = "windDir1";
             this.windDir1.Speed = 0D;
@@ -2018,6 +2105,14 @@
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
+            // comboBoxMapType
+            // 
+            this.comboBoxMapType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxMapType.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxMapType, "comboBoxMapType");
+            this.comboBoxMapType.Name = "comboBoxMapType";
+            this.toolTip1.SetToolTip(this.comboBoxMapType, resources.GetString("comboBoxMapType.ToolTip"));
+            // 
             // coords1
             // 
             this.coords1.Alt = 0D;
@@ -2078,6 +2173,10 @@
             this.CB_tuning.UseVisualStyleBackColor = true;
             this.CB_tuning.CheckedChanged += new System.EventHandler(this.CB_tuning_CheckedChanged);
             // 
+            // bindingSourceGaugesTab
+            // 
+            this.bindingSourceGaugesTab.DataSource = typeof(MissionPlanner.CurrentState);
+            // 
             // contextMenuStripQuickView
             // 
             this.contextMenuStripQuickView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -2137,114 +2236,6 @@
             // 
             this.bindingSourceStatusTab.DataSource = typeof(MissionPlanner.CurrentState);
             // 
-            // comboBoxMapType
-            // 
-            this.comboBoxMapType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxMapType.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxMapType, "comboBoxMapType");
-            this.comboBoxMapType.Name = "comboBoxMapType";
-            this.toolTip1.SetToolTip(this.comboBoxMapType, resources.GetString("comboBoxMapType.ToolTip"));
-            // 
-            // videoToolStripMenuItem
-            // 
-            this.videoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.recordHudToAVIToolStripMenuItem,
-            this.stopRecordToolStripMenuItem,
-            this.setMJPEGSourceToolStripMenuItem,
-            this.startCameraToolStripMenuItem,
-            this.setGStreamerSourceToolStripMenuItem,
-            this.hereLinkVideoToolStripMenuItem,
-            this.gStreamerStopToolStripMenuItem});
-            resources.ApplyResources(this.videoToolStripMenuItem, "videoToolStripMenuItem");
-            this.videoToolStripMenuItem.Name = "videoToolStripMenuItem";
-            // 
-            // recordHudToAVIToolStripMenuItem
-            // 
-            this.recordHudToAVIToolStripMenuItem.Name = "recordHudToAVIToolStripMenuItem";
-            resources.ApplyResources(this.recordHudToAVIToolStripMenuItem, "recordHudToAVIToolStripMenuItem");
-            this.recordHudToAVIToolStripMenuItem.Click += new System.EventHandler(this.recordHudToAVIToolStripMenuItem_Click);
-            // 
-            // stopRecordToolStripMenuItem
-            // 
-            this.stopRecordToolStripMenuItem.Name = "stopRecordToolStripMenuItem";
-            resources.ApplyResources(this.stopRecordToolStripMenuItem, "stopRecordToolStripMenuItem");
-            this.stopRecordToolStripMenuItem.Click += new System.EventHandler(this.stopRecordToolStripMenuItem_Click);
-            // 
-            // setMJPEGSourceToolStripMenuItem
-            // 
-            this.setMJPEGSourceToolStripMenuItem.Name = "setMJPEGSourceToolStripMenuItem";
-            resources.ApplyResources(this.setMJPEGSourceToolStripMenuItem, "setMJPEGSourceToolStripMenuItem");
-            this.setMJPEGSourceToolStripMenuItem.Click += new System.EventHandler(this.setMJPEGSourceToolStripMenuItem_Click);
-            // 
-            // startCameraToolStripMenuItem
-            // 
-            this.startCameraToolStripMenuItem.Name = "startCameraToolStripMenuItem";
-            resources.ApplyResources(this.startCameraToolStripMenuItem, "startCameraToolStripMenuItem");
-            this.startCameraToolStripMenuItem.Click += new System.EventHandler(this.startCameraToolStripMenuItem_Click);
-            // 
-            // setGStreamerSourceToolStripMenuItem
-            // 
-            this.setGStreamerSourceToolStripMenuItem.Name = "setGStreamerSourceToolStripMenuItem";
-            resources.ApplyResources(this.setGStreamerSourceToolStripMenuItem, "setGStreamerSourceToolStripMenuItem");
-            this.setGStreamerSourceToolStripMenuItem.Click += new System.EventHandler(this.setGStreamerSourceToolStripMenuItem_Click);
-            // 
-            // hereLinkVideoToolStripMenuItem
-            // 
-            this.hereLinkVideoToolStripMenuItem.Name = "hereLinkVideoToolStripMenuItem";
-            resources.ApplyResources(this.hereLinkVideoToolStripMenuItem, "hereLinkVideoToolStripMenuItem");
-            this.hereLinkVideoToolStripMenuItem.Click += new System.EventHandler(this.HereLinkVideoToolStripMenuItem_Click);
-            // 
-            // gStreamerStopToolStripMenuItem
-            // 
-            this.gStreamerStopToolStripMenuItem.Name = "gStreamerStopToolStripMenuItem";
-            resources.ApplyResources(this.gStreamerStopToolStripMenuItem, "gStreamerStopToolStripMenuItem");
-            this.gStreamerStopToolStripMenuItem.Click += new System.EventHandler(this.GStreamerStopToolStripMenuItem_Click);
-            // 
-            // setAspectRatioToolStripMenuItem
-            // 
-            resources.ApplyResources(this.setAspectRatioToolStripMenuItem, "setAspectRatioToolStripMenuItem");
-            this.setAspectRatioToolStripMenuItem.Name = "setAspectRatioToolStripMenuItem";
-            this.setAspectRatioToolStripMenuItem.Click += new System.EventHandler(this.setAspectRatioToolStripMenuItem_Click);
-            // 
-            // userItemsToolStripMenuItem
-            // 
-            resources.ApplyResources(this.userItemsToolStripMenuItem, "userItemsToolStripMenuItem");
-            this.userItemsToolStripMenuItem.Name = "userItemsToolStripMenuItem";
-            this.userItemsToolStripMenuItem.Click += new System.EventHandler(this.hud_UserItem);
-            // 
-            // russianHudToolStripMenuItem
-            // 
-            resources.ApplyResources(this.russianHudToolStripMenuItem, "russianHudToolStripMenuItem");
-            this.russianHudToolStripMenuItem.Name = "russianHudToolStripMenuItem";
-            this.russianHudToolStripMenuItem.Click += new System.EventHandler(this.russianHudToolStripMenuItem_Click);
-            // 
-            // swapWithMapToolStripMenuItem
-            // 
-            resources.ApplyResources(this.swapWithMapToolStripMenuItem, "swapWithMapToolStripMenuItem");
-            this.swapWithMapToolStripMenuItem.Name = "swapWithMapToolStripMenuItem";
-            this.swapWithMapToolStripMenuItem.Click += new System.EventHandler(this.swapWithMapToolStripMenuItem_Click);
-            // 
-            // groundColorToolStripMenuItem
-            // 
-            this.groundColorToolStripMenuItem.CheckOnClick = true;
-            resources.ApplyResources(this.groundColorToolStripMenuItem, "groundColorToolStripMenuItem");
-            this.groundColorToolStripMenuItem.Name = "groundColorToolStripMenuItem";
-            this.groundColorToolStripMenuItem.Click += new System.EventHandler(this.groundColorToolStripMenuItem_Click);
-            // 
-            // contextMenuStripHud
-            // 
-            resources.ApplyResources(this.contextMenuStripHud, "contextMenuStripHud");
-            this.contextMenuStripHud.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.videoToolStripMenuItem,
-            this.setAspectRatioToolStripMenuItem,
-            this.userItemsToolStripMenuItem,
-            this.russianHudToolStripMenuItem,
-            this.swapWithMapToolStripMenuItem,
-            this.groundColorToolStripMenuItem});
-            this.contextMenuStripHud.Name = "contextMenuStrip2";
-            this.contextMenuStripHud.TabStop = true;
-            this.contextMenuStripHud.UseWaitCursor = true;
-            // 
             // FlightData
             // 
             this.Controls.Add(this.MainH);
@@ -2262,6 +2253,7 @@
             this.SubMainLeft.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SubMainLeft)).EndInit();
             this.SubMainLeft.ResumeLayout(false);
+            this.contextMenuStripHud.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).EndInit();
             this.tabControlactions.ResumeLayout(false);
             this.contextMenuStripactionstab.ResumeLayout(false);
@@ -2270,7 +2262,6 @@
             this.tabActionsSimple.ResumeLayout(false);
             this.tabPagePreFlight.ResumeLayout(false);
             this.tabGauges.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceGaugesTab)).EndInit();
             this.tabServo.ResumeLayout(false);
             this.flowLayoutPanelServos.ResumeLayout(false);
             this.tabTLogs.ResumeLayout(false);
@@ -2307,10 +2298,10 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Zoomlevel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceGaugesTab)).EndInit();
             this.contextMenuStripQuickView.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceQuickTab)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceStatusTab)).EndInit();
-            this.contextMenuStripHud.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2335,9 +2326,6 @@
         private System.Windows.Forms.TrackBar tracklog;
         private Controls.MyButton BUT_playlog;
         private Controls.MyButton BUT_loadtelem;
-        private AGaugeApp.AGauge Galt;
-        private AGaugeApp.AGauge Gspeed;
-        private AGaugeApp.AGauge Gvspeed;
         private System.Windows.Forms.TableLayoutPanel tableMap;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.NumericUpDown Zoomlevel;
@@ -2346,7 +2334,6 @@
         public Controls.myGMAP gMapControl1;
         private ZedGraph.ZedGraphControl zg1;
         public System.Windows.Forms.TabControl tabControlactions;
-        public System.Windows.Forms.TabPage tabGauges;
         public System.Windows.Forms.TabPage tabStatus;
         public System.Windows.Forms.TabPage tabActions;
         public System.Windows.Forms.TabPage tabTLogs;
@@ -2365,7 +2352,6 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private Controls.MyLabel lbl_hdop;
         private Controls.MyLabel lbl_sats;
-        private Controls.HSI Gheading;
         private Controls.MyLabel lbl_playbackspeed;
         public System.Windows.Forms.TabPage tabQuick;
         private Controls.QuickView quickView3;
@@ -2413,16 +2399,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        public System.Windows.Forms.TabPage tabScripts;
-        private Controls.MyButton BUT_edit_selected;
-        private System.Windows.Forms.Label labelSelectedScript;
-        private Controls.MyButton BUT_run_script;
-        private Controls.MyButton BUT_abort_script;
-        private System.Windows.Forms.Label labelScriptStatus;
-        private Controls.MyButton BUT_select_script;
         private System.Windows.Forms.OpenFileDialog openScriptDialog;
         private System.Windows.Forms.Timer scriptChecker;
-        private System.Windows.Forms.CheckBox checkBoxRedirectOutput;
         public System.Windows.Forms.ContextMenuStrip contextMenuStripMap;
         private System.Windows.Forms.BindingSource bindingSourceQuickTab;
         private System.Windows.Forms.BindingSource bindingSourceStatusTab;
@@ -2497,5 +2475,18 @@
         private System.Windows.Forms.ToolStripMenuItem russianHudToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem swapWithMapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem groundColorToolStripMenuItem;
+        public System.Windows.Forms.TabPage tabGauges;
+        private AGaugeApp.AGauge Gvspeed;
+        private Controls.HSI Gheading;
+        private AGaugeApp.AGauge Galt;
+        private AGaugeApp.AGauge Gspeed;
+        public System.Windows.Forms.TabPage tabScripts;
+        private System.Windows.Forms.CheckBox checkBoxRedirectOutput;
+        private Controls.MyButton BUT_edit_selected;
+        private System.Windows.Forms.Label labelSelectedScript;
+        private Controls.MyButton BUT_run_script;
+        private Controls.MyButton BUT_abort_script;
+        private System.Windows.Forms.Label labelScriptStatus;
+        private Controls.MyButton BUT_select_script;
     }
 }
