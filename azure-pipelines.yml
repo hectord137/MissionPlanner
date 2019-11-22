@@ -46,4 +46,7 @@ steps:
   inputs:
     artifactName: 'MissionPlanner' 
     targetPath: '$(Build.ArtifactStagingDirectory)/MissionPlanner.zip'
-    
+
+
+
+
