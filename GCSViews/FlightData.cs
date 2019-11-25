@@ -317,41 +317,9 @@ namespace MissionPlanner.GCSViews
 
         public void comboBoxMapTypeData_SelectedValueChanged(object sender, EventArgs e)
         {
-            FlightPlanner fp = new FlightPlanner();
-            this.comboBoxMapTypeData.SelectedValueChanged += new EventHandler(fp.FlightPlannerBase.comboBoxMapType_SelectedValueChanged);
-            try
-            {
-                // check if we are setting the initial state
-                if (this.gMapControl1.MapProvider != GMapProviders.EmptyProvider && (GMapProvider)this.comboBoxMapTypeData.SelectedItem == MapboxUser.Instance)
-                    
-                {
-                    
-                    var url = Settings.Instance["MapBoxURL", ""];
-                    InputBox.Show("Enter MapBox Share URL", "Enter MapBox Share URL", ref url);
-                    var match = Regex.Matches(url, @"\/styles\/[^\/]+\/([^\/]+)\/([^\/\.]+).*access_token=([^#&=]+)");
-                    if (match != null)
-                    {
-                        MapboxUser.Instance.UserName = match[0].Groups[1].Value;
-                        MapboxUser.Instance.StyleId = match[0].Groups[2].Value;
-                        MapboxUser.Instance.MapKey = match[0].Groups[3].Value;
-                        Settings.Instance["MapBoxURL"] = url;
-                    }
-                    else
-                    {
-                        CustomMessageBox.Show(Strings.InvalidField, Strings.ERROR);
-                        return;
-                    }
-                }
 
-                this.gMapControl1.MapProvider = (GMapProvider)this.comboBoxMapTypeData.SelectedItem;
-                FlightData.mymap.MapProvider = (GMapProvider)this.comboBoxMapTypeData.SelectedItem;
-                Settings.Instance["MapType"] = this.comboBoxMapTypeData.Text;
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex);
-                CustomMessageBox.Show("Map change failed. try zooming out first.");
-            }
+            FlightPlannerBase.instance.SetMapOrigin(sender, e, comboBoxMapTypeData.SelectedItem);
+      
         }
 
         public void Activate()

@@ -1905,6 +1905,12 @@ namespace MissionPlanner.GCSViews
             _flightPlanner.MainMap.Focus();
         }
 
+        public void SetMapOrigin(object sender, EventArgs e, object item)
+        {
+            _flightPlanner.comboBoxMapType.SelectedItem = item;
+            comboBoxMapType_SelectedValueChanged(sender, e);
+        }
+
         private double calcpolygonarea(List<PointLatLng> polygon)
         {
             // should be a closed polygon
