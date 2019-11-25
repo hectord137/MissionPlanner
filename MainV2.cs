@@ -4200,11 +4200,11 @@ namespace MissionPlanner
         {
             try
             {
-                System.Diagnostics.Process.Start("http://ardupilot.org/?utm_source=Menu&utm_campaign=MP");
+                System.Diagnostics.Process.Start("http://www.sbytech.cl");
             }
             catch
             {
-                CustomMessageBox.Show("Failed to open url http://ardupilot.org");
+                CustomMessageBox.Show("Failed to open url http://www.sbytech.cl");
             }
         }
 
