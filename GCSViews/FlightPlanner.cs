@@ -40,6 +40,9 @@ namespace MissionPlanner.GCSViews
             return ans;
         }
 
-     
+        private void ButKMLOverlay_Click(object sender, System.EventArgs e)
+        {
+            _flightPlannerBase.kmloverlay();
+        }
     }
 }

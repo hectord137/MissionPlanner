@@ -3831,6 +3831,10 @@ namespace MissionPlanner.GCSViews
 
         public void kMLOverlayToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            kmloverlay();
+        }
+
+        public void kmloverlay() {
             using (OpenFileDialog fd = new OpenFileDialog())
             {
                 fd.Filter = "All Supported|*.kml;*.kmz;*.dxf;*.gpkg|Google Earth KML|*.kml;*.kmz|AutoCad DXF|*.dxf|GeoPackage|*.gpkg";
@@ -3967,7 +3971,6 @@ namespace MissionPlanner.GCSViews
                 }
             }
         }
-
         public void label4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (MainV2.comPort.MAV.cs.lat != 0)
