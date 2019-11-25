@@ -25,8 +25,13 @@ using MissionPlanner.Utilities;
 using MissionPlanner.Warnings;
 using WebCamService;
 using ZedGraph;
+using GMap.NET;
+using GMap.NET.MapProviders;
+using GMap.NET.WindowsForms;
+using GMap.NET.WindowsForms.Markers;
 using LogAnalyzer = MissionPlanner.Utilities.LogAnalyzer;
 using MissionPlanner.Maps;
+using System.Text.RegularExpressions;
 
 // written by michael oborne
 
@@ -125,16 +130,31 @@ namespace MissionPlanner.GCSViews
 
         string updateBindingSourceThreadName = "";
 
+        private void comboBoxMapTypeData_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine(this);
+        }
 
         public FlightData()
         {
+
+        
 
             log.Info("Ctor Start");
 
             InitializeComponent();
 
+            // get map type
+            this.comboBoxMapTypeData.ValueMember = "Name";
+            this.comboBoxMapTypeData.DataSource = GMapProviders.List.ToArray();
+            this.comboBoxMapTypeData.SelectedItem = gMapControl1.MapProvider;
+            this.comboBoxMapTypeData.SelectedValueChanged += comboBoxMapTypeData_SelectedValueChanged;
+            gMapControl1.RoutesEnabled = true;
+            //load mapa
 
-
+            mymap = gMapControl1;
+            myhud = hud1;
+            MainHcopy = MainH;
             log.Info("Components Done");
 
             instance = this;
@@ -295,7 +315,44 @@ namespace MissionPlanner.GCSViews
 
         }
 
+        public void comboBoxMapTypeData_SelectedValueChanged(object sender, EventArgs e)
+        {
+            FlightPlanner fp = new FlightPlanner();
+            this.comboBoxMapTypeData.SelectedValueChanged += new EventHandler(fp.FlightPlannerBase.comboBoxMapType_SelectedValueChanged);
+            try
+            {
+                // check if we are setting the initial state
+                if (this.gMapControl1.MapProvider != GMapProviders.EmptyProvider && (GMapProvider)this.comboBoxMapTypeData.SelectedItem == MapboxUser.Instance)
+                    
+                {
+                    
+                    var url = Settings.Instance["MapBoxURL", ""];
+                    InputBox.Show("Enter MapBox Share URL", "Enter MapBox Share URL", ref url);
+                    var match = Regex.Matches(url, @"\/styles\/[^\/]+\/([^\/]+)\/([^\/\.]+).*access_token=([^#&=]+)");
+                    if (match != null)
+                    {
+                        MapboxUser.Instance.UserName = match[0].Groups[1].Value;
+                        MapboxUser.Instance.StyleId = match[0].Groups[2].Value;
+                        MapboxUser.Instance.MapKey = match[0].Groups[3].Value;
+                        Settings.Instance["MapBoxURL"] = url;
+                    }
+                    else
+                    {
+                        CustomMessageBox.Show(Strings.InvalidField, Strings.ERROR);
+                        return;
+                    }
+                }
 
+                this.gMapControl1.MapProvider = (GMapProvider)this.comboBoxMapTypeData.SelectedItem;
+                FlightData.mymap.MapProvider = (GMapProvider)this.comboBoxMapTypeData.SelectedItem;
+                Settings.Instance["MapType"] = this.comboBoxMapTypeData.Text;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                CustomMessageBox.Show("Map change failed. try zooming out first.");
+            }
+        }
 
         public void Activate()
         {
@@ -3922,7 +3979,7 @@ if (a is CheckBox && ((CheckBox)a).Checked)
             {
                 try
                 {
-                    MainV2.cam = new Capture(Settings.Instance.GetInt32("video_device"), new AMMediaType());
+                    //MainV2.cam = new Capture(Settings.Instance.GetInt32("video_device"), new AMMediaType());
 
                     MainV2.cam.Start();
 
@@ -4763,6 +4820,8 @@ if (a is CheckBox && ((CheckBox)a).Checked)
 
 
         }
+
+  
     }
 
 

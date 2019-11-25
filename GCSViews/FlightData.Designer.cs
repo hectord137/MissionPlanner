@@ -160,7 +160,7 @@
             this.gMapControl1 = new MissionPlanner.Controls.myGMAP();
             this.TRK_zoom = new MissionPlanner.Controls.MyTrackBar();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.comboBoxMapType = new System.Windows.Forms.ComboBox();
+            this.comboBoxMapTypeData = new System.Windows.Forms.ComboBox();
             this.coords1 = new MissionPlanner.Controls.Coords();
             this.Zoomlevel = new System.Windows.Forms.NumericUpDown();
             this.CHK_autopan = new System.Windows.Forms.CheckBox();
@@ -2097,7 +2097,7 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.comboBoxMapType);
+            this.panel1.Controls.Add(this.comboBoxMapTypeData);
             this.panel1.Controls.Add(this.coords1);
             this.panel1.Controls.Add(this.Zoomlevel);
             this.panel1.Controls.Add(this.CHK_autopan);
@@ -2105,13 +2105,14 @@
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
-            // comboBoxMapType
+            // comboBoxMapTypeData
             // 
-            this.comboBoxMapType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxMapType.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxMapType, "comboBoxMapType");
-            this.comboBoxMapType.Name = "comboBoxMapType";
-            this.toolTip1.SetToolTip(this.comboBoxMapType, resources.GetString("comboBoxMapType.ToolTip"));
+            this.comboBoxMapTypeData.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxMapTypeData.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxMapTypeData, "comboBoxMapTypeData");
+            this.comboBoxMapTypeData.Name = "comboBoxMapTypeData";
+            this.toolTip1.SetToolTip(this.comboBoxMapTypeData, resources.GetString("comboBoxMapTypeData.ToolTip"));
+            this.comboBoxMapTypeData.SelectedIndexChanged += new System.EventHandler(this.comboBoxMapTypeData_SelectedIndexChanged);
             // 
             // coords1
             // 
@@ -2460,7 +2461,7 @@
         private Controls.RelayOptions relayOptions2;
         private Controls.RelayOptions relayOptions3;
         private Controls.RelayOptions relayOptions4;
-        public System.Windows.Forms.ComboBox comboBoxMapType;
+        public System.Windows.Forms.ComboBox comboBoxMapTypeData;
         public System.Windows.Forms.ContextMenuStrip contextMenuStripHud;
         private System.Windows.Forms.ToolStripMenuItem videoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem recordHudToAVIToolStripMenuItem;

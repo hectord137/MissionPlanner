@@ -2113,7 +2113,7 @@ namespace MissionPlanner.GCSViews
             writeKML();
         }
        
-        private void comboBoxMapType_SelectedValueChanged(object sender, EventArgs e)
+        public void comboBoxMapType_SelectedValueChanged(object sender, EventArgs e)
         {
             try
             {
@@ -6240,7 +6240,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             });
         }
 
-        private void updateMapType(object sender, System.Timers.ElapsedEventArgs e)
+       private void updateMapType(object sender, System.Timers.ElapsedEventArgs e)
         {
             log.Info("updateMapType invoke req? " + _flightPlanner.comboBoxMapType.InvokeRequired);
 
