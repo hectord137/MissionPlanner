@@ -106,12 +106,12 @@ namespace MissionPlanner.GCSViews
             {
                // if (!Program.WindowsStoreApp)
                 {
-                    AddBackstageViewPage(typeof(ConfigFirmwareDisabled), rm.GetString("backstageViewPagefw.Text"),
-                        isConnected);
-                    AddBackstageViewPage(typeof(ConfigFirmware), rm.GetString("backstageViewPagefw.Text"),
-                        isDisConnected);
-                    AddBackstageViewPage(typeof(ConfigFirmwareManifest), rm.GetString("backstageViewPagefw.Text") + " Manifest",
-                        isDisConnected);
+                    //AddBackstageViewPage(typeof(ConfigFirmwareDisabled), rm.GetString("backstageViewPagefw.Text"),
+                    //    isConnected);
+                    //AddBackstageViewPage(typeof(ConfigFirmware), rm.GetString("backstageViewPagefw.Text"),
+                    //    isDisConnected);
+                    //AddBackstageViewPage(typeof(ConfigFirmwareManifest), rm.GetString("backstageViewPagefw.Text") + " Manifest",
+                    //    isDisConnected);
                 }
             }
 

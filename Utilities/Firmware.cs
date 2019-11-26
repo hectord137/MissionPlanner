@@ -3,7 +3,6 @@ using ManagedNativeWifi.Simple;
 using MissionPlanner.Arduino;
 using MissionPlanner.ArduPilot;
 using MissionPlanner.Comms;
-using MissionPlanner.test;
 using px4uploader;
 using SharpAdbClient;
 using solo;

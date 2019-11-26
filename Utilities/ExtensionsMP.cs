@@ -1,11 +1,7 @@
 ﻿using log4net;
 using System;
-using System.ComponentModel;
-using System.Threading;
 using System.Windows.Forms;
-using MissionPlanner.test;
 using Xamarin.Forms;
-using Xamarin.Forms.Platform.WinForms;
 
 namespace MissionPlanner.Utilities
 {
@@ -74,6 +70,7 @@ namespace MissionPlanner.Utilities
             log.Error(ex);
         }
 
+        /*
         public static Form ShowXamarinControl(this ContentPage ctl, int Width, int Height)
         {
             var f = new Xamarin.Forms.Platform.WinForms.PlatformRenderer();
@@ -93,6 +90,7 @@ namespace MissionPlanner.Utilities
 
             return f;
         }
+        */
 
 
         public static Form ShowUserControl(this Control ctl)
