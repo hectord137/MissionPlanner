@@ -246,7 +246,6 @@
   <ItemGroup>
     <None Include="Resources\Image1.png" />
     <None Include="Resources\Image1.gif" />
-    <None Include="Resources\logorql.png" />
     <Content Include="Resources\sikico.png" />
     <Content Include="sik.ico" />
     <Content Include="ChangeLog.txt">
