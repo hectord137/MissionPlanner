@@ -189,14 +189,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="Rssi.resx">
       <DependentUpon>Rssi.cs</DependentUpon>
     </EmbeddedResource>
@@ -246,7 +240,6 @@
   <ItemGroup>
     <None Include="Resources\Image1.png" />
     <None Include="Resources\Image1.gif" />
-    <None Include="Resources\logorql.gif" />
     <None Include="Resources\logorql.png" />
     <Content Include="Resources\sikico.png" />
     <Content Include="sik.ico" />

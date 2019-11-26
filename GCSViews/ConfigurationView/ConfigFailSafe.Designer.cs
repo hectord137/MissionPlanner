@@ -55,8 +55,6 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             this.label4 = new System.Windows.Forms.Label();
             this.PNL_thr_fs_value = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
-            this.lbl_armed = new MissionPlanner.Controls.MyLabel();
-            this.lbl_gpslock = new MissionPlanner.Controls.MyLabel();
             this.horizontalProgressBar9 = new MissionPlanner.Controls.HorizontalProgressBar();
             this.horizontalProgressBar10 = new MissionPlanner.Controls.HorizontalProgressBar();
             this.horizontalProgressBar11 = new MissionPlanner.Controls.HorizontalProgressBar();
@@ -296,22 +294,6 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             // 
             resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
-            // 
-            // lbl_armed
-            // 
-            this.lbl_armed.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.currentStateBindingSource, "armed", true));
-            resources.ApplyResources(this.lbl_armed, "lbl_armed");
-            this.lbl_armed.Name = "lbl_armed";
-            this.lbl_armed.resize = false;
-            this.lbl_armed.Paint += new System.Windows.Forms.PaintEventHandler(this.lbl_armed_Paint);
-            // 
-            // lbl_gpslock
-            // 
-            this.lbl_gpslock.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.currentStateBindingSource, "gpsstatus", true));
-            resources.ApplyResources(this.lbl_gpslock, "lbl_gpslock");
-            this.lbl_gpslock.Name = "lbl_gpslock";
-            this.lbl_gpslock.resize = false;
-            this.lbl_gpslock.Paint += new System.Windows.Forms.PaintEventHandler(this.lbl_gpslock_Paint);
             // 
             // horizontalProgressBar9
             // 
@@ -587,8 +569,6 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.lbl_gpslock);
-            this.Controls.Add(this.lbl_armed);
             this.Controls.Add(this.LNK_wiki);
             this.Controls.Add(this.lbl_currentmode);
             this.Controls.Add(this.label2);

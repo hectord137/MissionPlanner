@@ -230,7 +230,7 @@ namespace MissionPlanner
             this.MenuArduPilot.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             resources.ApplyResources(this.MenuArduPilot, "MenuArduPilot");
             this.MenuArduPilot.ForeColor = System.Drawing.Color.White;
-            this.MenuArduPilot.Image = global::MissionPlanner.Properties.Resources.logorql;
+            this.MenuArduPilot.Image = global::MissionPlanner.Properties.Resources.logo;
             this.MenuArduPilot.Margin = new System.Windows.Forms.Padding(0);
             this.MenuArduPilot.Name = "MenuArduPilot";
             this.MenuArduPilot.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
