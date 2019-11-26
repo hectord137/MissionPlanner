@@ -2118,9 +2118,13 @@ namespace MissionPlanner.GCSViews
 
             writeKML();
         }
-       
+
+     
         public void comboBoxMapType_SelectedValueChanged(object sender, EventArgs e)
         {
+
+
+            
             try
             {
                 // check if we are setting the initial state
@@ -2142,10 +2146,12 @@ namespace MissionPlanner.GCSViews
                         return;
                     }
                 }
-
+                
                 _flightPlanner.MainMap.MapProvider = (GMapProvider) _flightPlanner.comboBoxMapType.SelectedItem;
                 FlightData.mymap.MapProvider = (GMapProvider) _flightPlanner.comboBoxMapType.SelectedItem;
                 Settings.Instance["MapType"] = _flightPlanner.comboBoxMapType.Text;
+                FlightData.instance.setvaluemap(_flightPlanner.comboBoxMapType.SelectedItem);
+
             }
             catch (Exception ex)
             {

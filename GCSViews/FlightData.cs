@@ -138,7 +138,6 @@ namespace MissionPlanner.GCSViews
         public FlightData()
         {
 
-        
 
             log.Info("Ctor Start");
 
@@ -312,14 +311,16 @@ namespace MissionPlanner.GCSViews
             contextMenuStripHud.Visible = false;
             contextMenuStripHud.Items.RemoveByKey("1"); ;
 
-
+        
         }
 
         public void comboBoxMapTypeData_SelectedValueChanged(object sender, EventArgs e)
         {
-
             FlightPlannerBase.instance.SetMapOrigin(sender, e, comboBoxMapTypeData.SelectedItem);
-      
+ 
+        }
+        public void setvaluemap(object idmap) {
+            comboBoxMapTypeData.SelectedItem = idmap;
         }
 
         public void Activate()
