@@ -448,6 +448,7 @@ namespace MissionPlanner.GCSViews
             tabControlactions.Controls.Remove(tabServo);
             tabControlactions.Controls.Remove(tabPagePreFlight);
             tabControlactions.Controls.Remove(tabPagemessages);
+            tabControlactions.Controls.Remove(tablogbrowse);
         }
 
         public void BUT_playlog_Click(object sender, EventArgs e)
@@ -1151,7 +1152,7 @@ namespace MissionPlanner.GCSViews
 
         private void BUT_loadtelem_Click(object sender, EventArgs e)
         {
-            LBL_logfn.Text = "";
+           // LBL_logfn.Text = "";
 
             if (MainV2.comPort.logplaybackfile != null)
             {
