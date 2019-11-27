@@ -217,7 +217,7 @@
     <value>58, 60</value>
   </data>
   <data name="MenuFlightData.Text" xml:space="preserve">
-    <value>FLIGHT DATA</value>
+    <value>NAVIGATION DATA</value>
   </data>
   <data name="MenuFlightData.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>BottomCenter</value>
@@ -226,7 +226,7 @@
     <value>ImageAboveText</value>
   </data>
   <data name="MenuFlightData.ToolTipText" xml:space="preserve">
-    <value>Flight Data</value>
+    <value>Navigation Data</value>
   </data>
   <data name="MenuFlightPlanner.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial, 6pt</value>
@@ -290,7 +290,7 @@
     <value>59, 60</value>
   </data>
   <data name="MenuFlightPlanner.Text" xml:space="preserve">
-    <value>FLIGHT PLAN</value>
+    <value>NAVIGATION PLAN</value>
   </data>
   <data name="MenuFlightPlanner.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>BottomCenter</value>
@@ -299,7 +299,7 @@
     <value>ImageAboveText</value>
   </data>
   <data name="MenuFlightPlanner.ToolTipText" xml:space="preserve">
-    <value>Flight Planner</value>
+    <value>Navigation Planner</value>
   </data>
   <data name="MenuInitConfig.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial, 6pt</value>
