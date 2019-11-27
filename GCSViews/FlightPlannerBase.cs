@@ -730,12 +730,12 @@ namespace MissionPlanner.GCSViews
 
             selectedrow = _flightPlanner.Commands.Rows.Add();
 
-            if ((MAVLink.MAV_MISSION_TYPE) _flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.RALLY)
+            if ((MAVLink.MAV_MISSION_TYPE)_flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.RALLY)
             {
                 _flightPlanner.Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.RALLY_POINT.ToString();
                 ChangeColumnHeader(MAVLink.MAV_CMD.RALLY_POINT.ToString());
             }
-            else if ((MAVLink.MAV_MISSION_TYPE) _flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.FENCE)
+            else if ((MAVLink.MAV_MISSION_TYPE)_flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.FENCE)
             {
                 _flightPlanner.Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.FENCE_POLYGON_VERTEX_INCLUSION.ToString();
                 ChangeColumnHeader(MAVLink.MAV_CMD.FENCE_POLYGON_VERTEX_INCLUSION.ToString());
@@ -800,7 +800,7 @@ namespace MissionPlanner.GCSViews
         /// <param name="e"></param>
         public void BUT_write_Click(object sender, EventArgs e)
         {
-            if ((altmode) _flightPlanner.CMB_altmode.SelectedValue == altmode.Absolute)
+            if ((altmode)_flightPlanner.CMB_altmode.SelectedValue == altmode.Absolute)
             {
                 if ((int)DialogResult.No ==
                     CustomMessageBox.Show("Absolute Alt is selected are you sure?", "Alt Mode", MessageBoxButtons.YesNo))
@@ -1191,7 +1191,7 @@ namespace MissionPlanner.GCSViews
             DataGridViewTextBoxCell cell;
             if (alt == -2 && _flightPlanner.Commands.Columns[Alt.Index].HeaderText.Equals("Alt"))
             {
-                if (_flightPlanner.CHK_verifyheight.Checked && (altmode) _flightPlanner.CMB_altmode.SelectedValue != altmode.Terrain) //Drag with verifyheight // use srtm data
+                if (_flightPlanner.CHK_verifyheight.Checked && (altmode)_flightPlanner.CMB_altmode.SelectedValue != altmode.Terrain) //Drag with verifyheight // use srtm data
                 {
                     cell = _flightPlanner.Commands.Rows[selectedrow].Cells[Alt.Index] as DataGridViewTextBoxCell;
                     float ans;
@@ -1275,14 +1275,14 @@ namespace MissionPlanner.GCSViews
                     if (_flightPlanner.CHK_verifyheight.Checked) // use srtm data
                     {
                         // is absolute but no verify
-                        if ((altmode) _flightPlanner.CMB_altmode.SelectedValue == altmode.Absolute)
+                        if ((altmode)_flightPlanner.CMB_altmode.SelectedValue == altmode.Absolute)
                         {
                             //abs
                             cell.Value =
                                 ((srtm.getAltitude(lat, lng).alt) * CurrentState.multiplieralt +
                                  int.Parse(_flightPlanner.TXT_DefaultAlt.Text)).ToString();
                         }
-                        else if ((altmode) _flightPlanner.CMB_altmode.SelectedValue == altmode.Terrain)
+                        else if ((altmode)_flightPlanner.CMB_altmode.SelectedValue == altmode.Terrain)
                         {
                             cell.Value = int.Parse(_flightPlanner.TXT_DefaultAlt.Text);
                         }
@@ -1456,7 +1456,7 @@ namespace MissionPlanner.GCSViews
                     home = new PointLatLngAlt(
                             double.Parse(_flightPlanner.TXT_homelat.Text), double.Parse(_flightPlanner.TXT_homelng.Text),
                             double.Parse(_flightPlanner.TXT_homealt.Text) / CurrentState.multiplieralt, "H")
-                        { Tag2 = _flightPlanner.CMB_altmode.SelectedValue.ToString() };
+                    { Tag2 = _flightPlanner.CMB_altmode.SelectedValue.ToString() };
                 }
                 catch (Exception ex)
                 {
@@ -1469,7 +1469,7 @@ namespace MissionPlanner.GCSViews
             {
                 var commandlist = GetCommandList();
 
-                if ((MAVLink.MAV_MISSION_TYPE) _flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.MISSION)
+                if ((MAVLink.MAV_MISSION_TYPE)_flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.MISSION)
                 {
                     overlay = new WPOverlay();
                     overlay.overlay.Id = "WPOverlay";
@@ -1479,7 +1479,7 @@ namespace MissionPlanner.GCSViews
                         if (_flightPlanner.TXT_WPRad.Text == "") _flightPlanner.TXT_WPRad.Text = "5";
                         if (_flightPlanner.TXT_loiterrad.Text == "") _flightPlanner.TXT_loiterrad.Text = "30";
 
-                        overlay.CreateOverlay((MAVLink.MAV_FRAME)(altmode) _flightPlanner.CMB_altmode.SelectedValue, home,
+                        overlay.CreateOverlay((MAVLink.MAV_FRAME)(altmode)_flightPlanner.CMB_altmode.SelectedValue, home,
                             commandlist,
                             double.Parse(_flightPlanner.TXT_WPRad.Text) / CurrentState.multiplieralt,
                             double.Parse(_flightPlanner.TXT_loiterrad.Text) / CurrentState.multiplieralt);
@@ -1528,14 +1528,14 @@ namespace MissionPlanner.GCSViews
                     _flightPlanner.MainMap.Refresh();
                 }
 
-                if ((MAVLink.MAV_MISSION_TYPE) _flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.FENCE)
+                if ((MAVLink.MAV_MISSION_TYPE)_flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.FENCE)
                 {
                     var overlay = new WPOverlay();
                     overlay.overlay.Id = "fence";
 
                     try
                     {
-                        overlay.CreateOverlay((MAVLink.MAV_FRAME)(altmode) _flightPlanner.CMB_altmode.SelectedValue, PointLatLngAlt.Zero,
+                        overlay.CreateOverlay((MAVLink.MAV_FRAME)(altmode)_flightPlanner.CMB_altmode.SelectedValue, PointLatLngAlt.Zero,
                             commandlist, 0, 0);
                     }
                     catch (FormatException ex)
@@ -1558,14 +1558,14 @@ namespace MissionPlanner.GCSViews
                     _flightPlanner.MainMap.Refresh();
                 }
 
-                if ((MAVLink.MAV_MISSION_TYPE) _flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.RALLY)
+                if ((MAVLink.MAV_MISSION_TYPE)_flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.RALLY)
                 {
                     var overlay = new WPOverlay();
                     overlay.overlay.Id = "rally";
 
                     try
                     {
-                        overlay.CreateOverlay((MAVLink.MAV_FRAME)(altmode) _flightPlanner.CMB_altmode.SelectedValue, PointLatLngAlt.Zero,
+                        overlay.CreateOverlay((MAVLink.MAV_FRAME)(altmode)_flightPlanner.CMB_altmode.SelectedValue, PointLatLngAlt.Zero,
                             commandlist, 0, 0);
                     }
                     catch (FormatException ex)
@@ -1708,7 +1708,7 @@ namespace MissionPlanner.GCSViews
 
         public void areaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            double aream2 = Math.Abs((double) calcpolygonarea(drawnpolygon.Points));
+            double aream2 = Math.Abs((double)calcpolygonarea(drawnpolygon.Points));
 
             double areaa = aream2 * 0.000247105;
 
@@ -1817,7 +1817,7 @@ namespace MissionPlanner.GCSViews
 
         public void but_writewpfast_Click(object sender, EventArgs e)
         {
-            if ((altmode) _flightPlanner.CMB_altmode.SelectedValue == altmode.Absolute)
+            if ((altmode)_flightPlanner.CMB_altmode.SelectedValue == altmode.Absolute)
             {
                 if ((int)DialogResult.No ==
                     CustomMessageBox.Show("Absolute Alt is selected are you sure?", "Alt Mode", MessageBoxButtons.YesNo))
@@ -1826,7 +1826,7 @@ namespace MissionPlanner.GCSViews
                 }
             }
 
-            if ((MAVLink.MAV_MISSION_TYPE) _flightPlanner.cmb_missiontype.SelectedValue != MAVLink.MAV_MISSION_TYPE.MISSION)
+            if ((MAVLink.MAV_MISSION_TYPE)_flightPlanner.cmb_missiontype.SelectedValue != MAVLink.MAV_MISSION_TYPE.MISSION)
             {
                 CustomMessageBox.Show("Only available for missions");
                 return;
@@ -2082,7 +2082,7 @@ namespace MissionPlanner.GCSViews
             }
             else
             {
-                currentaltmode = (altmode) _flightPlanner.CMB_altmode.SelectedValue;
+                currentaltmode = (altmode)_flightPlanner.CMB_altmode.SelectedValue;
             }
         }
 
@@ -2100,12 +2100,12 @@ namespace MissionPlanner.GCSViews
             if (rally.Count() > 0) _flightPlanner.MainMap.Overlays.Remove(rally.First());
 
             // update the displayed items
-            if ((MAVLink.MAV_MISSION_TYPE) _flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.RALLY)
+            if ((MAVLink.MAV_MISSION_TYPE)_flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.RALLY)
             {
                 _flightPlanner.BUT_Add.Visible = false;
                 processToScreen(MainV2.comPort.MAV.rallypoints.Select(a => (Locationwp)a.Value).ToList());
             }
-            else if ((MAVLink.MAV_MISSION_TYPE) _flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.FENCE)
+            else if ((MAVLink.MAV_MISSION_TYPE)_flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.FENCE)
             {
                 _flightPlanner.BUT_Add.Visible = false;
                 processToScreen(MainV2.comPort.MAV.fencepoints.Select(a => (Locationwp)a.Value).ToList());
@@ -2119,16 +2119,16 @@ namespace MissionPlanner.GCSViews
             writeKML();
         }
 
-     
+
         public void comboBoxMapType_SelectedValueChanged(object sender, EventArgs e)
         {
 
 
-            
+
             try
             {
                 // check if we are setting the initial state
-                if (_flightPlanner.MainMap.MapProvider != GMapProviders.EmptyProvider && (GMapProvider) _flightPlanner.comboBoxMapType.SelectedItem == MapboxUser.Instance)
+                if (_flightPlanner.MainMap.MapProvider != GMapProviders.EmptyProvider && (GMapProvider)_flightPlanner.comboBoxMapType.SelectedItem == MapboxUser.Instance)
                 {
                     var url = Settings.Instance["MapBoxURL", ""];
                     InputBox.Show("Enter MapBox Share URL", "Enter MapBox Share URL", ref url);
@@ -2146,9 +2146,9 @@ namespace MissionPlanner.GCSViews
                         return;
                     }
                 }
-                
-                _flightPlanner.MainMap.MapProvider = (GMapProvider) _flightPlanner.comboBoxMapType.SelectedItem;
-                FlightData.mymap.MapProvider = (GMapProvider) _flightPlanner.comboBoxMapType.SelectedItem;
+
+                _flightPlanner.MainMap.MapProvider = (GMapProvider)_flightPlanner.comboBoxMapType.SelectedItem;
+                FlightData.mymap.MapProvider = (GMapProvider)_flightPlanner.comboBoxMapType.SelectedItem;
                 Settings.Instance["MapType"] = _flightPlanner.comboBoxMapType.Text;
                 FlightData.instance.setvaluemap(_flightPlanner.comboBoxMapType.SelectedItem);
 
@@ -2348,7 +2348,7 @@ namespace MissionPlanner.GCSViews
             }
 
 
-                if (quickadd)
+            if (quickadd)
                 return;
 
             try
@@ -2515,6 +2515,11 @@ namespace MissionPlanner.GCSViews
 
         public void ContextMeasure_Click(object sender, EventArgs e)
         {
+            measurecontext();
+        }
+        public void measurecontext()
+        {
+       
             if (startmeasure.IsEmpty)
             {
                 startmeasure = MouseDownStart;
@@ -2522,6 +2527,7 @@ namespace MissionPlanner.GCSViews
                 _flightPlanner.MainMap.Invalidate();
                 Common.MessageShowAgain("Measure Dist",
                     "You can now pan/zoom around.\nClick this option again to get the distance.");
+               
             }
             else
             {

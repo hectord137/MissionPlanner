@@ -44,5 +44,16 @@ namespace MissionPlanner.GCSViews
         {
             _flightPlannerBase.kmloverlay();
         }
+
+        private void button1_Click(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void ButMeasureContext_Click(object sender, System.EventArgs e)
+        {
+            _flightPlannerBase.measurecontext();
+           
+        }
     }
 }
