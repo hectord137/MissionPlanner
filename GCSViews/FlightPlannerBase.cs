@@ -5754,6 +5754,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             _flightPlanner.TXT_homelng.Text = MouseDownStart.Lng.ToString();
         }
 
+      
+
         public void setRallyPointToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string altstring = _flightPlanner.TXT_DefaultAlt.Text;
