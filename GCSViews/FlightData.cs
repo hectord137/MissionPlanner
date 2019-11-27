@@ -4798,29 +4798,16 @@ if (a is CheckBox && ((CheckBox)a).Checked)
 
         private void setHomeHereToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            if (MainV2.comPort.BaseStream.IsOpen)
-            {
-                try
-                {
-                    var alt = srtm.getAltitude(MouseDownStart.Lat, MouseDownStart.Lng);
+            
+   
+            object homealt = (srtm.getAltitude(MouseDownStart.Lat, MouseDownStart.Lng).alt * CurrentState.multiplieralt).ToString("0");
+            object homelat = MouseDownStart.Lat.ToString(); 
+            object homelng = MouseDownStart.Lng.ToString(); 
 
-                    if (alt.currenttype != srtm.tiletype.valid)
-                    {
-                        CustomMessageBox.Show("No SRTM data for this area", Strings.ERROR);
-                        return;
-                    }
+            FlightPlannerBase.instance.sethomeh(homealt, homelat, homelng);
+          
 
-                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_HOME, 0, 0, 0, 0, (float)MouseDownStart.Lat,
-                        (float)MouseDownStart.Lng, (float)alt.alt);
-                }
-                catch
-                {
-                    CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
-                }
-            }
-            else {
-                CustomMessageBox.Show("first connect the device", Strings.ERROR);
-            }
+               
         }
     }
 

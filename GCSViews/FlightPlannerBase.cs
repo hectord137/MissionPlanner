@@ -5747,14 +5747,20 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
         }
 
-        public void setHomeHereToolStripMenuItem_Click(object sender, EventArgs e)
+        public void setHomeHereToolStripMenuItem_Click(object sender,  EventArgs e)
         {
-            _flightPlanner.TXT_homealt.Text = (srtm.getAltitude(MouseDownStart.Lat, MouseDownStart.Lng).alt * CurrentState.multiplieralt).ToString("0");
-            _flightPlanner.TXT_homelat.Text = MouseDownStart.Lat.ToString();
-            _flightPlanner.TXT_homelng.Text = MouseDownStart.Lng.ToString();
+            object homealt = (srtm.getAltitude(MouseDownStart.Lat, MouseDownStart.Lng).alt * CurrentState.multiplieralt).ToString("0");
+            object homelat = MouseDownStart.Lat.ToString(); ;
+            object homelng = MouseDownStart.Lng.ToString(); ;
+
+            FlightPlannerBase.instance.sethomeh(homealt, homelat, homelng);
         }
 
-      
+        public void sethomeh(object homealt, object homelat, object homelng) {
+            _flightPlanner.TXT_homealt.Text = homealt.ToString();
+            _flightPlanner.TXT_homelat.Text = homelat.ToString();
+            _flightPlanner.TXT_homelng.Text = homelng.ToString(); 
+        }
 
         public void setRallyPointToolStripMenuItem_Click(object sender, EventArgs e)
         {

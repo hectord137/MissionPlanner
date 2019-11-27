@@ -55,5 +55,10 @@ namespace MissionPlanner.GCSViews
             _flightPlannerBase.measurecontext();
            
         }
+
+        private void setHomeHereToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+
+        }
     }
 }
