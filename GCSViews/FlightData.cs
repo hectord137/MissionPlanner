@@ -32,6 +32,7 @@ using GMap.NET.WindowsForms.Markers;
 using LogAnalyzer = MissionPlanner.Utilities.LogAnalyzer;
 using MissionPlanner.Maps;
 using System.Text.RegularExpressions;
+using SharpDX.DirectInput;
 
 // written by michael oborne
 
@@ -142,6 +143,7 @@ namespace MissionPlanner.GCSViews
             log.Info("Ctor Start");
 
             InitializeComponent();
+
 
             // get map type
             this.comboBoxMapTypeData.ValueMember = "Name";
@@ -311,15 +313,16 @@ namespace MissionPlanner.GCSViews
             contextMenuStripHud.Visible = false;
             contextMenuStripHud.Items.RemoveByKey("1"); ;
 
-        
+            loadjoy();
         }
 
         public void comboBoxMapTypeData_SelectedValueChanged(object sender, EventArgs e)
         {
             FlightPlannerBase.instance.SetMapOrigin(sender, e, comboBoxMapTypeData.SelectedItem);
- 
+
         }
-        public void setvaluemap(object idmap) {
+        public void setvaluemap(object idmap)
+        {
             comboBoxMapTypeData.SelectedItem = idmap;
         }
 
@@ -441,7 +444,8 @@ namespace MissionPlanner.GCSViews
             this.hidetabs();
         }
 
-        private void hidetabs(){
+        private void hidetabs()
+        {
             //remove tabsss
             tabControlactions.Controls.Remove(tabGauges);
             tabControlactions.Controls.Remove(tabScripts);
@@ -872,11 +876,11 @@ namespace MissionPlanner.GCSViews
                     }
                 }
 
-                Invoke((Action) delegate
-                {
-                    overlay.Markers.Add(m);
-                    overlay.Markers.Add(mBorders);
-                });
+                Invoke((Action)delegate
+               {
+                   overlay.Markers.Add(m);
+                   overlay.Markers.Add(mBorders);
+               });
             }
             catch (Exception)
             {
@@ -898,11 +902,11 @@ namespace MissionPlanner.GCSViews
                     mBorders.InnerMarker = m;
                 }
 
-                Invoke((Action) delegate
-                {
-                    overlay.Markers.Add(m);
-                    overlay.Markers.Add(mBorders);
-                });
+                Invoke((Action)delegate
+               {
+                   overlay.Markers.Add(m);
+                   overlay.Markers.Add(mBorders);
+               });
             }
             catch (Exception)
             {
@@ -1152,7 +1156,7 @@ namespace MissionPlanner.GCSViews
 
         private void BUT_loadtelem_Click(object sender, EventArgs e)
         {
-           // LBL_logfn.Text = "";
+            // LBL_logfn.Text = "";
 
             if (MainV2.comPort.logplaybackfile != null)
             {
@@ -1404,7 +1408,7 @@ namespace MissionPlanner.GCSViews
                         foreach (var loc in cmds)
                         {
                             MAVLink.MAV_MISSION_RESULT ans = MainV2.comPort.setWP(loc, wpno,
-                                (MAVLink.MAV_FRAME) (loc.frame));
+                                (MAVLink.MAV_FRAME)(loc.frame));
                             if (ans != MAVLink.MAV_MISSION_RESULT.MAV_MISSION_ACCEPTED)
                             {
                                 CustomMessageBox.Show("Upload wps failed " +
@@ -3227,16 +3231,16 @@ namespace MissionPlanner.GCSViews
                         {
                             foreach (adsb.PointLatLngAltHdg plla in MainV2.instance.adsbPlanes.Values)
                             {
-                                if(plla.Raw != null)
+                                if (plla.Raw != null)
                                 {
-                                    var msg = ((MAVLink.mavlink_adsb_vehicle_t) plla.Raw);
+                                    var msg = ((MAVLink.mavlink_adsb_vehicle_t)plla.Raw);
                                     if (msg.emitter_type == 255 && ASCIIEncoding.ASCII.GetString(msg.callsign).Trim('\0') == "OA_DB")
                                     {
                                         // cm
                                         var radius = msg.squawk;
 
                                         addMissionRouteMarker(new GMapMarkerDistance(plla, radius / 100.0, 0)
-                                            {Pen = new Pen(Color.Red, 3)});
+                                        { Pen = new Pen(Color.Red, 3) });
                                         continue;
                                     }
                                 }
@@ -3613,8 +3617,8 @@ namespace MissionPlanner.GCSViews
             {
                 selectform.Controls.ForEach(a =>
 {
-if (a is CheckBox && ((CheckBox)a).Checked)
-((CheckBox)a).BackColor = Color.Green;
+    if (a is CheckBox && ((CheckBox)a).Checked)
+        ((CheckBox)a).BackColor = Color.Green;
 });
             };
 
@@ -3806,7 +3810,7 @@ if (a is CheckBox && ((CheckBox)a).Checked)
 
         private void setHomeHereToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void setMapBearing()
@@ -4138,12 +4142,12 @@ if (a is CheckBox && ((CheckBox)a).Checked)
                     var temp = tabStatus.Controls.Find(field, false);
 
                     if (temp.Length > 0)
-                        lbl1 = (MyLabel) temp[0];
+                        lbl1 = (MyLabel)temp[0];
 
                     var temp2 = tabStatus.Controls.Find(field + "value", false);
 
                     if (temp2.Length > 0)
-                        lbl2 = (MyLabel) temp2[0];
+                        lbl2 = (MyLabel)temp2[0];
                 }
                 catch
                 {
@@ -4232,23 +4236,23 @@ if (a is CheckBox && ((CheckBox)a).Checked)
 
         void tfr_GotTFRs(object sender, EventArgs e)
         {
-            Invoke((Action) delegate
-            {
-                foreach (var item in tfr.tfrs)
-                {
-                    List<List<PointLatLng>> points = item.GetPaths();
+            Invoke((Action)delegate
+           {
+               foreach (var item in tfr.tfrs)
+               {
+                   List<List<PointLatLng>> points = item.GetPaths();
 
-                    foreach (var list in points)
-                    {
-                        GMapPolygon poly = new GMapPolygon(list, item.NAME);
+                   foreach (var list in points)
+                   {
+                       GMapPolygon poly = new GMapPolygon(list, item.NAME);
 
-                        poly.Fill = new SolidBrush(Color.FromArgb(30, Color.Blue));
+                       poly.Fill = new SolidBrush(Color.FromArgb(30, Color.Blue));
 
-                        tfrpolygons.Polygons.Add(poly);
-                    }
-                }
-                tfrpolygons.IsVisibile = MainV2.ShowTFR;
-            });
+                       tfrpolygons.Polygons.Add(poly);
+                   }
+               }
+               tfrpolygons.IsVisibile = MainV2.ShowTFR;
+           });
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -4457,10 +4461,10 @@ if (a is CheckBox && ((CheckBox)a).Checked)
 
         private void updateClearRoutesMarkers()
         {
-            Invoke((Action) delegate
-            {
-                routes.Markers.Clear();
-            });
+            Invoke((Action)delegate
+           {
+               routes.Markers.Clear();
+           });
         }
         private void updateLogPlayPosition(bool updatetracklog = true)
         {
@@ -4472,8 +4476,8 @@ if (a is CheckBox && ((CheckBox)a).Checked)
                    {
                        // prevent event fire
                        tracklog.ValueChanged -= tracklog_Scroll;
-                       tracklog.Value = (int) (MainV2.comPort.logplaybackfile.BaseStream.Position /
-                                                (double) MainV2.comPort.logplaybackfile.BaseStream.Length * 100);
+                       tracklog.Value = (int)(MainV2.comPort.logplaybackfile.BaseStream.Position /
+                                                (double)MainV2.comPort.logplaybackfile.BaseStream.Length * 100);
                        tracklog.ValueChanged += tracklog_Scroll;
                    }
 
@@ -4505,8 +4509,8 @@ if (a is CheckBox && ((CheckBox)a).Checked)
                        }
                        lastmapposchange = DateTime.Now;
                    }
-                    //hud1.Refresh();
-                }
+                   //hud1.Refresh();
+               }
                catch
                {
                }
@@ -4584,10 +4588,10 @@ if (a is CheckBox && ((CheckBox)a).Checked)
         private void updateRoutePosition()
         {
             // not async
-            Invoke((Action) delegate
-            {
-                gMapControl1.UpdateRouteLocalPosition(route);
-            });
+            Invoke((Action)delegate
+           {
+               gMapControl1.UpdateRouteLocalPosition(route);
+           });
         }
         private void zg1_DoubleClick(object sender, EventArgs e)
         {
@@ -4750,13 +4754,13 @@ if (a is CheckBox && ((CheckBox)a).Checked)
         {
             try
             {
-                if (gMapControl1.MaxZoom + 1 == (double) Zoomlevel.Value)
+                if (gMapControl1.MaxZoom + 1 == (double)Zoomlevel.Value)
                 {
-                    gMapControl1.Zoom = (double) Zoomlevel.Value - .1;
+                    gMapControl1.Zoom = (double)Zoomlevel.Value - .1;
                 }
                 else
                 {
-                    gMapControl1.Zoom = (double) Zoomlevel.Value;
+                    gMapControl1.Zoom = (double)Zoomlevel.Value;
                 }
             }
             catch
@@ -4799,18 +4803,142 @@ if (a is CheckBox && ((CheckBox)a).Checked)
 
         private void setHomeHereToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            
-   
+
+
             object homealt = (srtm.getAltitude(MouseDownStart.Lat, MouseDownStart.Lng).alt * CurrentState.multiplieralt).ToString("0");
-            object homelat = MouseDownStart.Lat.ToString(); 
-            object homelng = MouseDownStart.Lng.ToString(); 
+            object homelat = MouseDownStart.Lat.ToString();
+            object homelng = MouseDownStart.Lng.ToString();
 
             FlightPlannerBase.instance.sethomeh(homealt, homelat, homelng);
-          
 
-               
+
+
+        }
+
+        public void modifybutton()
+        {
+            Joystick.Joystick joystick = new Joystick.Joystick(() => MainV2.comPort);
+            //joy.elevons = CHK_elevons.Checked;
+
+            if (!joystick.start(COMBJOY.Text))
+            {
+              
+                ButJoyOn.Enabled = false;
+                    }
+
+        }
+
+
+        public void ButJoyOn_Click(object sender, EventArgs e)
+        {
+            if (MainV2.joystick == null || MainV2.joystick.enabled == false)
+            {
+                try
+                {
+                    if (MainV2.joystick != null)
+                        MainV2.joystick.UnAcquireJoyStick();
+                }
+                catch
+                {
+                }
+
+                // all config is loaded from the xmls
+                Joystick.Joystick joystick = new Joystick.Joystick(() => MainV2.comPort);
+                //joy.elevons = CHK_elevons.Checked;
+
+                if (!joystick.start(COMBJOY.Text))
+                {
+                    CustomMessageBox.Show("Please Connect a Joystick", "No Joystick");
+                    joystick.Dispose();
+                    return;
+                }
+
+                //Settings.Instance["joystick_name"] = CMB_joysticks.Text;
+
+                MainV2.joystick = joystick;
+                MainV2.joystick.enabled = true;
+
+               // BUT_enable.Text = "Disable";
+
+                //timer1.Start();
+            }
+            else
+            {
+                MainV2.joystick.enabled = false;
+
+                MainV2.joystick.clearRCOverride();
+
+                MainV2.joystick = null;
+
+
+                //timer1.Stop();
+
+              //  BUT_enable.Text = "Enable";
+            }
+
+        }
+
+        private void loadjoy() {
+            try
+            {
+                var joysticklist = Joystick.Joystick.getDevices();
+
+                foreach (DeviceInstance device in joysticklist)
+                {
+                    COMBJOY.Items.Add(device.ProductName.TrimUnPrintable());
+                }
+            }
+            catch
+            {
+                CustomMessageBox.Show("Error geting joystick list: do you have the directx redist installed?");
+                this.Close();
+                return;
+            }
+
+            if (COMBJOY.Items.Count > 0 && COMBJOY.SelectedIndex == -1)
+                COMBJOY.SelectedIndex = 0;
+
+            try
+            {
+                if (Settings.Instance.ContainsKey("joystick_name") && Settings.Instance["joystick_name"].ToString() != "")
+                    COMBJOY.Text = Settings.Instance["joystick_name"].ToString();
+            }
+            catch
+            {
+            }
+
+            try
+            {
+                
+            }
+            catch
+            {
+                if (Settings.Instance.ContainsKey("joy_elevons")) ;
+                    
+            } // IF 1 DOESNT EXIST NONE WILL
+
+            var tempjoystick = new Joystick.Joystick(() => MainV2.comPort);
+
+            // label14.Text += " " + MainV2.comPort.MAV.cs.firmware.ToString();
+
+            modifybutton();
+        }
+
+        int[] getButtonNumbers()
+        {
+            int[] temp = new int[128];
+            temp[0] = -1;
+            for (int a = 0; a < temp.Length - 1; a++)
+            {
+                temp[a + 1] = a;
+            }
+            return temp;
+        }
+
+        private void tableLayoutPanel5_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
-
 
 }

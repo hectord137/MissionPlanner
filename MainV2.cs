@@ -342,7 +342,7 @@ namespace MissionPlanner
         /// joystick static class
         /// </summary>
         public static Joystick.Joystick joystick { get; set; }
-
+        
         /// <summary>
         /// track last joystick packet sent. used to control rate
         /// </summary>

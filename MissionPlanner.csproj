@@ -318,6 +318,9 @@
       <Version>1.0.1</Version>
     </PackageReference>
     <PackageReference Include="GeoJSON.Net" version="1.1.64" targetFramework="net462" />
+    <PackageReference Include="Internal.AspNetCore.Analyzers">
+      <Version>5.0.0-alpha1.19578.1</Version>
+    </PackageReference>
     <PackageReference Include="IronPython" version="2.7.8.1" targetFramework="net462" />
     <PackageReference Include="IronPython.StdLib" version="2.7.8.1" targetFramework="net462" />
     <PackageReference Include="log4net" version="2.0.8" targetFramework="net462" />
@@ -4156,6 +4159,7 @@
     <Content Include="aircraft.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include=".editorconfig" />
     <None Include="appxmanifest.xml" />
     <Content Include="ArduCopterConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

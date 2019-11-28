@@ -141,7 +141,7 @@ namespace MissionPlanner.Joystick
 
                 // all config is loaded from the xmls
                 Joystick joy = new Joystick(() => MainV2.comPort);
-
+                
                 joy.elevons = CHK_elevons.Checked;
 
                 //show error message if a joystick is not connected when Enable is clicked
