@@ -25,16 +25,10 @@ using MissionPlanner.Utilities;
 using MissionPlanner.Warnings;
 using WebCamService;
 using ZedGraph;
-using GMap.NET;
-using GMap.NET.MapProviders;
-using GMap.NET.WindowsForms;
-using GMap.NET.WindowsForms.Markers;
 using LogAnalyzer = MissionPlanner.Utilities.LogAnalyzer;
 using MissionPlanner.Maps;
-using System.Text.RegularExpressions;
 using SharpDX.DirectInput;
-
-// written by michael oborne
+using GMap.NET.MapProviders;
 
 namespace MissionPlanner.GCSViews
 {
@@ -143,8 +137,7 @@ namespace MissionPlanner.GCSViews
             log.Info("Ctor Start");
 
             InitializeComponent();
-
-
+      
             // get map type
             this.comboBoxMapTypeData.ValueMember = "Name";
             this.comboBoxMapTypeData.DataSource = GMapProviders.List.ToArray();
@@ -310,11 +303,30 @@ namespace MissionPlanner.GCSViews
             }
 
             MainV2.comPort.ParamListChanged += FlightData_ParentChanged;
-            contextMenuStripHud.Visible = false;
-            contextMenuStripHud.Items.RemoveByKey("1"); ;
+            /* contextMenuStripHud.Visible = false;
+             contextMenuStripHud.Items.RemoveByKey("1"); */
 
-            loadjoy();
+        
         }
+
+
+        public void rechargelabel()
+        {
+            try
+            {
+                //groundspeed
+                LBLgroundspeed.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                //wp_dist
+                LBLwp_dist.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+                //DistToHome
+                LBLDistToHome.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
+                //rangefinder1
+                LBLrangefinder1.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+
+            }
+            catch {}
+        }
+
 
         public void comboBoxMapTypeData_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -442,6 +454,7 @@ namespace MissionPlanner.GCSViews
 
             hud1.doResize();
             this.hidetabs();
+            
         }
 
         private void hidetabs()
@@ -453,6 +466,7 @@ namespace MissionPlanner.GCSViews
             tabControlactions.Controls.Remove(tabPagePreFlight);
             tabControlactions.Controls.Remove(tabPagemessages);
             tabControlactions.Controls.Remove(tablogbrowse);
+            tabControlactions.Controls.Remove(tabQuick);
         }
 
         public void BUT_playlog_Click(object sender, EventArgs e)
@@ -4394,7 +4408,8 @@ namespace MissionPlanner.GCSViews
             try
             {
                 if (this.Visible)
-                {
+                {   //load quick indicators on load
+                    MainV2.comPort.MAV.cs.UpdateCurrentSettings(bindingSourceQuickTab.UpdateDataSource(MainV2.comPort.MAV.cs));
                     //Console.Write("bindingSource1 ");
                     MainV2.comPort.MAV.cs.UpdateCurrentSettings(bindingSource1.UpdateDataSource(MainV2.comPort.MAV.cs));
                     //Console.Write("bindingSourceHud ");
@@ -4937,6 +4952,41 @@ namespace MissionPlanner.GCSViews
 
         private void tableLayoutPanel5_Paint(object sender, PaintEventArgs e)
         {
+
+        }
+
+        private void openScriptDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanelQuick_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.hud_UserItem(sender, e);
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            quickView_DoubleClick(sender, e);
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+    
+
+
+  
+        private void timer1_Tick_2(object sender, EventArgs e)
+        {
+            rechargelabel();
 
         }
     }

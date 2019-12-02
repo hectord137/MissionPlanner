@@ -260,7 +260,9 @@ namespace MissionPlanner.Controls
             }
         }
 
-        [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
+ 
+   
+                [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
         public float targetheading
         {
             get { return _targetheading; }

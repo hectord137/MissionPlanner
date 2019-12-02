@@ -12,6 +12,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.MainH = new System.Windows.Forms.SplitContainer();
             this.SubMainLeft = new System.Windows.Forms.SplitContainer();
+            this.label7 = new System.Windows.Forms.Label();
             this.hud1 = new MissionPlanner.Controls.HUD();
             this.contextMenuStripHud = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.videoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -33,10 +34,9 @@
             this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabQuick = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelQuick = new System.Windows.Forms.TableLayoutPanel();
+            this.s = new System.Windows.Forms.Label();
             this.tabActions = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.BUT_ARM = new MissionPlanner.Controls.MyButton();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.CMB_modes = new System.Windows.Forms.ComboBox();
             this.BUT_resumemis = new MissionPlanner.Controls.MyButton();
@@ -51,6 +51,18 @@
             this.BUT_quickmanual = new MissionPlanner.Controls.MyButton();
             this.BUT_quickrtl = new MissionPlanner.Controls.MyButton();
             this.BUT_joystick = new MissionPlanner.Controls.MyButton();
+            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.LBLrangefinder1 = new System.Windows.Forms.Label();
+            this.LBLDistToHome = new System.Windows.Forms.Label();
+            this.LBLwp_dist = new System.Windows.Forms.Label();
+            this.LBLgroundspeed = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.modifyandSetSpeed = new MissionPlanner.Controls.ModifyandSet();
+            this.BUT_ARM = new MissionPlanner.Controls.MyButton();
             this.BUT_Homealt = new MissionPlanner.Controls.MyButton();
             this.BUT_abortland = new MissionPlanner.Controls.MyButton();
             this.CMB_mountmode = new System.Windows.Forms.ComboBox();
@@ -58,11 +70,14 @@
             this.CMB_action = new System.Windows.Forms.ComboBox();
             this.BUT_RAWSensor = new MissionPlanner.Controls.MyButton();
             this.BUTactiondo = new MissionPlanner.Controls.MyButton();
+            this.modifyandSetLoiterRad = new MissionPlanner.Controls.ModifyandSet();
+            this.modifyandSetAlt = new MissionPlanner.Controls.ModifyandSet();
             this.tabActionsSimple = new System.Windows.Forms.TabPage();
             this.myButton1 = new MissionPlanner.Controls.MyButton();
             this.myButton2 = new MissionPlanner.Controls.MyButton();
             this.myButton3 = new MissionPlanner.Controls.MyButton();
             this.tabPagePreFlight = new System.Windows.Forms.TabPage();
+            this.checkListControl1 = new MissionPlanner.Controls.PreFlight.CheckListControl();
             this.tabGauges = new System.Windows.Forms.TabPage();
             this.Gvspeed = new AGaugeApp.AGauge();
             this.Gheading = new MissionPlanner.Controls.HSI();
@@ -71,6 +86,20 @@
             this.tabStatus = new System.Windows.Forms.TabPage();
             this.tabServo = new System.Windows.Forms.TabPage();
             this.flowLayoutPanelServos = new System.Windows.Forms.FlowLayoutPanel();
+            this.servoOptions1 = new MissionPlanner.Controls.ServoOptions();
+            this.servoOptions2 = new MissionPlanner.Controls.ServoOptions();
+            this.servoOptions3 = new MissionPlanner.Controls.ServoOptions();
+            this.servoOptions4 = new MissionPlanner.Controls.ServoOptions();
+            this.servoOptions5 = new MissionPlanner.Controls.ServoOptions();
+            this.servoOptions6 = new MissionPlanner.Controls.ServoOptions();
+            this.servoOptions7 = new MissionPlanner.Controls.ServoOptions();
+            this.servoOptions8 = new MissionPlanner.Controls.ServoOptions();
+            this.servoOptions9 = new MissionPlanner.Controls.ServoOptions();
+            this.servoOptions10 = new MissionPlanner.Controls.ServoOptions();
+            this.relayOptions1 = new MissionPlanner.Controls.RelayOptions();
+            this.relayOptions2 = new MissionPlanner.Controls.RelayOptions();
+            this.relayOptions3 = new MissionPlanner.Controls.RelayOptions();
+            this.relayOptions4 = new MissionPlanner.Controls.RelayOptions();
             this.tabTLogs = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
@@ -139,7 +168,337 @@
             this.onOffCameraOverlapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.altitudeAngelSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setHomeHereToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.groundspeedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.wpdistDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.distToHomeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rangefinder1DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.parentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rollDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pitchDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.yawDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sSADataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.aOADataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groundcourseDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.latDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lngDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.altDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.altaslDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.horizondistDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vxDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vyDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vzDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vlenDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.altoffsethomeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gpsstatusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gpshdopDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.satcountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gpshaccDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gpsvaccDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gpsvelaccDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gpshdgaccDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lat2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lng2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.altasl2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gpsstatus2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gpshdop2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.satcount2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groundspeed2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groundcourse2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.satcountBDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gpstimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.altd1000DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.altd100DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.airspeedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.targetairspeedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lowairspeedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.asratioDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.axDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ayDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.azDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.accelsqDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gxDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gyDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gzDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gyrosqDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mxDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.myDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mzDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.magfieldDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ax2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ay2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.az2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.accelsq2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gx2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gy2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gz2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gyrosq2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mx2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.my2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mz2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.magfield2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ax3DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ay3DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.az3DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.accelsq3DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gx3DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gy3DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gz3DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gyrosq3DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mx3DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.my3DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mz3DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.magfield3DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch1inDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch2inDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch3inDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch4inDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch5inDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch6inDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch7inDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch8inDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch9inDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch10inDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch11inDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch12inDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch13inDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch14inDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch15inDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch16inDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch1outDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch2outDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch3outDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch4outDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch5outDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch6outDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch7outDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch8outDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch9outDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch10outDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch11outDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch12outDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch13outDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch14outDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch15outDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch16outDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc1voltDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc1currDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc1rpmDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc1tempDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc2voltDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc2currDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc2rpmDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc2tempDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc3voltDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc3currDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc3rpmDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc3tempDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc4voltDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc4currDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc4rpmDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc4tempDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc5voltDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc5currDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc5rpmDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc5tempDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc6voltDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc6currDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc6rpmDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc6tempDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc7voltDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc7currDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc7rpmDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc7tempDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc8voltDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc8currDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc8rpmDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.esc8tempDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ch3percentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.failsafeDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.rxrssiDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.critAOADataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lowgroundspeedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.verticalspeedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.verticalspeedfpmDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.glideratioDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.navrollDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.navpitchDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.navbearingDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.targetbearingDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.alterrorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bererrorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.aspderrorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.xtrackerrorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.wpnoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.modeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.climbrateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tohDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.distTraveledDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.timeSinceArmInAirDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.timeInAirDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.timeInAirMinSecDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.turnrateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.turngDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.radiusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.qNHDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.winddirDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.windvelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.targetaltd100DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.targetaltDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.messageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.messageHighDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.messageHighTimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batteryvoltageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batteryvoltage3DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batteryvoltage4DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batteryvoltage5DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batteryvoltage6DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batteryvoltage7DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batteryvoltage8DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batteryremainingDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batteryremaining2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batteryremaining3DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batteryremaining4DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batteryremaining5DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batteryremaining6DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batteryremaining7DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batteryremaining8DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.currentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.current2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.current3DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.current4DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.current5DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.current6DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.current7DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.current8DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.wattsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batterymahperkmDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batterykmleftDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batteryusedmahDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batterycell1DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batterycell2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batterycell3DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batterycell4DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batterycell5DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batterycell6DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batterytempDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batteryusedmah2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batteryusedmah3DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batteryusedmah4DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batteryusedmah5DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batteryusedmah6DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batteryusedmah7DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batteryusedmah8DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batteryvoltage2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.homeAltDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.homeLocationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.movingBaseDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.trackerLocationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.locationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.targetLocationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.distFromMovingBaseDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.eLToMAVDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.aZToMAVDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sonarrangeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sonarvoltageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rangefinder2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rangefinder3DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.freememDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.loadDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.brklevelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.armedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.rssiDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.remrssiDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txbufferDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.noiseDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.remnoiseDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rxerrorsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fixedpDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.localsnrdbDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.remotesnrdbDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.distRSSIRemainDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.packetdropremoteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.linkqualitygcsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.hwvoltageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.boardvoltageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.servovoltageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.voltageflagDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.i2cerrorsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.timesincelastshotDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pressabsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.presstempDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pressabs2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.presstemp2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.magofsxDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.magofsyDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.magofszDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.magdeclinationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rawpressDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rawtempDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gyrocalxDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gyrocalyDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gyrocalzDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.accelcalxDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.accelcalyDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.accelcalzDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rateattitudeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ratepositionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ratestatusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ratesensorsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ratercDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.datetimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.connectedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.campointaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.campointbDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.campointcDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gimbalPointDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gimballatDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gimballngDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.landedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.terrainactiveDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.tercuraltDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.teraltDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.terloadDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.terpendDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.terspaceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.kIndexDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.optmxDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.optmyDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.optxDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.optyDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.optquaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ekfstatusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ekfflagsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ekfvelvDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ekfcompvDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ekfposhorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ekfposvertDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ekfteraltDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pidffDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pidPDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pidIDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pidDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pidaxisDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.piddesiredDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pidachievedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vibeclip0DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vibeclip1DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vibeclip2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vibexDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vibeyDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vibezDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.versionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rpm1DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rpm2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.capabilitiesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.speedupDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vtolstateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.landedstateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bindingSourceQuickTab = new System.Windows.Forms.BindingSource(this.components);
+            this.COMBJOY = new System.Windows.Forms.ComboBox();
             this.but_disablejoystick = new MissionPlanner.Controls.MyButton();
+            this.distanceBar1 = new MissionPlanner.Controls.DistanceBar();
             this.windDir1 = new MissionPlanner.Controls.WindDir();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.label6 = new System.Windows.Forms.Label();
@@ -157,7 +516,6 @@
             this.bindingSourceGaugesTab = new System.Windows.Forms.BindingSource(this.components);
             this.contextMenuStripQuickView = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.setViewCountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bindingSourceQuickTab = new System.Windows.Forms.BindingSource(this.components);
             this.ZedGraphTimer = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.openScriptDialog = new System.Windows.Forms.OpenFileDialog();
@@ -166,26 +524,7 @@
             this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.Messagetabtimer = new System.Windows.Forms.Timer(this.components);
             this.bindingSourceStatusTab = new System.Windows.Forms.BindingSource(this.components);
-            this.COMBJOY = new System.Windows.Forms.ComboBox();
-            this.modifyandSetSpeed = new MissionPlanner.Controls.ModifyandSet();
-            this.modifyandSetLoiterRad = new MissionPlanner.Controls.ModifyandSet();
-            this.modifyandSetAlt = new MissionPlanner.Controls.ModifyandSet();
-            this.checkListControl1 = new MissionPlanner.Controls.PreFlight.CheckListControl();
-            this.servoOptions1 = new MissionPlanner.Controls.ServoOptions();
-            this.servoOptions2 = new MissionPlanner.Controls.ServoOptions();
-            this.servoOptions3 = new MissionPlanner.Controls.ServoOptions();
-            this.servoOptions4 = new MissionPlanner.Controls.ServoOptions();
-            this.servoOptions5 = new MissionPlanner.Controls.ServoOptions();
-            this.servoOptions6 = new MissionPlanner.Controls.ServoOptions();
-            this.servoOptions7 = new MissionPlanner.Controls.ServoOptions();
-            this.servoOptions8 = new MissionPlanner.Controls.ServoOptions();
-            this.servoOptions9 = new MissionPlanner.Controls.ServoOptions();
-            this.servoOptions10 = new MissionPlanner.Controls.ServoOptions();
-            this.relayOptions1 = new MissionPlanner.Controls.RelayOptions();
-            this.relayOptions2 = new MissionPlanner.Controls.RelayOptions();
-            this.relayOptions3 = new MissionPlanner.Controls.RelayOptions();
-            this.relayOptions4 = new MissionPlanner.Controls.RelayOptions();
-            this.distanceBar1 = new MissionPlanner.Controls.DistanceBar();
+            this.RecargaLbl = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.MainH)).BeginInit();
             this.MainH.Panel1.SuspendLayout();
             this.MainH.Panel2.SuspendLayout();
@@ -199,11 +538,13 @@
             this.tabControlactions.SuspendLayout();
             this.contextMenuStripactionstab.SuspendLayout();
             this.tabQuick.SuspendLayout();
+            this.tableLayoutPanelQuick.SuspendLayout();
             this.tabActions.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
+            this.tableLayoutPanel7.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
             this.tabActionsSimple.SuspendLayout();
             this.tabPagePreFlight.SuspendLayout();
             this.tabGauges.SuspendLayout();
@@ -231,13 +572,14 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.contextMenuStripMap.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceQuickTab)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TRK_zoom)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Zoomlevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceGaugesTab)).BeginInit();
             this.contextMenuStripQuickView.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceQuickTab)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceStatusTab)).BeginInit();
             this.SuspendLayout();
             // 
@@ -264,11 +606,17 @@
             // 
             // SubMainLeft.Panel1
             // 
+            this.SubMainLeft.Panel1.Controls.Add(this.label7);
             this.SubMainLeft.Panel1.Controls.Add(this.hud1);
             // 
             // SubMainLeft.Panel2
             // 
             this.SubMainLeft.Panel2.Controls.Add(this.tabControlactions);
+            // 
+            // label7
+            // 
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.Name = "label7";
             // 
             // hud1
             // 
@@ -327,7 +675,6 @@
             this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("critAOA", this.bindingSourceHud, "crit_AOA", true));
             this.hud1.datetime = new System.DateTime(((long)(0)));
             this.hud1.displayAOASSA = false;
-            this.hud1.displayvibe = false;
             this.hud1.disttowp = 0F;
             this.hud1.distunit = null;
             resources.ApplyResources(this.hud1, "hud1");
@@ -354,7 +701,7 @@
             this.hud1.navroll = 0F;
             this.hud1.pitch = 0F;
             this.hud1.roll = 0F;
-            this.hud1.Russian = false;
+            this.hud1.Russian = true;
             this.hud1.skyColor1 = System.Drawing.Color.Blue;
             this.hud1.skyColor2 = System.Drawing.Color.LightBlue;
             this.hud1.speedunit = null;
@@ -527,7 +874,15 @@
             // tableLayoutPanelQuick
             // 
             resources.ApplyResources(this.tableLayoutPanelQuick, "tableLayoutPanelQuick");
+            this.tableLayoutPanelQuick.Controls.Add(this.s, 0, 0);
             this.tableLayoutPanelQuick.Name = "tableLayoutPanelQuick";
+            this.tableLayoutPanelQuick.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanelQuick_Paint);
+            this.tableLayoutPanelQuick.DoubleClick += new System.EventHandler(this.quickView_DoubleClick);
+            // 
+            // s
+            // 
+            resources.ApplyResources(this.s, "s");
+            this.s.Name = "s";
             // 
             // tabActions
             // 
@@ -548,30 +903,12 @@
             // tableLayoutPanel1
             // 
             resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel5, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel4, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel5, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel7, 0, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint_1);
-            // 
-            // tableLayoutPanel5
-            // 
-            resources.ApplyResources(this.tableLayoutPanel5, "tableLayoutPanel5");
-            this.tableLayoutPanel5.Controls.Add(this.modifyandSetSpeed, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.BUT_ARM, 1, 0);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel5_Paint);
-            // 
-            // BUT_ARM
-            // 
-            resources.ApplyResources(this.BUT_ARM, "BUT_ARM");
-            this.BUT_ARM.ColorMouseDown = System.Drawing.Color.Empty;
-            this.BUT_ARM.ColorMouseOver = System.Drawing.Color.Empty;
-            this.BUT_ARM.ColorNotEnabled = System.Drawing.Color.Empty;
-            this.BUT_ARM.Name = "BUT_ARM";
-            this.toolTip1.SetToolTip(this.BUT_ARM, resources.GetString("BUT_ARM.ToolTip"));
-            this.BUT_ARM.UseVisualStyleBackColor = true;
-            this.BUT_ARM.Click += new System.EventHandler(this.BUT_ARM_Click);
             // 
             // tableLayoutPanel4
             // 
@@ -719,6 +1056,102 @@
             this.BUT_joystick.UseVisualStyleBackColor = true;
             this.BUT_joystick.Click += new System.EventHandler(this.BUT_joystick_Click);
             // 
+            // tableLayoutPanel7
+            // 
+            resources.ApplyResources(this.tableLayoutPanel7, "tableLayoutPanel7");
+            this.tableLayoutPanel7.Controls.Add(this.label11, 3, 0);
+            this.tableLayoutPanel7.Controls.Add(this.label10, 2, 0);
+            this.tableLayoutPanel7.Controls.Add(this.label9, 1, 0);
+            this.tableLayoutPanel7.Controls.Add(this.LBLrangefinder1, 0, 1);
+            this.tableLayoutPanel7.Controls.Add(this.LBLDistToHome, 0, 1);
+            this.tableLayoutPanel7.Controls.Add(this.LBLwp_dist, 0, 1);
+            this.tableLayoutPanel7.Controls.Add(this.LBLgroundspeed, 0, 1);
+            this.tableLayoutPanel7.Controls.Add(this.label8, 0, 0);
+            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
+            // 
+            // label11
+            // 
+            resources.ApplyResources(this.label11, "label11");
+            this.label11.Name = "label11";
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
+            // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
+            // 
+            // LBLrangefinder1
+            // 
+            resources.ApplyResources(this.LBLrangefinder1, "LBLrangefinder1");
+            this.LBLrangefinder1.Name = "LBLrangefinder1";
+            // 
+            // LBLDistToHome
+            // 
+            resources.ApplyResources(this.LBLDistToHome, "LBLDistToHome");
+            this.LBLDistToHome.Name = "LBLDistToHome";
+            // 
+            // LBLwp_dist
+            // 
+            resources.ApplyResources(this.LBLwp_dist, "LBLwp_dist");
+            this.LBLwp_dist.Name = "LBLwp_dist";
+            // 
+            // LBLgroundspeed
+            // 
+            resources.ApplyResources(this.LBLgroundspeed, "LBLgroundspeed");
+            this.LBLgroundspeed.Name = "LBLgroundspeed";
+            // 
+            // label8
+            // 
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.Name = "label8";
+            // 
+            // tableLayoutPanel5
+            // 
+            resources.ApplyResources(this.tableLayoutPanel5, "tableLayoutPanel5");
+            this.tableLayoutPanel5.Controls.Add(this.modifyandSetSpeed, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.BUT_ARM, 1, 0);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel5_Paint);
+            // 
+            // modifyandSetSpeed
+            // 
+            this.modifyandSetSpeed.ButtonText = "Change Speed";
+            resources.ApplyResources(this.modifyandSetSpeed, "modifyandSetSpeed");
+            this.modifyandSetSpeed.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.modifyandSetSpeed.Minimum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.modifyandSetSpeed.Name = "modifyandSetSpeed";
+            this.modifyandSetSpeed.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.modifyandSetSpeed.Click += new System.EventHandler(this.modifyandSetSpeed_Click);
+            this.modifyandSetSpeed.Load += new System.EventHandler(this.modifyandSetSpeed_Load);
+            this.modifyandSetSpeed.ParentChanged += new System.EventHandler(this.modifyandSetSpeed_ParentChanged);
+            // 
+            // BUT_ARM
+            // 
+            resources.ApplyResources(this.BUT_ARM, "BUT_ARM");
+            this.BUT_ARM.ColorMouseDown = System.Drawing.Color.Empty;
+            this.BUT_ARM.ColorMouseOver = System.Drawing.Color.Empty;
+            this.BUT_ARM.ColorNotEnabled = System.Drawing.Color.Empty;
+            this.BUT_ARM.Name = "BUT_ARM";
+            this.toolTip1.SetToolTip(this.BUT_ARM, resources.GetString("BUT_ARM.ToolTip"));
+            this.BUT_ARM.UseVisualStyleBackColor = true;
+            this.BUT_ARM.Click += new System.EventHandler(this.BUT_ARM_Click);
+            // 
             // BUT_Homealt
             // 
             this.BUT_Homealt.ColorMouseDown = System.Drawing.Color.Empty;
@@ -789,6 +1222,50 @@
             this.BUTactiondo.UseVisualStyleBackColor = true;
             this.BUTactiondo.Click += new System.EventHandler(this.BUTactiondo_Click);
             // 
+            // modifyandSetLoiterRad
+            // 
+            this.modifyandSetLoiterRad.ButtonText = "Set Loiter Rad";
+            resources.ApplyResources(this.modifyandSetLoiterRad, "modifyandSetLoiterRad");
+            this.modifyandSetLoiterRad.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.modifyandSetLoiterRad.Minimum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            -2147483648});
+            this.modifyandSetLoiterRad.Name = "modifyandSetLoiterRad";
+            this.modifyandSetLoiterRad.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.modifyandSetLoiterRad.Click += new System.EventHandler(this.modifyandSetLoiterRad_Click);
+            // 
+            // modifyandSetAlt
+            // 
+            this.modifyandSetAlt.ButtonText = "Change Alt";
+            resources.ApplyResources(this.modifyandSetAlt, "modifyandSetAlt");
+            this.modifyandSetAlt.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.modifyandSetAlt.Minimum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.modifyandSetAlt.Name = "modifyandSetAlt";
+            this.modifyandSetAlt.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.modifyandSetAlt.Click += new System.EventHandler(this.modifyandSetAlt_Click);
+            // 
             // tabActionsSimple
             // 
             this.tabActionsSimple.Controls.Add(this.myButton1);
@@ -837,6 +1314,11 @@
             resources.ApplyResources(this.tabPagePreFlight, "tabPagePreFlight");
             this.tabPagePreFlight.Name = "tabPagePreFlight";
             this.tabPagePreFlight.UseVisualStyleBackColor = true;
+            // 
+            // checkListControl1
+            // 
+            resources.ApplyResources(this.checkListControl1, "checkListControl1");
+            this.checkListControl1.Name = "checkListControl1";
             // 
             // tabGauges
             // 
@@ -1313,6 +1795,90 @@
             this.flowLayoutPanelServos.Controls.Add(this.relayOptions4);
             this.flowLayoutPanelServos.Name = "flowLayoutPanelServos";
             // 
+            // servoOptions1
+            // 
+            resources.ApplyResources(this.servoOptions1, "servoOptions1");
+            this.servoOptions1.Name = "servoOptions1";
+            this.servoOptions1.thisservo = 5;
+            // 
+            // servoOptions2
+            // 
+            resources.ApplyResources(this.servoOptions2, "servoOptions2");
+            this.servoOptions2.Name = "servoOptions2";
+            this.servoOptions2.thisservo = 6;
+            // 
+            // servoOptions3
+            // 
+            resources.ApplyResources(this.servoOptions3, "servoOptions3");
+            this.servoOptions3.Name = "servoOptions3";
+            this.servoOptions3.thisservo = 7;
+            // 
+            // servoOptions4
+            // 
+            resources.ApplyResources(this.servoOptions4, "servoOptions4");
+            this.servoOptions4.Name = "servoOptions4";
+            this.servoOptions4.thisservo = 8;
+            // 
+            // servoOptions5
+            // 
+            resources.ApplyResources(this.servoOptions5, "servoOptions5");
+            this.servoOptions5.Name = "servoOptions5";
+            this.servoOptions5.thisservo = 9;
+            // 
+            // servoOptions6
+            // 
+            resources.ApplyResources(this.servoOptions6, "servoOptions6");
+            this.servoOptions6.Name = "servoOptions6";
+            this.servoOptions6.thisservo = 10;
+            // 
+            // servoOptions7
+            // 
+            resources.ApplyResources(this.servoOptions7, "servoOptions7");
+            this.servoOptions7.Name = "servoOptions7";
+            this.servoOptions7.thisservo = 11;
+            // 
+            // servoOptions8
+            // 
+            resources.ApplyResources(this.servoOptions8, "servoOptions8");
+            this.servoOptions8.Name = "servoOptions8";
+            this.servoOptions8.thisservo = 12;
+            // 
+            // servoOptions9
+            // 
+            resources.ApplyResources(this.servoOptions9, "servoOptions9");
+            this.servoOptions9.Name = "servoOptions9";
+            this.servoOptions9.thisservo = 13;
+            // 
+            // servoOptions10
+            // 
+            resources.ApplyResources(this.servoOptions10, "servoOptions10");
+            this.servoOptions10.Name = "servoOptions10";
+            this.servoOptions10.thisservo = 14;
+            // 
+            // relayOptions1
+            // 
+            resources.ApplyResources(this.relayOptions1, "relayOptions1");
+            this.relayOptions1.Name = "relayOptions1";
+            this.relayOptions1.thisrelay = 0;
+            // 
+            // relayOptions2
+            // 
+            resources.ApplyResources(this.relayOptions2, "relayOptions2");
+            this.relayOptions2.Name = "relayOptions2";
+            this.relayOptions2.thisrelay = 1;
+            // 
+            // relayOptions3
+            // 
+            resources.ApplyResources(this.relayOptions3, "relayOptions3");
+            this.relayOptions3.Name = "relayOptions3";
+            this.relayOptions3.thisrelay = 2;
+            // 
+            // relayOptions4
+            // 
+            resources.ApplyResources(this.relayOptions4, "relayOptions4");
+            this.relayOptions4.Name = "relayOptions4";
+            this.relayOptions4.thisrelay = 3;
+            // 
             // tabTLogs
             // 
             this.tabTLogs.Controls.Add(this.tableLayoutPanel2);
@@ -1745,6 +2311,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.ContextMenuStrip = this.contextMenuStripMap;
+            this.splitContainer1.Panel2.Controls.Add(this.dataGridView1);
             this.splitContainer1.Panel2.Controls.Add(this.COMBJOY);
             this.splitContainer1.Panel2.Controls.Add(this.but_disablejoystick);
             this.splitContainer1.Panel2.Controls.Add(this.distanceBar1);
@@ -1897,6 +2464,2354 @@
             resources.ApplyResources(this.setHomeHereToolStripMenuItem2, "setHomeHereToolStripMenuItem2");
             this.setHomeHereToolStripMenuItem2.Click += new System.EventHandler(this.setHomeHereToolStripMenuItem2_Click);
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AutoGenerateColumns = false;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.groundspeedDataGridViewTextBoxColumn,
+            this.wpdistDataGridViewTextBoxColumn,
+            this.distToHomeDataGridViewTextBoxColumn,
+            this.rangefinder1DataGridViewTextBoxColumn,
+            this.parentDataGridViewTextBoxColumn,
+            this.rollDataGridViewTextBoxColumn,
+            this.pitchDataGridViewTextBoxColumn,
+            this.yawDataGridViewTextBoxColumn,
+            this.sSADataGridViewTextBoxColumn,
+            this.aOADataGridViewTextBoxColumn,
+            this.groundcourseDataGridViewTextBoxColumn,
+            this.latDataGridViewTextBoxColumn,
+            this.lngDataGridViewTextBoxColumn,
+            this.altDataGridViewTextBoxColumn,
+            this.altaslDataGridViewTextBoxColumn,
+            this.horizondistDataGridViewTextBoxColumn,
+            this.vxDataGridViewTextBoxColumn,
+            this.vyDataGridViewTextBoxColumn,
+            this.vzDataGridViewTextBoxColumn,
+            this.vlenDataGridViewTextBoxColumn,
+            this.altoffsethomeDataGridViewTextBoxColumn,
+            this.gpsstatusDataGridViewTextBoxColumn,
+            this.gpshdopDataGridViewTextBoxColumn,
+            this.satcountDataGridViewTextBoxColumn,
+            this.gpshaccDataGridViewTextBoxColumn,
+            this.gpsvaccDataGridViewTextBoxColumn,
+            this.gpsvelaccDataGridViewTextBoxColumn,
+            this.gpshdgaccDataGridViewTextBoxColumn,
+            this.lat2DataGridViewTextBoxColumn,
+            this.lng2DataGridViewTextBoxColumn,
+            this.altasl2DataGridViewTextBoxColumn,
+            this.gpsstatus2DataGridViewTextBoxColumn,
+            this.gpshdop2DataGridViewTextBoxColumn,
+            this.satcount2DataGridViewTextBoxColumn,
+            this.groundspeed2DataGridViewTextBoxColumn,
+            this.groundcourse2DataGridViewTextBoxColumn,
+            this.satcountBDataGridViewTextBoxColumn,
+            this.gpstimeDataGridViewTextBoxColumn,
+            this.altd1000DataGridViewTextBoxColumn,
+            this.altd100DataGridViewTextBoxColumn,
+            this.airspeedDataGridViewTextBoxColumn,
+            this.targetairspeedDataGridViewTextBoxColumn,
+            this.lowairspeedDataGridViewCheckBoxColumn,
+            this.asratioDataGridViewTextBoxColumn,
+            this.axDataGridViewTextBoxColumn,
+            this.ayDataGridViewTextBoxColumn,
+            this.azDataGridViewTextBoxColumn,
+            this.accelsqDataGridViewTextBoxColumn,
+            this.gxDataGridViewTextBoxColumn,
+            this.gyDataGridViewTextBoxColumn,
+            this.gzDataGridViewTextBoxColumn,
+            this.gyrosqDataGridViewTextBoxColumn,
+            this.mxDataGridViewTextBoxColumn,
+            this.myDataGridViewTextBoxColumn,
+            this.mzDataGridViewTextBoxColumn,
+            this.magfieldDataGridViewTextBoxColumn,
+            this.ax2DataGridViewTextBoxColumn,
+            this.ay2DataGridViewTextBoxColumn,
+            this.az2DataGridViewTextBoxColumn,
+            this.accelsq2DataGridViewTextBoxColumn,
+            this.gx2DataGridViewTextBoxColumn,
+            this.gy2DataGridViewTextBoxColumn,
+            this.gz2DataGridViewTextBoxColumn,
+            this.gyrosq2DataGridViewTextBoxColumn,
+            this.mx2DataGridViewTextBoxColumn,
+            this.my2DataGridViewTextBoxColumn,
+            this.mz2DataGridViewTextBoxColumn,
+            this.magfield2DataGridViewTextBoxColumn,
+            this.ax3DataGridViewTextBoxColumn,
+            this.ay3DataGridViewTextBoxColumn,
+            this.az3DataGridViewTextBoxColumn,
+            this.accelsq3DataGridViewTextBoxColumn,
+            this.gx3DataGridViewTextBoxColumn,
+            this.gy3DataGridViewTextBoxColumn,
+            this.gz3DataGridViewTextBoxColumn,
+            this.gyrosq3DataGridViewTextBoxColumn,
+            this.mx3DataGridViewTextBoxColumn,
+            this.my3DataGridViewTextBoxColumn,
+            this.mz3DataGridViewTextBoxColumn,
+            this.magfield3DataGridViewTextBoxColumn,
+            this.ch1inDataGridViewTextBoxColumn,
+            this.ch2inDataGridViewTextBoxColumn,
+            this.ch3inDataGridViewTextBoxColumn,
+            this.ch4inDataGridViewTextBoxColumn,
+            this.ch5inDataGridViewTextBoxColumn,
+            this.ch6inDataGridViewTextBoxColumn,
+            this.ch7inDataGridViewTextBoxColumn,
+            this.ch8inDataGridViewTextBoxColumn,
+            this.ch9inDataGridViewTextBoxColumn,
+            this.ch10inDataGridViewTextBoxColumn,
+            this.ch11inDataGridViewTextBoxColumn,
+            this.ch12inDataGridViewTextBoxColumn,
+            this.ch13inDataGridViewTextBoxColumn,
+            this.ch14inDataGridViewTextBoxColumn,
+            this.ch15inDataGridViewTextBoxColumn,
+            this.ch16inDataGridViewTextBoxColumn,
+            this.ch1outDataGridViewTextBoxColumn,
+            this.ch2outDataGridViewTextBoxColumn,
+            this.ch3outDataGridViewTextBoxColumn,
+            this.ch4outDataGridViewTextBoxColumn,
+            this.ch5outDataGridViewTextBoxColumn,
+            this.ch6outDataGridViewTextBoxColumn,
+            this.ch7outDataGridViewTextBoxColumn,
+            this.ch8outDataGridViewTextBoxColumn,
+            this.ch9outDataGridViewTextBoxColumn,
+            this.ch10outDataGridViewTextBoxColumn,
+            this.ch11outDataGridViewTextBoxColumn,
+            this.ch12outDataGridViewTextBoxColumn,
+            this.ch13outDataGridViewTextBoxColumn,
+            this.ch14outDataGridViewTextBoxColumn,
+            this.ch15outDataGridViewTextBoxColumn,
+            this.ch16outDataGridViewTextBoxColumn,
+            this.esc1voltDataGridViewTextBoxColumn,
+            this.esc1currDataGridViewTextBoxColumn,
+            this.esc1rpmDataGridViewTextBoxColumn,
+            this.esc1tempDataGridViewTextBoxColumn,
+            this.esc2voltDataGridViewTextBoxColumn,
+            this.esc2currDataGridViewTextBoxColumn,
+            this.esc2rpmDataGridViewTextBoxColumn,
+            this.esc2tempDataGridViewTextBoxColumn,
+            this.esc3voltDataGridViewTextBoxColumn,
+            this.esc3currDataGridViewTextBoxColumn,
+            this.esc3rpmDataGridViewTextBoxColumn,
+            this.esc3tempDataGridViewTextBoxColumn,
+            this.esc4voltDataGridViewTextBoxColumn,
+            this.esc4currDataGridViewTextBoxColumn,
+            this.esc4rpmDataGridViewTextBoxColumn,
+            this.esc4tempDataGridViewTextBoxColumn,
+            this.esc5voltDataGridViewTextBoxColumn,
+            this.esc5currDataGridViewTextBoxColumn,
+            this.esc5rpmDataGridViewTextBoxColumn,
+            this.esc5tempDataGridViewTextBoxColumn,
+            this.esc6voltDataGridViewTextBoxColumn,
+            this.esc6currDataGridViewTextBoxColumn,
+            this.esc6rpmDataGridViewTextBoxColumn,
+            this.esc6tempDataGridViewTextBoxColumn,
+            this.esc7voltDataGridViewTextBoxColumn,
+            this.esc7currDataGridViewTextBoxColumn,
+            this.esc7rpmDataGridViewTextBoxColumn,
+            this.esc7tempDataGridViewTextBoxColumn,
+            this.esc8voltDataGridViewTextBoxColumn,
+            this.esc8currDataGridViewTextBoxColumn,
+            this.esc8rpmDataGridViewTextBoxColumn,
+            this.esc8tempDataGridViewTextBoxColumn,
+            this.ch3percentDataGridViewTextBoxColumn,
+            this.failsafeDataGridViewCheckBoxColumn,
+            this.rxrssiDataGridViewTextBoxColumn,
+            this.critAOADataGridViewTextBoxColumn,
+            this.lowgroundspeedDataGridViewCheckBoxColumn,
+            this.verticalspeedDataGridViewTextBoxColumn,
+            this.verticalspeedfpmDataGridViewTextBoxColumn,
+            this.glideratioDataGridViewTextBoxColumn,
+            this.navrollDataGridViewTextBoxColumn,
+            this.navpitchDataGridViewTextBoxColumn,
+            this.navbearingDataGridViewTextBoxColumn,
+            this.targetbearingDataGridViewTextBoxColumn,
+            this.alterrorDataGridViewTextBoxColumn,
+            this.bererrorDataGridViewTextBoxColumn,
+            this.aspderrorDataGridViewTextBoxColumn,
+            this.xtrackerrorDataGridViewTextBoxColumn,
+            this.wpnoDataGridViewTextBoxColumn,
+            this.modeDataGridViewTextBoxColumn,
+            this.climbrateDataGridViewTextBoxColumn,
+            this.totDataGridViewTextBoxColumn,
+            this.tohDataGridViewTextBoxColumn,
+            this.distTraveledDataGridViewTextBoxColumn,
+            this.timeSinceArmInAirDataGridViewTextBoxColumn,
+            this.timeInAirDataGridViewTextBoxColumn,
+            this.timeInAirMinSecDataGridViewTextBoxColumn,
+            this.turnrateDataGridViewTextBoxColumn,
+            this.turngDataGridViewTextBoxColumn,
+            this.radiusDataGridViewTextBoxColumn,
+            this.qNHDataGridViewTextBoxColumn,
+            this.winddirDataGridViewTextBoxColumn,
+            this.windvelDataGridViewTextBoxColumn,
+            this.targetaltd100DataGridViewTextBoxColumn,
+            this.targetaltDataGridViewTextBoxColumn,
+            this.messageDataGridViewTextBoxColumn,
+            this.messageHighDataGridViewTextBoxColumn,
+            this.messageHighTimeDataGridViewTextBoxColumn,
+            this.batteryvoltageDataGridViewTextBoxColumn,
+            this.batteryvoltage3DataGridViewTextBoxColumn,
+            this.batteryvoltage4DataGridViewTextBoxColumn,
+            this.batteryvoltage5DataGridViewTextBoxColumn,
+            this.batteryvoltage6DataGridViewTextBoxColumn,
+            this.batteryvoltage7DataGridViewTextBoxColumn,
+            this.batteryvoltage8DataGridViewTextBoxColumn,
+            this.batteryremainingDataGridViewTextBoxColumn,
+            this.batteryremaining2DataGridViewTextBoxColumn,
+            this.batteryremaining3DataGridViewTextBoxColumn,
+            this.batteryremaining4DataGridViewTextBoxColumn,
+            this.batteryremaining5DataGridViewTextBoxColumn,
+            this.batteryremaining6DataGridViewTextBoxColumn,
+            this.batteryremaining7DataGridViewTextBoxColumn,
+            this.batteryremaining8DataGridViewTextBoxColumn,
+            this.currentDataGridViewTextBoxColumn,
+            this.current2DataGridViewTextBoxColumn,
+            this.current3DataGridViewTextBoxColumn,
+            this.current4DataGridViewTextBoxColumn,
+            this.current5DataGridViewTextBoxColumn,
+            this.current6DataGridViewTextBoxColumn,
+            this.current7DataGridViewTextBoxColumn,
+            this.current8DataGridViewTextBoxColumn,
+            this.wattsDataGridViewTextBoxColumn,
+            this.batterymahperkmDataGridViewTextBoxColumn,
+            this.batterykmleftDataGridViewTextBoxColumn,
+            this.batteryusedmahDataGridViewTextBoxColumn,
+            this.batterycell1DataGridViewTextBoxColumn,
+            this.batterycell2DataGridViewTextBoxColumn,
+            this.batterycell3DataGridViewTextBoxColumn,
+            this.batterycell4DataGridViewTextBoxColumn,
+            this.batterycell5DataGridViewTextBoxColumn,
+            this.batterycell6DataGridViewTextBoxColumn,
+            this.batterytempDataGridViewTextBoxColumn,
+            this.batteryusedmah2DataGridViewTextBoxColumn,
+            this.batteryusedmah3DataGridViewTextBoxColumn,
+            this.batteryusedmah4DataGridViewTextBoxColumn,
+            this.batteryusedmah5DataGridViewTextBoxColumn,
+            this.batteryusedmah6DataGridViewTextBoxColumn,
+            this.batteryusedmah7DataGridViewTextBoxColumn,
+            this.batteryusedmah8DataGridViewTextBoxColumn,
+            this.batteryvoltage2DataGridViewTextBoxColumn,
+            this.homeAltDataGridViewTextBoxColumn,
+            this.homeLocationDataGridViewTextBoxColumn,
+            this.movingBaseDataGridViewTextBoxColumn,
+            this.trackerLocationDataGridViewTextBoxColumn,
+            this.locationDataGridViewTextBoxColumn,
+            this.targetLocationDataGridViewTextBoxColumn,
+            this.distFromMovingBaseDataGridViewTextBoxColumn,
+            this.eLToMAVDataGridViewTextBoxColumn,
+            this.aZToMAVDataGridViewTextBoxColumn,
+            this.sonarrangeDataGridViewTextBoxColumn,
+            this.sonarvoltageDataGridViewTextBoxColumn,
+            this.rangefinder2DataGridViewTextBoxColumn,
+            this.rangefinder3DataGridViewTextBoxColumn,
+            this.freememDataGridViewTextBoxColumn,
+            this.loadDataGridViewTextBoxColumn,
+            this.brklevelDataGridViewTextBoxColumn,
+            this.armedDataGridViewCheckBoxColumn,
+            this.rssiDataGridViewTextBoxColumn,
+            this.remrssiDataGridViewTextBoxColumn,
+            this.txbufferDataGridViewTextBoxColumn,
+            this.noiseDataGridViewTextBoxColumn,
+            this.remnoiseDataGridViewTextBoxColumn,
+            this.rxerrorsDataGridViewTextBoxColumn,
+            this.fixedpDataGridViewTextBoxColumn,
+            this.localsnrdbDataGridViewTextBoxColumn,
+            this.remotesnrdbDataGridViewTextBoxColumn,
+            this.distRSSIRemainDataGridViewTextBoxColumn,
+            this.packetdropremoteDataGridViewTextBoxColumn,
+            this.linkqualitygcsDataGridViewTextBoxColumn,
+            this.hwvoltageDataGridViewTextBoxColumn,
+            this.boardvoltageDataGridViewTextBoxColumn,
+            this.servovoltageDataGridViewTextBoxColumn,
+            this.voltageflagDataGridViewTextBoxColumn,
+            this.i2cerrorsDataGridViewTextBoxColumn,
+            this.timesincelastshotDataGridViewTextBoxColumn,
+            this.pressabsDataGridViewTextBoxColumn,
+            this.presstempDataGridViewTextBoxColumn,
+            this.pressabs2DataGridViewTextBoxColumn,
+            this.presstemp2DataGridViewTextBoxColumn,
+            this.magofsxDataGridViewTextBoxColumn,
+            this.magofsyDataGridViewTextBoxColumn,
+            this.magofszDataGridViewTextBoxColumn,
+            this.magdeclinationDataGridViewTextBoxColumn,
+            this.rawpressDataGridViewTextBoxColumn,
+            this.rawtempDataGridViewTextBoxColumn,
+            this.gyrocalxDataGridViewTextBoxColumn,
+            this.gyrocalyDataGridViewTextBoxColumn,
+            this.gyrocalzDataGridViewTextBoxColumn,
+            this.accelcalxDataGridViewTextBoxColumn,
+            this.accelcalyDataGridViewTextBoxColumn,
+            this.accelcalzDataGridViewTextBoxColumn,
+            this.rateattitudeDataGridViewTextBoxColumn,
+            this.ratepositionDataGridViewTextBoxColumn,
+            this.ratestatusDataGridViewTextBoxColumn,
+            this.ratesensorsDataGridViewTextBoxColumn,
+            this.ratercDataGridViewTextBoxColumn,
+            this.datetimeDataGridViewTextBoxColumn,
+            this.connectedDataGridViewCheckBoxColumn,
+            this.campointaDataGridViewTextBoxColumn,
+            this.campointbDataGridViewTextBoxColumn,
+            this.campointcDataGridViewTextBoxColumn,
+            this.gimbalPointDataGridViewTextBoxColumn,
+            this.gimballatDataGridViewTextBoxColumn,
+            this.gimballngDataGridViewTextBoxColumn,
+            this.landedDataGridViewCheckBoxColumn,
+            this.terrainactiveDataGridViewCheckBoxColumn,
+            this.tercuraltDataGridViewTextBoxColumn,
+            this.teraltDataGridViewTextBoxColumn,
+            this.terloadDataGridViewTextBoxColumn,
+            this.terpendDataGridViewTextBoxColumn,
+            this.terspaceDataGridViewTextBoxColumn,
+            this.kIndexDataGridViewTextBoxColumn,
+            this.optmxDataGridViewTextBoxColumn,
+            this.optmyDataGridViewTextBoxColumn,
+            this.optxDataGridViewTextBoxColumn,
+            this.optyDataGridViewTextBoxColumn,
+            this.optquaDataGridViewTextBoxColumn,
+            this.ekfstatusDataGridViewTextBoxColumn,
+            this.ekfflagsDataGridViewTextBoxColumn,
+            this.ekfvelvDataGridViewTextBoxColumn,
+            this.ekfcompvDataGridViewTextBoxColumn,
+            this.ekfposhorDataGridViewTextBoxColumn,
+            this.ekfposvertDataGridViewTextBoxColumn,
+            this.ekfteraltDataGridViewTextBoxColumn,
+            this.pidffDataGridViewTextBoxColumn,
+            this.pidPDataGridViewTextBoxColumn,
+            this.pidIDataGridViewTextBoxColumn,
+            this.pidDDataGridViewTextBoxColumn,
+            this.pidaxisDataGridViewTextBoxColumn,
+            this.piddesiredDataGridViewTextBoxColumn,
+            this.pidachievedDataGridViewTextBoxColumn,
+            this.vibeclip0DataGridViewTextBoxColumn,
+            this.vibeclip1DataGridViewTextBoxColumn,
+            this.vibeclip2DataGridViewTextBoxColumn,
+            this.vibexDataGridViewTextBoxColumn,
+            this.vibeyDataGridViewTextBoxColumn,
+            this.vibezDataGridViewTextBoxColumn,
+            this.versionDataGridViewTextBoxColumn,
+            this.rpm1DataGridViewTextBoxColumn,
+            this.rpm2DataGridViewTextBoxColumn,
+            this.capabilitiesDataGridViewTextBoxColumn,
+            this.speedupDataGridViewTextBoxColumn,
+            this.vtolstateDataGridViewTextBoxColumn,
+            this.landedstateDataGridViewTextBoxColumn});
+            this.dataGridView1.DataSource = this.bindingSourceQuickTab;
+            resources.ApplyResources(this.dataGridView1, "dataGridView1");
+            this.dataGridView1.Name = "dataGridView1";
+            // 
+            // groundspeedDataGridViewTextBoxColumn
+            // 
+            this.groundspeedDataGridViewTextBoxColumn.DataPropertyName = "groundspeed";
+            resources.ApplyResources(this.groundspeedDataGridViewTextBoxColumn, "groundspeedDataGridViewTextBoxColumn");
+            this.groundspeedDataGridViewTextBoxColumn.Name = "groundspeedDataGridViewTextBoxColumn";
+            // 
+            // wpdistDataGridViewTextBoxColumn
+            // 
+            this.wpdistDataGridViewTextBoxColumn.DataPropertyName = "wp_dist";
+            resources.ApplyResources(this.wpdistDataGridViewTextBoxColumn, "wpdistDataGridViewTextBoxColumn");
+            this.wpdistDataGridViewTextBoxColumn.Name = "wpdistDataGridViewTextBoxColumn";
+            // 
+            // distToHomeDataGridViewTextBoxColumn
+            // 
+            this.distToHomeDataGridViewTextBoxColumn.DataPropertyName = "DistToHome";
+            resources.ApplyResources(this.distToHomeDataGridViewTextBoxColumn, "distToHomeDataGridViewTextBoxColumn");
+            this.distToHomeDataGridViewTextBoxColumn.Name = "distToHomeDataGridViewTextBoxColumn";
+            this.distToHomeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // rangefinder1DataGridViewTextBoxColumn
+            // 
+            this.rangefinder1DataGridViewTextBoxColumn.DataPropertyName = "rangefinder1";
+            resources.ApplyResources(this.rangefinder1DataGridViewTextBoxColumn, "rangefinder1DataGridViewTextBoxColumn");
+            this.rangefinder1DataGridViewTextBoxColumn.Name = "rangefinder1DataGridViewTextBoxColumn";
+            // 
+            // parentDataGridViewTextBoxColumn
+            // 
+            this.parentDataGridViewTextBoxColumn.DataPropertyName = "parent";
+            resources.ApplyResources(this.parentDataGridViewTextBoxColumn, "parentDataGridViewTextBoxColumn");
+            this.parentDataGridViewTextBoxColumn.Name = "parentDataGridViewTextBoxColumn";
+            // 
+            // rollDataGridViewTextBoxColumn
+            // 
+            this.rollDataGridViewTextBoxColumn.DataPropertyName = "roll";
+            resources.ApplyResources(this.rollDataGridViewTextBoxColumn, "rollDataGridViewTextBoxColumn");
+            this.rollDataGridViewTextBoxColumn.Name = "rollDataGridViewTextBoxColumn";
+            // 
+            // pitchDataGridViewTextBoxColumn
+            // 
+            this.pitchDataGridViewTextBoxColumn.DataPropertyName = "pitch";
+            resources.ApplyResources(this.pitchDataGridViewTextBoxColumn, "pitchDataGridViewTextBoxColumn");
+            this.pitchDataGridViewTextBoxColumn.Name = "pitchDataGridViewTextBoxColumn";
+            // 
+            // yawDataGridViewTextBoxColumn
+            // 
+            this.yawDataGridViewTextBoxColumn.DataPropertyName = "yaw";
+            resources.ApplyResources(this.yawDataGridViewTextBoxColumn, "yawDataGridViewTextBoxColumn");
+            this.yawDataGridViewTextBoxColumn.Name = "yawDataGridViewTextBoxColumn";
+            // 
+            // sSADataGridViewTextBoxColumn
+            // 
+            this.sSADataGridViewTextBoxColumn.DataPropertyName = "SSA";
+            resources.ApplyResources(this.sSADataGridViewTextBoxColumn, "sSADataGridViewTextBoxColumn");
+            this.sSADataGridViewTextBoxColumn.Name = "sSADataGridViewTextBoxColumn";
+            // 
+            // aOADataGridViewTextBoxColumn
+            // 
+            this.aOADataGridViewTextBoxColumn.DataPropertyName = "AOA";
+            resources.ApplyResources(this.aOADataGridViewTextBoxColumn, "aOADataGridViewTextBoxColumn");
+            this.aOADataGridViewTextBoxColumn.Name = "aOADataGridViewTextBoxColumn";
+            // 
+            // groundcourseDataGridViewTextBoxColumn
+            // 
+            this.groundcourseDataGridViewTextBoxColumn.DataPropertyName = "groundcourse";
+            resources.ApplyResources(this.groundcourseDataGridViewTextBoxColumn, "groundcourseDataGridViewTextBoxColumn");
+            this.groundcourseDataGridViewTextBoxColumn.Name = "groundcourseDataGridViewTextBoxColumn";
+            // 
+            // latDataGridViewTextBoxColumn
+            // 
+            this.latDataGridViewTextBoxColumn.DataPropertyName = "lat";
+            resources.ApplyResources(this.latDataGridViewTextBoxColumn, "latDataGridViewTextBoxColumn");
+            this.latDataGridViewTextBoxColumn.Name = "latDataGridViewTextBoxColumn";
+            // 
+            // lngDataGridViewTextBoxColumn
+            // 
+            this.lngDataGridViewTextBoxColumn.DataPropertyName = "lng";
+            resources.ApplyResources(this.lngDataGridViewTextBoxColumn, "lngDataGridViewTextBoxColumn");
+            this.lngDataGridViewTextBoxColumn.Name = "lngDataGridViewTextBoxColumn";
+            // 
+            // altDataGridViewTextBoxColumn
+            // 
+            this.altDataGridViewTextBoxColumn.DataPropertyName = "alt";
+            resources.ApplyResources(this.altDataGridViewTextBoxColumn, "altDataGridViewTextBoxColumn");
+            this.altDataGridViewTextBoxColumn.Name = "altDataGridViewTextBoxColumn";
+            // 
+            // altaslDataGridViewTextBoxColumn
+            // 
+            this.altaslDataGridViewTextBoxColumn.DataPropertyName = "altasl";
+            resources.ApplyResources(this.altaslDataGridViewTextBoxColumn, "altaslDataGridViewTextBoxColumn");
+            this.altaslDataGridViewTextBoxColumn.Name = "altaslDataGridViewTextBoxColumn";
+            // 
+            // horizondistDataGridViewTextBoxColumn
+            // 
+            this.horizondistDataGridViewTextBoxColumn.DataPropertyName = "horizondist";
+            resources.ApplyResources(this.horizondistDataGridViewTextBoxColumn, "horizondistDataGridViewTextBoxColumn");
+            this.horizondistDataGridViewTextBoxColumn.Name = "horizondistDataGridViewTextBoxColumn";
+            this.horizondistDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // vxDataGridViewTextBoxColumn
+            // 
+            this.vxDataGridViewTextBoxColumn.DataPropertyName = "vx";
+            resources.ApplyResources(this.vxDataGridViewTextBoxColumn, "vxDataGridViewTextBoxColumn");
+            this.vxDataGridViewTextBoxColumn.Name = "vxDataGridViewTextBoxColumn";
+            // 
+            // vyDataGridViewTextBoxColumn
+            // 
+            this.vyDataGridViewTextBoxColumn.DataPropertyName = "vy";
+            resources.ApplyResources(this.vyDataGridViewTextBoxColumn, "vyDataGridViewTextBoxColumn");
+            this.vyDataGridViewTextBoxColumn.Name = "vyDataGridViewTextBoxColumn";
+            // 
+            // vzDataGridViewTextBoxColumn
+            // 
+            this.vzDataGridViewTextBoxColumn.DataPropertyName = "vz";
+            resources.ApplyResources(this.vzDataGridViewTextBoxColumn, "vzDataGridViewTextBoxColumn");
+            this.vzDataGridViewTextBoxColumn.Name = "vzDataGridViewTextBoxColumn";
+            // 
+            // vlenDataGridViewTextBoxColumn
+            // 
+            this.vlenDataGridViewTextBoxColumn.DataPropertyName = "vlen";
+            resources.ApplyResources(this.vlenDataGridViewTextBoxColumn, "vlenDataGridViewTextBoxColumn");
+            this.vlenDataGridViewTextBoxColumn.Name = "vlenDataGridViewTextBoxColumn";
+            this.vlenDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // altoffsethomeDataGridViewTextBoxColumn
+            // 
+            this.altoffsethomeDataGridViewTextBoxColumn.DataPropertyName = "altoffsethome";
+            resources.ApplyResources(this.altoffsethomeDataGridViewTextBoxColumn, "altoffsethomeDataGridViewTextBoxColumn");
+            this.altoffsethomeDataGridViewTextBoxColumn.Name = "altoffsethomeDataGridViewTextBoxColumn";
+            // 
+            // gpsstatusDataGridViewTextBoxColumn
+            // 
+            this.gpsstatusDataGridViewTextBoxColumn.DataPropertyName = "gpsstatus";
+            resources.ApplyResources(this.gpsstatusDataGridViewTextBoxColumn, "gpsstatusDataGridViewTextBoxColumn");
+            this.gpsstatusDataGridViewTextBoxColumn.Name = "gpsstatusDataGridViewTextBoxColumn";
+            // 
+            // gpshdopDataGridViewTextBoxColumn
+            // 
+            this.gpshdopDataGridViewTextBoxColumn.DataPropertyName = "gpshdop";
+            resources.ApplyResources(this.gpshdopDataGridViewTextBoxColumn, "gpshdopDataGridViewTextBoxColumn");
+            this.gpshdopDataGridViewTextBoxColumn.Name = "gpshdopDataGridViewTextBoxColumn";
+            // 
+            // satcountDataGridViewTextBoxColumn
+            // 
+            this.satcountDataGridViewTextBoxColumn.DataPropertyName = "satcount";
+            resources.ApplyResources(this.satcountDataGridViewTextBoxColumn, "satcountDataGridViewTextBoxColumn");
+            this.satcountDataGridViewTextBoxColumn.Name = "satcountDataGridViewTextBoxColumn";
+            // 
+            // gpshaccDataGridViewTextBoxColumn
+            // 
+            this.gpshaccDataGridViewTextBoxColumn.DataPropertyName = "gpsh_acc";
+            resources.ApplyResources(this.gpshaccDataGridViewTextBoxColumn, "gpshaccDataGridViewTextBoxColumn");
+            this.gpshaccDataGridViewTextBoxColumn.Name = "gpshaccDataGridViewTextBoxColumn";
+            this.gpshaccDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // gpsvaccDataGridViewTextBoxColumn
+            // 
+            this.gpsvaccDataGridViewTextBoxColumn.DataPropertyName = "gpsv_acc";
+            resources.ApplyResources(this.gpsvaccDataGridViewTextBoxColumn, "gpsvaccDataGridViewTextBoxColumn");
+            this.gpsvaccDataGridViewTextBoxColumn.Name = "gpsvaccDataGridViewTextBoxColumn";
+            this.gpsvaccDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // gpsvelaccDataGridViewTextBoxColumn
+            // 
+            this.gpsvelaccDataGridViewTextBoxColumn.DataPropertyName = "gpsvel_acc";
+            resources.ApplyResources(this.gpsvelaccDataGridViewTextBoxColumn, "gpsvelaccDataGridViewTextBoxColumn");
+            this.gpsvelaccDataGridViewTextBoxColumn.Name = "gpsvelaccDataGridViewTextBoxColumn";
+            this.gpsvelaccDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // gpshdgaccDataGridViewTextBoxColumn
+            // 
+            this.gpshdgaccDataGridViewTextBoxColumn.DataPropertyName = "gpshdg_acc";
+            resources.ApplyResources(this.gpshdgaccDataGridViewTextBoxColumn, "gpshdgaccDataGridViewTextBoxColumn");
+            this.gpshdgaccDataGridViewTextBoxColumn.Name = "gpshdgaccDataGridViewTextBoxColumn";
+            this.gpshdgaccDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // lat2DataGridViewTextBoxColumn
+            // 
+            this.lat2DataGridViewTextBoxColumn.DataPropertyName = "lat2";
+            resources.ApplyResources(this.lat2DataGridViewTextBoxColumn, "lat2DataGridViewTextBoxColumn");
+            this.lat2DataGridViewTextBoxColumn.Name = "lat2DataGridViewTextBoxColumn";
+            // 
+            // lng2DataGridViewTextBoxColumn
+            // 
+            this.lng2DataGridViewTextBoxColumn.DataPropertyName = "lng2";
+            resources.ApplyResources(this.lng2DataGridViewTextBoxColumn, "lng2DataGridViewTextBoxColumn");
+            this.lng2DataGridViewTextBoxColumn.Name = "lng2DataGridViewTextBoxColumn";
+            // 
+            // altasl2DataGridViewTextBoxColumn
+            // 
+            this.altasl2DataGridViewTextBoxColumn.DataPropertyName = "altasl2";
+            resources.ApplyResources(this.altasl2DataGridViewTextBoxColumn, "altasl2DataGridViewTextBoxColumn");
+            this.altasl2DataGridViewTextBoxColumn.Name = "altasl2DataGridViewTextBoxColumn";
+            // 
+            // gpsstatus2DataGridViewTextBoxColumn
+            // 
+            this.gpsstatus2DataGridViewTextBoxColumn.DataPropertyName = "gpsstatus2";
+            resources.ApplyResources(this.gpsstatus2DataGridViewTextBoxColumn, "gpsstatus2DataGridViewTextBoxColumn");
+            this.gpsstatus2DataGridViewTextBoxColumn.Name = "gpsstatus2DataGridViewTextBoxColumn";
+            // 
+            // gpshdop2DataGridViewTextBoxColumn
+            // 
+            this.gpshdop2DataGridViewTextBoxColumn.DataPropertyName = "gpshdop2";
+            resources.ApplyResources(this.gpshdop2DataGridViewTextBoxColumn, "gpshdop2DataGridViewTextBoxColumn");
+            this.gpshdop2DataGridViewTextBoxColumn.Name = "gpshdop2DataGridViewTextBoxColumn";
+            // 
+            // satcount2DataGridViewTextBoxColumn
+            // 
+            this.satcount2DataGridViewTextBoxColumn.DataPropertyName = "satcount2";
+            resources.ApplyResources(this.satcount2DataGridViewTextBoxColumn, "satcount2DataGridViewTextBoxColumn");
+            this.satcount2DataGridViewTextBoxColumn.Name = "satcount2DataGridViewTextBoxColumn";
+            // 
+            // groundspeed2DataGridViewTextBoxColumn
+            // 
+            this.groundspeed2DataGridViewTextBoxColumn.DataPropertyName = "groundspeed2";
+            resources.ApplyResources(this.groundspeed2DataGridViewTextBoxColumn, "groundspeed2DataGridViewTextBoxColumn");
+            this.groundspeed2DataGridViewTextBoxColumn.Name = "groundspeed2DataGridViewTextBoxColumn";
+            // 
+            // groundcourse2DataGridViewTextBoxColumn
+            // 
+            this.groundcourse2DataGridViewTextBoxColumn.DataPropertyName = "groundcourse2";
+            resources.ApplyResources(this.groundcourse2DataGridViewTextBoxColumn, "groundcourse2DataGridViewTextBoxColumn");
+            this.groundcourse2DataGridViewTextBoxColumn.Name = "groundcourse2DataGridViewTextBoxColumn";
+            // 
+            // satcountBDataGridViewTextBoxColumn
+            // 
+            this.satcountBDataGridViewTextBoxColumn.DataPropertyName = "satcountB";
+            resources.ApplyResources(this.satcountBDataGridViewTextBoxColumn, "satcountBDataGridViewTextBoxColumn");
+            this.satcountBDataGridViewTextBoxColumn.Name = "satcountBDataGridViewTextBoxColumn";
+            this.satcountBDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // gpstimeDataGridViewTextBoxColumn
+            // 
+            this.gpstimeDataGridViewTextBoxColumn.DataPropertyName = "gpstime";
+            resources.ApplyResources(this.gpstimeDataGridViewTextBoxColumn, "gpstimeDataGridViewTextBoxColumn");
+            this.gpstimeDataGridViewTextBoxColumn.Name = "gpstimeDataGridViewTextBoxColumn";
+            // 
+            // altd1000DataGridViewTextBoxColumn
+            // 
+            this.altd1000DataGridViewTextBoxColumn.DataPropertyName = "altd1000";
+            resources.ApplyResources(this.altd1000DataGridViewTextBoxColumn, "altd1000DataGridViewTextBoxColumn");
+            this.altd1000DataGridViewTextBoxColumn.Name = "altd1000DataGridViewTextBoxColumn";
+            this.altd1000DataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // altd100DataGridViewTextBoxColumn
+            // 
+            this.altd100DataGridViewTextBoxColumn.DataPropertyName = "altd100";
+            resources.ApplyResources(this.altd100DataGridViewTextBoxColumn, "altd100DataGridViewTextBoxColumn");
+            this.altd100DataGridViewTextBoxColumn.Name = "altd100DataGridViewTextBoxColumn";
+            this.altd100DataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // airspeedDataGridViewTextBoxColumn
+            // 
+            this.airspeedDataGridViewTextBoxColumn.DataPropertyName = "airspeed";
+            resources.ApplyResources(this.airspeedDataGridViewTextBoxColumn, "airspeedDataGridViewTextBoxColumn");
+            this.airspeedDataGridViewTextBoxColumn.Name = "airspeedDataGridViewTextBoxColumn";
+            // 
+            // targetairspeedDataGridViewTextBoxColumn
+            // 
+            this.targetairspeedDataGridViewTextBoxColumn.DataPropertyName = "targetairspeed";
+            resources.ApplyResources(this.targetairspeedDataGridViewTextBoxColumn, "targetairspeedDataGridViewTextBoxColumn");
+            this.targetairspeedDataGridViewTextBoxColumn.Name = "targetairspeedDataGridViewTextBoxColumn";
+            this.targetairspeedDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // lowairspeedDataGridViewCheckBoxColumn
+            // 
+            this.lowairspeedDataGridViewCheckBoxColumn.DataPropertyName = "lowairspeed";
+            resources.ApplyResources(this.lowairspeedDataGridViewCheckBoxColumn, "lowairspeedDataGridViewCheckBoxColumn");
+            this.lowairspeedDataGridViewCheckBoxColumn.Name = "lowairspeedDataGridViewCheckBoxColumn";
+            // 
+            // asratioDataGridViewTextBoxColumn
+            // 
+            this.asratioDataGridViewTextBoxColumn.DataPropertyName = "asratio";
+            resources.ApplyResources(this.asratioDataGridViewTextBoxColumn, "asratioDataGridViewTextBoxColumn");
+            this.asratioDataGridViewTextBoxColumn.Name = "asratioDataGridViewTextBoxColumn";
+            // 
+            // axDataGridViewTextBoxColumn
+            // 
+            this.axDataGridViewTextBoxColumn.DataPropertyName = "ax";
+            resources.ApplyResources(this.axDataGridViewTextBoxColumn, "axDataGridViewTextBoxColumn");
+            this.axDataGridViewTextBoxColumn.Name = "axDataGridViewTextBoxColumn";
+            // 
+            // ayDataGridViewTextBoxColumn
+            // 
+            this.ayDataGridViewTextBoxColumn.DataPropertyName = "ay";
+            resources.ApplyResources(this.ayDataGridViewTextBoxColumn, "ayDataGridViewTextBoxColumn");
+            this.ayDataGridViewTextBoxColumn.Name = "ayDataGridViewTextBoxColumn";
+            // 
+            // azDataGridViewTextBoxColumn
+            // 
+            this.azDataGridViewTextBoxColumn.DataPropertyName = "az";
+            resources.ApplyResources(this.azDataGridViewTextBoxColumn, "azDataGridViewTextBoxColumn");
+            this.azDataGridViewTextBoxColumn.Name = "azDataGridViewTextBoxColumn";
+            // 
+            // accelsqDataGridViewTextBoxColumn
+            // 
+            this.accelsqDataGridViewTextBoxColumn.DataPropertyName = "accelsq";
+            resources.ApplyResources(this.accelsqDataGridViewTextBoxColumn, "accelsqDataGridViewTextBoxColumn");
+            this.accelsqDataGridViewTextBoxColumn.Name = "accelsqDataGridViewTextBoxColumn";
+            this.accelsqDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // gxDataGridViewTextBoxColumn
+            // 
+            this.gxDataGridViewTextBoxColumn.DataPropertyName = "gx";
+            resources.ApplyResources(this.gxDataGridViewTextBoxColumn, "gxDataGridViewTextBoxColumn");
+            this.gxDataGridViewTextBoxColumn.Name = "gxDataGridViewTextBoxColumn";
+            // 
+            // gyDataGridViewTextBoxColumn
+            // 
+            this.gyDataGridViewTextBoxColumn.DataPropertyName = "gy";
+            resources.ApplyResources(this.gyDataGridViewTextBoxColumn, "gyDataGridViewTextBoxColumn");
+            this.gyDataGridViewTextBoxColumn.Name = "gyDataGridViewTextBoxColumn";
+            // 
+            // gzDataGridViewTextBoxColumn
+            // 
+            this.gzDataGridViewTextBoxColumn.DataPropertyName = "gz";
+            resources.ApplyResources(this.gzDataGridViewTextBoxColumn, "gzDataGridViewTextBoxColumn");
+            this.gzDataGridViewTextBoxColumn.Name = "gzDataGridViewTextBoxColumn";
+            // 
+            // gyrosqDataGridViewTextBoxColumn
+            // 
+            this.gyrosqDataGridViewTextBoxColumn.DataPropertyName = "gyrosq";
+            resources.ApplyResources(this.gyrosqDataGridViewTextBoxColumn, "gyrosqDataGridViewTextBoxColumn");
+            this.gyrosqDataGridViewTextBoxColumn.Name = "gyrosqDataGridViewTextBoxColumn";
+            this.gyrosqDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // mxDataGridViewTextBoxColumn
+            // 
+            this.mxDataGridViewTextBoxColumn.DataPropertyName = "mx";
+            resources.ApplyResources(this.mxDataGridViewTextBoxColumn, "mxDataGridViewTextBoxColumn");
+            this.mxDataGridViewTextBoxColumn.Name = "mxDataGridViewTextBoxColumn";
+            // 
+            // myDataGridViewTextBoxColumn
+            // 
+            this.myDataGridViewTextBoxColumn.DataPropertyName = "my";
+            resources.ApplyResources(this.myDataGridViewTextBoxColumn, "myDataGridViewTextBoxColumn");
+            this.myDataGridViewTextBoxColumn.Name = "myDataGridViewTextBoxColumn";
+            // 
+            // mzDataGridViewTextBoxColumn
+            // 
+            this.mzDataGridViewTextBoxColumn.DataPropertyName = "mz";
+            resources.ApplyResources(this.mzDataGridViewTextBoxColumn, "mzDataGridViewTextBoxColumn");
+            this.mzDataGridViewTextBoxColumn.Name = "mzDataGridViewTextBoxColumn";
+            // 
+            // magfieldDataGridViewTextBoxColumn
+            // 
+            this.magfieldDataGridViewTextBoxColumn.DataPropertyName = "magfield";
+            resources.ApplyResources(this.magfieldDataGridViewTextBoxColumn, "magfieldDataGridViewTextBoxColumn");
+            this.magfieldDataGridViewTextBoxColumn.Name = "magfieldDataGridViewTextBoxColumn";
+            this.magfieldDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // ax2DataGridViewTextBoxColumn
+            // 
+            this.ax2DataGridViewTextBoxColumn.DataPropertyName = "ax2";
+            resources.ApplyResources(this.ax2DataGridViewTextBoxColumn, "ax2DataGridViewTextBoxColumn");
+            this.ax2DataGridViewTextBoxColumn.Name = "ax2DataGridViewTextBoxColumn";
+            // 
+            // ay2DataGridViewTextBoxColumn
+            // 
+            this.ay2DataGridViewTextBoxColumn.DataPropertyName = "ay2";
+            resources.ApplyResources(this.ay2DataGridViewTextBoxColumn, "ay2DataGridViewTextBoxColumn");
+            this.ay2DataGridViewTextBoxColumn.Name = "ay2DataGridViewTextBoxColumn";
+            // 
+            // az2DataGridViewTextBoxColumn
+            // 
+            this.az2DataGridViewTextBoxColumn.DataPropertyName = "az2";
+            resources.ApplyResources(this.az2DataGridViewTextBoxColumn, "az2DataGridViewTextBoxColumn");
+            this.az2DataGridViewTextBoxColumn.Name = "az2DataGridViewTextBoxColumn";
+            // 
+            // accelsq2DataGridViewTextBoxColumn
+            // 
+            this.accelsq2DataGridViewTextBoxColumn.DataPropertyName = "accelsq2";
+            resources.ApplyResources(this.accelsq2DataGridViewTextBoxColumn, "accelsq2DataGridViewTextBoxColumn");
+            this.accelsq2DataGridViewTextBoxColumn.Name = "accelsq2DataGridViewTextBoxColumn";
+            this.accelsq2DataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // gx2DataGridViewTextBoxColumn
+            // 
+            this.gx2DataGridViewTextBoxColumn.DataPropertyName = "gx2";
+            resources.ApplyResources(this.gx2DataGridViewTextBoxColumn, "gx2DataGridViewTextBoxColumn");
+            this.gx2DataGridViewTextBoxColumn.Name = "gx2DataGridViewTextBoxColumn";
+            // 
+            // gy2DataGridViewTextBoxColumn
+            // 
+            this.gy2DataGridViewTextBoxColumn.DataPropertyName = "gy2";
+            resources.ApplyResources(this.gy2DataGridViewTextBoxColumn, "gy2DataGridViewTextBoxColumn");
+            this.gy2DataGridViewTextBoxColumn.Name = "gy2DataGridViewTextBoxColumn";
+            // 
+            // gz2DataGridViewTextBoxColumn
+            // 
+            this.gz2DataGridViewTextBoxColumn.DataPropertyName = "gz2";
+            resources.ApplyResources(this.gz2DataGridViewTextBoxColumn, "gz2DataGridViewTextBoxColumn");
+            this.gz2DataGridViewTextBoxColumn.Name = "gz2DataGridViewTextBoxColumn";
+            // 
+            // gyrosq2DataGridViewTextBoxColumn
+            // 
+            this.gyrosq2DataGridViewTextBoxColumn.DataPropertyName = "gyrosq2";
+            resources.ApplyResources(this.gyrosq2DataGridViewTextBoxColumn, "gyrosq2DataGridViewTextBoxColumn");
+            this.gyrosq2DataGridViewTextBoxColumn.Name = "gyrosq2DataGridViewTextBoxColumn";
+            this.gyrosq2DataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // mx2DataGridViewTextBoxColumn
+            // 
+            this.mx2DataGridViewTextBoxColumn.DataPropertyName = "mx2";
+            resources.ApplyResources(this.mx2DataGridViewTextBoxColumn, "mx2DataGridViewTextBoxColumn");
+            this.mx2DataGridViewTextBoxColumn.Name = "mx2DataGridViewTextBoxColumn";
+            // 
+            // my2DataGridViewTextBoxColumn
+            // 
+            this.my2DataGridViewTextBoxColumn.DataPropertyName = "my2";
+            resources.ApplyResources(this.my2DataGridViewTextBoxColumn, "my2DataGridViewTextBoxColumn");
+            this.my2DataGridViewTextBoxColumn.Name = "my2DataGridViewTextBoxColumn";
+            // 
+            // mz2DataGridViewTextBoxColumn
+            // 
+            this.mz2DataGridViewTextBoxColumn.DataPropertyName = "mz2";
+            resources.ApplyResources(this.mz2DataGridViewTextBoxColumn, "mz2DataGridViewTextBoxColumn");
+            this.mz2DataGridViewTextBoxColumn.Name = "mz2DataGridViewTextBoxColumn";
+            // 
+            // magfield2DataGridViewTextBoxColumn
+            // 
+            this.magfield2DataGridViewTextBoxColumn.DataPropertyName = "magfield2";
+            resources.ApplyResources(this.magfield2DataGridViewTextBoxColumn, "magfield2DataGridViewTextBoxColumn");
+            this.magfield2DataGridViewTextBoxColumn.Name = "magfield2DataGridViewTextBoxColumn";
+            this.magfield2DataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // ax3DataGridViewTextBoxColumn
+            // 
+            this.ax3DataGridViewTextBoxColumn.DataPropertyName = "ax3";
+            resources.ApplyResources(this.ax3DataGridViewTextBoxColumn, "ax3DataGridViewTextBoxColumn");
+            this.ax3DataGridViewTextBoxColumn.Name = "ax3DataGridViewTextBoxColumn";
+            // 
+            // ay3DataGridViewTextBoxColumn
+            // 
+            this.ay3DataGridViewTextBoxColumn.DataPropertyName = "ay3";
+            resources.ApplyResources(this.ay3DataGridViewTextBoxColumn, "ay3DataGridViewTextBoxColumn");
+            this.ay3DataGridViewTextBoxColumn.Name = "ay3DataGridViewTextBoxColumn";
+            // 
+            // az3DataGridViewTextBoxColumn
+            // 
+            this.az3DataGridViewTextBoxColumn.DataPropertyName = "az3";
+            resources.ApplyResources(this.az3DataGridViewTextBoxColumn, "az3DataGridViewTextBoxColumn");
+            this.az3DataGridViewTextBoxColumn.Name = "az3DataGridViewTextBoxColumn";
+            // 
+            // accelsq3DataGridViewTextBoxColumn
+            // 
+            this.accelsq3DataGridViewTextBoxColumn.DataPropertyName = "accelsq3";
+            resources.ApplyResources(this.accelsq3DataGridViewTextBoxColumn, "accelsq3DataGridViewTextBoxColumn");
+            this.accelsq3DataGridViewTextBoxColumn.Name = "accelsq3DataGridViewTextBoxColumn";
+            this.accelsq3DataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // gx3DataGridViewTextBoxColumn
+            // 
+            this.gx3DataGridViewTextBoxColumn.DataPropertyName = "gx3";
+            resources.ApplyResources(this.gx3DataGridViewTextBoxColumn, "gx3DataGridViewTextBoxColumn");
+            this.gx3DataGridViewTextBoxColumn.Name = "gx3DataGridViewTextBoxColumn";
+            // 
+            // gy3DataGridViewTextBoxColumn
+            // 
+            this.gy3DataGridViewTextBoxColumn.DataPropertyName = "gy3";
+            resources.ApplyResources(this.gy3DataGridViewTextBoxColumn, "gy3DataGridViewTextBoxColumn");
+            this.gy3DataGridViewTextBoxColumn.Name = "gy3DataGridViewTextBoxColumn";
+            // 
+            // gz3DataGridViewTextBoxColumn
+            // 
+            this.gz3DataGridViewTextBoxColumn.DataPropertyName = "gz3";
+            resources.ApplyResources(this.gz3DataGridViewTextBoxColumn, "gz3DataGridViewTextBoxColumn");
+            this.gz3DataGridViewTextBoxColumn.Name = "gz3DataGridViewTextBoxColumn";
+            // 
+            // gyrosq3DataGridViewTextBoxColumn
+            // 
+            this.gyrosq3DataGridViewTextBoxColumn.DataPropertyName = "gyrosq3";
+            resources.ApplyResources(this.gyrosq3DataGridViewTextBoxColumn, "gyrosq3DataGridViewTextBoxColumn");
+            this.gyrosq3DataGridViewTextBoxColumn.Name = "gyrosq3DataGridViewTextBoxColumn";
+            this.gyrosq3DataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // mx3DataGridViewTextBoxColumn
+            // 
+            this.mx3DataGridViewTextBoxColumn.DataPropertyName = "mx3";
+            resources.ApplyResources(this.mx3DataGridViewTextBoxColumn, "mx3DataGridViewTextBoxColumn");
+            this.mx3DataGridViewTextBoxColumn.Name = "mx3DataGridViewTextBoxColumn";
+            // 
+            // my3DataGridViewTextBoxColumn
+            // 
+            this.my3DataGridViewTextBoxColumn.DataPropertyName = "my3";
+            resources.ApplyResources(this.my3DataGridViewTextBoxColumn, "my3DataGridViewTextBoxColumn");
+            this.my3DataGridViewTextBoxColumn.Name = "my3DataGridViewTextBoxColumn";
+            // 
+            // mz3DataGridViewTextBoxColumn
+            // 
+            this.mz3DataGridViewTextBoxColumn.DataPropertyName = "mz3";
+            resources.ApplyResources(this.mz3DataGridViewTextBoxColumn, "mz3DataGridViewTextBoxColumn");
+            this.mz3DataGridViewTextBoxColumn.Name = "mz3DataGridViewTextBoxColumn";
+            // 
+            // magfield3DataGridViewTextBoxColumn
+            // 
+            this.magfield3DataGridViewTextBoxColumn.DataPropertyName = "magfield3";
+            resources.ApplyResources(this.magfield3DataGridViewTextBoxColumn, "magfield3DataGridViewTextBoxColumn");
+            this.magfield3DataGridViewTextBoxColumn.Name = "magfield3DataGridViewTextBoxColumn";
+            this.magfield3DataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // ch1inDataGridViewTextBoxColumn
+            // 
+            this.ch1inDataGridViewTextBoxColumn.DataPropertyName = "ch1in";
+            resources.ApplyResources(this.ch1inDataGridViewTextBoxColumn, "ch1inDataGridViewTextBoxColumn");
+            this.ch1inDataGridViewTextBoxColumn.Name = "ch1inDataGridViewTextBoxColumn";
+            // 
+            // ch2inDataGridViewTextBoxColumn
+            // 
+            this.ch2inDataGridViewTextBoxColumn.DataPropertyName = "ch2in";
+            resources.ApplyResources(this.ch2inDataGridViewTextBoxColumn, "ch2inDataGridViewTextBoxColumn");
+            this.ch2inDataGridViewTextBoxColumn.Name = "ch2inDataGridViewTextBoxColumn";
+            // 
+            // ch3inDataGridViewTextBoxColumn
+            // 
+            this.ch3inDataGridViewTextBoxColumn.DataPropertyName = "ch3in";
+            resources.ApplyResources(this.ch3inDataGridViewTextBoxColumn, "ch3inDataGridViewTextBoxColumn");
+            this.ch3inDataGridViewTextBoxColumn.Name = "ch3inDataGridViewTextBoxColumn";
+            // 
+            // ch4inDataGridViewTextBoxColumn
+            // 
+            this.ch4inDataGridViewTextBoxColumn.DataPropertyName = "ch4in";
+            resources.ApplyResources(this.ch4inDataGridViewTextBoxColumn, "ch4inDataGridViewTextBoxColumn");
+            this.ch4inDataGridViewTextBoxColumn.Name = "ch4inDataGridViewTextBoxColumn";
+            // 
+            // ch5inDataGridViewTextBoxColumn
+            // 
+            this.ch5inDataGridViewTextBoxColumn.DataPropertyName = "ch5in";
+            resources.ApplyResources(this.ch5inDataGridViewTextBoxColumn, "ch5inDataGridViewTextBoxColumn");
+            this.ch5inDataGridViewTextBoxColumn.Name = "ch5inDataGridViewTextBoxColumn";
+            // 
+            // ch6inDataGridViewTextBoxColumn
+            // 
+            this.ch6inDataGridViewTextBoxColumn.DataPropertyName = "ch6in";
+            resources.ApplyResources(this.ch6inDataGridViewTextBoxColumn, "ch6inDataGridViewTextBoxColumn");
+            this.ch6inDataGridViewTextBoxColumn.Name = "ch6inDataGridViewTextBoxColumn";
+            // 
+            // ch7inDataGridViewTextBoxColumn
+            // 
+            this.ch7inDataGridViewTextBoxColumn.DataPropertyName = "ch7in";
+            resources.ApplyResources(this.ch7inDataGridViewTextBoxColumn, "ch7inDataGridViewTextBoxColumn");
+            this.ch7inDataGridViewTextBoxColumn.Name = "ch7inDataGridViewTextBoxColumn";
+            // 
+            // ch8inDataGridViewTextBoxColumn
+            // 
+            this.ch8inDataGridViewTextBoxColumn.DataPropertyName = "ch8in";
+            resources.ApplyResources(this.ch8inDataGridViewTextBoxColumn, "ch8inDataGridViewTextBoxColumn");
+            this.ch8inDataGridViewTextBoxColumn.Name = "ch8inDataGridViewTextBoxColumn";
+            // 
+            // ch9inDataGridViewTextBoxColumn
+            // 
+            this.ch9inDataGridViewTextBoxColumn.DataPropertyName = "ch9in";
+            resources.ApplyResources(this.ch9inDataGridViewTextBoxColumn, "ch9inDataGridViewTextBoxColumn");
+            this.ch9inDataGridViewTextBoxColumn.Name = "ch9inDataGridViewTextBoxColumn";
+            // 
+            // ch10inDataGridViewTextBoxColumn
+            // 
+            this.ch10inDataGridViewTextBoxColumn.DataPropertyName = "ch10in";
+            resources.ApplyResources(this.ch10inDataGridViewTextBoxColumn, "ch10inDataGridViewTextBoxColumn");
+            this.ch10inDataGridViewTextBoxColumn.Name = "ch10inDataGridViewTextBoxColumn";
+            // 
+            // ch11inDataGridViewTextBoxColumn
+            // 
+            this.ch11inDataGridViewTextBoxColumn.DataPropertyName = "ch11in";
+            resources.ApplyResources(this.ch11inDataGridViewTextBoxColumn, "ch11inDataGridViewTextBoxColumn");
+            this.ch11inDataGridViewTextBoxColumn.Name = "ch11inDataGridViewTextBoxColumn";
+            // 
+            // ch12inDataGridViewTextBoxColumn
+            // 
+            this.ch12inDataGridViewTextBoxColumn.DataPropertyName = "ch12in";
+            resources.ApplyResources(this.ch12inDataGridViewTextBoxColumn, "ch12inDataGridViewTextBoxColumn");
+            this.ch12inDataGridViewTextBoxColumn.Name = "ch12inDataGridViewTextBoxColumn";
+            // 
+            // ch13inDataGridViewTextBoxColumn
+            // 
+            this.ch13inDataGridViewTextBoxColumn.DataPropertyName = "ch13in";
+            resources.ApplyResources(this.ch13inDataGridViewTextBoxColumn, "ch13inDataGridViewTextBoxColumn");
+            this.ch13inDataGridViewTextBoxColumn.Name = "ch13inDataGridViewTextBoxColumn";
+            // 
+            // ch14inDataGridViewTextBoxColumn
+            // 
+            this.ch14inDataGridViewTextBoxColumn.DataPropertyName = "ch14in";
+            resources.ApplyResources(this.ch14inDataGridViewTextBoxColumn, "ch14inDataGridViewTextBoxColumn");
+            this.ch14inDataGridViewTextBoxColumn.Name = "ch14inDataGridViewTextBoxColumn";
+            // 
+            // ch15inDataGridViewTextBoxColumn
+            // 
+            this.ch15inDataGridViewTextBoxColumn.DataPropertyName = "ch15in";
+            resources.ApplyResources(this.ch15inDataGridViewTextBoxColumn, "ch15inDataGridViewTextBoxColumn");
+            this.ch15inDataGridViewTextBoxColumn.Name = "ch15inDataGridViewTextBoxColumn";
+            // 
+            // ch16inDataGridViewTextBoxColumn
+            // 
+            this.ch16inDataGridViewTextBoxColumn.DataPropertyName = "ch16in";
+            resources.ApplyResources(this.ch16inDataGridViewTextBoxColumn, "ch16inDataGridViewTextBoxColumn");
+            this.ch16inDataGridViewTextBoxColumn.Name = "ch16inDataGridViewTextBoxColumn";
+            // 
+            // ch1outDataGridViewTextBoxColumn
+            // 
+            this.ch1outDataGridViewTextBoxColumn.DataPropertyName = "ch1out";
+            resources.ApplyResources(this.ch1outDataGridViewTextBoxColumn, "ch1outDataGridViewTextBoxColumn");
+            this.ch1outDataGridViewTextBoxColumn.Name = "ch1outDataGridViewTextBoxColumn";
+            // 
+            // ch2outDataGridViewTextBoxColumn
+            // 
+            this.ch2outDataGridViewTextBoxColumn.DataPropertyName = "ch2out";
+            resources.ApplyResources(this.ch2outDataGridViewTextBoxColumn, "ch2outDataGridViewTextBoxColumn");
+            this.ch2outDataGridViewTextBoxColumn.Name = "ch2outDataGridViewTextBoxColumn";
+            // 
+            // ch3outDataGridViewTextBoxColumn
+            // 
+            this.ch3outDataGridViewTextBoxColumn.DataPropertyName = "ch3out";
+            resources.ApplyResources(this.ch3outDataGridViewTextBoxColumn, "ch3outDataGridViewTextBoxColumn");
+            this.ch3outDataGridViewTextBoxColumn.Name = "ch3outDataGridViewTextBoxColumn";
+            // 
+            // ch4outDataGridViewTextBoxColumn
+            // 
+            this.ch4outDataGridViewTextBoxColumn.DataPropertyName = "ch4out";
+            resources.ApplyResources(this.ch4outDataGridViewTextBoxColumn, "ch4outDataGridViewTextBoxColumn");
+            this.ch4outDataGridViewTextBoxColumn.Name = "ch4outDataGridViewTextBoxColumn";
+            // 
+            // ch5outDataGridViewTextBoxColumn
+            // 
+            this.ch5outDataGridViewTextBoxColumn.DataPropertyName = "ch5out";
+            resources.ApplyResources(this.ch5outDataGridViewTextBoxColumn, "ch5outDataGridViewTextBoxColumn");
+            this.ch5outDataGridViewTextBoxColumn.Name = "ch5outDataGridViewTextBoxColumn";
+            // 
+            // ch6outDataGridViewTextBoxColumn
+            // 
+            this.ch6outDataGridViewTextBoxColumn.DataPropertyName = "ch6out";
+            resources.ApplyResources(this.ch6outDataGridViewTextBoxColumn, "ch6outDataGridViewTextBoxColumn");
+            this.ch6outDataGridViewTextBoxColumn.Name = "ch6outDataGridViewTextBoxColumn";
+            // 
+            // ch7outDataGridViewTextBoxColumn
+            // 
+            this.ch7outDataGridViewTextBoxColumn.DataPropertyName = "ch7out";
+            resources.ApplyResources(this.ch7outDataGridViewTextBoxColumn, "ch7outDataGridViewTextBoxColumn");
+            this.ch7outDataGridViewTextBoxColumn.Name = "ch7outDataGridViewTextBoxColumn";
+            // 
+            // ch8outDataGridViewTextBoxColumn
+            // 
+            this.ch8outDataGridViewTextBoxColumn.DataPropertyName = "ch8out";
+            resources.ApplyResources(this.ch8outDataGridViewTextBoxColumn, "ch8outDataGridViewTextBoxColumn");
+            this.ch8outDataGridViewTextBoxColumn.Name = "ch8outDataGridViewTextBoxColumn";
+            // 
+            // ch9outDataGridViewTextBoxColumn
+            // 
+            this.ch9outDataGridViewTextBoxColumn.DataPropertyName = "ch9out";
+            resources.ApplyResources(this.ch9outDataGridViewTextBoxColumn, "ch9outDataGridViewTextBoxColumn");
+            this.ch9outDataGridViewTextBoxColumn.Name = "ch9outDataGridViewTextBoxColumn";
+            // 
+            // ch10outDataGridViewTextBoxColumn
+            // 
+            this.ch10outDataGridViewTextBoxColumn.DataPropertyName = "ch10out";
+            resources.ApplyResources(this.ch10outDataGridViewTextBoxColumn, "ch10outDataGridViewTextBoxColumn");
+            this.ch10outDataGridViewTextBoxColumn.Name = "ch10outDataGridViewTextBoxColumn";
+            // 
+            // ch11outDataGridViewTextBoxColumn
+            // 
+            this.ch11outDataGridViewTextBoxColumn.DataPropertyName = "ch11out";
+            resources.ApplyResources(this.ch11outDataGridViewTextBoxColumn, "ch11outDataGridViewTextBoxColumn");
+            this.ch11outDataGridViewTextBoxColumn.Name = "ch11outDataGridViewTextBoxColumn";
+            // 
+            // ch12outDataGridViewTextBoxColumn
+            // 
+            this.ch12outDataGridViewTextBoxColumn.DataPropertyName = "ch12out";
+            resources.ApplyResources(this.ch12outDataGridViewTextBoxColumn, "ch12outDataGridViewTextBoxColumn");
+            this.ch12outDataGridViewTextBoxColumn.Name = "ch12outDataGridViewTextBoxColumn";
+            // 
+            // ch13outDataGridViewTextBoxColumn
+            // 
+            this.ch13outDataGridViewTextBoxColumn.DataPropertyName = "ch13out";
+            resources.ApplyResources(this.ch13outDataGridViewTextBoxColumn, "ch13outDataGridViewTextBoxColumn");
+            this.ch13outDataGridViewTextBoxColumn.Name = "ch13outDataGridViewTextBoxColumn";
+            // 
+            // ch14outDataGridViewTextBoxColumn
+            // 
+            this.ch14outDataGridViewTextBoxColumn.DataPropertyName = "ch14out";
+            resources.ApplyResources(this.ch14outDataGridViewTextBoxColumn, "ch14outDataGridViewTextBoxColumn");
+            this.ch14outDataGridViewTextBoxColumn.Name = "ch14outDataGridViewTextBoxColumn";
+            // 
+            // ch15outDataGridViewTextBoxColumn
+            // 
+            this.ch15outDataGridViewTextBoxColumn.DataPropertyName = "ch15out";
+            resources.ApplyResources(this.ch15outDataGridViewTextBoxColumn, "ch15outDataGridViewTextBoxColumn");
+            this.ch15outDataGridViewTextBoxColumn.Name = "ch15outDataGridViewTextBoxColumn";
+            // 
+            // ch16outDataGridViewTextBoxColumn
+            // 
+            this.ch16outDataGridViewTextBoxColumn.DataPropertyName = "ch16out";
+            resources.ApplyResources(this.ch16outDataGridViewTextBoxColumn, "ch16outDataGridViewTextBoxColumn");
+            this.ch16outDataGridViewTextBoxColumn.Name = "ch16outDataGridViewTextBoxColumn";
+            // 
+            // esc1voltDataGridViewTextBoxColumn
+            // 
+            this.esc1voltDataGridViewTextBoxColumn.DataPropertyName = "esc1_volt";
+            resources.ApplyResources(this.esc1voltDataGridViewTextBoxColumn, "esc1voltDataGridViewTextBoxColumn");
+            this.esc1voltDataGridViewTextBoxColumn.Name = "esc1voltDataGridViewTextBoxColumn";
+            // 
+            // esc1currDataGridViewTextBoxColumn
+            // 
+            this.esc1currDataGridViewTextBoxColumn.DataPropertyName = "esc1_curr";
+            resources.ApplyResources(this.esc1currDataGridViewTextBoxColumn, "esc1currDataGridViewTextBoxColumn");
+            this.esc1currDataGridViewTextBoxColumn.Name = "esc1currDataGridViewTextBoxColumn";
+            // 
+            // esc1rpmDataGridViewTextBoxColumn
+            // 
+            this.esc1rpmDataGridViewTextBoxColumn.DataPropertyName = "esc1_rpm";
+            resources.ApplyResources(this.esc1rpmDataGridViewTextBoxColumn, "esc1rpmDataGridViewTextBoxColumn");
+            this.esc1rpmDataGridViewTextBoxColumn.Name = "esc1rpmDataGridViewTextBoxColumn";
+            // 
+            // esc1tempDataGridViewTextBoxColumn
+            // 
+            this.esc1tempDataGridViewTextBoxColumn.DataPropertyName = "esc1_temp";
+            resources.ApplyResources(this.esc1tempDataGridViewTextBoxColumn, "esc1tempDataGridViewTextBoxColumn");
+            this.esc1tempDataGridViewTextBoxColumn.Name = "esc1tempDataGridViewTextBoxColumn";
+            // 
+            // esc2voltDataGridViewTextBoxColumn
+            // 
+            this.esc2voltDataGridViewTextBoxColumn.DataPropertyName = "esc2_volt";
+            resources.ApplyResources(this.esc2voltDataGridViewTextBoxColumn, "esc2voltDataGridViewTextBoxColumn");
+            this.esc2voltDataGridViewTextBoxColumn.Name = "esc2voltDataGridViewTextBoxColumn";
+            // 
+            // esc2currDataGridViewTextBoxColumn
+            // 
+            this.esc2currDataGridViewTextBoxColumn.DataPropertyName = "esc2_curr";
+            resources.ApplyResources(this.esc2currDataGridViewTextBoxColumn, "esc2currDataGridViewTextBoxColumn");
+            this.esc2currDataGridViewTextBoxColumn.Name = "esc2currDataGridViewTextBoxColumn";
+            // 
+            // esc2rpmDataGridViewTextBoxColumn
+            // 
+            this.esc2rpmDataGridViewTextBoxColumn.DataPropertyName = "esc2_rpm";
+            resources.ApplyResources(this.esc2rpmDataGridViewTextBoxColumn, "esc2rpmDataGridViewTextBoxColumn");
+            this.esc2rpmDataGridViewTextBoxColumn.Name = "esc2rpmDataGridViewTextBoxColumn";
+            // 
+            // esc2tempDataGridViewTextBoxColumn
+            // 
+            this.esc2tempDataGridViewTextBoxColumn.DataPropertyName = "esc2_temp";
+            resources.ApplyResources(this.esc2tempDataGridViewTextBoxColumn, "esc2tempDataGridViewTextBoxColumn");
+            this.esc2tempDataGridViewTextBoxColumn.Name = "esc2tempDataGridViewTextBoxColumn";
+            // 
+            // esc3voltDataGridViewTextBoxColumn
+            // 
+            this.esc3voltDataGridViewTextBoxColumn.DataPropertyName = "esc3_volt";
+            resources.ApplyResources(this.esc3voltDataGridViewTextBoxColumn, "esc3voltDataGridViewTextBoxColumn");
+            this.esc3voltDataGridViewTextBoxColumn.Name = "esc3voltDataGridViewTextBoxColumn";
+            // 
+            // esc3currDataGridViewTextBoxColumn
+            // 
+            this.esc3currDataGridViewTextBoxColumn.DataPropertyName = "esc3_curr";
+            resources.ApplyResources(this.esc3currDataGridViewTextBoxColumn, "esc3currDataGridViewTextBoxColumn");
+            this.esc3currDataGridViewTextBoxColumn.Name = "esc3currDataGridViewTextBoxColumn";
+            // 
+            // esc3rpmDataGridViewTextBoxColumn
+            // 
+            this.esc3rpmDataGridViewTextBoxColumn.DataPropertyName = "esc3_rpm";
+            resources.ApplyResources(this.esc3rpmDataGridViewTextBoxColumn, "esc3rpmDataGridViewTextBoxColumn");
+            this.esc3rpmDataGridViewTextBoxColumn.Name = "esc3rpmDataGridViewTextBoxColumn";
+            // 
+            // esc3tempDataGridViewTextBoxColumn
+            // 
+            this.esc3tempDataGridViewTextBoxColumn.DataPropertyName = "esc3_temp";
+            resources.ApplyResources(this.esc3tempDataGridViewTextBoxColumn, "esc3tempDataGridViewTextBoxColumn");
+            this.esc3tempDataGridViewTextBoxColumn.Name = "esc3tempDataGridViewTextBoxColumn";
+            // 
+            // esc4voltDataGridViewTextBoxColumn
+            // 
+            this.esc4voltDataGridViewTextBoxColumn.DataPropertyName = "esc4_volt";
+            resources.ApplyResources(this.esc4voltDataGridViewTextBoxColumn, "esc4voltDataGridViewTextBoxColumn");
+            this.esc4voltDataGridViewTextBoxColumn.Name = "esc4voltDataGridViewTextBoxColumn";
+            // 
+            // esc4currDataGridViewTextBoxColumn
+            // 
+            this.esc4currDataGridViewTextBoxColumn.DataPropertyName = "esc4_curr";
+            resources.ApplyResources(this.esc4currDataGridViewTextBoxColumn, "esc4currDataGridViewTextBoxColumn");
+            this.esc4currDataGridViewTextBoxColumn.Name = "esc4currDataGridViewTextBoxColumn";
+            // 
+            // esc4rpmDataGridViewTextBoxColumn
+            // 
+            this.esc4rpmDataGridViewTextBoxColumn.DataPropertyName = "esc4_rpm";
+            resources.ApplyResources(this.esc4rpmDataGridViewTextBoxColumn, "esc4rpmDataGridViewTextBoxColumn");
+            this.esc4rpmDataGridViewTextBoxColumn.Name = "esc4rpmDataGridViewTextBoxColumn";
+            // 
+            // esc4tempDataGridViewTextBoxColumn
+            // 
+            this.esc4tempDataGridViewTextBoxColumn.DataPropertyName = "esc4_temp";
+            resources.ApplyResources(this.esc4tempDataGridViewTextBoxColumn, "esc4tempDataGridViewTextBoxColumn");
+            this.esc4tempDataGridViewTextBoxColumn.Name = "esc4tempDataGridViewTextBoxColumn";
+            // 
+            // esc5voltDataGridViewTextBoxColumn
+            // 
+            this.esc5voltDataGridViewTextBoxColumn.DataPropertyName = "esc5_volt";
+            resources.ApplyResources(this.esc5voltDataGridViewTextBoxColumn, "esc5voltDataGridViewTextBoxColumn");
+            this.esc5voltDataGridViewTextBoxColumn.Name = "esc5voltDataGridViewTextBoxColumn";
+            // 
+            // esc5currDataGridViewTextBoxColumn
+            // 
+            this.esc5currDataGridViewTextBoxColumn.DataPropertyName = "esc5_curr";
+            resources.ApplyResources(this.esc5currDataGridViewTextBoxColumn, "esc5currDataGridViewTextBoxColumn");
+            this.esc5currDataGridViewTextBoxColumn.Name = "esc5currDataGridViewTextBoxColumn";
+            // 
+            // esc5rpmDataGridViewTextBoxColumn
+            // 
+            this.esc5rpmDataGridViewTextBoxColumn.DataPropertyName = "esc5_rpm";
+            resources.ApplyResources(this.esc5rpmDataGridViewTextBoxColumn, "esc5rpmDataGridViewTextBoxColumn");
+            this.esc5rpmDataGridViewTextBoxColumn.Name = "esc5rpmDataGridViewTextBoxColumn";
+            // 
+            // esc5tempDataGridViewTextBoxColumn
+            // 
+            this.esc5tempDataGridViewTextBoxColumn.DataPropertyName = "esc5_temp";
+            resources.ApplyResources(this.esc5tempDataGridViewTextBoxColumn, "esc5tempDataGridViewTextBoxColumn");
+            this.esc5tempDataGridViewTextBoxColumn.Name = "esc5tempDataGridViewTextBoxColumn";
+            // 
+            // esc6voltDataGridViewTextBoxColumn
+            // 
+            this.esc6voltDataGridViewTextBoxColumn.DataPropertyName = "esc6_volt";
+            resources.ApplyResources(this.esc6voltDataGridViewTextBoxColumn, "esc6voltDataGridViewTextBoxColumn");
+            this.esc6voltDataGridViewTextBoxColumn.Name = "esc6voltDataGridViewTextBoxColumn";
+            // 
+            // esc6currDataGridViewTextBoxColumn
+            // 
+            this.esc6currDataGridViewTextBoxColumn.DataPropertyName = "esc6_curr";
+            resources.ApplyResources(this.esc6currDataGridViewTextBoxColumn, "esc6currDataGridViewTextBoxColumn");
+            this.esc6currDataGridViewTextBoxColumn.Name = "esc6currDataGridViewTextBoxColumn";
+            // 
+            // esc6rpmDataGridViewTextBoxColumn
+            // 
+            this.esc6rpmDataGridViewTextBoxColumn.DataPropertyName = "esc6_rpm";
+            resources.ApplyResources(this.esc6rpmDataGridViewTextBoxColumn, "esc6rpmDataGridViewTextBoxColumn");
+            this.esc6rpmDataGridViewTextBoxColumn.Name = "esc6rpmDataGridViewTextBoxColumn";
+            // 
+            // esc6tempDataGridViewTextBoxColumn
+            // 
+            this.esc6tempDataGridViewTextBoxColumn.DataPropertyName = "esc6_temp";
+            resources.ApplyResources(this.esc6tempDataGridViewTextBoxColumn, "esc6tempDataGridViewTextBoxColumn");
+            this.esc6tempDataGridViewTextBoxColumn.Name = "esc6tempDataGridViewTextBoxColumn";
+            // 
+            // esc7voltDataGridViewTextBoxColumn
+            // 
+            this.esc7voltDataGridViewTextBoxColumn.DataPropertyName = "esc7_volt";
+            resources.ApplyResources(this.esc7voltDataGridViewTextBoxColumn, "esc7voltDataGridViewTextBoxColumn");
+            this.esc7voltDataGridViewTextBoxColumn.Name = "esc7voltDataGridViewTextBoxColumn";
+            // 
+            // esc7currDataGridViewTextBoxColumn
+            // 
+            this.esc7currDataGridViewTextBoxColumn.DataPropertyName = "esc7_curr";
+            resources.ApplyResources(this.esc7currDataGridViewTextBoxColumn, "esc7currDataGridViewTextBoxColumn");
+            this.esc7currDataGridViewTextBoxColumn.Name = "esc7currDataGridViewTextBoxColumn";
+            // 
+            // esc7rpmDataGridViewTextBoxColumn
+            // 
+            this.esc7rpmDataGridViewTextBoxColumn.DataPropertyName = "esc7_rpm";
+            resources.ApplyResources(this.esc7rpmDataGridViewTextBoxColumn, "esc7rpmDataGridViewTextBoxColumn");
+            this.esc7rpmDataGridViewTextBoxColumn.Name = "esc7rpmDataGridViewTextBoxColumn";
+            // 
+            // esc7tempDataGridViewTextBoxColumn
+            // 
+            this.esc7tempDataGridViewTextBoxColumn.DataPropertyName = "esc7_temp";
+            resources.ApplyResources(this.esc7tempDataGridViewTextBoxColumn, "esc7tempDataGridViewTextBoxColumn");
+            this.esc7tempDataGridViewTextBoxColumn.Name = "esc7tempDataGridViewTextBoxColumn";
+            // 
+            // esc8voltDataGridViewTextBoxColumn
+            // 
+            this.esc8voltDataGridViewTextBoxColumn.DataPropertyName = "esc8_volt";
+            resources.ApplyResources(this.esc8voltDataGridViewTextBoxColumn, "esc8voltDataGridViewTextBoxColumn");
+            this.esc8voltDataGridViewTextBoxColumn.Name = "esc8voltDataGridViewTextBoxColumn";
+            // 
+            // esc8currDataGridViewTextBoxColumn
+            // 
+            this.esc8currDataGridViewTextBoxColumn.DataPropertyName = "esc8_curr";
+            resources.ApplyResources(this.esc8currDataGridViewTextBoxColumn, "esc8currDataGridViewTextBoxColumn");
+            this.esc8currDataGridViewTextBoxColumn.Name = "esc8currDataGridViewTextBoxColumn";
+            // 
+            // esc8rpmDataGridViewTextBoxColumn
+            // 
+            this.esc8rpmDataGridViewTextBoxColumn.DataPropertyName = "esc8_rpm";
+            resources.ApplyResources(this.esc8rpmDataGridViewTextBoxColumn, "esc8rpmDataGridViewTextBoxColumn");
+            this.esc8rpmDataGridViewTextBoxColumn.Name = "esc8rpmDataGridViewTextBoxColumn";
+            // 
+            // esc8tempDataGridViewTextBoxColumn
+            // 
+            this.esc8tempDataGridViewTextBoxColumn.DataPropertyName = "esc8_temp";
+            resources.ApplyResources(this.esc8tempDataGridViewTextBoxColumn, "esc8tempDataGridViewTextBoxColumn");
+            this.esc8tempDataGridViewTextBoxColumn.Name = "esc8tempDataGridViewTextBoxColumn";
+            // 
+            // ch3percentDataGridViewTextBoxColumn
+            // 
+            this.ch3percentDataGridViewTextBoxColumn.DataPropertyName = "ch3percent";
+            resources.ApplyResources(this.ch3percentDataGridViewTextBoxColumn, "ch3percentDataGridViewTextBoxColumn");
+            this.ch3percentDataGridViewTextBoxColumn.Name = "ch3percentDataGridViewTextBoxColumn";
+            // 
+            // failsafeDataGridViewCheckBoxColumn
+            // 
+            this.failsafeDataGridViewCheckBoxColumn.DataPropertyName = "failsafe";
+            resources.ApplyResources(this.failsafeDataGridViewCheckBoxColumn, "failsafeDataGridViewCheckBoxColumn");
+            this.failsafeDataGridViewCheckBoxColumn.Name = "failsafeDataGridViewCheckBoxColumn";
+            // 
+            // rxrssiDataGridViewTextBoxColumn
+            // 
+            this.rxrssiDataGridViewTextBoxColumn.DataPropertyName = "rxrssi";
+            resources.ApplyResources(this.rxrssiDataGridViewTextBoxColumn, "rxrssiDataGridViewTextBoxColumn");
+            this.rxrssiDataGridViewTextBoxColumn.Name = "rxrssiDataGridViewTextBoxColumn";
+            // 
+            // critAOADataGridViewTextBoxColumn
+            // 
+            this.critAOADataGridViewTextBoxColumn.DataPropertyName = "crit_AOA";
+            resources.ApplyResources(this.critAOADataGridViewTextBoxColumn, "critAOADataGridViewTextBoxColumn");
+            this.critAOADataGridViewTextBoxColumn.Name = "critAOADataGridViewTextBoxColumn";
+            // 
+            // lowgroundspeedDataGridViewCheckBoxColumn
+            // 
+            this.lowgroundspeedDataGridViewCheckBoxColumn.DataPropertyName = "lowgroundspeed";
+            resources.ApplyResources(this.lowgroundspeedDataGridViewCheckBoxColumn, "lowgroundspeedDataGridViewCheckBoxColumn");
+            this.lowgroundspeedDataGridViewCheckBoxColumn.Name = "lowgroundspeedDataGridViewCheckBoxColumn";
+            // 
+            // verticalspeedDataGridViewTextBoxColumn
+            // 
+            this.verticalspeedDataGridViewTextBoxColumn.DataPropertyName = "verticalspeed";
+            resources.ApplyResources(this.verticalspeedDataGridViewTextBoxColumn, "verticalspeedDataGridViewTextBoxColumn");
+            this.verticalspeedDataGridViewTextBoxColumn.Name = "verticalspeedDataGridViewTextBoxColumn";
+            // 
+            // verticalspeedfpmDataGridViewTextBoxColumn
+            // 
+            this.verticalspeedfpmDataGridViewTextBoxColumn.DataPropertyName = "verticalspeed_fpm";
+            resources.ApplyResources(this.verticalspeedfpmDataGridViewTextBoxColumn, "verticalspeedfpmDataGridViewTextBoxColumn");
+            this.verticalspeedfpmDataGridViewTextBoxColumn.Name = "verticalspeedfpmDataGridViewTextBoxColumn";
+            this.verticalspeedfpmDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // glideratioDataGridViewTextBoxColumn
+            // 
+            this.glideratioDataGridViewTextBoxColumn.DataPropertyName = "glide_ratio";
+            resources.ApplyResources(this.glideratioDataGridViewTextBoxColumn, "glideratioDataGridViewTextBoxColumn");
+            this.glideratioDataGridViewTextBoxColumn.Name = "glideratioDataGridViewTextBoxColumn";
+            this.glideratioDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // navrollDataGridViewTextBoxColumn
+            // 
+            this.navrollDataGridViewTextBoxColumn.DataPropertyName = "nav_roll";
+            resources.ApplyResources(this.navrollDataGridViewTextBoxColumn, "navrollDataGridViewTextBoxColumn");
+            this.navrollDataGridViewTextBoxColumn.Name = "navrollDataGridViewTextBoxColumn";
+            // 
+            // navpitchDataGridViewTextBoxColumn
+            // 
+            this.navpitchDataGridViewTextBoxColumn.DataPropertyName = "nav_pitch";
+            resources.ApplyResources(this.navpitchDataGridViewTextBoxColumn, "navpitchDataGridViewTextBoxColumn");
+            this.navpitchDataGridViewTextBoxColumn.Name = "navpitchDataGridViewTextBoxColumn";
+            // 
+            // navbearingDataGridViewTextBoxColumn
+            // 
+            this.navbearingDataGridViewTextBoxColumn.DataPropertyName = "nav_bearing";
+            resources.ApplyResources(this.navbearingDataGridViewTextBoxColumn, "navbearingDataGridViewTextBoxColumn");
+            this.navbearingDataGridViewTextBoxColumn.Name = "navbearingDataGridViewTextBoxColumn";
+            // 
+            // targetbearingDataGridViewTextBoxColumn
+            // 
+            this.targetbearingDataGridViewTextBoxColumn.DataPropertyName = "target_bearing";
+            resources.ApplyResources(this.targetbearingDataGridViewTextBoxColumn, "targetbearingDataGridViewTextBoxColumn");
+            this.targetbearingDataGridViewTextBoxColumn.Name = "targetbearingDataGridViewTextBoxColumn";
+            // 
+            // alterrorDataGridViewTextBoxColumn
+            // 
+            this.alterrorDataGridViewTextBoxColumn.DataPropertyName = "alt_error";
+            resources.ApplyResources(this.alterrorDataGridViewTextBoxColumn, "alterrorDataGridViewTextBoxColumn");
+            this.alterrorDataGridViewTextBoxColumn.Name = "alterrorDataGridViewTextBoxColumn";
+            // 
+            // bererrorDataGridViewTextBoxColumn
+            // 
+            this.bererrorDataGridViewTextBoxColumn.DataPropertyName = "ber_error";
+            resources.ApplyResources(this.bererrorDataGridViewTextBoxColumn, "bererrorDataGridViewTextBoxColumn");
+            this.bererrorDataGridViewTextBoxColumn.Name = "bererrorDataGridViewTextBoxColumn";
+            // 
+            // aspderrorDataGridViewTextBoxColumn
+            // 
+            this.aspderrorDataGridViewTextBoxColumn.DataPropertyName = "aspd_error";
+            resources.ApplyResources(this.aspderrorDataGridViewTextBoxColumn, "aspderrorDataGridViewTextBoxColumn");
+            this.aspderrorDataGridViewTextBoxColumn.Name = "aspderrorDataGridViewTextBoxColumn";
+            // 
+            // xtrackerrorDataGridViewTextBoxColumn
+            // 
+            this.xtrackerrorDataGridViewTextBoxColumn.DataPropertyName = "xtrack_error";
+            resources.ApplyResources(this.xtrackerrorDataGridViewTextBoxColumn, "xtrackerrorDataGridViewTextBoxColumn");
+            this.xtrackerrorDataGridViewTextBoxColumn.Name = "xtrackerrorDataGridViewTextBoxColumn";
+            // 
+            // wpnoDataGridViewTextBoxColumn
+            // 
+            this.wpnoDataGridViewTextBoxColumn.DataPropertyName = "wpno";
+            resources.ApplyResources(this.wpnoDataGridViewTextBoxColumn, "wpnoDataGridViewTextBoxColumn");
+            this.wpnoDataGridViewTextBoxColumn.Name = "wpnoDataGridViewTextBoxColumn";
+            // 
+            // modeDataGridViewTextBoxColumn
+            // 
+            this.modeDataGridViewTextBoxColumn.DataPropertyName = "mode";
+            resources.ApplyResources(this.modeDataGridViewTextBoxColumn, "modeDataGridViewTextBoxColumn");
+            this.modeDataGridViewTextBoxColumn.Name = "modeDataGridViewTextBoxColumn";
+            // 
+            // climbrateDataGridViewTextBoxColumn
+            // 
+            this.climbrateDataGridViewTextBoxColumn.DataPropertyName = "climbrate";
+            resources.ApplyResources(this.climbrateDataGridViewTextBoxColumn, "climbrateDataGridViewTextBoxColumn");
+            this.climbrateDataGridViewTextBoxColumn.Name = "climbrateDataGridViewTextBoxColumn";
+            // 
+            // totDataGridViewTextBoxColumn
+            // 
+            this.totDataGridViewTextBoxColumn.DataPropertyName = "tot";
+            resources.ApplyResources(this.totDataGridViewTextBoxColumn, "totDataGridViewTextBoxColumn");
+            this.totDataGridViewTextBoxColumn.Name = "totDataGridViewTextBoxColumn";
+            this.totDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // tohDataGridViewTextBoxColumn
+            // 
+            this.tohDataGridViewTextBoxColumn.DataPropertyName = "toh";
+            resources.ApplyResources(this.tohDataGridViewTextBoxColumn, "tohDataGridViewTextBoxColumn");
+            this.tohDataGridViewTextBoxColumn.Name = "tohDataGridViewTextBoxColumn";
+            this.tohDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // distTraveledDataGridViewTextBoxColumn
+            // 
+            this.distTraveledDataGridViewTextBoxColumn.DataPropertyName = "distTraveled";
+            resources.ApplyResources(this.distTraveledDataGridViewTextBoxColumn, "distTraveledDataGridViewTextBoxColumn");
+            this.distTraveledDataGridViewTextBoxColumn.Name = "distTraveledDataGridViewTextBoxColumn";
+            // 
+            // timeSinceArmInAirDataGridViewTextBoxColumn
+            // 
+            this.timeSinceArmInAirDataGridViewTextBoxColumn.DataPropertyName = "timeSinceArmInAir";
+            resources.ApplyResources(this.timeSinceArmInAirDataGridViewTextBoxColumn, "timeSinceArmInAirDataGridViewTextBoxColumn");
+            this.timeSinceArmInAirDataGridViewTextBoxColumn.Name = "timeSinceArmInAirDataGridViewTextBoxColumn";
+            // 
+            // timeInAirDataGridViewTextBoxColumn
+            // 
+            this.timeInAirDataGridViewTextBoxColumn.DataPropertyName = "timeInAir";
+            resources.ApplyResources(this.timeInAirDataGridViewTextBoxColumn, "timeInAirDataGridViewTextBoxColumn");
+            this.timeInAirDataGridViewTextBoxColumn.Name = "timeInAirDataGridViewTextBoxColumn";
+            // 
+            // timeInAirMinSecDataGridViewTextBoxColumn
+            // 
+            this.timeInAirMinSecDataGridViewTextBoxColumn.DataPropertyName = "timeInAirMinSec";
+            resources.ApplyResources(this.timeInAirMinSecDataGridViewTextBoxColumn, "timeInAirMinSecDataGridViewTextBoxColumn");
+            this.timeInAirMinSecDataGridViewTextBoxColumn.Name = "timeInAirMinSecDataGridViewTextBoxColumn";
+            this.timeInAirMinSecDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // turnrateDataGridViewTextBoxColumn
+            // 
+            this.turnrateDataGridViewTextBoxColumn.DataPropertyName = "turnrate";
+            resources.ApplyResources(this.turnrateDataGridViewTextBoxColumn, "turnrateDataGridViewTextBoxColumn");
+            this.turnrateDataGridViewTextBoxColumn.Name = "turnrateDataGridViewTextBoxColumn";
+            this.turnrateDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // turngDataGridViewTextBoxColumn
+            // 
+            this.turngDataGridViewTextBoxColumn.DataPropertyName = "turng";
+            resources.ApplyResources(this.turngDataGridViewTextBoxColumn, "turngDataGridViewTextBoxColumn");
+            this.turngDataGridViewTextBoxColumn.Name = "turngDataGridViewTextBoxColumn";
+            this.turngDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // radiusDataGridViewTextBoxColumn
+            // 
+            this.radiusDataGridViewTextBoxColumn.DataPropertyName = "radius";
+            resources.ApplyResources(this.radiusDataGridViewTextBoxColumn, "radiusDataGridViewTextBoxColumn");
+            this.radiusDataGridViewTextBoxColumn.Name = "radiusDataGridViewTextBoxColumn";
+            this.radiusDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // qNHDataGridViewTextBoxColumn
+            // 
+            this.qNHDataGridViewTextBoxColumn.DataPropertyName = "QNH";
+            resources.ApplyResources(this.qNHDataGridViewTextBoxColumn, "qNHDataGridViewTextBoxColumn");
+            this.qNHDataGridViewTextBoxColumn.Name = "qNHDataGridViewTextBoxColumn";
+            this.qNHDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // winddirDataGridViewTextBoxColumn
+            // 
+            this.winddirDataGridViewTextBoxColumn.DataPropertyName = "wind_dir";
+            resources.ApplyResources(this.winddirDataGridViewTextBoxColumn, "winddirDataGridViewTextBoxColumn");
+            this.winddirDataGridViewTextBoxColumn.Name = "winddirDataGridViewTextBoxColumn";
+            // 
+            // windvelDataGridViewTextBoxColumn
+            // 
+            this.windvelDataGridViewTextBoxColumn.DataPropertyName = "wind_vel";
+            resources.ApplyResources(this.windvelDataGridViewTextBoxColumn, "windvelDataGridViewTextBoxColumn");
+            this.windvelDataGridViewTextBoxColumn.Name = "windvelDataGridViewTextBoxColumn";
+            // 
+            // targetaltd100DataGridViewTextBoxColumn
+            // 
+            this.targetaltd100DataGridViewTextBoxColumn.DataPropertyName = "targetaltd100";
+            resources.ApplyResources(this.targetaltd100DataGridViewTextBoxColumn, "targetaltd100DataGridViewTextBoxColumn");
+            this.targetaltd100DataGridViewTextBoxColumn.Name = "targetaltd100DataGridViewTextBoxColumn";
+            this.targetaltd100DataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // targetaltDataGridViewTextBoxColumn
+            // 
+            this.targetaltDataGridViewTextBoxColumn.DataPropertyName = "targetalt";
+            resources.ApplyResources(this.targetaltDataGridViewTextBoxColumn, "targetaltDataGridViewTextBoxColumn");
+            this.targetaltDataGridViewTextBoxColumn.Name = "targetaltDataGridViewTextBoxColumn";
+            this.targetaltDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // messageDataGridViewTextBoxColumn
+            // 
+            this.messageDataGridViewTextBoxColumn.DataPropertyName = "message";
+            resources.ApplyResources(this.messageDataGridViewTextBoxColumn, "messageDataGridViewTextBoxColumn");
+            this.messageDataGridViewTextBoxColumn.Name = "messageDataGridViewTextBoxColumn";
+            this.messageDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // messageHighDataGridViewTextBoxColumn
+            // 
+            this.messageHighDataGridViewTextBoxColumn.DataPropertyName = "messageHigh";
+            resources.ApplyResources(this.messageHighDataGridViewTextBoxColumn, "messageHighDataGridViewTextBoxColumn");
+            this.messageHighDataGridViewTextBoxColumn.Name = "messageHighDataGridViewTextBoxColumn";
+            // 
+            // messageHighTimeDataGridViewTextBoxColumn
+            // 
+            this.messageHighTimeDataGridViewTextBoxColumn.DataPropertyName = "messageHighTime";
+            resources.ApplyResources(this.messageHighTimeDataGridViewTextBoxColumn, "messageHighTimeDataGridViewTextBoxColumn");
+            this.messageHighTimeDataGridViewTextBoxColumn.Name = "messageHighTimeDataGridViewTextBoxColumn";
+            // 
+            // batteryvoltageDataGridViewTextBoxColumn
+            // 
+            this.batteryvoltageDataGridViewTextBoxColumn.DataPropertyName = "battery_voltage";
+            resources.ApplyResources(this.batteryvoltageDataGridViewTextBoxColumn, "batteryvoltageDataGridViewTextBoxColumn");
+            this.batteryvoltageDataGridViewTextBoxColumn.Name = "batteryvoltageDataGridViewTextBoxColumn";
+            // 
+            // batteryvoltage3DataGridViewTextBoxColumn
+            // 
+            this.batteryvoltage3DataGridViewTextBoxColumn.DataPropertyName = "battery_voltage3";
+            resources.ApplyResources(this.batteryvoltage3DataGridViewTextBoxColumn, "batteryvoltage3DataGridViewTextBoxColumn");
+            this.batteryvoltage3DataGridViewTextBoxColumn.Name = "batteryvoltage3DataGridViewTextBoxColumn";
+            // 
+            // batteryvoltage4DataGridViewTextBoxColumn
+            // 
+            this.batteryvoltage4DataGridViewTextBoxColumn.DataPropertyName = "battery_voltage4";
+            resources.ApplyResources(this.batteryvoltage4DataGridViewTextBoxColumn, "batteryvoltage4DataGridViewTextBoxColumn");
+            this.batteryvoltage4DataGridViewTextBoxColumn.Name = "batteryvoltage4DataGridViewTextBoxColumn";
+            // 
+            // batteryvoltage5DataGridViewTextBoxColumn
+            // 
+            this.batteryvoltage5DataGridViewTextBoxColumn.DataPropertyName = "battery_voltage5";
+            resources.ApplyResources(this.batteryvoltage5DataGridViewTextBoxColumn, "batteryvoltage5DataGridViewTextBoxColumn");
+            this.batteryvoltage5DataGridViewTextBoxColumn.Name = "batteryvoltage5DataGridViewTextBoxColumn";
+            // 
+            // batteryvoltage6DataGridViewTextBoxColumn
+            // 
+            this.batteryvoltage6DataGridViewTextBoxColumn.DataPropertyName = "battery_voltage6";
+            resources.ApplyResources(this.batteryvoltage6DataGridViewTextBoxColumn, "batteryvoltage6DataGridViewTextBoxColumn");
+            this.batteryvoltage6DataGridViewTextBoxColumn.Name = "batteryvoltage6DataGridViewTextBoxColumn";
+            // 
+            // batteryvoltage7DataGridViewTextBoxColumn
+            // 
+            this.batteryvoltage7DataGridViewTextBoxColumn.DataPropertyName = "battery_voltage7";
+            resources.ApplyResources(this.batteryvoltage7DataGridViewTextBoxColumn, "batteryvoltage7DataGridViewTextBoxColumn");
+            this.batteryvoltage7DataGridViewTextBoxColumn.Name = "batteryvoltage7DataGridViewTextBoxColumn";
+            // 
+            // batteryvoltage8DataGridViewTextBoxColumn
+            // 
+            this.batteryvoltage8DataGridViewTextBoxColumn.DataPropertyName = "battery_voltage8";
+            resources.ApplyResources(this.batteryvoltage8DataGridViewTextBoxColumn, "batteryvoltage8DataGridViewTextBoxColumn");
+            this.batteryvoltage8DataGridViewTextBoxColumn.Name = "batteryvoltage8DataGridViewTextBoxColumn";
+            // 
+            // batteryremainingDataGridViewTextBoxColumn
+            // 
+            this.batteryremainingDataGridViewTextBoxColumn.DataPropertyName = "battery_remaining";
+            resources.ApplyResources(this.batteryremainingDataGridViewTextBoxColumn, "batteryremainingDataGridViewTextBoxColumn");
+            this.batteryremainingDataGridViewTextBoxColumn.Name = "batteryremainingDataGridViewTextBoxColumn";
+            // 
+            // batteryremaining2DataGridViewTextBoxColumn
+            // 
+            this.batteryremaining2DataGridViewTextBoxColumn.DataPropertyName = "battery_remaining2";
+            resources.ApplyResources(this.batteryremaining2DataGridViewTextBoxColumn, "batteryremaining2DataGridViewTextBoxColumn");
+            this.batteryremaining2DataGridViewTextBoxColumn.Name = "batteryremaining2DataGridViewTextBoxColumn";
+            // 
+            // batteryremaining3DataGridViewTextBoxColumn
+            // 
+            this.batteryremaining3DataGridViewTextBoxColumn.DataPropertyName = "battery_remaining3";
+            resources.ApplyResources(this.batteryremaining3DataGridViewTextBoxColumn, "batteryremaining3DataGridViewTextBoxColumn");
+            this.batteryremaining3DataGridViewTextBoxColumn.Name = "batteryremaining3DataGridViewTextBoxColumn";
+            // 
+            // batteryremaining4DataGridViewTextBoxColumn
+            // 
+            this.batteryremaining4DataGridViewTextBoxColumn.DataPropertyName = "battery_remaining4";
+            resources.ApplyResources(this.batteryremaining4DataGridViewTextBoxColumn, "batteryremaining4DataGridViewTextBoxColumn");
+            this.batteryremaining4DataGridViewTextBoxColumn.Name = "batteryremaining4DataGridViewTextBoxColumn";
+            // 
+            // batteryremaining5DataGridViewTextBoxColumn
+            // 
+            this.batteryremaining5DataGridViewTextBoxColumn.DataPropertyName = "battery_remaining5";
+            resources.ApplyResources(this.batteryremaining5DataGridViewTextBoxColumn, "batteryremaining5DataGridViewTextBoxColumn");
+            this.batteryremaining5DataGridViewTextBoxColumn.Name = "batteryremaining5DataGridViewTextBoxColumn";
+            // 
+            // batteryremaining6DataGridViewTextBoxColumn
+            // 
+            this.batteryremaining6DataGridViewTextBoxColumn.DataPropertyName = "battery_remaining6";
+            resources.ApplyResources(this.batteryremaining6DataGridViewTextBoxColumn, "batteryremaining6DataGridViewTextBoxColumn");
+            this.batteryremaining6DataGridViewTextBoxColumn.Name = "batteryremaining6DataGridViewTextBoxColumn";
+            // 
+            // batteryremaining7DataGridViewTextBoxColumn
+            // 
+            this.batteryremaining7DataGridViewTextBoxColumn.DataPropertyName = "battery_remaining7";
+            resources.ApplyResources(this.batteryremaining7DataGridViewTextBoxColumn, "batteryremaining7DataGridViewTextBoxColumn");
+            this.batteryremaining7DataGridViewTextBoxColumn.Name = "batteryremaining7DataGridViewTextBoxColumn";
+            // 
+            // batteryremaining8DataGridViewTextBoxColumn
+            // 
+            this.batteryremaining8DataGridViewTextBoxColumn.DataPropertyName = "battery_remaining8";
+            resources.ApplyResources(this.batteryremaining8DataGridViewTextBoxColumn, "batteryremaining8DataGridViewTextBoxColumn");
+            this.batteryremaining8DataGridViewTextBoxColumn.Name = "batteryremaining8DataGridViewTextBoxColumn";
+            // 
+            // currentDataGridViewTextBoxColumn
+            // 
+            this.currentDataGridViewTextBoxColumn.DataPropertyName = "current";
+            resources.ApplyResources(this.currentDataGridViewTextBoxColumn, "currentDataGridViewTextBoxColumn");
+            this.currentDataGridViewTextBoxColumn.Name = "currentDataGridViewTextBoxColumn";
+            // 
+            // current2DataGridViewTextBoxColumn
+            // 
+            this.current2DataGridViewTextBoxColumn.DataPropertyName = "current2";
+            resources.ApplyResources(this.current2DataGridViewTextBoxColumn, "current2DataGridViewTextBoxColumn");
+            this.current2DataGridViewTextBoxColumn.Name = "current2DataGridViewTextBoxColumn";
+            // 
+            // current3DataGridViewTextBoxColumn
+            // 
+            this.current3DataGridViewTextBoxColumn.DataPropertyName = "current3";
+            resources.ApplyResources(this.current3DataGridViewTextBoxColumn, "current3DataGridViewTextBoxColumn");
+            this.current3DataGridViewTextBoxColumn.Name = "current3DataGridViewTextBoxColumn";
+            // 
+            // current4DataGridViewTextBoxColumn
+            // 
+            this.current4DataGridViewTextBoxColumn.DataPropertyName = "current4";
+            resources.ApplyResources(this.current4DataGridViewTextBoxColumn, "current4DataGridViewTextBoxColumn");
+            this.current4DataGridViewTextBoxColumn.Name = "current4DataGridViewTextBoxColumn";
+            // 
+            // current5DataGridViewTextBoxColumn
+            // 
+            this.current5DataGridViewTextBoxColumn.DataPropertyName = "current5";
+            resources.ApplyResources(this.current5DataGridViewTextBoxColumn, "current5DataGridViewTextBoxColumn");
+            this.current5DataGridViewTextBoxColumn.Name = "current5DataGridViewTextBoxColumn";
+            // 
+            // current6DataGridViewTextBoxColumn
+            // 
+            this.current6DataGridViewTextBoxColumn.DataPropertyName = "current6";
+            resources.ApplyResources(this.current6DataGridViewTextBoxColumn, "current6DataGridViewTextBoxColumn");
+            this.current6DataGridViewTextBoxColumn.Name = "current6DataGridViewTextBoxColumn";
+            // 
+            // current7DataGridViewTextBoxColumn
+            // 
+            this.current7DataGridViewTextBoxColumn.DataPropertyName = "current7";
+            resources.ApplyResources(this.current7DataGridViewTextBoxColumn, "current7DataGridViewTextBoxColumn");
+            this.current7DataGridViewTextBoxColumn.Name = "current7DataGridViewTextBoxColumn";
+            // 
+            // current8DataGridViewTextBoxColumn
+            // 
+            this.current8DataGridViewTextBoxColumn.DataPropertyName = "current8";
+            resources.ApplyResources(this.current8DataGridViewTextBoxColumn, "current8DataGridViewTextBoxColumn");
+            this.current8DataGridViewTextBoxColumn.Name = "current8DataGridViewTextBoxColumn";
+            // 
+            // wattsDataGridViewTextBoxColumn
+            // 
+            this.wattsDataGridViewTextBoxColumn.DataPropertyName = "watts";
+            resources.ApplyResources(this.wattsDataGridViewTextBoxColumn, "wattsDataGridViewTextBoxColumn");
+            this.wattsDataGridViewTextBoxColumn.Name = "wattsDataGridViewTextBoxColumn";
+            this.wattsDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // batterymahperkmDataGridViewTextBoxColumn
+            // 
+            this.batterymahperkmDataGridViewTextBoxColumn.DataPropertyName = "battery_mahperkm";
+            resources.ApplyResources(this.batterymahperkmDataGridViewTextBoxColumn, "batterymahperkmDataGridViewTextBoxColumn");
+            this.batterymahperkmDataGridViewTextBoxColumn.Name = "batterymahperkmDataGridViewTextBoxColumn";
+            this.batterymahperkmDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // batterykmleftDataGridViewTextBoxColumn
+            // 
+            this.batterykmleftDataGridViewTextBoxColumn.DataPropertyName = "battery_kmleft";
+            resources.ApplyResources(this.batterykmleftDataGridViewTextBoxColumn, "batterykmleftDataGridViewTextBoxColumn");
+            this.batterykmleftDataGridViewTextBoxColumn.Name = "batterykmleftDataGridViewTextBoxColumn";
+            this.batterykmleftDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // batteryusedmahDataGridViewTextBoxColumn
+            // 
+            this.batteryusedmahDataGridViewTextBoxColumn.DataPropertyName = "battery_usedmah";
+            resources.ApplyResources(this.batteryusedmahDataGridViewTextBoxColumn, "batteryusedmahDataGridViewTextBoxColumn");
+            this.batteryusedmahDataGridViewTextBoxColumn.Name = "batteryusedmahDataGridViewTextBoxColumn";
+            // 
+            // batterycell1DataGridViewTextBoxColumn
+            // 
+            this.batterycell1DataGridViewTextBoxColumn.DataPropertyName = "battery_cell1";
+            resources.ApplyResources(this.batterycell1DataGridViewTextBoxColumn, "batterycell1DataGridViewTextBoxColumn");
+            this.batterycell1DataGridViewTextBoxColumn.Name = "batterycell1DataGridViewTextBoxColumn";
+            // 
+            // batterycell2DataGridViewTextBoxColumn
+            // 
+            this.batterycell2DataGridViewTextBoxColumn.DataPropertyName = "battery_cell2";
+            resources.ApplyResources(this.batterycell2DataGridViewTextBoxColumn, "batterycell2DataGridViewTextBoxColumn");
+            this.batterycell2DataGridViewTextBoxColumn.Name = "batterycell2DataGridViewTextBoxColumn";
+            // 
+            // batterycell3DataGridViewTextBoxColumn
+            // 
+            this.batterycell3DataGridViewTextBoxColumn.DataPropertyName = "battery_cell3";
+            resources.ApplyResources(this.batterycell3DataGridViewTextBoxColumn, "batterycell3DataGridViewTextBoxColumn");
+            this.batterycell3DataGridViewTextBoxColumn.Name = "batterycell3DataGridViewTextBoxColumn";
+            // 
+            // batterycell4DataGridViewTextBoxColumn
+            // 
+            this.batterycell4DataGridViewTextBoxColumn.DataPropertyName = "battery_cell4";
+            resources.ApplyResources(this.batterycell4DataGridViewTextBoxColumn, "batterycell4DataGridViewTextBoxColumn");
+            this.batterycell4DataGridViewTextBoxColumn.Name = "batterycell4DataGridViewTextBoxColumn";
+            // 
+            // batterycell5DataGridViewTextBoxColumn
+            // 
+            this.batterycell5DataGridViewTextBoxColumn.DataPropertyName = "battery_cell5";
+            resources.ApplyResources(this.batterycell5DataGridViewTextBoxColumn, "batterycell5DataGridViewTextBoxColumn");
+            this.batterycell5DataGridViewTextBoxColumn.Name = "batterycell5DataGridViewTextBoxColumn";
+            // 
+            // batterycell6DataGridViewTextBoxColumn
+            // 
+            this.batterycell6DataGridViewTextBoxColumn.DataPropertyName = "battery_cell6";
+            resources.ApplyResources(this.batterycell6DataGridViewTextBoxColumn, "batterycell6DataGridViewTextBoxColumn");
+            this.batterycell6DataGridViewTextBoxColumn.Name = "batterycell6DataGridViewTextBoxColumn";
+            // 
+            // batterytempDataGridViewTextBoxColumn
+            // 
+            this.batterytempDataGridViewTextBoxColumn.DataPropertyName = "battery_temp";
+            resources.ApplyResources(this.batterytempDataGridViewTextBoxColumn, "batterytempDataGridViewTextBoxColumn");
+            this.batterytempDataGridViewTextBoxColumn.Name = "batterytempDataGridViewTextBoxColumn";
+            // 
+            // batteryusedmah2DataGridViewTextBoxColumn
+            // 
+            this.batteryusedmah2DataGridViewTextBoxColumn.DataPropertyName = "battery_usedmah2";
+            resources.ApplyResources(this.batteryusedmah2DataGridViewTextBoxColumn, "batteryusedmah2DataGridViewTextBoxColumn");
+            this.batteryusedmah2DataGridViewTextBoxColumn.Name = "batteryusedmah2DataGridViewTextBoxColumn";
+            // 
+            // batteryusedmah3DataGridViewTextBoxColumn
+            // 
+            this.batteryusedmah3DataGridViewTextBoxColumn.DataPropertyName = "battery_usedmah3";
+            resources.ApplyResources(this.batteryusedmah3DataGridViewTextBoxColumn, "batteryusedmah3DataGridViewTextBoxColumn");
+            this.batteryusedmah3DataGridViewTextBoxColumn.Name = "batteryusedmah3DataGridViewTextBoxColumn";
+            // 
+            // batteryusedmah4DataGridViewTextBoxColumn
+            // 
+            this.batteryusedmah4DataGridViewTextBoxColumn.DataPropertyName = "battery_usedmah4";
+            resources.ApplyResources(this.batteryusedmah4DataGridViewTextBoxColumn, "batteryusedmah4DataGridViewTextBoxColumn");
+            this.batteryusedmah4DataGridViewTextBoxColumn.Name = "batteryusedmah4DataGridViewTextBoxColumn";
+            // 
+            // batteryusedmah5DataGridViewTextBoxColumn
+            // 
+            this.batteryusedmah5DataGridViewTextBoxColumn.DataPropertyName = "battery_usedmah5";
+            resources.ApplyResources(this.batteryusedmah5DataGridViewTextBoxColumn, "batteryusedmah5DataGridViewTextBoxColumn");
+            this.batteryusedmah5DataGridViewTextBoxColumn.Name = "batteryusedmah5DataGridViewTextBoxColumn";
+            // 
+            // batteryusedmah6DataGridViewTextBoxColumn
+            // 
+            this.batteryusedmah6DataGridViewTextBoxColumn.DataPropertyName = "battery_usedmah6";
+            resources.ApplyResources(this.batteryusedmah6DataGridViewTextBoxColumn, "batteryusedmah6DataGridViewTextBoxColumn");
+            this.batteryusedmah6DataGridViewTextBoxColumn.Name = "batteryusedmah6DataGridViewTextBoxColumn";
+            // 
+            // batteryusedmah7DataGridViewTextBoxColumn
+            // 
+            this.batteryusedmah7DataGridViewTextBoxColumn.DataPropertyName = "battery_usedmah7";
+            resources.ApplyResources(this.batteryusedmah7DataGridViewTextBoxColumn, "batteryusedmah7DataGridViewTextBoxColumn");
+            this.batteryusedmah7DataGridViewTextBoxColumn.Name = "batteryusedmah7DataGridViewTextBoxColumn";
+            // 
+            // batteryusedmah8DataGridViewTextBoxColumn
+            // 
+            this.batteryusedmah8DataGridViewTextBoxColumn.DataPropertyName = "battery_usedmah8";
+            resources.ApplyResources(this.batteryusedmah8DataGridViewTextBoxColumn, "batteryusedmah8DataGridViewTextBoxColumn");
+            this.batteryusedmah8DataGridViewTextBoxColumn.Name = "batteryusedmah8DataGridViewTextBoxColumn";
+            // 
+            // batteryvoltage2DataGridViewTextBoxColumn
+            // 
+            this.batteryvoltage2DataGridViewTextBoxColumn.DataPropertyName = "battery_voltage2";
+            resources.ApplyResources(this.batteryvoltage2DataGridViewTextBoxColumn, "batteryvoltage2DataGridViewTextBoxColumn");
+            this.batteryvoltage2DataGridViewTextBoxColumn.Name = "batteryvoltage2DataGridViewTextBoxColumn";
+            // 
+            // homeAltDataGridViewTextBoxColumn
+            // 
+            this.homeAltDataGridViewTextBoxColumn.DataPropertyName = "HomeAlt";
+            resources.ApplyResources(this.homeAltDataGridViewTextBoxColumn, "homeAltDataGridViewTextBoxColumn");
+            this.homeAltDataGridViewTextBoxColumn.Name = "homeAltDataGridViewTextBoxColumn";
+            // 
+            // homeLocationDataGridViewTextBoxColumn
+            // 
+            this.homeLocationDataGridViewTextBoxColumn.DataPropertyName = "HomeLocation";
+            resources.ApplyResources(this.homeLocationDataGridViewTextBoxColumn, "homeLocationDataGridViewTextBoxColumn");
+            this.homeLocationDataGridViewTextBoxColumn.Name = "homeLocationDataGridViewTextBoxColumn";
+            // 
+            // movingBaseDataGridViewTextBoxColumn
+            // 
+            this.movingBaseDataGridViewTextBoxColumn.DataPropertyName = "MovingBase";
+            resources.ApplyResources(this.movingBaseDataGridViewTextBoxColumn, "movingBaseDataGridViewTextBoxColumn");
+            this.movingBaseDataGridViewTextBoxColumn.Name = "movingBaseDataGridViewTextBoxColumn";
+            // 
+            // trackerLocationDataGridViewTextBoxColumn
+            // 
+            this.trackerLocationDataGridViewTextBoxColumn.DataPropertyName = "TrackerLocation";
+            resources.ApplyResources(this.trackerLocationDataGridViewTextBoxColumn, "trackerLocationDataGridViewTextBoxColumn");
+            this.trackerLocationDataGridViewTextBoxColumn.Name = "trackerLocationDataGridViewTextBoxColumn";
+            // 
+            // locationDataGridViewTextBoxColumn
+            // 
+            this.locationDataGridViewTextBoxColumn.DataPropertyName = "Location";
+            resources.ApplyResources(this.locationDataGridViewTextBoxColumn, "locationDataGridViewTextBoxColumn");
+            this.locationDataGridViewTextBoxColumn.Name = "locationDataGridViewTextBoxColumn";
+            this.locationDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // targetLocationDataGridViewTextBoxColumn
+            // 
+            this.targetLocationDataGridViewTextBoxColumn.DataPropertyName = "TargetLocation";
+            resources.ApplyResources(this.targetLocationDataGridViewTextBoxColumn, "targetLocationDataGridViewTextBoxColumn");
+            this.targetLocationDataGridViewTextBoxColumn.Name = "targetLocationDataGridViewTextBoxColumn";
+            // 
+            // distFromMovingBaseDataGridViewTextBoxColumn
+            // 
+            this.distFromMovingBaseDataGridViewTextBoxColumn.DataPropertyName = "DistFromMovingBase";
+            resources.ApplyResources(this.distFromMovingBaseDataGridViewTextBoxColumn, "distFromMovingBaseDataGridViewTextBoxColumn");
+            this.distFromMovingBaseDataGridViewTextBoxColumn.Name = "distFromMovingBaseDataGridViewTextBoxColumn";
+            this.distFromMovingBaseDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // eLToMAVDataGridViewTextBoxColumn
+            // 
+            this.eLToMAVDataGridViewTextBoxColumn.DataPropertyName = "ELToMAV";
+            resources.ApplyResources(this.eLToMAVDataGridViewTextBoxColumn, "eLToMAVDataGridViewTextBoxColumn");
+            this.eLToMAVDataGridViewTextBoxColumn.Name = "eLToMAVDataGridViewTextBoxColumn";
+            this.eLToMAVDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // aZToMAVDataGridViewTextBoxColumn
+            // 
+            this.aZToMAVDataGridViewTextBoxColumn.DataPropertyName = "AZToMAV";
+            resources.ApplyResources(this.aZToMAVDataGridViewTextBoxColumn, "aZToMAVDataGridViewTextBoxColumn");
+            this.aZToMAVDataGridViewTextBoxColumn.Name = "aZToMAVDataGridViewTextBoxColumn";
+            this.aZToMAVDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // sonarrangeDataGridViewTextBoxColumn
+            // 
+            this.sonarrangeDataGridViewTextBoxColumn.DataPropertyName = "sonarrange";
+            resources.ApplyResources(this.sonarrangeDataGridViewTextBoxColumn, "sonarrangeDataGridViewTextBoxColumn");
+            this.sonarrangeDataGridViewTextBoxColumn.Name = "sonarrangeDataGridViewTextBoxColumn";
+            // 
+            // sonarvoltageDataGridViewTextBoxColumn
+            // 
+            this.sonarvoltageDataGridViewTextBoxColumn.DataPropertyName = "sonarvoltage";
+            resources.ApplyResources(this.sonarvoltageDataGridViewTextBoxColumn, "sonarvoltageDataGridViewTextBoxColumn");
+            this.sonarvoltageDataGridViewTextBoxColumn.Name = "sonarvoltageDataGridViewTextBoxColumn";
+            // 
+            // rangefinder2DataGridViewTextBoxColumn
+            // 
+            this.rangefinder2DataGridViewTextBoxColumn.DataPropertyName = "rangefinder2";
+            resources.ApplyResources(this.rangefinder2DataGridViewTextBoxColumn, "rangefinder2DataGridViewTextBoxColumn");
+            this.rangefinder2DataGridViewTextBoxColumn.Name = "rangefinder2DataGridViewTextBoxColumn";
+            // 
+            // rangefinder3DataGridViewTextBoxColumn
+            // 
+            this.rangefinder3DataGridViewTextBoxColumn.DataPropertyName = "rangefinder3";
+            resources.ApplyResources(this.rangefinder3DataGridViewTextBoxColumn, "rangefinder3DataGridViewTextBoxColumn");
+            this.rangefinder3DataGridViewTextBoxColumn.Name = "rangefinder3DataGridViewTextBoxColumn";
+            // 
+            // freememDataGridViewTextBoxColumn
+            // 
+            this.freememDataGridViewTextBoxColumn.DataPropertyName = "freemem";
+            resources.ApplyResources(this.freememDataGridViewTextBoxColumn, "freememDataGridViewTextBoxColumn");
+            this.freememDataGridViewTextBoxColumn.Name = "freememDataGridViewTextBoxColumn";
+            // 
+            // loadDataGridViewTextBoxColumn
+            // 
+            this.loadDataGridViewTextBoxColumn.DataPropertyName = "load";
+            resources.ApplyResources(this.loadDataGridViewTextBoxColumn, "loadDataGridViewTextBoxColumn");
+            this.loadDataGridViewTextBoxColumn.Name = "loadDataGridViewTextBoxColumn";
+            // 
+            // brklevelDataGridViewTextBoxColumn
+            // 
+            this.brklevelDataGridViewTextBoxColumn.DataPropertyName = "brklevel";
+            resources.ApplyResources(this.brklevelDataGridViewTextBoxColumn, "brklevelDataGridViewTextBoxColumn");
+            this.brklevelDataGridViewTextBoxColumn.Name = "brklevelDataGridViewTextBoxColumn";
+            // 
+            // armedDataGridViewCheckBoxColumn
+            // 
+            this.armedDataGridViewCheckBoxColumn.DataPropertyName = "armed";
+            resources.ApplyResources(this.armedDataGridViewCheckBoxColumn, "armedDataGridViewCheckBoxColumn");
+            this.armedDataGridViewCheckBoxColumn.Name = "armedDataGridViewCheckBoxColumn";
+            // 
+            // rssiDataGridViewTextBoxColumn
+            // 
+            this.rssiDataGridViewTextBoxColumn.DataPropertyName = "rssi";
+            resources.ApplyResources(this.rssiDataGridViewTextBoxColumn, "rssiDataGridViewTextBoxColumn");
+            this.rssiDataGridViewTextBoxColumn.Name = "rssiDataGridViewTextBoxColumn";
+            // 
+            // remrssiDataGridViewTextBoxColumn
+            // 
+            this.remrssiDataGridViewTextBoxColumn.DataPropertyName = "remrssi";
+            resources.ApplyResources(this.remrssiDataGridViewTextBoxColumn, "remrssiDataGridViewTextBoxColumn");
+            this.remrssiDataGridViewTextBoxColumn.Name = "remrssiDataGridViewTextBoxColumn";
+            // 
+            // txbufferDataGridViewTextBoxColumn
+            // 
+            this.txbufferDataGridViewTextBoxColumn.DataPropertyName = "txbuffer";
+            resources.ApplyResources(this.txbufferDataGridViewTextBoxColumn, "txbufferDataGridViewTextBoxColumn");
+            this.txbufferDataGridViewTextBoxColumn.Name = "txbufferDataGridViewTextBoxColumn";
+            // 
+            // noiseDataGridViewTextBoxColumn
+            // 
+            this.noiseDataGridViewTextBoxColumn.DataPropertyName = "noise";
+            resources.ApplyResources(this.noiseDataGridViewTextBoxColumn, "noiseDataGridViewTextBoxColumn");
+            this.noiseDataGridViewTextBoxColumn.Name = "noiseDataGridViewTextBoxColumn";
+            // 
+            // remnoiseDataGridViewTextBoxColumn
+            // 
+            this.remnoiseDataGridViewTextBoxColumn.DataPropertyName = "remnoise";
+            resources.ApplyResources(this.remnoiseDataGridViewTextBoxColumn, "remnoiseDataGridViewTextBoxColumn");
+            this.remnoiseDataGridViewTextBoxColumn.Name = "remnoiseDataGridViewTextBoxColumn";
+            // 
+            // rxerrorsDataGridViewTextBoxColumn
+            // 
+            this.rxerrorsDataGridViewTextBoxColumn.DataPropertyName = "rxerrors";
+            resources.ApplyResources(this.rxerrorsDataGridViewTextBoxColumn, "rxerrorsDataGridViewTextBoxColumn");
+            this.rxerrorsDataGridViewTextBoxColumn.Name = "rxerrorsDataGridViewTextBoxColumn";
+            // 
+            // fixedpDataGridViewTextBoxColumn
+            // 
+            this.fixedpDataGridViewTextBoxColumn.DataPropertyName = "fixedp";
+            resources.ApplyResources(this.fixedpDataGridViewTextBoxColumn, "fixedpDataGridViewTextBoxColumn");
+            this.fixedpDataGridViewTextBoxColumn.Name = "fixedpDataGridViewTextBoxColumn";
+            // 
+            // localsnrdbDataGridViewTextBoxColumn
+            // 
+            this.localsnrdbDataGridViewTextBoxColumn.DataPropertyName = "localsnrdb";
+            resources.ApplyResources(this.localsnrdbDataGridViewTextBoxColumn, "localsnrdbDataGridViewTextBoxColumn");
+            this.localsnrdbDataGridViewTextBoxColumn.Name = "localsnrdbDataGridViewTextBoxColumn";
+            this.localsnrdbDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // remotesnrdbDataGridViewTextBoxColumn
+            // 
+            this.remotesnrdbDataGridViewTextBoxColumn.DataPropertyName = "remotesnrdb";
+            resources.ApplyResources(this.remotesnrdbDataGridViewTextBoxColumn, "remotesnrdbDataGridViewTextBoxColumn");
+            this.remotesnrdbDataGridViewTextBoxColumn.Name = "remotesnrdbDataGridViewTextBoxColumn";
+            this.remotesnrdbDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // distRSSIRemainDataGridViewTextBoxColumn
+            // 
+            this.distRSSIRemainDataGridViewTextBoxColumn.DataPropertyName = "DistRSSIRemain";
+            resources.ApplyResources(this.distRSSIRemainDataGridViewTextBoxColumn, "distRSSIRemainDataGridViewTextBoxColumn");
+            this.distRSSIRemainDataGridViewTextBoxColumn.Name = "distRSSIRemainDataGridViewTextBoxColumn";
+            this.distRSSIRemainDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // packetdropremoteDataGridViewTextBoxColumn
+            // 
+            this.packetdropremoteDataGridViewTextBoxColumn.DataPropertyName = "packetdropremote";
+            resources.ApplyResources(this.packetdropremoteDataGridViewTextBoxColumn, "packetdropremoteDataGridViewTextBoxColumn");
+            this.packetdropremoteDataGridViewTextBoxColumn.Name = "packetdropremoteDataGridViewTextBoxColumn";
+            // 
+            // linkqualitygcsDataGridViewTextBoxColumn
+            // 
+            this.linkqualitygcsDataGridViewTextBoxColumn.DataPropertyName = "linkqualitygcs";
+            resources.ApplyResources(this.linkqualitygcsDataGridViewTextBoxColumn, "linkqualitygcsDataGridViewTextBoxColumn");
+            this.linkqualitygcsDataGridViewTextBoxColumn.Name = "linkqualitygcsDataGridViewTextBoxColumn";
+            // 
+            // hwvoltageDataGridViewTextBoxColumn
+            // 
+            this.hwvoltageDataGridViewTextBoxColumn.DataPropertyName = "hwvoltage";
+            resources.ApplyResources(this.hwvoltageDataGridViewTextBoxColumn, "hwvoltageDataGridViewTextBoxColumn");
+            this.hwvoltageDataGridViewTextBoxColumn.Name = "hwvoltageDataGridViewTextBoxColumn";
+            // 
+            // boardvoltageDataGridViewTextBoxColumn
+            // 
+            this.boardvoltageDataGridViewTextBoxColumn.DataPropertyName = "boardvoltage";
+            resources.ApplyResources(this.boardvoltageDataGridViewTextBoxColumn, "boardvoltageDataGridViewTextBoxColumn");
+            this.boardvoltageDataGridViewTextBoxColumn.Name = "boardvoltageDataGridViewTextBoxColumn";
+            // 
+            // servovoltageDataGridViewTextBoxColumn
+            // 
+            this.servovoltageDataGridViewTextBoxColumn.DataPropertyName = "servovoltage";
+            resources.ApplyResources(this.servovoltageDataGridViewTextBoxColumn, "servovoltageDataGridViewTextBoxColumn");
+            this.servovoltageDataGridViewTextBoxColumn.Name = "servovoltageDataGridViewTextBoxColumn";
+            // 
+            // voltageflagDataGridViewTextBoxColumn
+            // 
+            this.voltageflagDataGridViewTextBoxColumn.DataPropertyName = "voltageflag";
+            resources.ApplyResources(this.voltageflagDataGridViewTextBoxColumn, "voltageflagDataGridViewTextBoxColumn");
+            this.voltageflagDataGridViewTextBoxColumn.Name = "voltageflagDataGridViewTextBoxColumn";
+            // 
+            // i2cerrorsDataGridViewTextBoxColumn
+            // 
+            this.i2cerrorsDataGridViewTextBoxColumn.DataPropertyName = "i2cerrors";
+            resources.ApplyResources(this.i2cerrorsDataGridViewTextBoxColumn, "i2cerrorsDataGridViewTextBoxColumn");
+            this.i2cerrorsDataGridViewTextBoxColumn.Name = "i2cerrorsDataGridViewTextBoxColumn";
+            // 
+            // timesincelastshotDataGridViewTextBoxColumn
+            // 
+            this.timesincelastshotDataGridViewTextBoxColumn.DataPropertyName = "timesincelastshot";
+            resources.ApplyResources(this.timesincelastshotDataGridViewTextBoxColumn, "timesincelastshotDataGridViewTextBoxColumn");
+            this.timesincelastshotDataGridViewTextBoxColumn.Name = "timesincelastshotDataGridViewTextBoxColumn";
+            // 
+            // pressabsDataGridViewTextBoxColumn
+            // 
+            this.pressabsDataGridViewTextBoxColumn.DataPropertyName = "press_abs";
+            resources.ApplyResources(this.pressabsDataGridViewTextBoxColumn, "pressabsDataGridViewTextBoxColumn");
+            this.pressabsDataGridViewTextBoxColumn.Name = "pressabsDataGridViewTextBoxColumn";
+            // 
+            // presstempDataGridViewTextBoxColumn
+            // 
+            this.presstempDataGridViewTextBoxColumn.DataPropertyName = "press_temp";
+            resources.ApplyResources(this.presstempDataGridViewTextBoxColumn, "presstempDataGridViewTextBoxColumn");
+            this.presstempDataGridViewTextBoxColumn.Name = "presstempDataGridViewTextBoxColumn";
+            // 
+            // pressabs2DataGridViewTextBoxColumn
+            // 
+            this.pressabs2DataGridViewTextBoxColumn.DataPropertyName = "press_abs2";
+            resources.ApplyResources(this.pressabs2DataGridViewTextBoxColumn, "pressabs2DataGridViewTextBoxColumn");
+            this.pressabs2DataGridViewTextBoxColumn.Name = "pressabs2DataGridViewTextBoxColumn";
+            // 
+            // presstemp2DataGridViewTextBoxColumn
+            // 
+            this.presstemp2DataGridViewTextBoxColumn.DataPropertyName = "press_temp2";
+            resources.ApplyResources(this.presstemp2DataGridViewTextBoxColumn, "presstemp2DataGridViewTextBoxColumn");
+            this.presstemp2DataGridViewTextBoxColumn.Name = "presstemp2DataGridViewTextBoxColumn";
+            // 
+            // magofsxDataGridViewTextBoxColumn
+            // 
+            this.magofsxDataGridViewTextBoxColumn.DataPropertyName = "mag_ofs_x";
+            resources.ApplyResources(this.magofsxDataGridViewTextBoxColumn, "magofsxDataGridViewTextBoxColumn");
+            this.magofsxDataGridViewTextBoxColumn.Name = "magofsxDataGridViewTextBoxColumn";
+            // 
+            // magofsyDataGridViewTextBoxColumn
+            // 
+            this.magofsyDataGridViewTextBoxColumn.DataPropertyName = "mag_ofs_y";
+            resources.ApplyResources(this.magofsyDataGridViewTextBoxColumn, "magofsyDataGridViewTextBoxColumn");
+            this.magofsyDataGridViewTextBoxColumn.Name = "magofsyDataGridViewTextBoxColumn";
+            // 
+            // magofszDataGridViewTextBoxColumn
+            // 
+            this.magofszDataGridViewTextBoxColumn.DataPropertyName = "mag_ofs_z";
+            resources.ApplyResources(this.magofszDataGridViewTextBoxColumn, "magofszDataGridViewTextBoxColumn");
+            this.magofszDataGridViewTextBoxColumn.Name = "magofszDataGridViewTextBoxColumn";
+            // 
+            // magdeclinationDataGridViewTextBoxColumn
+            // 
+            this.magdeclinationDataGridViewTextBoxColumn.DataPropertyName = "mag_declination";
+            resources.ApplyResources(this.magdeclinationDataGridViewTextBoxColumn, "magdeclinationDataGridViewTextBoxColumn");
+            this.magdeclinationDataGridViewTextBoxColumn.Name = "magdeclinationDataGridViewTextBoxColumn";
+            // 
+            // rawpressDataGridViewTextBoxColumn
+            // 
+            this.rawpressDataGridViewTextBoxColumn.DataPropertyName = "raw_press";
+            resources.ApplyResources(this.rawpressDataGridViewTextBoxColumn, "rawpressDataGridViewTextBoxColumn");
+            this.rawpressDataGridViewTextBoxColumn.Name = "rawpressDataGridViewTextBoxColumn";
+            // 
+            // rawtempDataGridViewTextBoxColumn
+            // 
+            this.rawtempDataGridViewTextBoxColumn.DataPropertyName = "raw_temp";
+            resources.ApplyResources(this.rawtempDataGridViewTextBoxColumn, "rawtempDataGridViewTextBoxColumn");
+            this.rawtempDataGridViewTextBoxColumn.Name = "rawtempDataGridViewTextBoxColumn";
+            // 
+            // gyrocalxDataGridViewTextBoxColumn
+            // 
+            this.gyrocalxDataGridViewTextBoxColumn.DataPropertyName = "gyro_cal_x";
+            resources.ApplyResources(this.gyrocalxDataGridViewTextBoxColumn, "gyrocalxDataGridViewTextBoxColumn");
+            this.gyrocalxDataGridViewTextBoxColumn.Name = "gyrocalxDataGridViewTextBoxColumn";
+            // 
+            // gyrocalyDataGridViewTextBoxColumn
+            // 
+            this.gyrocalyDataGridViewTextBoxColumn.DataPropertyName = "gyro_cal_y";
+            resources.ApplyResources(this.gyrocalyDataGridViewTextBoxColumn, "gyrocalyDataGridViewTextBoxColumn");
+            this.gyrocalyDataGridViewTextBoxColumn.Name = "gyrocalyDataGridViewTextBoxColumn";
+            // 
+            // gyrocalzDataGridViewTextBoxColumn
+            // 
+            this.gyrocalzDataGridViewTextBoxColumn.DataPropertyName = "gyro_cal_z";
+            resources.ApplyResources(this.gyrocalzDataGridViewTextBoxColumn, "gyrocalzDataGridViewTextBoxColumn");
+            this.gyrocalzDataGridViewTextBoxColumn.Name = "gyrocalzDataGridViewTextBoxColumn";
+            // 
+            // accelcalxDataGridViewTextBoxColumn
+            // 
+            this.accelcalxDataGridViewTextBoxColumn.DataPropertyName = "accel_cal_x";
+            resources.ApplyResources(this.accelcalxDataGridViewTextBoxColumn, "accelcalxDataGridViewTextBoxColumn");
+            this.accelcalxDataGridViewTextBoxColumn.Name = "accelcalxDataGridViewTextBoxColumn";
+            // 
+            // accelcalyDataGridViewTextBoxColumn
+            // 
+            this.accelcalyDataGridViewTextBoxColumn.DataPropertyName = "accel_cal_y";
+            resources.ApplyResources(this.accelcalyDataGridViewTextBoxColumn, "accelcalyDataGridViewTextBoxColumn");
+            this.accelcalyDataGridViewTextBoxColumn.Name = "accelcalyDataGridViewTextBoxColumn";
+            // 
+            // accelcalzDataGridViewTextBoxColumn
+            // 
+            this.accelcalzDataGridViewTextBoxColumn.DataPropertyName = "accel_cal_z";
+            resources.ApplyResources(this.accelcalzDataGridViewTextBoxColumn, "accelcalzDataGridViewTextBoxColumn");
+            this.accelcalzDataGridViewTextBoxColumn.Name = "accelcalzDataGridViewTextBoxColumn";
+            // 
+            // rateattitudeDataGridViewTextBoxColumn
+            // 
+            this.rateattitudeDataGridViewTextBoxColumn.DataPropertyName = "rateattitude";
+            resources.ApplyResources(this.rateattitudeDataGridViewTextBoxColumn, "rateattitudeDataGridViewTextBoxColumn");
+            this.rateattitudeDataGridViewTextBoxColumn.Name = "rateattitudeDataGridViewTextBoxColumn";
+            // 
+            // ratepositionDataGridViewTextBoxColumn
+            // 
+            this.ratepositionDataGridViewTextBoxColumn.DataPropertyName = "rateposition";
+            resources.ApplyResources(this.ratepositionDataGridViewTextBoxColumn, "ratepositionDataGridViewTextBoxColumn");
+            this.ratepositionDataGridViewTextBoxColumn.Name = "ratepositionDataGridViewTextBoxColumn";
+            // 
+            // ratestatusDataGridViewTextBoxColumn
+            // 
+            this.ratestatusDataGridViewTextBoxColumn.DataPropertyName = "ratestatus";
+            resources.ApplyResources(this.ratestatusDataGridViewTextBoxColumn, "ratestatusDataGridViewTextBoxColumn");
+            this.ratestatusDataGridViewTextBoxColumn.Name = "ratestatusDataGridViewTextBoxColumn";
+            // 
+            // ratesensorsDataGridViewTextBoxColumn
+            // 
+            this.ratesensorsDataGridViewTextBoxColumn.DataPropertyName = "ratesensors";
+            resources.ApplyResources(this.ratesensorsDataGridViewTextBoxColumn, "ratesensorsDataGridViewTextBoxColumn");
+            this.ratesensorsDataGridViewTextBoxColumn.Name = "ratesensorsDataGridViewTextBoxColumn";
+            // 
+            // ratercDataGridViewTextBoxColumn
+            // 
+            this.ratercDataGridViewTextBoxColumn.DataPropertyName = "raterc";
+            resources.ApplyResources(this.ratercDataGridViewTextBoxColumn, "ratercDataGridViewTextBoxColumn");
+            this.ratercDataGridViewTextBoxColumn.Name = "ratercDataGridViewTextBoxColumn";
+            // 
+            // datetimeDataGridViewTextBoxColumn
+            // 
+            this.datetimeDataGridViewTextBoxColumn.DataPropertyName = "datetime";
+            resources.ApplyResources(this.datetimeDataGridViewTextBoxColumn, "datetimeDataGridViewTextBoxColumn");
+            this.datetimeDataGridViewTextBoxColumn.Name = "datetimeDataGridViewTextBoxColumn";
+            // 
+            // connectedDataGridViewCheckBoxColumn
+            // 
+            this.connectedDataGridViewCheckBoxColumn.DataPropertyName = "connected";
+            resources.ApplyResources(this.connectedDataGridViewCheckBoxColumn, "connectedDataGridViewCheckBoxColumn");
+            this.connectedDataGridViewCheckBoxColumn.Name = "connectedDataGridViewCheckBoxColumn";
+            this.connectedDataGridViewCheckBoxColumn.ReadOnly = true;
+            // 
+            // campointaDataGridViewTextBoxColumn
+            // 
+            this.campointaDataGridViewTextBoxColumn.DataPropertyName = "campointa";
+            resources.ApplyResources(this.campointaDataGridViewTextBoxColumn, "campointaDataGridViewTextBoxColumn");
+            this.campointaDataGridViewTextBoxColumn.Name = "campointaDataGridViewTextBoxColumn";
+            // 
+            // campointbDataGridViewTextBoxColumn
+            // 
+            this.campointbDataGridViewTextBoxColumn.DataPropertyName = "campointb";
+            resources.ApplyResources(this.campointbDataGridViewTextBoxColumn, "campointbDataGridViewTextBoxColumn");
+            this.campointbDataGridViewTextBoxColumn.Name = "campointbDataGridViewTextBoxColumn";
+            // 
+            // campointcDataGridViewTextBoxColumn
+            // 
+            this.campointcDataGridViewTextBoxColumn.DataPropertyName = "campointc";
+            resources.ApplyResources(this.campointcDataGridViewTextBoxColumn, "campointcDataGridViewTextBoxColumn");
+            this.campointcDataGridViewTextBoxColumn.Name = "campointcDataGridViewTextBoxColumn";
+            // 
+            // gimbalPointDataGridViewTextBoxColumn
+            // 
+            this.gimbalPointDataGridViewTextBoxColumn.DataPropertyName = "GimbalPoint";
+            resources.ApplyResources(this.gimbalPointDataGridViewTextBoxColumn, "gimbalPointDataGridViewTextBoxColumn");
+            this.gimbalPointDataGridViewTextBoxColumn.Name = "gimbalPointDataGridViewTextBoxColumn";
+            // 
+            // gimballatDataGridViewTextBoxColumn
+            // 
+            this.gimballatDataGridViewTextBoxColumn.DataPropertyName = "gimballat";
+            resources.ApplyResources(this.gimballatDataGridViewTextBoxColumn, "gimballatDataGridViewTextBoxColumn");
+            this.gimballatDataGridViewTextBoxColumn.Name = "gimballatDataGridViewTextBoxColumn";
+            this.gimballatDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // gimballngDataGridViewTextBoxColumn
+            // 
+            this.gimballngDataGridViewTextBoxColumn.DataPropertyName = "gimballng";
+            resources.ApplyResources(this.gimballngDataGridViewTextBoxColumn, "gimballngDataGridViewTextBoxColumn");
+            this.gimballngDataGridViewTextBoxColumn.Name = "gimballngDataGridViewTextBoxColumn";
+            this.gimballngDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // landedDataGridViewCheckBoxColumn
+            // 
+            this.landedDataGridViewCheckBoxColumn.DataPropertyName = "landed";
+            resources.ApplyResources(this.landedDataGridViewCheckBoxColumn, "landedDataGridViewCheckBoxColumn");
+            this.landedDataGridViewCheckBoxColumn.Name = "landedDataGridViewCheckBoxColumn";
+            // 
+            // terrainactiveDataGridViewCheckBoxColumn
+            // 
+            this.terrainactiveDataGridViewCheckBoxColumn.DataPropertyName = "terrainactive";
+            resources.ApplyResources(this.terrainactiveDataGridViewCheckBoxColumn, "terrainactiveDataGridViewCheckBoxColumn");
+            this.terrainactiveDataGridViewCheckBoxColumn.Name = "terrainactiveDataGridViewCheckBoxColumn";
+            // 
+            // tercuraltDataGridViewTextBoxColumn
+            // 
+            this.tercuraltDataGridViewTextBoxColumn.DataPropertyName = "ter_curalt";
+            resources.ApplyResources(this.tercuraltDataGridViewTextBoxColumn, "tercuraltDataGridViewTextBoxColumn");
+            this.tercuraltDataGridViewTextBoxColumn.Name = "tercuraltDataGridViewTextBoxColumn";
+            // 
+            // teraltDataGridViewTextBoxColumn
+            // 
+            this.teraltDataGridViewTextBoxColumn.DataPropertyName = "ter_alt";
+            resources.ApplyResources(this.teraltDataGridViewTextBoxColumn, "teraltDataGridViewTextBoxColumn");
+            this.teraltDataGridViewTextBoxColumn.Name = "teraltDataGridViewTextBoxColumn";
+            // 
+            // terloadDataGridViewTextBoxColumn
+            // 
+            this.terloadDataGridViewTextBoxColumn.DataPropertyName = "ter_load";
+            resources.ApplyResources(this.terloadDataGridViewTextBoxColumn, "terloadDataGridViewTextBoxColumn");
+            this.terloadDataGridViewTextBoxColumn.Name = "terloadDataGridViewTextBoxColumn";
+            // 
+            // terpendDataGridViewTextBoxColumn
+            // 
+            this.terpendDataGridViewTextBoxColumn.DataPropertyName = "ter_pend";
+            resources.ApplyResources(this.terpendDataGridViewTextBoxColumn, "terpendDataGridViewTextBoxColumn");
+            this.terpendDataGridViewTextBoxColumn.Name = "terpendDataGridViewTextBoxColumn";
+            // 
+            // terspaceDataGridViewTextBoxColumn
+            // 
+            this.terspaceDataGridViewTextBoxColumn.DataPropertyName = "ter_space";
+            resources.ApplyResources(this.terspaceDataGridViewTextBoxColumn, "terspaceDataGridViewTextBoxColumn");
+            this.terspaceDataGridViewTextBoxColumn.Name = "terspaceDataGridViewTextBoxColumn";
+            // 
+            // kIndexDataGridViewTextBoxColumn
+            // 
+            this.kIndexDataGridViewTextBoxColumn.DataPropertyName = "KIndex";
+            resources.ApplyResources(this.kIndexDataGridViewTextBoxColumn, "kIndexDataGridViewTextBoxColumn");
+            this.kIndexDataGridViewTextBoxColumn.Name = "kIndexDataGridViewTextBoxColumn";
+            this.kIndexDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // optmxDataGridViewTextBoxColumn
+            // 
+            this.optmxDataGridViewTextBoxColumn.DataPropertyName = "opt_m_x";
+            resources.ApplyResources(this.optmxDataGridViewTextBoxColumn, "optmxDataGridViewTextBoxColumn");
+            this.optmxDataGridViewTextBoxColumn.Name = "optmxDataGridViewTextBoxColumn";
+            // 
+            // optmyDataGridViewTextBoxColumn
+            // 
+            this.optmyDataGridViewTextBoxColumn.DataPropertyName = "opt_m_y";
+            resources.ApplyResources(this.optmyDataGridViewTextBoxColumn, "optmyDataGridViewTextBoxColumn");
+            this.optmyDataGridViewTextBoxColumn.Name = "optmyDataGridViewTextBoxColumn";
+            // 
+            // optxDataGridViewTextBoxColumn
+            // 
+            this.optxDataGridViewTextBoxColumn.DataPropertyName = "opt_x";
+            resources.ApplyResources(this.optxDataGridViewTextBoxColumn, "optxDataGridViewTextBoxColumn");
+            this.optxDataGridViewTextBoxColumn.Name = "optxDataGridViewTextBoxColumn";
+            // 
+            // optyDataGridViewTextBoxColumn
+            // 
+            this.optyDataGridViewTextBoxColumn.DataPropertyName = "opt_y";
+            resources.ApplyResources(this.optyDataGridViewTextBoxColumn, "optyDataGridViewTextBoxColumn");
+            this.optyDataGridViewTextBoxColumn.Name = "optyDataGridViewTextBoxColumn";
+            // 
+            // optquaDataGridViewTextBoxColumn
+            // 
+            this.optquaDataGridViewTextBoxColumn.DataPropertyName = "opt_qua";
+            resources.ApplyResources(this.optquaDataGridViewTextBoxColumn, "optquaDataGridViewTextBoxColumn");
+            this.optquaDataGridViewTextBoxColumn.Name = "optquaDataGridViewTextBoxColumn";
+            // 
+            // ekfstatusDataGridViewTextBoxColumn
+            // 
+            this.ekfstatusDataGridViewTextBoxColumn.DataPropertyName = "ekfstatus";
+            resources.ApplyResources(this.ekfstatusDataGridViewTextBoxColumn, "ekfstatusDataGridViewTextBoxColumn");
+            this.ekfstatusDataGridViewTextBoxColumn.Name = "ekfstatusDataGridViewTextBoxColumn";
+            // 
+            // ekfflagsDataGridViewTextBoxColumn
+            // 
+            this.ekfflagsDataGridViewTextBoxColumn.DataPropertyName = "ekfflags";
+            resources.ApplyResources(this.ekfflagsDataGridViewTextBoxColumn, "ekfflagsDataGridViewTextBoxColumn");
+            this.ekfflagsDataGridViewTextBoxColumn.Name = "ekfflagsDataGridViewTextBoxColumn";
+            // 
+            // ekfvelvDataGridViewTextBoxColumn
+            // 
+            this.ekfvelvDataGridViewTextBoxColumn.DataPropertyName = "ekfvelv";
+            resources.ApplyResources(this.ekfvelvDataGridViewTextBoxColumn, "ekfvelvDataGridViewTextBoxColumn");
+            this.ekfvelvDataGridViewTextBoxColumn.Name = "ekfvelvDataGridViewTextBoxColumn";
+            // 
+            // ekfcompvDataGridViewTextBoxColumn
+            // 
+            this.ekfcompvDataGridViewTextBoxColumn.DataPropertyName = "ekfcompv";
+            resources.ApplyResources(this.ekfcompvDataGridViewTextBoxColumn, "ekfcompvDataGridViewTextBoxColumn");
+            this.ekfcompvDataGridViewTextBoxColumn.Name = "ekfcompvDataGridViewTextBoxColumn";
+            // 
+            // ekfposhorDataGridViewTextBoxColumn
+            // 
+            this.ekfposhorDataGridViewTextBoxColumn.DataPropertyName = "ekfposhor";
+            resources.ApplyResources(this.ekfposhorDataGridViewTextBoxColumn, "ekfposhorDataGridViewTextBoxColumn");
+            this.ekfposhorDataGridViewTextBoxColumn.Name = "ekfposhorDataGridViewTextBoxColumn";
+            // 
+            // ekfposvertDataGridViewTextBoxColumn
+            // 
+            this.ekfposvertDataGridViewTextBoxColumn.DataPropertyName = "ekfposvert";
+            resources.ApplyResources(this.ekfposvertDataGridViewTextBoxColumn, "ekfposvertDataGridViewTextBoxColumn");
+            this.ekfposvertDataGridViewTextBoxColumn.Name = "ekfposvertDataGridViewTextBoxColumn";
+            // 
+            // ekfteraltDataGridViewTextBoxColumn
+            // 
+            this.ekfteraltDataGridViewTextBoxColumn.DataPropertyName = "ekfteralt";
+            resources.ApplyResources(this.ekfteraltDataGridViewTextBoxColumn, "ekfteraltDataGridViewTextBoxColumn");
+            this.ekfteraltDataGridViewTextBoxColumn.Name = "ekfteraltDataGridViewTextBoxColumn";
+            // 
+            // pidffDataGridViewTextBoxColumn
+            // 
+            this.pidffDataGridViewTextBoxColumn.DataPropertyName = "pidff";
+            resources.ApplyResources(this.pidffDataGridViewTextBoxColumn, "pidffDataGridViewTextBoxColumn");
+            this.pidffDataGridViewTextBoxColumn.Name = "pidffDataGridViewTextBoxColumn";
+            // 
+            // pidPDataGridViewTextBoxColumn
+            // 
+            this.pidPDataGridViewTextBoxColumn.DataPropertyName = "pidP";
+            resources.ApplyResources(this.pidPDataGridViewTextBoxColumn, "pidPDataGridViewTextBoxColumn");
+            this.pidPDataGridViewTextBoxColumn.Name = "pidPDataGridViewTextBoxColumn";
+            // 
+            // pidIDataGridViewTextBoxColumn
+            // 
+            this.pidIDataGridViewTextBoxColumn.DataPropertyName = "pidI";
+            resources.ApplyResources(this.pidIDataGridViewTextBoxColumn, "pidIDataGridViewTextBoxColumn");
+            this.pidIDataGridViewTextBoxColumn.Name = "pidIDataGridViewTextBoxColumn";
+            // 
+            // pidDDataGridViewTextBoxColumn
+            // 
+            this.pidDDataGridViewTextBoxColumn.DataPropertyName = "pidD";
+            resources.ApplyResources(this.pidDDataGridViewTextBoxColumn, "pidDDataGridViewTextBoxColumn");
+            this.pidDDataGridViewTextBoxColumn.Name = "pidDDataGridViewTextBoxColumn";
+            // 
+            // pidaxisDataGridViewTextBoxColumn
+            // 
+            this.pidaxisDataGridViewTextBoxColumn.DataPropertyName = "pidaxis";
+            resources.ApplyResources(this.pidaxisDataGridViewTextBoxColumn, "pidaxisDataGridViewTextBoxColumn");
+            this.pidaxisDataGridViewTextBoxColumn.Name = "pidaxisDataGridViewTextBoxColumn";
+            // 
+            // piddesiredDataGridViewTextBoxColumn
+            // 
+            this.piddesiredDataGridViewTextBoxColumn.DataPropertyName = "piddesired";
+            resources.ApplyResources(this.piddesiredDataGridViewTextBoxColumn, "piddesiredDataGridViewTextBoxColumn");
+            this.piddesiredDataGridViewTextBoxColumn.Name = "piddesiredDataGridViewTextBoxColumn";
+            // 
+            // pidachievedDataGridViewTextBoxColumn
+            // 
+            this.pidachievedDataGridViewTextBoxColumn.DataPropertyName = "pidachieved";
+            resources.ApplyResources(this.pidachievedDataGridViewTextBoxColumn, "pidachievedDataGridViewTextBoxColumn");
+            this.pidachievedDataGridViewTextBoxColumn.Name = "pidachievedDataGridViewTextBoxColumn";
+            // 
+            // vibeclip0DataGridViewTextBoxColumn
+            // 
+            this.vibeclip0DataGridViewTextBoxColumn.DataPropertyName = "vibeclip0";
+            resources.ApplyResources(this.vibeclip0DataGridViewTextBoxColumn, "vibeclip0DataGridViewTextBoxColumn");
+            this.vibeclip0DataGridViewTextBoxColumn.Name = "vibeclip0DataGridViewTextBoxColumn";
+            // 
+            // vibeclip1DataGridViewTextBoxColumn
+            // 
+            this.vibeclip1DataGridViewTextBoxColumn.DataPropertyName = "vibeclip1";
+            resources.ApplyResources(this.vibeclip1DataGridViewTextBoxColumn, "vibeclip1DataGridViewTextBoxColumn");
+            this.vibeclip1DataGridViewTextBoxColumn.Name = "vibeclip1DataGridViewTextBoxColumn";
+            // 
+            // vibeclip2DataGridViewTextBoxColumn
+            // 
+            this.vibeclip2DataGridViewTextBoxColumn.DataPropertyName = "vibeclip2";
+            resources.ApplyResources(this.vibeclip2DataGridViewTextBoxColumn, "vibeclip2DataGridViewTextBoxColumn");
+            this.vibeclip2DataGridViewTextBoxColumn.Name = "vibeclip2DataGridViewTextBoxColumn";
+            // 
+            // vibexDataGridViewTextBoxColumn
+            // 
+            this.vibexDataGridViewTextBoxColumn.DataPropertyName = "vibex";
+            resources.ApplyResources(this.vibexDataGridViewTextBoxColumn, "vibexDataGridViewTextBoxColumn");
+            this.vibexDataGridViewTextBoxColumn.Name = "vibexDataGridViewTextBoxColumn";
+            // 
+            // vibeyDataGridViewTextBoxColumn
+            // 
+            this.vibeyDataGridViewTextBoxColumn.DataPropertyName = "vibey";
+            resources.ApplyResources(this.vibeyDataGridViewTextBoxColumn, "vibeyDataGridViewTextBoxColumn");
+            this.vibeyDataGridViewTextBoxColumn.Name = "vibeyDataGridViewTextBoxColumn";
+            // 
+            // vibezDataGridViewTextBoxColumn
+            // 
+            this.vibezDataGridViewTextBoxColumn.DataPropertyName = "vibez";
+            resources.ApplyResources(this.vibezDataGridViewTextBoxColumn, "vibezDataGridViewTextBoxColumn");
+            this.vibezDataGridViewTextBoxColumn.Name = "vibezDataGridViewTextBoxColumn";
+            // 
+            // versionDataGridViewTextBoxColumn
+            // 
+            this.versionDataGridViewTextBoxColumn.DataPropertyName = "version";
+            resources.ApplyResources(this.versionDataGridViewTextBoxColumn, "versionDataGridViewTextBoxColumn");
+            this.versionDataGridViewTextBoxColumn.Name = "versionDataGridViewTextBoxColumn";
+            // 
+            // rpm1DataGridViewTextBoxColumn
+            // 
+            this.rpm1DataGridViewTextBoxColumn.DataPropertyName = "rpm1";
+            resources.ApplyResources(this.rpm1DataGridViewTextBoxColumn, "rpm1DataGridViewTextBoxColumn");
+            this.rpm1DataGridViewTextBoxColumn.Name = "rpm1DataGridViewTextBoxColumn";
+            // 
+            // rpm2DataGridViewTextBoxColumn
+            // 
+            this.rpm2DataGridViewTextBoxColumn.DataPropertyName = "rpm2";
+            resources.ApplyResources(this.rpm2DataGridViewTextBoxColumn, "rpm2DataGridViewTextBoxColumn");
+            this.rpm2DataGridViewTextBoxColumn.Name = "rpm2DataGridViewTextBoxColumn";
+            // 
+            // capabilitiesDataGridViewTextBoxColumn
+            // 
+            this.capabilitiesDataGridViewTextBoxColumn.DataPropertyName = "capabilities";
+            resources.ApplyResources(this.capabilitiesDataGridViewTextBoxColumn, "capabilitiesDataGridViewTextBoxColumn");
+            this.capabilitiesDataGridViewTextBoxColumn.Name = "capabilitiesDataGridViewTextBoxColumn";
+            // 
+            // speedupDataGridViewTextBoxColumn
+            // 
+            this.speedupDataGridViewTextBoxColumn.DataPropertyName = "speedup";
+            resources.ApplyResources(this.speedupDataGridViewTextBoxColumn, "speedupDataGridViewTextBoxColumn");
+            this.speedupDataGridViewTextBoxColumn.Name = "speedupDataGridViewTextBoxColumn";
+            // 
+            // vtolstateDataGridViewTextBoxColumn
+            // 
+            this.vtolstateDataGridViewTextBoxColumn.DataPropertyName = "vtol_state";
+            resources.ApplyResources(this.vtolstateDataGridViewTextBoxColumn, "vtolstateDataGridViewTextBoxColumn");
+            this.vtolstateDataGridViewTextBoxColumn.Name = "vtolstateDataGridViewTextBoxColumn";
+            this.vtolstateDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // landedstateDataGridViewTextBoxColumn
+            // 
+            this.landedstateDataGridViewTextBoxColumn.DataPropertyName = "landed_state";
+            resources.ApplyResources(this.landedstateDataGridViewTextBoxColumn, "landedstateDataGridViewTextBoxColumn");
+            this.landedstateDataGridViewTextBoxColumn.Name = "landedstateDataGridViewTextBoxColumn";
+            this.landedstateDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // bindingSourceQuickTab
+            // 
+            this.bindingSourceQuickTab.DataSource = typeof(MissionPlanner.CurrentState);
+            // 
+            // COMBJOY
+            // 
+            this.COMBJOY.FormattingEnabled = true;
+            resources.ApplyResources(this.COMBJOY, "COMBJOY");
+            this.COMBJOY.Name = "COMBJOY";
+            // 
             // but_disablejoystick
             // 
             this.but_disablejoystick.ColorMouseDown = System.Drawing.Color.Empty;
@@ -1907,12 +4822,20 @@
             this.but_disablejoystick.UseVisualStyleBackColor = true;
             this.but_disablejoystick.Click += new System.EventHandler(this.but_disablejoystick_Click);
             // 
+            // distanceBar1
+            // 
+            resources.ApplyResources(this.distanceBar1, "distanceBar1");
+            this.distanceBar1.BackColor = System.Drawing.Color.Transparent;
+            this.distanceBar1.Name = "distanceBar1";
+            this.distanceBar1.totaldist = 100F;
+            this.distanceBar1.traveleddist = 0F;
+            // 
             // windDir1
             // 
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSource1, "wind_dir", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSource1, "wind_vel", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.windDir1.Direction = 360D;
+            this.windDir1.Direction = 180D;
             resources.ApplyResources(this.windDir1, "windDir1");
             this.windDir1.Name = "windDir1";
             this.windDir1.Speed = 0D;
@@ -2090,10 +5013,6 @@
             resources.ApplyResources(this.setViewCountToolStripMenuItem, "setViewCountToolStripMenuItem");
             this.setViewCountToolStripMenuItem.Click += new System.EventHandler(this.setViewCountToolStripMenuItem_Click);
             // 
-            // bindingSourceQuickTab
-            // 
-            this.bindingSourceQuickTab.DataSource = typeof(MissionPlanner.CurrentState);
-            // 
             // ZedGraphTimer
             // 
             this.ZedGraphTimer.Tick += new System.EventHandler(this.timer1_Tick);
@@ -2106,6 +5025,7 @@
             // openScriptDialog
             // 
             resources.ApplyResources(this.openScriptDialog, "openScriptDialog");
+            this.openScriptDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openScriptDialog_FileOk);
             // 
             // scriptChecker
             // 
@@ -2136,176 +5056,10 @@
             // 
             this.bindingSourceStatusTab.DataSource = typeof(MissionPlanner.CurrentState);
             // 
-            // COMBJOY
+            // RecargaLbl
             // 
-            this.COMBJOY.FormattingEnabled = true;
-            resources.ApplyResources(this.COMBJOY, "COMBJOY");
-            this.COMBJOY.Name = "COMBJOY";
-            // 
-            // modifyandSetSpeed
-            // 
-            this.modifyandSetSpeed.ButtonText = "Change Speed";
-            resources.ApplyResources(this.modifyandSetSpeed, "modifyandSetSpeed");
-            this.modifyandSetSpeed.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.modifyandSetSpeed.Minimum = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.modifyandSetSpeed.Name = "modifyandSetSpeed";
-            this.modifyandSetSpeed.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.modifyandSetSpeed.Click += new System.EventHandler(this.modifyandSetSpeed_Click);
-            this.modifyandSetSpeed.Load += new System.EventHandler(this.modifyandSetSpeed_Load);
-            this.modifyandSetSpeed.ParentChanged += new System.EventHandler(this.modifyandSetSpeed_ParentChanged);
-            // 
-            // modifyandSetLoiterRad
-            // 
-            this.modifyandSetLoiterRad.ButtonText = "Set Loiter Rad";
-            resources.ApplyResources(this.modifyandSetLoiterRad, "modifyandSetLoiterRad");
-            this.modifyandSetLoiterRad.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.modifyandSetLoiterRad.Minimum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            -2147483648});
-            this.modifyandSetLoiterRad.Name = "modifyandSetLoiterRad";
-            this.modifyandSetLoiterRad.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.modifyandSetLoiterRad.Click += new System.EventHandler(this.modifyandSetLoiterRad_Click);
-            // 
-            // modifyandSetAlt
-            // 
-            this.modifyandSetAlt.ButtonText = "Change Alt";
-            resources.ApplyResources(this.modifyandSetAlt, "modifyandSetAlt");
-            this.modifyandSetAlt.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.modifyandSetAlt.Minimum = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.modifyandSetAlt.Name = "modifyandSetAlt";
-            this.modifyandSetAlt.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.modifyandSetAlt.Click += new System.EventHandler(this.modifyandSetAlt_Click);
-            // 
-            // checkListControl1
-            // 
-            resources.ApplyResources(this.checkListControl1, "checkListControl1");
-            this.checkListControl1.Name = "checkListControl1";
-            // 
-            // servoOptions1
-            // 
-            resources.ApplyResources(this.servoOptions1, "servoOptions1");
-            this.servoOptions1.Name = "servoOptions1";
-            this.servoOptions1.thisservo = 5;
-            // 
-            // servoOptions2
-            // 
-            resources.ApplyResources(this.servoOptions2, "servoOptions2");
-            this.servoOptions2.Name = "servoOptions2";
-            this.servoOptions2.thisservo = 6;
-            // 
-            // servoOptions3
-            // 
-            resources.ApplyResources(this.servoOptions3, "servoOptions3");
-            this.servoOptions3.Name = "servoOptions3";
-            this.servoOptions3.thisservo = 7;
-            // 
-            // servoOptions4
-            // 
-            resources.ApplyResources(this.servoOptions4, "servoOptions4");
-            this.servoOptions4.Name = "servoOptions4";
-            this.servoOptions4.thisservo = 8;
-            // 
-            // servoOptions5
-            // 
-            resources.ApplyResources(this.servoOptions5, "servoOptions5");
-            this.servoOptions5.Name = "servoOptions5";
-            this.servoOptions5.thisservo = 9;
-            // 
-            // servoOptions6
-            // 
-            resources.ApplyResources(this.servoOptions6, "servoOptions6");
-            this.servoOptions6.Name = "servoOptions6";
-            this.servoOptions6.thisservo = 10;
-            // 
-            // servoOptions7
-            // 
-            resources.ApplyResources(this.servoOptions7, "servoOptions7");
-            this.servoOptions7.Name = "servoOptions7";
-            this.servoOptions7.thisservo = 11;
-            // 
-            // servoOptions8
-            // 
-            resources.ApplyResources(this.servoOptions8, "servoOptions8");
-            this.servoOptions8.Name = "servoOptions8";
-            this.servoOptions8.thisservo = 12;
-            // 
-            // servoOptions9
-            // 
-            resources.ApplyResources(this.servoOptions9, "servoOptions9");
-            this.servoOptions9.Name = "servoOptions9";
-            this.servoOptions9.thisservo = 13;
-            // 
-            // servoOptions10
-            // 
-            resources.ApplyResources(this.servoOptions10, "servoOptions10");
-            this.servoOptions10.Name = "servoOptions10";
-            this.servoOptions10.thisservo = 14;
-            // 
-            // relayOptions1
-            // 
-            resources.ApplyResources(this.relayOptions1, "relayOptions1");
-            this.relayOptions1.Name = "relayOptions1";
-            this.relayOptions1.thisrelay = 0;
-            // 
-            // relayOptions2
-            // 
-            resources.ApplyResources(this.relayOptions2, "relayOptions2");
-            this.relayOptions2.Name = "relayOptions2";
-            this.relayOptions2.thisrelay = 1;
-            // 
-            // relayOptions3
-            // 
-            resources.ApplyResources(this.relayOptions3, "relayOptions3");
-            this.relayOptions3.Name = "relayOptions3";
-            this.relayOptions3.thisrelay = 2;
-            // 
-            // relayOptions4
-            // 
-            resources.ApplyResources(this.relayOptions4, "relayOptions4");
-            this.relayOptions4.Name = "relayOptions4";
-            this.relayOptions4.thisrelay = 3;
-            // 
-            // distanceBar1
-            // 
-            resources.ApplyResources(this.distanceBar1, "distanceBar1");
-            this.distanceBar1.BackColor = System.Drawing.Color.Transparent;
-            this.distanceBar1.Name = "distanceBar1";
-            this.distanceBar1.totaldist = 100F;
-            this.distanceBar1.traveleddist = 0F;
+            this.RecargaLbl.Enabled = true;
+            this.RecargaLbl.Tick += new System.EventHandler(this.timer1_Tick_2);
             // 
             // FlightData
             // 
@@ -2321,6 +5075,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.MainH)).EndInit();
             this.MainH.ResumeLayout(false);
             this.SubMainLeft.Panel1.ResumeLayout(false);
+            this.SubMainLeft.Panel1.PerformLayout();
             this.SubMainLeft.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SubMainLeft)).EndInit();
             this.SubMainLeft.ResumeLayout(false);
@@ -2329,15 +5084,19 @@
             this.tabControlactions.ResumeLayout(false);
             this.contextMenuStripactionstab.ResumeLayout(false);
             this.tabQuick.ResumeLayout(false);
+            this.tableLayoutPanelQuick.ResumeLayout(false);
+            this.tableLayoutPanelQuick.PerformLayout();
             this.tabActions.ResumeLayout(false);
             this.tabActions.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel5.ResumeLayout(false);
-            this.tableLayoutPanel5.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
+            this.tableLayoutPanel7.ResumeLayout(false);
+            this.tableLayoutPanel7.PerformLayout();
+            this.tableLayoutPanel5.ResumeLayout(false);
+            this.tableLayoutPanel5.PerformLayout();
             this.tabActionsSimple.ResumeLayout(false);
             this.tabPagePreFlight.ResumeLayout(false);
             this.tabGauges.ResumeLayout(false);
@@ -2373,6 +5132,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.contextMenuStripMap.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceQuickTab)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TRK_zoom)).EndInit();
             this.panel1.ResumeLayout(false);
@@ -2380,7 +5141,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.Zoomlevel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceGaugesTab)).EndInit();
             this.contextMenuStripQuickView.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceQuickTab)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceStatusTab)).EndInit();
             this.ResumeLayout(false);
 
@@ -2460,7 +5220,6 @@
         private Controls.ServoOptions servoOptions9;
         private Controls.ServoOptions servoOptions10;
         private System.Windows.Forms.BindingSource bindingSourceHud;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelQuick;
         private System.Windows.Forms.Panel panel2;
         private Controls.MyButton BUT_speed10;
         private Controls.MyButton BUT_speed5;
@@ -2562,7 +5321,6 @@
         private Controls.MyButton BUT_setwp;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private Controls.ModifyandSet modifyandSetSpeed;
         private Controls.MyButton BUT_resumemis;
@@ -2577,5 +5335,346 @@
         private Controls.MyButton BUT_logbrowse;
         private System.Windows.Forms.Button ButJoyOn;
         private System.Windows.Forms.ComboBox COMBJOY;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelQuick;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Label s;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Timer RecargaLbl;
+        private System.Windows.Forms.DataGridViewTextBoxColumn groundspeedDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn wpdistDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn distToHomeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rangefinder1DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn parentDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rollDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn pitchDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn yawDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sSADataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn aOADataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn groundcourseDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn latDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn lngDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn altDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn altaslDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn horizondistDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vxDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vyDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vzDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vlenDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn altoffsethomeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gpsstatusDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gpshdopDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn satcountDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gpshaccDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gpsvaccDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gpsvelaccDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gpshdgaccDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn lat2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn lng2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn altasl2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gpsstatus2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gpshdop2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn satcount2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn groundspeed2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn groundcourse2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn satcountBDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gpstimeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn altd1000DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn altd100DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn airspeedDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn targetairspeedDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn lowairspeedDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn asratioDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn axDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ayDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn azDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accelsqDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gxDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gyDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gzDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gyrosqDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn mxDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn myDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn mzDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn magfieldDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ax2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ay2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn az2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accelsq2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gx2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gy2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gz2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gyrosq2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn mx2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn my2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn mz2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn magfield2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ax3DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ay3DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn az3DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accelsq3DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gx3DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gy3DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gz3DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gyrosq3DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn mx3DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn my3DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn mz3DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn magfield3DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch1inDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch2inDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch3inDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch4inDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch5inDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch6inDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch7inDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch8inDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch9inDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch10inDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch11inDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch12inDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch13inDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch14inDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch15inDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch16inDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch1outDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch2outDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch3outDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch4outDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch5outDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch6outDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch7outDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch8outDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch9outDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch10outDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch11outDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch12outDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch13outDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch14outDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch15outDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch16outDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc1voltDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc1currDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc1rpmDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc1tempDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc2voltDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc2currDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc2rpmDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc2tempDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc3voltDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc3currDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc3rpmDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc3tempDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc4voltDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc4currDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc4rpmDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc4tempDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc5voltDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc5currDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc5rpmDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc5tempDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc6voltDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc6currDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc6rpmDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc6tempDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc7voltDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc7currDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc7rpmDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc7tempDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc8voltDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc8currDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc8rpmDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn esc8tempDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ch3percentDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn failsafeDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rxrssiDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn critAOADataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn lowgroundspeedDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn verticalspeedDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn verticalspeedfpmDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn glideratioDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn navrollDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn navpitchDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn navbearingDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn targetbearingDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn alterrorDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bererrorDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn aspderrorDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn xtrackerrorDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn wpnoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn modeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn climbrateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn totDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tohDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn distTraveledDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn timeSinceArmInAirDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn timeInAirDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn timeInAirMinSecDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn turnrateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn turngDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn radiusDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn qNHDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn winddirDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn windvelDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn targetaltd100DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn targetaltDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn messageDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn messageHighDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn messageHighTimeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batteryvoltageDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batteryvoltage3DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batteryvoltage4DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batteryvoltage5DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batteryvoltage6DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batteryvoltage7DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batteryvoltage8DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batteryremainingDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batteryremaining2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batteryremaining3DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batteryremaining4DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batteryremaining5DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batteryremaining6DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batteryremaining7DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batteryremaining8DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn currentDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn current2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn current3DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn current4DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn current5DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn current6DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn current7DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn current8DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn wattsDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batterymahperkmDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batterykmleftDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batteryusedmahDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batterycell1DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batterycell2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batterycell3DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batterycell4DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batterycell5DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batterycell6DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batterytempDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batteryusedmah2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batteryusedmah3DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batteryusedmah4DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batteryusedmah5DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batteryusedmah6DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batteryusedmah7DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batteryusedmah8DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batteryvoltage2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn homeAltDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn homeLocationDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn movingBaseDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn trackerLocationDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn locationDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn targetLocationDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn distFromMovingBaseDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn eLToMAVDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn aZToMAVDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sonarrangeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sonarvoltageDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rangefinder2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rangefinder3DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn freememDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn loadDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn brklevelDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn armedDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rssiDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn remrssiDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn txbufferDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn noiseDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn remnoiseDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rxerrorsDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fixedpDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn localsnrdbDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn remotesnrdbDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn distRSSIRemainDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn packetdropremoteDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn linkqualitygcsDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn hwvoltageDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn boardvoltageDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn servovoltageDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn voltageflagDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn i2cerrorsDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn timesincelastshotDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn pressabsDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn presstempDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn pressabs2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn presstemp2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn magofsxDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn magofsyDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn magofszDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn magdeclinationDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rawpressDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rawtempDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gyrocalxDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gyrocalyDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gyrocalzDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accelcalxDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accelcalyDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accelcalzDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rateattitudeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ratepositionDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ratestatusDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ratesensorsDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ratercDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn datetimeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn connectedDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn campointaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn campointbDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn campointcDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gimbalPointDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gimballatDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gimballngDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn landedDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn terrainactiveDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tercuraltDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn teraltDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn terloadDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn terpendDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn terspaceDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn kIndexDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn optmxDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn optmyDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn optxDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn optyDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn optquaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ekfstatusDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ekfflagsDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ekfvelvDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ekfcompvDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ekfposhorDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ekfposvertDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ekfteraltDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn pidffDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn pidPDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn pidIDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn pidDDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn pidaxisDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn piddesiredDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn pidachievedDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vibeclip0DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vibeclip1DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vibeclip2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vibexDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vibeyDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vibezDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn versionDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rpm1DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rpm2DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn capabilitiesDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn speedupDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vtolstateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn landedstateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label LBLrangefinder1;
+        private System.Windows.Forms.Label LBLDistToHome;
+        private System.Windows.Forms.Label LBLwp_dist;
+        private System.Windows.Forms.Label LBLgroundspeed;
+        private System.Windows.Forms.Label label8;
     }
 }
