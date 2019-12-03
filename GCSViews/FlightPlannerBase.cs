@@ -6419,30 +6419,33 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         private void MainMap_MouseDown(object sender, MouseEventArgs e)
         {
-            if (isMouseClickOffMenu)
-                return;
-
-            MouseDownStart = _flightPlanner.MainMap.FromLocalToLatLng(e.X, e.Y);
-
-            //   Console.WriteLine("MainMap MD");
-
-            if (e.Button == MouseButtons.Left && (groupmarkers.Count > 0 || Control.ModifierKeys == Keys.Control))
+            if (_flightPlanner.bloqWP == true)
             {
-                // group move
-                isMouseDown = true;
-                isMouseDraging = false;
+                if (isMouseClickOffMenu)
+                    return;
 
-                return;
-            }
+                MouseDownStart = _flightPlanner.MainMap.FromLocalToLatLng(e.X, e.Y);
 
-            if (e.Button == MouseButtons.Left && Control.ModifierKeys != Keys.Alt && Control.ModifierKeys != Keys.Control)
-            {
-                isMouseDown = true;
-                isMouseDraging = false;
+                //   Console.WriteLine("MainMap MD");
 
-                if (currentMarker.IsVisible)
+                if (e.Button == MouseButtons.Left && (groupmarkers.Count > 0 || Control.ModifierKeys == Keys.Control))
                 {
-                    currentMarker.Position = _flightPlanner.MainMap.FromLocalToLatLng(e.X, e.Y);
+                    // group move
+                    isMouseDown = true;
+                    isMouseDraging = false;
+
+                    return;
+                }
+
+                if (e.Button == MouseButtons.Left && Control.ModifierKeys != Keys.Alt && Control.ModifierKeys != Keys.Control)
+                {
+                    isMouseDown = true;
+                    isMouseDraging = false;
+
+                    if (currentMarker.IsVisible)
+                    {
+                        currentMarker.Position = _flightPlanner.MainMap.FromLocalToLatLng(e.X, e.Y);
+                    }
                 }
             }
         }

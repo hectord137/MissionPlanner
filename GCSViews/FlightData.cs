@@ -5001,6 +5001,11 @@ namespace MissionPlanner.GCSViews
             rechargelabel();
 
         }
+
+        private void toolTip1_Popup(object sender, PopupEventArgs e)
+        {
+
+        }
     }
 
 }

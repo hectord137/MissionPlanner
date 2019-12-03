@@ -60,5 +60,17 @@ namespace MissionPlanner.GCSViews
         {
 
         }
+
+        private void cmb_missiontype_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+
+        }
+        public bool bloqWP = false;
+        public void BUT_insertWP_Click(object sender, System.EventArgs e)
+        {
+            if (!bloqWP)
+            {bloqWP = true;}
+            else { bloqWP = false; }
+        }
     }
 }
