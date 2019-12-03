@@ -467,6 +467,8 @@ namespace MissionPlanner.GCSViews
             tabControlactions.Controls.Remove(tabPagemessages);
             tabControlactions.Controls.Remove(tablogbrowse);
             tabControlactions.Controls.Remove(tabQuick);
+            tabControlactions.Controls.Remove(tabStatus);
+            
         }
 
         public void BUT_playlog_Click(object sender, EventArgs e)

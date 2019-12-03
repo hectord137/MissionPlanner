@@ -407,7 +407,7 @@ namespace MissionPlanner.Controls
                 }
             }
         }
-
+        //hide battery
         [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
         public float current
         {
@@ -418,7 +418,7 @@ namespace MissionPlanner.Controls
                 {
                     _current = value;
                     this.Invalidate();
-                    if (_current > 0) batteryon = true;
+                    if (_current > 0) batteryon = false;
                 }
             }
         }
