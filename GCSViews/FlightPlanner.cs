@@ -1,4 +1,5 @@
 ﻿using MissionPlanner.Controls;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace MissionPlanner.GCSViews
@@ -68,9 +69,16 @@ namespace MissionPlanner.GCSViews
         public bool bloqWP = false;
         public void BUT_insertWP_Click(object sender, System.EventArgs e)
         {
-            if (!bloqWP)
-            {bloqWP = true;}
-            else { bloqWP = false; }
+            if (bloqWP)
+            {
+                bloqWP = false; 
+                BUT_insertWP.BackColor = Color.FromArgb(255, 0, 0);
+            }
+            else
+            {
+                bloqWP = true;
+                BUT_insertWP.BackColor = Color.FromArgb(0, 0, 0);
+            }
         }
     }
 }
