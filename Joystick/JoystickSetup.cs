@@ -23,7 +23,7 @@ namespace MissionPlanner.Joystick
             MissionPlanner.Utilities.Tracking.AddPage(this.GetType().ToString(), this.Text);
         }
 
-        private void Joystick_Load(object sender, EventArgs e)
+        public void Joystick_Load(object sender, EventArgs e)
         {
             try
             {
@@ -126,7 +126,7 @@ namespace MissionPlanner.Joystick
             return temp;
         }
 
-        private void BUT_enable_Click(object sender, EventArgs e)
+        public void BUT_enable_Click(object sender, EventArgs e)
         {
             if (MainV2.joystick == null || MainV2.joystick.enabled == false)
             {

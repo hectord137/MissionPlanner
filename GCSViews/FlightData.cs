@@ -1163,6 +1163,13 @@ namespace MissionPlanner.GCSViews
             }
         }
 
+        private void activatedjoy(object sender, EventArgs e) {
+  
+            JoystickSetup JoystickSetup = new JoystickSetup();
+            JoystickSetup.Joystick_Load(sender, e);
+            JoystickSetup.BUT_enable_Click(sender, e);
+        }
+
         private void BUT_joystick_Click(object sender, EventArgs e)
         {
             Form joy = new JoystickSetup();
@@ -4848,54 +4855,57 @@ namespace MissionPlanner.GCSViews
 
         public void ButJoyOn_Click(object sender, EventArgs e)
         {
-            if (MainV2.joystick == null || MainV2.joystick.enabled == false)
-            {
-                try
+            activatedjoy(sender,  e);
+            
+
+                /*if (MainV2.joystick == null || MainV2.joystick.enabled == false)
                 {
-                    if (MainV2.joystick != null)
-                        MainV2.joystick.UnAcquireJoyStick();
+                    try
+                    {
+                        if (MainV2.joystick != null)
+                            MainV2.joystick.UnAcquireJoyStick();
+                    }
+                    catch
+                    {
+                    }
+
+                    // all config is loaded from the xmls
+                    Joystick.Joystick joystick = new Joystick.Joystick(() => MainV2.comPort);
+                    //joy.elevons = CHK_elevons.Checked;
+
+                    if (!joystick.start(COMBJOY.Text))
+                    {
+                        CustomMessageBox.Show("Please Connect a Joystick", "No Joystick");
+                        joystick.Dispose();
+                        return;
+                    }
+
+                    //Settings.Instance["joystick_name"] = CMB_joysticks.Text;
+
+                    MainV2.joystick = joystick;
+                    MainV2.joystick.enabled = true;
+
+                   // BUT_enable.Text = "Disable";
+
+                    //timer1.Start();
                 }
-                catch
+                else
                 {
+                    MainV2.joystick.enabled = false;
+
+                    MainV2.joystick.clearRCOverride();
+
+                    MainV2.joystick = null;
+
+
+                    //timer1.Stop();
+
+                  //  BUT_enable.Text = "Enable";
                 }
-
-                // all config is loaded from the xmls
-                Joystick.Joystick joystick = new Joystick.Joystick(() => MainV2.comPort);
-                //joy.elevons = CHK_elevons.Checked;
-
-                if (!joystick.start(COMBJOY.Text))
-                {
-                    CustomMessageBox.Show("Please Connect a Joystick", "No Joystick");
-                    joystick.Dispose();
-                    return;
-                }
-
-                //Settings.Instance["joystick_name"] = CMB_joysticks.Text;
-
-                MainV2.joystick = joystick;
-                MainV2.joystick.enabled = true;
-
-               // BUT_enable.Text = "Disable";
-
-                //timer1.Start();
+                */
             }
-            else
-            {
-                MainV2.joystick.enabled = false;
 
-                MainV2.joystick.clearRCOverride();
-
-                MainV2.joystick = null;
-
-
-                //timer1.Stop();
-
-              //  BUT_enable.Text = "Enable";
-            }
-
-        }
-
-        private void loadjoy() {
+            private void loadjoy() {
             try
             {
                 var joysticklist = Joystick.Joystick.getDevices();
