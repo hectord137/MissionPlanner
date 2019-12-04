@@ -467,7 +467,7 @@ namespace MissionPlanner.GCSViews
 
             timer.Start();
             */
-        }
+                  }
 
         public List<PointLatLngAlt> pointlist { get; set; } = new List<PointLatLngAlt>();
 
@@ -4565,7 +4565,7 @@ namespace MissionPlanner.GCSViews
 
             e.Graphics.ResetTransform();
 
-            polyicon.Location = new Point(10, 100);
+            polyicon.Location = new Point(5, 5);
             polyicon.Paint(e.Graphics);
 
             e.Graphics.ResetTransform();

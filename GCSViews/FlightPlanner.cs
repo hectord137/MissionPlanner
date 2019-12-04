@@ -14,6 +14,7 @@ namespace MissionPlanner.GCSViews
             InitializeComponent();
 
             _flightPlannerBase = new FlightPlannerBase(this);
+            modifyMain();
         }
 
         public FlightPlannerBase FlightPlannerBase
@@ -54,7 +55,7 @@ namespace MissionPlanner.GCSViews
         private void ButMeasureContext_Click(object sender, System.EventArgs e)
         {
             _flightPlannerBase.measurecontext();
-           
+          
         }
 
         private void setHomeHereToolStripMenuItem_Click(object sender, System.EventArgs e)
@@ -79,6 +80,51 @@ namespace MissionPlanner.GCSViews
                 bloqWP = true;
                 BUT_insertWP.BackColor = Color.FromArgb(0, 0, 0);
             }
+        }
+
+        private void addPolygonPointToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+
+        }
+
+        
+        private void ButInsertPol_Click(object sender, System.EventArgs e)
+        {
+            ButClearPol.Enabled = true;
+            bloqWP = true;
+            BtSavePol.Enabled = true;
+            _flightPlannerBase.addPolygonPointToolStripMenuItem_Click(sender, e);
+        }
+
+        private void modifyMain() {
+            ButClearPol.Enabled = false;
+            BtSavePol.Enabled = false;
+            contextMenuStripPoly.Visible = false;
+        }
+
+        private void ButClearPol_Click(object sender, System.EventArgs e)
+        {
+                DialogResult boton = MessageBox.Show("Clear Polygon?", "Alerta", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                if (boton == DialogResult.OK)
+                {
+                    _flightPlannerBase.clearPolygonToolStripMenuItem_Click(Events, e);
+                ButClearPol.Enabled = false;
+                bloqWP = false;
+                BtSavePol.Enabled = false;
+            }
+                else { }
+           
+        }
+
+        private void BtSavePol_Click(object sender, System.EventArgs e)
+        {
+            _flightPlannerBase.savePolygonToolStripMenuItem_Click(sender, e);
+        }
+
+        private void ButLoadPol_Click_1(object sender, System.EventArgs e)
+        {
+            ButClearPol.Enabled = true;
+            _flightPlannerBase.loadPolygonToolStripMenuItem_Click(sender, e);
         }
     }
 }
