@@ -1044,7 +1044,7 @@ namespace MissionPlanner.GCSViews
 
             _flightPlanner.MainMap.UpdatePolygonLocalPosition(geofencepolygon);
             _flightPlanner.MainMap.UpdateMarkerLocalPosition(geofenceoverlay.Markers[0]);
-
+            5
             _flightPlanner.MainMap.Invalidate();
         }
 
@@ -1069,7 +1069,7 @@ namespace MissionPlanner.GCSViews
                 return;
             }
 
-            rallypointoverlay.Markers.Clear();
+           // rallypointoverlay.Markers.Clear();
 
             int count = int.Parse(MainV2.comPort.MAV.param["RALLY_TOTAL"].ToString());
 
@@ -1199,8 +1199,9 @@ namespace MissionPlanner.GCSViews
                     {
                         ans = (int)ans;
 
-                        DataGridViewTextBoxCell celllat = _flightPlanner.Commands.Rows[selectedrow].Cells[Lat.Index] as DataGridViewTextBoxCell;
-                        DataGridViewTextBoxCell celllon = _flightPlanner.Commands.Rows[selectedrow].Cells[Lon.Index] as DataGridViewTextBoxCell;
+                        DataGridViewTextBoxCell celllat     = _flightPlanner.Commands.Rows[selectedrow].Cells[Lat.Index] as DataGridViewTextBoxCell;
+                        DataGridViewTextBoxCell celllon     = _flightPlanner.Commands.Rows[selectedrow].Cells[Lon.Index] as DataGridViewTextBoxCell;
+                       
                         int oldsrtm =
                             (int)
                             ((srtm.getAltitude(double.Parse(celllat.Value.ToString()),
@@ -1311,11 +1312,19 @@ namespace MissionPlanner.GCSViews
             // convert to utm
             convertFromGeographic(lat, lng);
 
-            // Add more for other params
-            if (_flightPlanner.Commands.Columns[Param1.Index].HeaderText.Equals("Delay"))
+            // agrega a paraetros
+            if (_flightPlanner.Commands.Columns[Param1.Index].HeaderText.Equals(""))
             {
+                
                 cell = _flightPlanner.Commands.Rows[selectedrow].Cells[Param1.Index] as DataGridViewTextBoxCell;
-                cell.Value = p1;
+                cell.Value = 1;
+                cell.DataGridView.EndEdit();
+            }
+            if (_flightPlanner.Commands.Columns[Param2.Index].HeaderText.Equals(""))
+            {
+
+                cell = _flightPlanner.Commands.Rows[selectedrow].Cells[Param2.Index] as DataGridViewTextBoxCell;
+                cell.Value = 1;
                 cell.DataGridView.EndEdit();
             }
 
@@ -2287,6 +2296,7 @@ namespace MissionPlanner.GCSViews
             try
             {
                 selectedrow = e.RowIndex;
+               
                 string option = _flightPlanner.Commands[Command.Index, selectedrow].EditedFormattedValue.ToString();
                 string cmd;
                 try
@@ -2330,7 +2340,7 @@ namespace MissionPlanner.GCSViews
             DataGridViewComboBoxCell cell = _flightPlanner.Commands.Rows[e.RowIndex].Cells[Command.Index] as DataGridViewComboBoxCell;
             if (cell.Value == null)
             {
-                cell.Value = "WAYPOINT";
+                cell.Value = "CTM";
                 cell.DropDownWidth = 200;
                 _flightPlanner.Commands.Rows[e.RowIndex].Cells[Delete.Index].Value = "X";
                 if (!quickadd)
@@ -2340,6 +2350,7 @@ namespace MissionPlanner.GCSViews
                     // do default values
                 }
             }
+           
 
             DataGridViewComboBoxCell cellFrame = _flightPlanner.Commands.Rows[e.RowIndex].Cells[Frame.Index] as DataGridViewComboBoxCell;
             if (cellFrame.Value == null)
@@ -5191,8 +5202,10 @@ namespace MissionPlanner.GCSViews
             {
                 try
                 {
-                    MainV2.comPort.setRallyPoint(count, new PointLatLngAlt(pnt.Position) { Alt = pnt.Alt }, 0, 0, 0,
-                        (byte)(float)MainV2.comPort.MAV.param["RALLY_TOTAL"]);
+                    if (MainV2.comPort.setRallyPoint(count, new PointLatLngAlt(pnt.Position) { Alt = pnt.Alt }, 0, 0, 0,
+                        (byte)(float)MainV2.comPort.MAV.param["RALLY_TOTAL"])) {
+                        CustomMessageBox.Show("Save Rally point");
+                    }
                     count++;
                 }
                 catch
@@ -5792,6 +5805,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             isMouseClickOffMenu = false;
         }
+
 
         public void setReturnLocationToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -6419,36 +6433,42 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         private void MainMap_MouseDown(object sender, MouseEventArgs e)
         {
+            MouseDownStart = _flightPlanner.MainMap.FromLocalToLatLng(e.X, e.Y);
+            isMouseDown = true;
+            isMouseDraging = true;
+            
             if (_flightPlanner.bloqWP == true)
             {
-                if (isMouseClickOffMenu)
-                    return;
-
-                MouseDownStart = _flightPlanner.MainMap.FromLocalToLatLng(e.X, e.Y);
-
-                //   Console.WriteLine("MainMap MD");
-
                 if (e.Button == MouseButtons.Left && (groupmarkers.Count > 0 || Control.ModifierKeys == Keys.Control))
                 {
                     // group move
                     isMouseDown = true;
                     isMouseDraging = false;
-
                     return;
                 }
+
+                //   Console.WriteLine("MainMap MD");
+
+                if (isMouseClickOffMenu)
+                    return;
+
+                MouseDownStart = _flightPlanner.MainMap.FromLocalToLatLng(e.X, e.Y);
 
                 if (e.Button == MouseButtons.Left && Control.ModifierKeys != Keys.Alt && Control.ModifierKeys != Keys.Control)
                 {
                     isMouseDown = true;
                     isMouseDraging = false;
 
-                    if (currentMarker.IsVisible)
-                    {
-                        currentMarker.Position = _flightPlanner.MainMap.FromLocalToLatLng(e.X, e.Y);
-                    }
+                     if (currentMarker.IsVisible)
+                     {
+                         currentMarker.Position = _flightPlanner.MainMap.FromLocalToLatLng(e.X, e.Y);
+                     }
                 }
+
+
             }
-        }
+
+            }
 
         private void MainMap_MouseEnter(object sender, EventArgs e)
         {

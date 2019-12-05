@@ -126,5 +126,70 @@ namespace MissionPlanner.GCSViews
             ButClearPol.Enabled = true;
             _flightPlannerBase.loadPolygonToolStripMenuItem_Click(sender, e);
         }
+
+        private void BUT_write_Click(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void CMB_altmode_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void LBL_WPRad_Click(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel8_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label17_Click(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void TXT_WPRad_TextChanged(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void setRallyPointToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void myButton1_Click(object sender, System.EventArgs e)
+        {
+            _flightPlannerBase.setRallyPointToolStripMenuItem_Click(sender, e);
+        }
+
+        private void myButton6_Click(object sender, System.EventArgs e)
+        {
+            _flightPlannerBase.getRallyPointsToolStripMenuItem_Click(sender, e);
+        }
+
+        private void myButton3_Click(object sender, System.EventArgs e)
+        {
+            _flightPlannerBase.saveRallyPointsToolStripMenuItem_Click(sender, e);
+        }
+
+        private void myButton5_Click(object sender, System.EventArgs e)
+        {
+            _flightPlannerBase.clearRallyPointsToolStripMenuItem_Click(sender, e);
+        }
+
+        private void myButton4_Click(object sender, System.EventArgs e)
+        {
+            _flightPlannerBase.saveToFileToolStripMenuItem1_Click(sender, e);
+        }
+
+        private void myButton2_Click(object sender, System.EventArgs e)
+        {
+            _flightPlannerBase.loadFromFileToolStripMenuItem1_Click(sender, e);
+        }
     }
 }
