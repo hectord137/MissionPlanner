@@ -1044,7 +1044,7 @@ namespace MissionPlanner.GCSViews
 
             _flightPlanner.MainMap.UpdatePolygonLocalPosition(geofencepolygon);
             _flightPlanner.MainMap.UpdateMarkerLocalPosition(geofenceoverlay.Markers[0]);
-            5
+            
             _flightPlanner.MainMap.Invalidate();
         }
 
@@ -1069,7 +1069,7 @@ namespace MissionPlanner.GCSViews
                 return;
             }
 
-           // rallypointoverlay.Markers.Clear();
+            rallypointoverlay.Markers.Clear();
 
             int count = int.Parse(MainV2.comPort.MAV.param["RALLY_TOTAL"].ToString());
 
@@ -1092,9 +1092,9 @@ namespace MissionPlanner.GCSViews
                 }
             }
 
-            _flightPlanner.MainMap.UpdateMarkerLocalPosition(rallypointoverlay.Markers[0]);
+            MainMap.UpdateMarkerLocalPosition(rallypointoverlay.Markers[0]);
 
-            _flightPlanner.MainMap.Invalidate();
+            MainMap.Invalidate();
         }
 
         public void InsertCommand(int rowIndex, MAVLink.MAV_CMD cmd, double p1, double p2, double p3, double p4, double x, double y,
@@ -5202,10 +5202,10 @@ namespace MissionPlanner.GCSViews
             {
                 try
                 {
-                    if (MainV2.comPort.setRallyPoint(count, new PointLatLngAlt(pnt.Position) { Alt = pnt.Alt }, 0, 0, 0,
-                        (byte)(float)MainV2.comPort.MAV.param["RALLY_TOTAL"])) {
+                    MainV2.comPort.setRallyPoint(count, new PointLatLngAlt(pnt.Position) { Alt = pnt.Alt }, 0, 0, 0,
+                        (byte)(float)MainV2.comPort.MAV.param["RALLY_TOTAL"]);
                         CustomMessageBox.Show("Save Rally point");
-                    }
+                    
                     count++;
                 }
                 catch
@@ -5777,7 +5777,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         public void setRallyPointToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string altstring = _flightPlanner.TXT_DefaultAlt.Text;
+           /* string altstring = _flightPlanner.TXT_DefaultAlt.Text;
 
             if (InputBox.Show("Altitude", "Altitude", ref altstring) == DialogResult.Cancel)
                 return;
@@ -5803,8 +5803,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 CustomMessageBox.Show(Strings.InvalidAlt, Strings.ERROR);
             }
 
-            isMouseClickOffMenu = false;
+            isMouseClickOffMenu = false;*/
         }
+
+
+   
 
 
         public void setReturnLocationToolStripMenuItem_Click(object sender, EventArgs e)
@@ -6467,6 +6470,27 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
 
             }
+            if (_flightPlanner.bloqRallyPoint)
+            {
+                try { 
+                    PointLatLngAlt rallypt = new PointLatLngAlt(MouseDownStart.Lat, MouseDownStart.Lng,
+                        100 / CurrentState.multiplieralt, "Rally Point");
+                    rallypointoverlay.Markers.Add(
+                        new GMapMarkerRallyPt(rallypt)
+                        {
+                            ToolTipMode = MarkerTooltipMode.OnMouseOver,
+                            ToolTipText = "Rally Point" + "\nAlt: " + 100,
+                            Tag = rallypointoverlay.Markers.Count,
+                            Alt = (int)rallypt.Alt
+                        }
+                    );
+                }
+                catch
+                {
+                    CustomMessageBox.Show(Strings.InvalidAlt, Strings.ERROR);
+                }
+            }
+           
 
             }
 

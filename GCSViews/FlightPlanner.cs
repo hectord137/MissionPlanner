@@ -161,10 +161,20 @@ namespace MissionPlanner.GCSViews
         {
 
         }
+        public bool bloqRallyPoint = false;
+        private void myButton1_Click(object sender, System.EventArgs e) {
 
-        private void myButton1_Click(object sender, System.EventArgs e)
-        {
-            _flightPlannerBase.setRallyPointToolStripMenuItem_Click(sender, e);
+            if (bloqRallyPoint)
+            {
+                bloqRallyPoint = false;
+                myButton1.BackColor = Color.FromArgb(255, 0, 0);
+            }
+            else
+            {
+                bloqRallyPoint = true;
+                myButton1.BackColor = Color.FromArgb(0, 0, 0);
+            }
+  
         }
 
         private void myButton6_Click(object sender, System.EventArgs e)
