@@ -74,32 +74,54 @@ namespace MissionPlanner.GCSViews
             {
                 bloqWP = false; 
                 BUT_insertWP.BackColor = Color.FromArgb(255, 0, 0);
+                ButDelwp.Enabled = false;
+                ButInsertPol.Enabled = true;
+               
             }
             else
             {
                 bloqWP = true;
                 BUT_insertWP.BackColor = Color.FromArgb(0, 0, 0);
+                ButDelwp.Enabled = true;
+                ButInsertPol.Enabled = false;
+               
             }
         }
 
         private void addPolygonPointToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
-
+            
         }
 
-        
+        public bool setPol = false;
         private void ButInsertPol_Click(object sender, System.EventArgs e)
         {
-            ButClearPol.Enabled = true;
-            bloqWP = true;
-            BtSavePol.Enabled = true;
-            _flightPlannerBase.addPolygonPointToolStripMenuItem_Click(sender, e);
+            if (setPol)
+            {
+                BUT_insertWP.Enabled = true;
+                ButClearPol.Enabled = true;
+                BtSavePol.Enabled = false;
+                bloqWP = false;
+                _flightPlannerBase.addPolygonPointToolStripMenuItem_Click(null, null);
+                setPol = false;
+                _flightPlannerBase.polygongridmode = false;
+            }
+            else {
+                BUT_insertWP.Enabled = false;
+                ButClearPol.Enabled = true;
+                bloqWP = true;
+                BtSavePol.Enabled = true;
+                _flightPlannerBase.addPolygonPointToolStripMenuItem_Click(sender, e);
+                setPol = true;
+            }
+
         }
 
         private void modifyMain() {
             ButClearPol.Enabled = false;
             BtSavePol.Enabled = false;
             contextMenuStripPoly.Visible = false;
+            ButDelwp.Enabled = false;
         }
 
         private void ButClearPol_Click(object sender, System.EventArgs e)
@@ -111,6 +133,7 @@ namespace MissionPlanner.GCSViews
                 ButClearPol.Enabled = false;
                 bloqWP = false;
                 BtSavePol.Enabled = false;
+                BUT_insertWP.Enabled = true;
             }
                 else { }
            
@@ -200,6 +223,46 @@ namespace MissionPlanner.GCSViews
         private void myButton2_Click(object sender, System.EventArgs e)
         {
             _flightPlannerBase.loadFromFileToolStripMenuItem1_Click(sender, e);
+        }
+
+        private void lblLat_Click(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void ButDelwp_Click(object sender, System.EventArgs e)
+        {
+            _flightPlannerBase.clearMissionToolStripMenuItem_Click(sender, e);
+            BUT_insertWP_Click(sender, e);
+            ButDelwp.Enabled = false;
+            ButInsertPol.Enabled = true;
+        }
+
+        private void label4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+    
+
+        private void button2_Click(object sender, System.EventArgs e)
+        {
+            _flightPlannerBase.label4_LinkClicked(sender, e);
+        }
+
+        private void tableLayoutPanel10_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void TXT_homelat_TextChanged(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, System.EventArgs e)
+        {
+
         }
     }
 }

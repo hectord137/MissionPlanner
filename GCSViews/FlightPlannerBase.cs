@@ -96,7 +96,7 @@ namespace MissionPlanner.GCSViews
         private PointLatLng MouseDownStart;
         private PointLatLngAlt mouseposdisplay = new PointLatLngAlt(0, 0);
         private WPOverlay overlay;
-        private bool polygongridmode;
+        public bool polygongridmode;
         private MissionPlanner.Controls.Icon.Polygon polyicon = new MissionPlanner.Controls.Icon.Polygon();
         private ComponentResourceManager rm = new ComponentResourceManager(typeof(FlightPlanner));
         private int selectedrow;
@@ -239,7 +239,7 @@ namespace MissionPlanner.GCSViews
 
 
             _flightPlanner.but_writewpfast.Click += new System.EventHandler(but_writewpfast_Click); _flightPlanner.BUT_write.Click += new System.EventHandler(BUT_write_Click); _flightPlanner.BUT_read.Click += new System.EventHandler(BUT_read_Click);
-            _flightPlanner.label4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(label4_LinkClicked);
+          
 
             _flightPlanner.TXT_homealt.TextChanged += new System.EventHandler(TXT_homealt_TextChanged);
             _flightPlanner.TXT_homelng.TextChanged += new System.EventHandler(TXT_homelng_TextChanged);
@@ -904,6 +904,7 @@ namespace MissionPlanner.GCSViews
                 _flightPlanner.TXT_homealt.Text = (srtm.getAltitude(lat, lng).alt * CurrentState.multiplieralt).ToString();
 
                 _flightPlanner.TXT_homelat.Text = lat.ToString();
+                
                 _flightPlanner.TXT_homelng.Text = lng.ToString();
                 return;
             }
@@ -4000,7 +4001,7 @@ namespace MissionPlanner.GCSViews
                 }
             }
         }
-        public void label4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        public void label4_LinkClicked(object sender, System.EventArgs e)
         {
             if (MainV2.comPort.MAV.cs.lat != 0)
             {
