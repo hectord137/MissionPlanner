@@ -129,7 +129,9 @@ namespace MissionPlanner.GCSViews
                 DialogResult boton = MessageBox.Show("Clear Polygon?", "Alerta", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                 if (boton == DialogResult.OK)
                 {
-                    _flightPlannerBase.clearPolygonToolStripMenuItem_Click(Events, e);
+                FlightPlannerBase.drawnpolygon.Points.Clear();
+                ButInsertPol_Click(sender, e);
+                FlightPlannerBase.drawnpolygonsoverlay.Markers.Clear();
                 ButClearPol.Enabled = false;
                 bloqWP = false;
                 BtSavePol.Enabled = false;
@@ -263,6 +265,25 @@ namespace MissionPlanner.GCSViews
         private void label2_Click(object sender, System.EventArgs e)
         {
 
+        }
+
+        private void button1_Click_1(object sender, System.EventArgs e)
+        {
+           
+        }
+
+        private void BUTCLEARKML_Click(object sender, System.EventArgs e)
+        {
+            _flightPlannerBase.kmlpolygonsoverlay.Clear();
+            _flightPlannerBase.kmlpolygonsoverlay.Polygons.Clear();
+            _flightPlannerBase.kmlpolygonsoverlay.Routes.Clear();
+            _flightPlannerBase.kmlpolygonsoverlay.Markers.Clear();
+
+            FlightData.kmlpolygons.Routes.Clear();
+            FlightData.kmlpolygons.Polygons.Clear();
+            FlightData.kmlpolygons.Markers.Clear();
+            FlightData.kmlpolygons.Clear();
+            FlightData.rallypointoverlay.Clear();
         }
     }
 }
