@@ -49,7 +49,7 @@ namespace MissionPlanner.GCSViews
 {
     public class FlightPlannerBase
     {
-        private FlightPlanner _flightPlanner;
+        public FlightPlanner _flightPlanner;
         public static GMapOverlay airportsoverlay;
         public static FlightPlannerBase instance;
         public static GMapOverlay objectsoverlay;
@@ -5890,9 +5890,18 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         public void surveyGridToolStripMenuItem_Click(object sender, EventArgs e)
         {
+      
+
             GridPlugin grid = new GridPlugin();
-            grid.Host = new PluginHost();
+              grid.Host = new PluginHost();
+
             grid.but_Click(sender, e);
+
+        }
+
+        public void lblInfo(string area) {
+            _flightPlanner.LBLarea.Text = area;
+
         }
 
         public void switchDockingToolStripMenuItem_Click(object sender, EventArgs e)

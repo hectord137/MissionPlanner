@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Windows.Forms;
+using MissionPlanner.ArduPilot;
+using MissionPlanner.GCSViews;
+using MissionPlanner.Maps;
+using MissionPlanner.Utilities;
 
 namespace MissionPlanner.Grid
 {
     public class GridPlugin : MissionPlanner.Plugin.Plugin
     {
-        
+
 
         ToolStripMenuItem but;
 
@@ -21,7 +25,7 @@ namespace MissionPlanner.Grid
 
         public override string Author
         {
-            get { return "Michael Oborne"; }
+            get { return ""; }
         }
 
         public override bool Init()
@@ -55,7 +59,9 @@ namespace MissionPlanner.Grid
                 col.Add(but);
 
             return true;
+
         }
+   
 
         public void but_Click(object sender, EventArgs e)
         {
@@ -65,7 +71,13 @@ namespace MissionPlanner.Grid
 
                 if (Host.FPDrawnPolygon != null && Host.FPDrawnPolygon.Points.Count > 2)
                 {
-                    gridui.ShowDialog();
+                    FlightPlannerBase.instance._flightPlanner.tableLayoutPanel12.Controls.Clear();
+                    FlightPlannerBase.instance._flightPlanner.tableLayoutPanel12.Controls.Add(gridui.tabControl1);  //Agrego la instancia al panel y listo.
+                    FlightPlannerBase.instance._flightPlanner.PaneMenu.Visible = true;
+                    gridui.GridUI_Load(sender, e);
+                    FlightPlannerBase.instance._flightPlanner.estadomenu = true;
+
+
                 }
                 else
                 {
@@ -73,12 +85,15 @@ namespace MissionPlanner.Grid
                         CustomMessageBox.Show("No polygon defined. Load a file?", "Load File", MessageBoxButtons.YesNo) ==
                         (int)DialogResult.Yes)
                     {
+                        FlightPlannerBase.instance._flightPlanner.PaneMenu.Visible = false;
                         gridui.LoadGrid();
-                        gridui.ShowDialog();
+                        FlightPlannerBase.instance._flightPlanner.tableLayoutPanel12.Controls.Clear();
+                        FlightPlannerBase.instance._flightPlanner.tableLayoutPanel12.Controls.Add(gridui.tabControl1);
                     }
                     else
                     {
                         CustomMessageBox.Show("Please define a polygon.", "Error");
+                        FlightPlannerBase.instance._flightPlanner.estadomenu = false;
                     }
                 }
             }

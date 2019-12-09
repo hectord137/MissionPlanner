@@ -1,4 +1,7 @@
-﻿using MissionPlanner.Controls;
+﻿using GMap.NET;
+using GMap.NET.WindowsForms;
+using MissionPlanner.Controls;
+using MissionPlanner.Grid;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -15,11 +18,18 @@ namespace MissionPlanner.GCSViews
 
             _flightPlannerBase = new FlightPlannerBase(this);
             modifyMain();
+            PaneMenu.Visible = false;
         }
 
         public FlightPlannerBase FlightPlannerBase
         {
             get { return _flightPlannerBase; }
+        }
+        private GridPlugin plugin;
+
+        public void test(object sender, System.EventArgs e ){
+            GridUI grid = new GridUI(plugin);
+           grid.domainUpDown1_ValueChanged(sender, e);
         }
 
         public void Activate()
@@ -284,6 +294,58 @@ namespace MissionPlanner.GCSViews
             FlightData.kmlpolygons.Markers.Clear();
             FlightData.kmlpolygons.Clear();
             FlightData.rallypointoverlay.Clear();
+        }
+
+        private void label11_Click(object sender, System.EventArgs e)
+        {
+
+        }
+    
+
+        private void label7_Click(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel12_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void savePolygonToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+
+        }
+        public bool estadomenu = false;
+        public bool menu = false;
+        private void button1_Click_2(object sender, System.EventArgs e)
+        {
+            FlightPlannerBase.surveyGridToolStripMenuItem_Click(sender, e);
+
+            if (estadomenu == true)
+            {      
+                menu = true;
+            }
+            else {
+                menu = false;
+            }
+
+
+            if(menu == true) {
+                PaneMenu.Visible = true;
+            }
+            else {
+                PaneMenu.Visible = false;
+            }
+
+
+
+
         }
     }
 }

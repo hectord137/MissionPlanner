@@ -4159,6 +4159,9 @@
     <Content Include="aircraft.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\flat_hamburger-512.png" />
+    <None Include="Resources\menu_circular_button_burger_icon_124214.png" />
+    <None Include="Resources\menu-alt-512.png" />
     <None Include=".editorconfig" />
     <None Include="appxmanifest.xml" />
     <Content Include="ArduCopterConfig.xml">
@@ -4515,9 +4518,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

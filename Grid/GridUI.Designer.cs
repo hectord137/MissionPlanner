@@ -102,6 +102,7 @@
             this.NUM_Lane_Dist = new System.Windows.Forms.NumericUpDown();
             this.label28 = new System.Windows.Forms.Label();
             this.groupBox_copter = new System.Windows.Forms.GroupBox();
+            this.chk_spline = new System.Windows.Forms.CheckBox();
             this.TXT_headinghold = new System.Windows.Forms.TextBox();
             this.BUT_headingholdminus = new System.Windows.Forms.Button();
             this.BUT_headingholdplus = new System.Windows.Forms.Button();
@@ -132,6 +133,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.NUM_spacing = new System.Windows.Forms.NumericUpDown();
             this.tabSimple = new System.Windows.Forms.TabPage();
+            this.myButton1 = new MissionPlanner.Controls.MyButton();
             this.label38 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label37 = new System.Windows.Forms.Label();
@@ -157,9 +159,6 @@
             this.CHK_boundary = new System.Windows.Forms.CheckBox();
             this.BUT_Accept = new MissionPlanner.Controls.MyButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.TRK_zoom = new MissionPlanner.Controls.MyTrackBar();
-            this.map = new MissionPlanner.Controls.myGMAP();
-            this.chk_spline = new System.Windows.Forms.CheckBox();
             this.groupBox5.SuspendLayout();
             this.tabCamera.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -193,7 +192,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.NUM_altitude)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.TRK_zoom)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox5
@@ -463,9 +461,9 @@
             // 
             // chk_stopstart
             // 
-            resources.ApplyResources(this.chk_stopstart, "chk_stopstart");
             this.chk_stopstart.Checked = true;
             this.chk_stopstart.CheckState = System.Windows.Forms.CheckState.Checked;
+            resources.ApplyResources(this.chk_stopstart, "chk_stopstart");
             this.chk_stopstart.Name = "chk_stopstart";
             this.chk_stopstart.UseVisualStyleBackColor = true;
             // 
@@ -555,8 +553,8 @@
             // 
             // rad_trigdist
             // 
-            resources.ApplyResources(this.rad_trigdist, "rad_trigdist");
             this.rad_trigdist.Checked = true;
+            resources.ApplyResources(this.rad_trigdist, "rad_trigdist");
             this.rad_trigdist.Name = "rad_trigdist";
             this.rad_trigdist.TabStop = true;
             this.rad_trigdist.Tag = "";
@@ -564,7 +562,6 @@
             // 
             // groupBox2
             // 
-            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Controls.Add(this.BUT_samplephoto);
             this.groupBox2.Controls.Add(this.label21);
             this.groupBox2.Controls.Add(this.label19);
@@ -584,6 +581,7 @@
             this.groupBox2.Controls.Add(this.label13);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.BUT_save);
+            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 
@@ -772,6 +770,12 @@
             this.groupBox_copter.Controls.Add(this.NUM_copter_delay);
             this.groupBox_copter.Name = "groupBox_copter";
             this.groupBox_copter.TabStop = false;
+            // 
+            // chk_spline
+            // 
+            resources.ApplyResources(this.chk_spline, "chk_spline");
+            this.chk_spline.Name = "chk_spline";
+            this.chk_spline.UseVisualStyleBackColor = true;
             // 
             // TXT_headinghold
             // 
@@ -1040,6 +1044,7 @@
             // 
             // tabSimple
             // 
+            this.tabSimple.Controls.Add(this.myButton1);
             this.tabSimple.Controls.Add(this.label38);
             this.tabSimple.Controls.Add(this.groupBox6);
             this.tabSimple.Controls.Add(this.groupBox4);
@@ -1047,6 +1052,13 @@
             resources.ApplyResources(this.tabSimple, "tabSimple");
             this.tabSimple.Name = "tabSimple";
             this.tabSimple.UseVisualStyleBackColor = true;
+            // 
+            // myButton1
+            // 
+            resources.ApplyResources(this.myButton1, "myButton1");
+            this.myButton1.Name = "myButton1";
+            this.myButton1.UseVisualStyleBackColor = true;
+            this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
             // 
             // label38
             // 
@@ -1286,66 +1298,27 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             // 
-            // TRK_zoom
-            // 
-            resources.ApplyResources(this.TRK_zoom, "TRK_zoom");
-            this.TRK_zoom.LargeChange = 0.005F;
-            this.TRK_zoom.Maximum = 22F;
-            this.TRK_zoom.Minimum = 2F;
-            this.TRK_zoom.Name = "TRK_zoom";
-            this.TRK_zoom.SmallChange = 0.001F;
-            this.TRK_zoom.TickFrequency = 1F;
-            this.TRK_zoom.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
-            this.TRK_zoom.Value = 2F;
-            this.TRK_zoom.Scroll += new System.EventHandler(this.trackBar1_Scroll);
-            // 
-            // map
-            // 
-            resources.ApplyResources(this.map, "map");
-            this.map.Bearing = 0F;
-            this.map.CanDragMap = true;
-            this.map.EmptyTileColor = System.Drawing.Color.Gray;
-            this.map.GrayScaleMode = false;
-            this.map.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
-            this.map.HoldInvalidation = false;
-            this.map.LevelsKeepInMemmory = 5;
-            this.map.MarkersEnabled = true;
-            this.map.MaxZoom = 19;
-            this.map.MinZoom = 2;
-            this.map.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionWithoutCenter;
-            this.map.Name = "map";
-            this.map.NegativeMode = false;
-            this.map.PolygonsEnabled = true;
-            this.map.RetryLoadTile = 0;
-            this.map.RoutesEnabled = true;
-            this.map.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Fractional;
-            this.map.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
-            this.map.ShowTileGridLines = false;
-            this.map.Zoom = 3D;
-            this.map.MouseDown += new System.Windows.Forms.MouseEventHandler(this.map_MouseDown);
-            this.map.MouseMove += new System.Windows.Forms.MouseEventHandler(this.map_MouseMove);
-            // 
-            // chk_spline
-            // 
-            resources.ApplyResources(this.chk_spline, "chk_spline");
-            this.chk_spline.Name = "chk_spline";
-            this.chk_spline.UseVisualStyleBackColor = true;
-            // 
             // GridUI
             // 
+            this.AccessibleRole = System.Windows.Forms.AccessibleRole.Pane;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             resources.ApplyResources(this, "$this");
-            this.Controls.Add(this.TRK_zoom);
-            this.Controls.Add(this.map);
+            this.ControlBox = false;
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.tabControl1);
+            this.Cursor = System.Windows.Forms.Cursors.PanEast;
+            this.IsMdiContainer = true;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "GridUI";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Load += new System.EventHandler(this.GridUI_Load);
             this.Resize += new System.EventHandler(this.GridUI_Resize);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.tabCamera.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_setservono)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_setservolow)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_setservohigh)).EndInit();
@@ -1384,15 +1357,11 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.tabControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.TRK_zoom)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private Controls.myGMAP map;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label23;
@@ -1487,8 +1456,7 @@
         private System.Windows.Forms.CheckBox CHK_markers;
         private System.Windows.Forms.CheckBox CHK_boundary;
         private Controls.MyButton BUT_Accept;
-        private System.Windows.Forms.TabControl tabControl1;
-        private Controls.MyTrackBar TRK_zoom;
+        public System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.CheckBox CHK_copter_headingholdlock;
         private System.Windows.Forms.TextBox TXT_headinghold;
         private System.Windows.Forms.Button BUT_headingholdminus;
@@ -1523,5 +1491,6 @@
         private System.Windows.Forms.NumericUpDown num_corridorwidth;
         private System.Windows.Forms.CheckBox chk_spiral;
         private System.Windows.Forms.CheckBox chk_spline;
+        private Controls.MyButton myButton1;
     }
 }

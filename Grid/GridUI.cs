@@ -64,30 +64,35 @@ namespace MissionPlanner.Grid
         // GridUI
         public GridUI(GridPlugin plugin)
         {
+
+
             this.plugin = plugin;
 
             InitializeComponent();
 
             loading = true;
 
-            map.MapProvider = plugin.Host.FDMapType;
-            map.MaxZoom = plugin.Host.FDGMapControl.MaxZoom;
-            TRK_zoom.Maximum = map.MaxZoom;
+            FlightPlannerBase.instance.MainMap.MapProvider = plugin.Host.FDMapType;
+            FlightPlannerBase.instance.MainMap.MaxZoom = plugin.Host.FDGMapControl.MaxZoom;
+            //TRK_zoom.Maximum = FlightPlannerBase.instance.MainMap.MaxZoom;
 
             kmlpolygonsoverlay = new GMapOverlay("kmlpolygons");
-            map.Overlays.Add(kmlpolygonsoverlay);
+            FlightPlannerBase.instance.MainMap.Overlays.Add(kmlpolygonsoverlay);
+
 
             routesOverlay = new GMapOverlay("routes");
-            map.Overlays.Add(routesOverlay);
+            FlightPlannerBase.instance.MainMap.Overlays.Add(routesOverlay);
+
+
 
             // Map Events
-            map.OnMapZoomChanged += new MapZoomChanged(map_OnMapZoomChanged);
-            map.OnMarkerEnter += new MarkerEnter(map_OnMarkerEnter);
-            map.OnMarkerLeave += new MarkerLeave(map_OnMarkerLeave);
-            map.MouseUp += new MouseEventHandler(map_MouseUp);
+            FlightPlannerBase.instance.MainMap.OnMapZoomChanged += new MapZoomChanged(map_OnMapZoomChanged);
+            FlightPlannerBase.instance.MainMap.OnMarkerEnter += new MarkerEnter(map_OnMarkerEnter);
+            FlightPlannerBase.instance.MainMap.OnMarkerLeave += new MarkerLeave(map_OnMarkerLeave);
+            FlightPlannerBase.instance.MainMap.MouseUp += new MouseEventHandler(map_MouseUp);
 
-            map.OnRouteEnter += new RouteEnter(map_OnRouteEnter);
-            map.OnRouteLeave += new RouteLeave(map_OnRouteLeave);
+            FlightPlannerBase.instance.MainMap.OnRouteEnter += new RouteEnter(map_OnRouteEnter);
+            FlightPlannerBase.instance.MainMap.OnRouteLeave += new RouteLeave(map_OnRouteLeave);
 
             var points = plugin.Host.FPDrawnPolygon;
             points.Points.ForEach(x => { list.Add(x); });
@@ -95,26 +100,26 @@ namespace MissionPlanner.Grid
             if (plugin.Host.config["distunits"] != null)
                 DistUnits = plugin.Host.config["distunits"].ToString();
 
-            CMB_startfrom.DataSource = Enum.GetNames(typeof (Utilities.Grid.StartPosition));
+            CMB_startfrom.DataSource = Enum.GetNames(typeof(Utilities.Grid.StartPosition));
             CMB_startfrom.SelectedIndex = 0;
 
             // set and angle that is good
-            NUM_angle.Value = (decimal) ((getAngleOfLongestSide(list) + 360)%360);
+            NUM_angle.Value = (decimal)((getAngleOfLongestSide(list) + 360) % 360);
             TXT_headinghold.Text = (Math.Round(NUM_angle.Value)).ToString();
 
             if (plugin.Host.cs.firmware == Firmwares.ArduPlane)
-                NUM_UpDownFlySpeed.Value = (decimal) (12*CurrentState.multiplierspeed);
+                NUM_UpDownFlySpeed.Value = (decimal)(12 * CurrentState.multiplierspeed);
 
-            map.MapScaleInfoEnabled = true;
-            map.ScalePen = new Pen(Color.Orange);
+            FlightPlannerBase.instance.MainMap.MapScaleInfoEnabled = true;
+            FlightPlannerBase.instance.MainMap.ScalePen = new Pen(Color.Orange);
 
             foreach (var temp in FlightData.kmlpolygons.Polygons)
             {
-                kmlpolygonsoverlay.Polygons.Add(new GMapPolygon(temp.Points, "") {Fill = Brushes.Transparent});
+                kmlpolygonsoverlay.Polygons.Add(new GMapPolygon(temp.Points, "") { Fill = Brushes.Transparent });
             }
             foreach (var temp in FlightData.kmlpolygons.Routes)
             {
-                kmlpolygonsoverlay.Routes.Add(new GMapRoute(temp.Points,""));
+                kmlpolygonsoverlay.Routes.Add(new GMapRoute(temp.Points, ""));
             }
 
             xmlcamera(false, Settings.GetRunningDirectory() + "camerasBuiltin.xml");
@@ -122,9 +127,11 @@ namespace MissionPlanner.Grid
             xmlcamera(false, Settings.GetUserDataDirectory() + "cameras.xml");
 
             loading = false;
+
+            tabControl1.Controls.Remove(tabCamera);
         }
 
-        private void GridUI_Load(object sender, EventArgs e)
+        public void GridUI_Load(object sender, EventArgs e)
         {
             loading = true;
             if (!loadedfromfile)
@@ -133,7 +140,7 @@ namespace MissionPlanner.Grid
             // setup state before settings load
             CHK_advanced_CheckedChanged(null, null);
 
-            TRK_zoom.Value = (float)map.Zoom;
+            //TRK_zoom.Value = (float)FlightPlannerBase.instance.MainMap.Zoom;
 
             label1.Text += " (" + CurrentState.DistanceUnit+")";
             label24.Text += " (" + CurrentState.SpeedUnit + ")";
@@ -145,7 +152,7 @@ namespace MissionPlanner.Grid
 
         private void GridUI_Resize(object sender, EventArgs e)
         {
-            map.ZoomAndCenterMarkers("polygons");
+            FlightPlannerBase.instance.MainMap.ZoomAndCenterMarkers("polygons");
         }
 
         // Load/Save
@@ -544,7 +551,8 @@ namespace MissionPlanner.Grid
         }
 
         // Do Work
-        private async void domainUpDown1_ValueChanged(object sender, EventArgs e)
+
+        public async void domainUpDown1_ValueChanged(object sender, EventArgs e)
         {
             if (loading)
                 return;
@@ -581,7 +589,7 @@ namespace MissionPlanner.Grid
                     (float)NUM_Lane_Dist.Value, (float)NUM_leadin.Value, MainV2.comPort.MAV.cs.HomeLocation);
             }
 
-            map.HoldInvalidation = true;
+            FlightPlannerBase.instance.MainMap.HoldInvalidation = true;
 
             routesOverlay.Routes.Clear();
             routesOverlay.Polygons.Clear();
@@ -603,10 +611,9 @@ namespace MissionPlanner.Grid
 
             if (CHK_boundary.Checked)
                 AddDrawPolygon();
-
             if (grid.Count == 0)
             {
-                map.ZoomAndCenterMarkers("routes");
+                FlightPlannerBase.instance.MainMap.ZoomAndCenterMarkers("routes");
                 return;
             }
 
@@ -753,22 +760,23 @@ namespace MissionPlanner.Grid
             {
                 // Area
                 float area = (float)calcpolygonarea(list) * 10.7639f; // Calculate the area in square feet
-                lbl_area.Text = area.ToString("#") + " ft^2";
+                FlightPlannerBase.instance._flightPlanner.LBLarea.Text = area.ToString("#") + " ft^2";
                 if (area < 21780f)
                 {
-                    lbl_area.Text = area.ToString("#") + " ft^2";
+                    FlightPlannerBase.instance._flightPlanner.LBLarea.Text = area.ToString("#") + " ft^2";
                 }
                 else
                 {
                     area = area / 43560f;
                     if (area < 640f)
                     {
-                        lbl_area.Text = area.ToString("0.##") + " acres";
+                        FlightPlannerBase.instance._flightPlanner.LBLarea.Text = area.ToString("0.##") + " acres";
                     }
                     else
                     {
                         area = area / 640f;
-                        lbl_area.Text = area.ToString("0.##") + " miles^2";
+
+                        FlightPlannerBase.instance._flightPlanner.LBLarea.Text  = area.ToString("0.##") + " miles^2";
                     }
                 }
 
@@ -776,17 +784,17 @@ namespace MissionPlanner.Grid
                 double distance = routetotal * 3280.8399; // Calculate the distance in feet
                 if (distance < 5280f)
                 {
-                    lbl_distance.Text = distance.ToString("#") + " ft";
+                    FlightPlannerBase.instance._flightPlanner.lbldistancia.Text= distance.ToString("#") + " ft";
                 }
                 else
                 {
                     distance = distance / 5280f;
-                    lbl_distance.Text = distance.ToString("0.##") + " miles";
+                    FlightPlannerBase.instance._flightPlanner.lbldistancia.Text = distance.ToString("0.##") + " miles";
                 }
 
                 lbl_spacing.Text = (NUM_spacing.Value * 3.2808399m).ToString("#.#") + " ft";
                 lbl_grndres.Text = inchpixel;
-                lbl_distbetweenlines.Text = (NUM_Distance.Value * 3.2808399m).ToString("0.##") + " ft";
+                FlightPlannerBase.instance._flightPlanner.lblbetween.Text = (NUM_Distance.Value * 3.2808399m).ToString("0.##") + " ft";
                 lbl_footprint.Text = feet_fovH + " x " + feet_fovV + " ft";
                 lbl_turnrad.Text = (turnrad * 2 * 3.2808399).ToString("0") + " ft";
                 lbl_gndelev.Text = (mingroundelevation*3.2808399).ToString("0") + "-" + (maxgroundelevation*3.2808399).ToString("0") + " ft";
@@ -794,11 +802,11 @@ namespace MissionPlanner.Grid
             else
             {
                 // Meters
-                lbl_area.Text = calcpolygonarea(list).ToString("#") + " m^2";
-                lbl_distance.Text = routetotal.ToString("0.##") + " km";
+                FlightPlannerBase.instance._flightPlanner.LBLarea.Text = calcpolygonarea(list).ToString("#") + " m^2";
+                FlightPlannerBase.instance._flightPlanner.lbldistancia.Text = routetotal.ToString("0.##") + " km";
                 lbl_spacing.Text = NUM_spacing.Value.ToString("0.#") + " m";
                 lbl_grndres.Text = TXT_cmpixel.Text;
-                lbl_distbetweenlines.Text = NUM_Distance.Value.ToString("0.##") + " m";
+                FlightPlannerBase.instance._flightPlanner.lblbetween.Text = NUM_Distance.Value.ToString("0.##") + " m";
                 lbl_footprint.Text = TXT_fovH.Text + " x " + TXT_fovV.Text + " m";
                 lbl_turnrad.Text = (turnrad * 2).ToString("0") + " m";
                 lbl_gndelev.Text = mingroundelevation.ToString("0") + "-" + maxgroundelevation.ToString("0") + " m";
@@ -823,19 +831,19 @@ namespace MissionPlanner.Grid
             double flyspeedms = CurrentState.fromSpeedDisplayUnit((double)NUM_UpDownFlySpeed.Value);
 
             lbl_pictures.Text = images.ToString();
-            lbl_strips.Text = ((int)(strips / 2)).ToString();
+             FlightPlannerBase.instance._flightPlanner.lblbetween.Text = ((int)(strips / 2)).ToString();
             double seconds = ((routetotal * 1000.0) / ((flyspeedms) * 0.8));
             // reduce flying speed by 20 %
-            lbl_flighttime.Text = secondsToNice(seconds);
+            FlightPlannerBase.instance._flightPlanner.lblestm.Text = secondsToNice(seconds);
             seconds = ((routetotal * 1000.0) / (flyspeedms));
             lbl_photoevery.Text = secondsToNice(((double)NUM_spacing.Value / flyspeedms));
-            map.HoldInvalidation = false;
+            FlightPlannerBase.instance.MainMap.HoldInvalidation = false;
             if (!isMouseDown && sender != NUM_angle)
-                map.ZoomAndCenterMarkers("routes");
+                FlightPlannerBase.instance.MainMap.ZoomAndCenterMarkers("routes");
 
             CalcHeadingHold();
 
-            map.Invalidate();
+            FlightPlannerBase.instance.MainMap.Invalidate();
         }
 
         private void AddWP(double Lng, double Lat, double Alt, string tag, object gridobject = null)
@@ -1144,7 +1152,7 @@ namespace MissionPlanner.Grid
 
         private void map_MouseUp(object sender, MouseEventArgs e)
         {
-            MouseDownEnd = map.FromLocalToLatLng(e.X, e.Y);
+            MouseDownEnd = FlightPlannerBase.instance.MainMap.FromLocalToLatLng(e.X, e.Y);
 
             // Console.WriteLine("MainMap MU");
 
@@ -1176,7 +1184,7 @@ namespace MissionPlanner.Grid
 
         private void map_MouseDown(object sender, MouseEventArgs e)
         {
-            MouseDownStart = map.FromLocalToLatLng(e.X, e.Y);
+            MouseDownStart = FlightPlannerBase.instance.MainMap.FromLocalToLatLng(e.X, e.Y);
 
             if (e.Button == MouseButtons.Left && Control.ModifierKeys != Keys.Alt)
             {
@@ -1190,7 +1198,7 @@ namespace MissionPlanner.Grid
 
         private void map_MouseMove(object sender, MouseEventArgs e)
         {
-            PointLatLng point = map.FromLocalToLatLng(e.X, e.Y);
+            PointLatLng point = FlightPlannerBase.instance.MainMap.FromLocalToLatLng(e.X, e.Y);
             currentMousePosition = point;
 
             if (MouseDownStart == point)
@@ -1215,7 +1223,7 @@ namespace MissionPlanner.Grid
                         return;
                     }
 
-                    PointLatLng pnew = map.FromLocalToLatLng(e.X, e.Y);
+                    PointLatLng pnew = FlightPlannerBase.instance.MainMap.FromLocalToLatLng(e.X, e.Y);
 
                     CurrentGMapMarker.Position = pnew;
 
@@ -1231,7 +1239,7 @@ namespace MissionPlanner.Grid
                     {
                         lock (thisLock)
                         {
-                            map.Position = new PointLatLng(map.Position.Lat + latdif, map.Position.Lng + lngdif);
+                            FlightPlannerBase.instance.MainMap.Position = new PointLatLng(FlightPlannerBase.instance.MainMap.Position.Lat + latdif, FlightPlannerBase.instance.MainMap.Position.Lng + lngdif);
                         }
                     }
                     catch { }
@@ -1241,11 +1249,11 @@ namespace MissionPlanner.Grid
 
         private void map_OnMapZoomChanged()
         {
-            if (map.Zoom > 0)
+            if (FlightPlannerBase.instance.MainMap.Zoom > 0)
             {
                 try
                 {
-                    TRK_zoom.Value = (float)map.Zoom;
+                   // TRK_zoom.Value = (float)FlightPlannerBase.instance.MainMap.Zoom;
                 }
                 catch { }
             }
@@ -1258,7 +1266,7 @@ namespace MissionPlanner.Grid
             {
                 lock (thisLock)
                 {
-                    map.Zoom = TRK_zoom.Value;
+                  //  FlightPlannerBase.instance.MainMap.Zoom = TRK_zoom.Value;
                 }
             }
             catch { }
@@ -1270,7 +1278,7 @@ namespace MissionPlanner.Grid
             {
                 lock (thisLock)
                 {
-                    map.Zoom = TRK_zoom.Value;
+                 //   FlightPlannerBase.instance.MainMap.Zoom = TRK_zoom.Value;
                 }
             }
             catch { }
@@ -1842,5 +1850,14 @@ namespace MissionPlanner.Grid
             domainUpDown1_ValueChanged(sender, e);
         }
 
+        private void myButton1_Click(object sender, EventArgs e)
+        {
+            GMapMarkerOverlap.Clear();
+            routesOverlay.Routes.Clear();
+            routesOverlay.Polygons.Clear();
+            routesOverlay.Markers.Clear();
+            FlightPlannerBase.instance._flightPlanner.PaneMenu.Visible = false;
+            FlightPlannerBase.instance.clearMissionToolStripMenuItem_Click(sender, e);
+        }
     }
 }

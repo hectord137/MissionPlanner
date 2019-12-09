@@ -45,14 +45,14 @@ namespace MissionPlanner.GCSViews
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FlightPlanner));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.CHK_verifyheight = new System.Windows.Forms.CheckBox();
             this.TXT_WPRad = new System.Windows.Forms.TextBox();
             this.TXT_DefaultAlt = new System.Windows.Forms.TextBox();
@@ -106,6 +106,7 @@ namespace MissionPlanner.GCSViews
             this.Dist = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AZ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TagData = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.panelAction = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -138,8 +139,24 @@ namespace MissionPlanner.GCSViews
             this.ButKMLOverlay = new System.Windows.Forms.Button();
             this.ButMeasureContext = new System.Windows.Forms.Button();
             this.BUTCLEARKML = new System.Windows.Forms.Button();
+            this.LBLarea = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.panelMap = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
+            this.But_SurveyGrid = new System.Windows.Forms.Button();
+            this.PaneMenu = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel13 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblestm = new System.Windows.Forms.Label();
+            this.lblnstrip = new System.Windows.Forms.Label();
+            this.lblbetween = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.lbldistancia = new System.Windows.Forms.Label();
+            this.LBLdist = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.lblstrips = new System.Windows.Forms.Label();
+            this.splitter3 = new BSE.Windows.Forms.Splitter();
             this.lbl_homedist = new System.Windows.Forms.Label();
             this.lbl_prevdist = new System.Windows.Forms.Label();
             this.trackBar1 = new MissionPlanner.Controls.MyTrackBar();
@@ -229,6 +246,7 @@ namespace MissionPlanner.GCSViews
             this.tableLayoutPanel11.SuspendLayout();
             this.tableLayoutPanel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Commands)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.panelAction.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
@@ -239,6 +257,9 @@ namespace MissionPlanner.GCSViews
             this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
             this.panelMap.SuspendLayout();
+            this.tableLayoutPanel10.SuspendLayout();
+            this.PaneMenu.SuspendLayout();
+            this.tableLayoutPanel13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.panelBASE.SuspendLayout();
@@ -304,8 +325,8 @@ namespace MissionPlanner.GCSViews
             // 
             // dataGridViewImageColumn1
             // 
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle1;
             resources.ApplyResources(this.dataGridViewImageColumn1, "dataGridViewImageColumn1");
             this.dataGridViewImageColumn1.Image = ((System.Drawing.Image)(resources.GetObject("dataGridViewImageColumn1.Image")));
             this.dataGridViewImageColumn1.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
@@ -313,8 +334,8 @@ namespace MissionPlanner.GCSViews
             // 
             // dataGridViewImageColumn2
             // 
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewImageColumn2.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewImageColumn2.DefaultCellStyle = dataGridViewCellStyle2;
             resources.ApplyResources(this.dataGridViewImageColumn2, "dataGridViewImageColumn2");
             this.dataGridViewImageColumn2.Image = ((System.Drawing.Image)(resources.GetObject("dataGridViewImageColumn2.Image")));
             this.dataGridViewImageColumn2.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
@@ -354,6 +375,7 @@ namespace MissionPlanner.GCSViews
             this.tableLayoutPanel8.Controls.Add(this.tableLayoutPanel11, 1, 1);
             this.tableLayoutPanel8.Controls.Add(this.tableLayoutPanel9, 0, 0);
             this.tableLayoutPanel8.Controls.Add(this.Commands, 0, 1);
+            this.tableLayoutPanel8.Controls.Add(this.numericUpDown1, 1, 0);
             this.tableLayoutPanel8.Name = "tableLayoutPanel8";
             this.tableLayoutPanel8.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel8_Paint);
             // 
@@ -459,14 +481,14 @@ namespace MissionPlanner.GCSViews
             // Commands
             // 
             this.Commands.AllowUserToAddRows = false;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Commands.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Commands.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             resources.ApplyResources(this.Commands, "Commands");
             this.Commands.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Command,
@@ -491,23 +513,23 @@ namespace MissionPlanner.GCSViews
             this.AZ,
             this.TagData});
             this.Commands.Name = "Commands";
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle15.Format = "N0";
-            dataGridViewCellStyle15.NullValue = "0";
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.Commands.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
-            dataGridViewCellStyle16.ForeColor = System.Drawing.Color.Black;
-            this.Commands.RowsDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.Format = "N0";
+            dataGridViewCellStyle7.NullValue = "0";
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.Commands.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Black;
+            this.Commands.RowsDefaultCellStyle = dataGridViewCellStyle8;
             // 
             // Command
             // 
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(68)))), ((int)(((byte)(69)))));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.White;
-            this.Command.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(68)))), ((int)(((byte)(69)))));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
+            this.Command.DefaultCellStyle = dataGridViewCellStyle4;
             this.Command.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
             resources.ApplyResources(this.Command, "Command");
             this.Command.Name = "Command";
@@ -587,7 +609,7 @@ namespace MissionPlanner.GCSViews
             // 
             // Up
             // 
-            this.Up.DefaultCellStyle = dataGridViewCellStyle13;
+            this.Up.DefaultCellStyle = dataGridViewCellStyle5;
             resources.ApplyResources(this.Up, "Up");
             this.Up.Image = ((System.Drawing.Image)(resources.GetObject("Up.Image")));
             this.Up.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
@@ -595,7 +617,7 @@ namespace MissionPlanner.GCSViews
             // 
             // Down
             // 
-            this.Down.DefaultCellStyle = dataGridViewCellStyle14;
+            this.Down.DefaultCellStyle = dataGridViewCellStyle6;
             resources.ApplyResources(this.Down, "Down");
             this.Down.Image = ((System.Drawing.Image)(resources.GetObject("Down.Image")));
             this.Down.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
@@ -634,6 +656,12 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.TagData, "TagData");
             this.TagData.Name = "TagData";
             this.TagData.ReadOnly = true;
+            // 
+            // numericUpDown1
+            // 
+            resources.ApplyResources(this.numericUpDown1, "numericUpDown1");
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.test);
             // 
             // splitter1
             // 
@@ -875,6 +903,16 @@ namespace MissionPlanner.GCSViews
             this.BUTCLEARKML.UseVisualStyleBackColor = true;
             this.BUTCLEARKML.Click += new System.EventHandler(this.BUTCLEARKML_Click);
             // 
+            // LBLarea
+            // 
+            resources.ApplyResources(this.LBLarea, "LBLarea");
+            this.LBLarea.Name = "LBLarea";
+            // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.Name = "label4";
+            // 
             // splitter2
             // 
             resources.ApplyResources(this.splitter2, "splitter2");
@@ -883,6 +921,9 @@ namespace MissionPlanner.GCSViews
             // 
             // panelMap
             // 
+            this.panelMap.Controls.Add(this.tableLayoutPanel10);
+            this.panelMap.Controls.Add(this.PaneMenu);
+            this.panelMap.Controls.Add(this.splitter3);
             this.panelMap.Controls.Add(this.lbl_homedist);
             this.panelMap.Controls.Add(this.lbl_prevdist);
             this.panelMap.Controls.Add(this.trackBar1);
@@ -892,6 +933,98 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.panelMap, "panelMap");
             this.panelMap.ForeColor = System.Drawing.SystemColors.ControlText;
             this.panelMap.Name = "panelMap";
+            // 
+            // tableLayoutPanel10
+            // 
+            resources.ApplyResources(this.tableLayoutPanel10, "tableLayoutPanel10");
+            this.tableLayoutPanel10.Controls.Add(this.But_SurveyGrid, 0, 0);
+            this.tableLayoutPanel10.Name = "tableLayoutPanel10";
+            // 
+            // But_SurveyGrid
+            // 
+            resources.ApplyResources(this.But_SurveyGrid, "But_SurveyGrid");
+            this.But_SurveyGrid.Name = "But_SurveyGrid";
+            this.But_SurveyGrid.UseVisualStyleBackColor = true;
+            this.But_SurveyGrid.Click += new System.EventHandler(this.button1_Click_2);
+            // 
+            // PaneMenu
+            // 
+            this.PaneMenu.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.PaneMenu.Controls.Add(this.tableLayoutPanel12);
+            this.PaneMenu.Controls.Add(this.tableLayoutPanel13);
+            resources.ApplyResources(this.PaneMenu, "PaneMenu");
+            this.PaneMenu.Name = "PaneMenu";
+            // 
+            // tableLayoutPanel12
+            // 
+            resources.ApplyResources(this.tableLayoutPanel12, "tableLayoutPanel12");
+            this.tableLayoutPanel12.Name = "tableLayoutPanel12";
+            this.tableLayoutPanel12.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel12_Paint);
+            // 
+            // tableLayoutPanel13
+            // 
+            resources.ApplyResources(this.tableLayoutPanel13, "tableLayoutPanel13");
+            this.tableLayoutPanel13.Controls.Add(this.lblestm, 1, 4);
+            this.tableLayoutPanel13.Controls.Add(this.lblnstrip, 0, 2);
+            this.tableLayoutPanel13.Controls.Add(this.lblbetween, 1, 3);
+            this.tableLayoutPanel13.Controls.Add(this.label9, 0, 3);
+            this.tableLayoutPanel13.Controls.Add(this.label4, 0, 0);
+            this.tableLayoutPanel13.Controls.Add(this.LBLarea, 1, 0);
+            this.tableLayoutPanel13.Controls.Add(this.lbldistancia, 1, 1);
+            this.tableLayoutPanel13.Controls.Add(this.LBLdist, 0, 1);
+            this.tableLayoutPanel13.Controls.Add(this.label10, 0, 4);
+            this.tableLayoutPanel13.Controls.Add(this.lblstrips, 1, 2);
+            this.tableLayoutPanel13.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.tableLayoutPanel13.Name = "tableLayoutPanel13";
+            // 
+            // lblestm
+            // 
+            resources.ApplyResources(this.lblestm, "lblestm");
+            this.lblestm.Name = "lblestm";
+            // 
+            // lblnstrip
+            // 
+            resources.ApplyResources(this.lblnstrip, "lblnstrip");
+            this.lblnstrip.Name = "lblnstrip";
+            this.lblnstrip.Click += new System.EventHandler(this.label7_Click);
+            // 
+            // lblbetween
+            // 
+            resources.ApplyResources(this.lblbetween, "lblbetween");
+            this.lblbetween.Name = "lblbetween";
+            // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
+            // 
+            // lbldistancia
+            // 
+            resources.ApplyResources(this.lbldistancia, "lbldistancia");
+            this.lbldistancia.Name = "lbldistancia";
+            this.lbldistancia.Click += new System.EventHandler(this.label8_Click);
+            // 
+            // LBLdist
+            // 
+            resources.ApplyResources(this.LBLdist, "LBLdist");
+            this.LBLdist.Name = "LBLdist";
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
+            // 
+            // lblstrips
+            // 
+            resources.ApplyResources(this.lblstrips, "lblstrips");
+            this.lblstrips.Name = "lblstrips";
+            // 
+            // splitter3
+            // 
+            this.splitter3.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.splitter3, "splitter3");
+            this.splitter3.Name = "splitter3";
+            this.splitter3.TabStop = false;
             // 
             // lbl_homedist
             // 
@@ -919,6 +1052,7 @@ namespace MissionPlanner.GCSViews
             // 
             resources.ApplyResources(this.label11, "label11");
             this.label11.Name = "label11";
+            this.label11.Click += new System.EventHandler(this.label11_Click);
             // 
             // lbl_distance
             // 
@@ -1368,6 +1502,7 @@ namespace MissionPlanner.GCSViews
             // 
             this.savePolygonToolStripMenuItem.Name = "savePolygonToolStripMenuItem";
             resources.ApplyResources(this.savePolygonToolStripMenuItem, "savePolygonToolStripMenuItem");
+            this.savePolygonToolStripMenuItem.Click += new System.EventHandler(this.savePolygonToolStripMenuItem_Click);
             // 
             // loadPolygonToolStripMenuItem
             // 
@@ -1441,6 +1576,7 @@ namespace MissionPlanner.GCSViews
             this.tableLayoutPanel9.ResumeLayout(false);
             this.tableLayoutPanel9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Commands)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.panelAction.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel7.ResumeLayout(false);
@@ -1454,6 +1590,11 @@ namespace MissionPlanner.GCSViews
             this.tableLayoutPanel6.PerformLayout();
             this.panelMap.ResumeLayout(false);
             this.panelMap.PerformLayout();
+            this.tableLayoutPanel10.ResumeLayout(false);
+            this.PaneMenu.ResumeLayout(false);
+            this.PaneMenu.PerformLayout();
+            this.tableLayoutPanel13.ResumeLayout(false);
+            this.tableLayoutPanel13.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.panelBASE.ResumeLayout(false);
@@ -1635,5 +1776,22 @@ namespace MissionPlanner.GCSViews
         private Button button2;
         private TableLayoutPanel tableLayoutPanel11;
         private Button BUTCLEARKML;
+        private BSE.Windows.Forms.Splitter splitter3;
+        public Panel PaneMenu;
+        private TableLayoutPanel tableLayoutPanel10;
+        private NumericUpDown numericUpDown1;
+        public Label LBLarea;
+        private Label label4;
+        private Label lblnstrip;
+        private TableLayoutPanel tableLayoutPanel13;
+        public Label lblstrips;
+        public Label lbldistancia;
+        public Label LBLdist;
+        public Label lblestm;
+        public Label lblbetween;
+        private Label label9;
+        private Label label10;
+        public TableLayoutPanel tableLayoutPanel12;
+        private Button But_SurveyGrid;
     }
 }
