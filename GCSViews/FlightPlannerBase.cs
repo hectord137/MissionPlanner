@@ -1683,37 +1683,40 @@ namespace MissionPlanner.GCSViews
 
         public void addPolygonPointToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (polygongridmode == false)
-            {
-                CustomMessageBox.Show(
-                    "You will remain in polygon mode until you clear the polygon or create a grid/upload a fence");
+           
+                if (polygongridmode == false)
+                {
+                    CustomMessageBox.Show(
+                        "You will remain in polygon mode until you clear the polygon or create a grid/upload a fence");
+                    drawnpolygon.Points.Clear();
+                    polygongridmode = true;
+                    return;
+                }
+
                 polygongridmode = true;
-                return;
-            }
 
-            polygongridmode = true;
+                List<PointLatLng> polygonPoints = new List<PointLatLng>();
+                if (drawnpolygonsoverlay.Polygons.Count == 0)
+                {
+                    drawnpolygon.Points.Clear();
+                    drawnpolygonsoverlay.Polygons.Add(drawnpolygon);
+                }
 
-            List<PointLatLng> polygonPoints = new List<PointLatLng>();
-            if (drawnpolygonsoverlay.Polygons.Count == 0)
-            {
-                drawnpolygon.Points.Clear();
-                drawnpolygonsoverlay.Polygons.Add(drawnpolygon);
-            }
+                drawnpolygon.Fill = Brushes.Transparent;
 
-            drawnpolygon.Fill = Brushes.Transparent;
+                // remove full loop is exists
+                if (drawnpolygon.Points.Count > 1 &&
+                    drawnpolygon.Points[0] == drawnpolygon.Points[drawnpolygon.Points.Count - 1])
+                    drawnpolygon.Points.RemoveAt(drawnpolygon.Points.Count - 1); // unmake a full loop
 
-            // remove full loop is exists
-            if (drawnpolygon.Points.Count > 1 &&
-                drawnpolygon.Points[0] == drawnpolygon.Points[drawnpolygon.Points.Count - 1])
-                drawnpolygon.Points.RemoveAt(drawnpolygon.Points.Count - 1); // unmake a full loop
+                drawnpolygon.Points.Add(new PointLatLng(MouseDownStart.Lat, MouseDownStart.Lng));
 
-            drawnpolygon.Points.Add(new PointLatLng(MouseDownStart.Lat, MouseDownStart.Lng));
+                addpolygonmarkergrid(drawnpolygon.Points.Count.ToString(), MouseDownStart.Lng, MouseDownStart.Lat, 0);
 
-            addpolygonmarkergrid(drawnpolygon.Points.Count.ToString(), MouseDownStart.Lng, MouseDownStart.Lat, 0);
+                _flightPlanner.MainMap.UpdatePolygonLocalPosition(drawnpolygon);
 
-            _flightPlanner.MainMap.UpdatePolygonLocalPosition(drawnpolygon);
-
-            _flightPlanner.MainMap.Invalidate();
+                _flightPlanner.MainMap.Invalidate();
+            
         }
 
         public void areaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -5890,11 +5893,9 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         public void surveyGridToolStripMenuItem_Click(object sender, EventArgs e)
         {
-      
 
             GridPlugin grid = new GridPlugin();
-              grid.Host = new PluginHost();
-
+            grid.Host = new PluginHost();
             grid.but_Click(sender, e);
 
         }

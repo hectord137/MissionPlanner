@@ -1008,11 +1008,6 @@
             // 
             this.NUM_Distance.DecimalPlaces = 2;
             resources.ApplyResources(this.NUM_Distance, "NUM_Distance");
-            this.NUM_Distance.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
             this.NUM_Distance.Minimum = new decimal(new int[] {
             3,
             0,
@@ -1294,6 +1289,7 @@
             this.tabControl1.Controls.Add(this.tabSimple);
             this.tabControl1.Controls.Add(this.tabGrid);
             this.tabControl1.Controls.Add(this.tabCamera);
+            this.tabControl1.Cursor = System.Windows.Forms.Cursors.Default;
             resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;

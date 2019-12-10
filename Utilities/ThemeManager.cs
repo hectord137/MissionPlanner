@@ -45,7 +45,7 @@ namespace MissionPlanner.Utilities
         }
 
         // Initialize to the default theme (BurntKermit)
-        public static Color BGColor = Color.FromArgb(0x26, 0x27, 0x28);
+        public static Color BGColor = Color.FromArgb(0x30, 0x17, 0x42);
         public static Color ControlBGColor = Color.FromArgb(0x43, 0x44, 0x45);
         public static Color TextColor = Color.White;
         public static Color BGColorTextBox;
@@ -630,15 +630,15 @@ mc:Ignorable=""d""
                 else if (ctl.GetType() == typeof (Button))
                 {
                     ctl.ForeColor = TextColor;
-                    ctl.BackColor = ButBG;
+                   // ctl.BackColor = ButBG;
                 }
                 else if (ctl.GetType() == typeof (MyButton))
                 {
                     Controls.MyButton but = (MyButton) ctl;
-                    but.BGGradTop = ButBG;
+                   // but.BGGradTop = ButBG;
                     try
                     {
-                        but.BGGradBot = Color.FromArgb(ButBG.ToArgb() - 0x333333);
+                       // but.BGGradBot = Color.FromArgb(ButBG.ToArgb() - 0x333333);
                     }
                     catch
                     {
@@ -707,13 +707,13 @@ mc:Ignorable=""d""
                 {
                     var rbg = ctl as RadialGradientBG;
                     rbg.CenterColor = ControlBGColor;
-                    rbg.OutsideColor = ButBG;
+                   // rbg.OutsideColor = ButBG;
                 }
                 else if (ctl.GetType() == typeof(GradientBG))
                 {
                     var rbg = ctl as GradientBG;
                     rbg.CenterColor = ControlBGColor;
-                    rbg.OutsideColor = ButBG;
+                    //rbg.OutsideColor = ButBG;
                 }
                 else if (ctl.GetType() == typeof (Form))
                 {
@@ -868,9 +868,11 @@ mc:Ignorable=""d""
             ControlBGColor = Color.FromArgb(0x43, 0x44, 0x45);              // This changes the colour of the sub menu backgrounds
             TextColor = Color.White;                                        // This changes the colour of text
             BGColorTextBox = Color.FromArgb(0x43, 0x44, 0x45);              // This changes the colour of the background of textboxes
-            ButtonTextColor = Color.FromArgb(64, 87, 4);                    // This changes the colour of button text
-            ButBG = Color.FromArgb(148, 193, 31);                           // This changes the colour of button backgrounds (Top)
+            ButtonTextColor = Color.FromArgb(0, 0, 0);                    // This changes the colour of button text
+
+            //ButBG = Color.FromArgb(148, 193, 31);                           // This changes the colour of button backgrounds (Top)
             ButBGBot = Color.FromArgb(205, 226, 150);                       // This changes the colour of button backgrounds (Bot)
+
             ProgressBarColorTop = Color.FromArgb(102, 139, 26);             // These three variables change the colours of progress bars
             ProgressBarColorBot = Color.FromArgb(124, 164, 40);
             ProgressBarOutlineColor = Color.FromArgb(150, 174, 112);
@@ -1022,13 +1024,13 @@ mc:Ignorable=""d""
                 else if (ctl.GetType() == typeof(Button))
                 {
                     ctl.ForeColor = Color.Black;
-                    ctl.BackColor = ButBG;
+                    //ctl.BackColor = ButBG;
                 }
                 else if (ctl.GetType() == typeof(MyButton))
                 {
                     Controls.MyButton but = (MyButton)ctl;
-                    but.BGGradTop = ButBG;
-                    but.BGGradBot = ButBGBot;
+                    //but.BGGradTop = ButBG;
+                    //but.BGGradBot = ButBGBot;
                     but.TextColor = ButtonTextColor;
                     but.Outline = ButBorder;
                     but.ColorMouseDown = ColorMouseDown;        //sets the colour of buttons for different situations

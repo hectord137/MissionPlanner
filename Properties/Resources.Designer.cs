@@ -573,16 +573,6 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap flat_hamburger_512 {
-            get {
-                object obj = ResourceManager.GetObject("flat_hamburger_512", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap frames_06 {
             get {
                 object obj = ResourceManager.GetObject("frames_06", resourceCulture);

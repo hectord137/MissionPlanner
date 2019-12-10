@@ -10,7 +10,6 @@ namespace MissionPlanner.Grid
     public class GridPlugin : MissionPlanner.Plugin.Plugin
     {
 
-
         ToolStripMenuItem but;
 
         public override string Name
@@ -61,8 +60,8 @@ namespace MissionPlanner.Grid
             return true;
 
         }
-   
 
+        public bool haypoly = false;
         public void but_Click(object sender, EventArgs e)
         {
             using (var gridui = new GridUI(this))
@@ -73,11 +72,8 @@ namespace MissionPlanner.Grid
                 {
                     FlightPlannerBase.instance._flightPlanner.tableLayoutPanel12.Controls.Clear();
                     FlightPlannerBase.instance._flightPlanner.tableLayoutPanel12.Controls.Add(gridui.tabControl1);  //Agrego la instancia al panel y listo.
-                    FlightPlannerBase.instance._flightPlanner.PaneMenu.Visible = true;
                     gridui.GridUI_Load(sender, e);
-                    FlightPlannerBase.instance._flightPlanner.estadomenu = true;
-
-
+                    haypoly = true;
                 }
                 else
                 {
@@ -85,15 +81,17 @@ namespace MissionPlanner.Grid
                         CustomMessageBox.Show("No polygon defined. Load a file?", "Load File", MessageBoxButtons.YesNo) ==
                         (int)DialogResult.Yes)
                     {
-                        FlightPlannerBase.instance._flightPlanner.PaneMenu.Visible = false;
+                      
                         gridui.LoadGrid();
                         FlightPlannerBase.instance._flightPlanner.tableLayoutPanel12.Controls.Clear();
                         FlightPlannerBase.instance._flightPlanner.tableLayoutPanel12.Controls.Add(gridui.tabControl1);
+                        haypoly = true;
                     }
                     else
                     {
                         CustomMessageBox.Show("Please define a polygon.", "Error");
                         FlightPlannerBase.instance._flightPlanner.estadomenu = false;
+                        haypoly = false;
                     }
                 }
             }

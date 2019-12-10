@@ -28,12 +28,12 @@ namespace MissionPlanner.Grid
     public partial class GridUI : Form
     {
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
+        public static GridUI instance;
         // Variables
         const double rad2deg = (180 / Math.PI);
         const double deg2rad = (1.0 / rad2deg);
 
-        private GridPlugin plugin;
+        public GridPlugin plugin;
         static public Object thisLock = new Object();
 
         GMapOverlay routesOverlay;
@@ -69,7 +69,7 @@ namespace MissionPlanner.Grid
             this.plugin = plugin;
 
             InitializeComponent();
-
+            instance = this;
             loading = true;
 
             FlightPlannerBase.instance.MainMap.MapProvider = plugin.Host.FDMapType;
@@ -1850,7 +1850,7 @@ namespace MissionPlanner.Grid
             domainUpDown1_ValueChanged(sender, e);
         }
 
-        private void myButton1_Click(object sender, EventArgs e)
+        public void myButton1_Click(object sender, EventArgs e)
         {
             GMapMarkerOverlap.Clear();
             routesOverlay.Routes.Clear();

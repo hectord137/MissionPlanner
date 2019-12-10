@@ -11,6 +11,7 @@ namespace MissionPlanner.GCSViews
     {
 
         private readonly FlightPlannerBase _flightPlannerBase;
+        public static FlightPlanner instance;
 
         public FlightPlanner()
         {
@@ -19,6 +20,7 @@ namespace MissionPlanner.GCSViews
             _flightPlannerBase = new FlightPlannerBase(this);
             modifyMain();
             PaneMenu.Visible = false;
+            instance = this;
         }
 
         public FlightPlannerBase FlightPlannerBase
@@ -121,8 +123,9 @@ namespace MissionPlanner.GCSViews
                 ButClearPol.Enabled = true;
                 bloqWP = true;
                 BtSavePol.Enabled = true;
-                _flightPlannerBase.addPolygonPointToolStripMenuItem_Click(sender, e);
                 setPol = true;
+                _flightPlannerBase.addPolygonPointToolStripMenuItem_Click(sender, e);
+               
             }
 
         }
@@ -325,27 +328,47 @@ namespace MissionPlanner.GCSViews
         public bool menu = false;
         private void button1_Click_2(object sender, System.EventArgs e)
         {
-            FlightPlannerBase.surveyGridToolStripMenuItem_Click(sender, e);
 
-            if (estadomenu == true)
-            {      
-                menu = true;
-            }
-            else {
-                menu = false;
-            }
-
-
-            if(menu == true) {
-                PaneMenu.Visible = true;
-            }
-            else {
+                if (estadomenu == true ) {
+                //clear point
+                Grid.GridUI.instance.myButton1_Click(sender, e);
+                //clear Polygon 
+                this.ButClearPol_Click(sender, e);
+                //clear mission
+                FlightPlannerBase.instance.clearMissionToolStripMenuItem_Click(sender, e);
                 PaneMenu.Visible = false;
+                estadomenu = false;
+            }
+            else
+            {
+                FlightPlannerBase.surveyGridToolStripMenuItem_Click(sender, e);
+                PaneMenu.Visible = true;
+                estadomenu = true;
             }
 
 
 
 
         }
+
+        private void BUT_read_Click(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void BUT_saveWPFile_Click(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void but_writewpfast_Click(object sender, System.EventArgs e)
+        {
+         
+
+
+            MissionPlanner.Utilities.GeoTiff.geotiffdata geotiff = new Utilities.GeoTiff.geotiffdata();
+            geotiff.LoadFile(null) ;
+                
+                }
     }
 }

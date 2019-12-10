@@ -128,6 +128,7 @@ namespace MissionPlanner.GCSViews
             this.ButDelwp = new MissionPlanner.Controls.MyButton();
             this.BUT_saveWPFile = new MissionPlanner.Controls.MyButton();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.myButton7 = new MissionPlanner.Controls.MyButton();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.cmb_missiontype = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
@@ -306,22 +307,51 @@ namespace MissionPlanner.GCSViews
             // 
             // but_writewpfast
             // 
+            this.but_writewpfast.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.but_writewpfast.BGGradBot = System.Drawing.SystemColors.ActiveBorder;
+            this.but_writewpfast.BGGradTop = System.Drawing.SystemColors.ButtonFace;
+            this.but_writewpfast.ColorMouseDown = System.Drawing.SystemColors.ButtonFace;
+            this.but_writewpfast.ColorMouseOver = System.Drawing.SystemColors.ButtonFace;
+            this.but_writewpfast.ColorNotEnabled = System.Drawing.SystemColors.ButtonFace;
             resources.ApplyResources(this.but_writewpfast, "but_writewpfast");
+            this.but_writewpfast.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.but_writewpfast.Name = "but_writewpfast";
-            this.but_writewpfast.UseVisualStyleBackColor = true;
+            this.but_writewpfast.Outline = System.Drawing.SystemColors.ButtonShadow;
+            this.but_writewpfast.TextColor = System.Drawing.Color.Black;
+            this.but_writewpfast.UseVisualStyleBackColor = false;
+            this.but_writewpfast.Click += new System.EventHandler(this.but_writewpfast_Click);
             // 
             // BUT_write
             // 
+            this.BUT_write.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.BUT_write.BGGradBot = System.Drawing.SystemColors.ActiveBorder;
+            this.BUT_write.BGGradTop = System.Drawing.SystemColors.ButtonFace;
+            this.BUT_write.ColorMouseDown = System.Drawing.SystemColors.ButtonFace;
+            this.BUT_write.ColorMouseOver = System.Drawing.SystemColors.ButtonFace;
+            this.BUT_write.ColorNotEnabled = System.Drawing.SystemColors.ButtonFace;
             resources.ApplyResources(this.BUT_write, "BUT_write");
+            this.BUT_write.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.BUT_write.Name = "BUT_write";
-            this.BUT_write.UseVisualStyleBackColor = true;
+            this.BUT_write.Outline = System.Drawing.SystemColors.ButtonShadow;
+            this.BUT_write.TextColor = System.Drawing.Color.Black;
+            this.BUT_write.UseVisualStyleBackColor = false;
             this.BUT_write.Click += new System.EventHandler(this.BUT_write_Click);
             // 
             // BUT_read
             // 
+            this.BUT_read.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.BUT_read.BGGradBot = System.Drawing.SystemColors.ActiveBorder;
+            this.BUT_read.BGGradTop = System.Drawing.SystemColors.ButtonFace;
+            this.BUT_read.ColorMouseDown = System.Drawing.SystemColors.ButtonFace;
+            this.BUT_read.ColorMouseOver = System.Drawing.SystemColors.ButtonFace;
+            this.BUT_read.ColorNotEnabled = System.Drawing.SystemColors.ButtonFace;
             resources.ApplyResources(this.BUT_read, "BUT_read");
+            this.BUT_read.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.BUT_read.Name = "BUT_read";
-            this.BUT_read.UseVisualStyleBackColor = true;
+            this.BUT_read.Outline = System.Drawing.SystemColors.ButtonShadow;
+            this.BUT_read.TextColor = System.Drawing.Color.Black;
+            this.BUT_read.UseVisualStyleBackColor = false;
+            this.BUT_read.Click += new System.EventHandler(this.BUT_read_Click);
             // 
             // dataGridViewImageColumn1
             // 
@@ -473,8 +503,15 @@ namespace MissionPlanner.GCSViews
             // 
             // BUT_Add
             // 
+            this.BUT_Add.BGGradBot = System.Drawing.SystemColors.ActiveBorder;
+            this.BUT_Add.BGGradTop = System.Drawing.SystemColors.ButtonFace;
+            this.BUT_Add.ColorMouseDown = System.Drawing.SystemColors.ButtonFace;
+            this.BUT_Add.ColorMouseOver = System.Drawing.SystemColors.ButtonFace;
+            this.BUT_Add.ColorNotEnabled = System.Drawing.SystemColors.ButtonFace;
             resources.ApplyResources(this.BUT_Add, "BUT_Add");
             this.BUT_Add.Name = "BUT_Add";
+            this.BUT_Add.Outline = System.Drawing.SystemColors.ButtonShadow;
+            this.BUT_Add.TextColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.toolTip1.SetToolTip(this.BUT_Add, resources.GetString("BUT_Add.ToolTip"));
             this.BUT_Add.UseVisualStyleBackColor = true;
             // 
@@ -701,44 +738,98 @@ namespace MissionPlanner.GCSViews
             // 
             // myButton5
             // 
+            this.myButton5.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.myButton5.BGGradBot = System.Drawing.SystemColors.ActiveBorder;
+            this.myButton5.BGGradTop = System.Drawing.SystemColors.ButtonFace;
+            this.myButton5.ColorMouseDown = System.Drawing.SystemColors.ButtonFace;
+            this.myButton5.ColorMouseOver = System.Drawing.SystemColors.ButtonFace;
+            this.myButton5.ColorNotEnabled = System.Drawing.SystemColors.ButtonFace;
             resources.ApplyResources(this.myButton5, "myButton5");
+            this.myButton5.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.myButton5.Name = "myButton5";
-            this.myButton5.UseVisualStyleBackColor = true;
+            this.myButton5.Outline = System.Drawing.SystemColors.ButtonShadow;
+            this.myButton5.TextColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.myButton5.UseVisualStyleBackColor = false;
             this.myButton5.Click += new System.EventHandler(this.myButton5_Click);
             // 
             // myButton4
             // 
+            this.myButton4.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.myButton4.BGGradBot = System.Drawing.SystemColors.ActiveBorder;
+            this.myButton4.BGGradTop = System.Drawing.SystemColors.ButtonFace;
+            this.myButton4.ColorMouseDown = System.Drawing.SystemColors.ButtonFace;
+            this.myButton4.ColorMouseOver = System.Drawing.SystemColors.ButtonFace;
+            this.myButton4.ColorNotEnabled = System.Drawing.SystemColors.ButtonFace;
             resources.ApplyResources(this.myButton4, "myButton4");
+            this.myButton4.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.myButton4.Name = "myButton4";
-            this.myButton4.UseVisualStyleBackColor = true;
+            this.myButton4.Outline = System.Drawing.SystemColors.ButtonShadow;
+            this.myButton4.TextColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.myButton4.UseVisualStyleBackColor = false;
             this.myButton4.Click += new System.EventHandler(this.myButton4_Click);
             // 
             // myButton2
             // 
+            this.myButton2.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.myButton2.BGGradBot = System.Drawing.SystemColors.ActiveBorder;
+            this.myButton2.BGGradTop = System.Drawing.SystemColors.ButtonFace;
+            this.myButton2.ColorMouseDown = System.Drawing.SystemColors.ButtonFace;
+            this.myButton2.ColorMouseOver = System.Drawing.SystemColors.ButtonFace;
+            this.myButton2.ColorNotEnabled = System.Drawing.SystemColors.ButtonFace;
             resources.ApplyResources(this.myButton2, "myButton2");
+            this.myButton2.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.myButton2.Name = "myButton2";
-            this.myButton2.UseVisualStyleBackColor = true;
+            this.myButton2.Outline = System.Drawing.SystemColors.ButtonShadow;
+            this.myButton2.TextColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.myButton2.UseVisualStyleBackColor = false;
             this.myButton2.Click += new System.EventHandler(this.myButton2_Click);
             // 
             // myButton1
             // 
+            this.myButton1.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.myButton1.BGGradBot = System.Drawing.SystemColors.ActiveBorder;
+            this.myButton1.BGGradTop = System.Drawing.SystemColors.ButtonFace;
+            this.myButton1.ColorMouseDown = System.Drawing.SystemColors.ButtonFace;
+            this.myButton1.ColorMouseOver = System.Drawing.SystemColors.ButtonFace;
+            this.myButton1.ColorNotEnabled = System.Drawing.SystemColors.ButtonFace;
             resources.ApplyResources(this.myButton1, "myButton1");
+            this.myButton1.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.myButton1.Name = "myButton1";
-            this.myButton1.UseVisualStyleBackColor = true;
+            this.myButton1.Outline = System.Drawing.SystemColors.ButtonShadow;
+            this.myButton1.TextColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.myButton1.UseVisualStyleBackColor = false;
             this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
             // 
             // myButton6
             // 
+            this.myButton6.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.myButton6.BGGradBot = System.Drawing.SystemColors.ActiveBorder;
+            this.myButton6.BGGradTop = System.Drawing.SystemColors.ButtonFace;
+            this.myButton6.ColorMouseDown = System.Drawing.SystemColors.ButtonFace;
+            this.myButton6.ColorMouseOver = System.Drawing.SystemColors.ButtonFace;
+            this.myButton6.ColorNotEnabled = System.Drawing.SystemColors.ButtonFace;
             resources.ApplyResources(this.myButton6, "myButton6");
+            this.myButton6.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.myButton6.Name = "myButton6";
-            this.myButton6.UseVisualStyleBackColor = true;
+            this.myButton6.Outline = System.Drawing.SystemColors.ButtonShadow;
+            this.myButton6.TextColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.myButton6.UseVisualStyleBackColor = false;
             this.myButton6.Click += new System.EventHandler(this.myButton6_Click);
             // 
             // myButton3
             // 
+            this.myButton3.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.myButton3.BGGradBot = System.Drawing.SystemColors.ActiveBorder;
+            this.myButton3.BGGradTop = System.Drawing.SystemColors.ButtonFace;
+            this.myButton3.ColorMouseDown = System.Drawing.SystemColors.ButtonFace;
+            this.myButton3.ColorMouseOver = System.Drawing.SystemColors.ButtonFace;
+            this.myButton3.ColorNotEnabled = System.Drawing.SystemColors.ButtonFace;
             resources.ApplyResources(this.myButton3, "myButton3");
+            this.myButton3.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.myButton3.Name = "myButton3";
-            this.myButton3.UseVisualStyleBackColor = true;
+            this.myButton3.Outline = System.Drawing.SystemColors.ButtonShadow;
+            this.myButton3.TextColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.myButton3.UseVisualStyleBackColor = false;
             this.myButton3.Click += new System.EventHandler(this.myButton3_Click);
             // 
             // panel3
@@ -787,37 +878,86 @@ namespace MissionPlanner.GCSViews
             // 
             // BUT_loadwpfile
             // 
+            this.BUT_loadwpfile.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.BUT_loadwpfile.BGGradBot = System.Drawing.SystemColors.ActiveBorder;
+            this.BUT_loadwpfile.BGGradTop = System.Drawing.SystemColors.ButtonFace;
             resources.ApplyResources(this.BUT_loadwpfile, "BUT_loadwpfile");
+            this.BUT_loadwpfile.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.BUT_loadwpfile.Name = "BUT_loadwpfile";
-            this.BUT_loadwpfile.UseVisualStyleBackColor = true;
+            this.BUT_loadwpfile.TextColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.BUT_loadwpfile.UseVisualStyleBackColor = false;
             // 
             // BUT_insertWP
             // 
+            this.BUT_insertWP.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.BUT_insertWP.BGGradBot = System.Drawing.SystemColors.ActiveBorder;
+            this.BUT_insertWP.BGGradTop = System.Drawing.SystemColors.ButtonFace;
+            this.BUT_insertWP.ColorMouseDown = System.Drawing.SystemColors.ButtonFace;
+            this.BUT_insertWP.ColorMouseOver = System.Drawing.SystemColors.ButtonFace;
+            this.BUT_insertWP.ColorNotEnabled = System.Drawing.SystemColors.ButtonFace;
             resources.ApplyResources(this.BUT_insertWP, "BUT_insertWP");
+            this.BUT_insertWP.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.BUT_insertWP.Name = "BUT_insertWP";
-            this.BUT_insertWP.UseVisualStyleBackColor = true;
+            this.BUT_insertWP.Outline = System.Drawing.SystemColors.ActiveBorder;
+            this.BUT_insertWP.TextColor = System.Drawing.Color.Black;
+            this.BUT_insertWP.UseVisualStyleBackColor = false;
             this.BUT_insertWP.Click += new System.EventHandler(this.BUT_insertWP_Click);
             // 
             // ButDelwp
             // 
+            this.ButDelwp.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.ButDelwp.BGGradBot = System.Drawing.SystemColors.ActiveBorder;
+            this.ButDelwp.BGGradTop = System.Drawing.SystemColors.ButtonFace;
+            this.ButDelwp.ColorMouseDown = System.Drawing.SystemColors.ButtonFace;
+            this.ButDelwp.ColorMouseOver = System.Drawing.SystemColors.ButtonFace;
+            this.ButDelwp.ColorNotEnabled = System.Drawing.SystemColors.ButtonFace;
             resources.ApplyResources(this.ButDelwp, "ButDelwp");
+            this.ButDelwp.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.ButDelwp.Name = "ButDelwp";
-            this.ButDelwp.UseVisualStyleBackColor = true;
+            this.ButDelwp.Outline = System.Drawing.SystemColors.ButtonShadow;
+            this.ButDelwp.TextColor = System.Drawing.Color.Black;
+            this.ButDelwp.UseVisualStyleBackColor = false;
             this.ButDelwp.Click += new System.EventHandler(this.ButDelwp_Click);
             // 
             // BUT_saveWPFile
             // 
+            this.BUT_saveWPFile.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.BUT_saveWPFile.BGGradBot = System.Drawing.SystemColors.ActiveBorder;
+            this.BUT_saveWPFile.BGGradTop = System.Drawing.SystemColors.ButtonFace;
+            this.BUT_saveWPFile.ColorMouseDown = System.Drawing.SystemColors.ButtonFace;
+            this.BUT_saveWPFile.ColorMouseOver = System.Drawing.SystemColors.ButtonFace;
+            this.BUT_saveWPFile.ColorNotEnabled = System.Drawing.SystemColors.ButtonFace;
             resources.ApplyResources(this.BUT_saveWPFile, "BUT_saveWPFile");
+            this.BUT_saveWPFile.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.BUT_saveWPFile.Name = "BUT_saveWPFile";
-            this.BUT_saveWPFile.UseVisualStyleBackColor = true;
+            this.BUT_saveWPFile.Outline = System.Drawing.SystemColors.ButtonShadow;
+            this.BUT_saveWPFile.TextColor = System.Drawing.Color.Black;
+            this.BUT_saveWPFile.UseVisualStyleBackColor = false;
+            this.BUT_saveWPFile.Click += new System.EventHandler(this.BUT_saveWPFile_Click);
             // 
             // tableLayoutPanel3
             // 
             resources.ApplyResources(this.tableLayoutPanel3, "tableLayoutPanel3");
+            this.tableLayoutPanel3.Controls.Add(this.myButton7, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.BUT_write, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.but_writewpfast, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.BUT_read, 0, 0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            // 
+            // myButton7
+            // 
+            this.myButton7.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.myButton7.BGGradBot = System.Drawing.SystemColors.ActiveBorder;
+            this.myButton7.BGGradTop = System.Drawing.SystemColors.ButtonFace;
+            this.myButton7.ColorMouseDown = System.Drawing.SystemColors.ButtonFace;
+            this.myButton7.ColorMouseOver = System.Drawing.SystemColors.ButtonFace;
+            this.myButton7.ColorNotEnabled = System.Drawing.SystemColors.ButtonFace;
+            resources.ApplyResources(this.myButton7, "myButton7");
+            this.myButton7.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.myButton7.Name = "myButton7";
+            this.myButton7.Outline = System.Drawing.SystemColors.ButtonShadow;
+            this.myButton7.TextColor = System.Drawing.Color.Black;
+            this.myButton7.UseVisualStyleBackColor = false;
             // 
             // tableLayoutPanel4
             // 
@@ -848,30 +988,66 @@ namespace MissionPlanner.GCSViews
             // 
             // ButInsertPol
             // 
+            this.ButInsertPol.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.ButInsertPol.BGGradBot = System.Drawing.SystemColors.ActiveBorder;
+            this.ButInsertPol.BGGradTop = System.Drawing.SystemColors.ButtonFace;
+            this.ButInsertPol.ColorMouseDown = System.Drawing.SystemColors.ButtonFace;
+            this.ButInsertPol.ColorMouseOver = System.Drawing.SystemColors.ButtonFace;
+            this.ButInsertPol.ColorNotEnabled = System.Drawing.SystemColors.ButtonFace;
             resources.ApplyResources(this.ButInsertPol, "ButInsertPol");
+            this.ButInsertPol.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.ButInsertPol.Name = "ButInsertPol";
-            this.ButInsertPol.UseVisualStyleBackColor = true;
+            this.ButInsertPol.Outline = System.Drawing.SystemColors.ButtonShadow;
+            this.ButInsertPol.TextColor = System.Drawing.Color.Black;
+            this.ButInsertPol.UseVisualStyleBackColor = false;
             this.ButInsertPol.Click += new System.EventHandler(this.ButInsertPol_Click);
             // 
             // ButClearPol
             // 
+            this.ButClearPol.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.ButClearPol.BGGradBot = System.Drawing.SystemColors.ActiveBorder;
+            this.ButClearPol.BGGradTop = System.Drawing.SystemColors.ButtonFace;
+            this.ButClearPol.ColorMouseDown = System.Drawing.SystemColors.ButtonFace;
+            this.ButClearPol.ColorMouseOver = System.Drawing.SystemColors.ButtonFace;
+            this.ButClearPol.ColorNotEnabled = System.Drawing.SystemColors.ButtonFace;
             resources.ApplyResources(this.ButClearPol, "ButClearPol");
+            this.ButClearPol.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.ButClearPol.Name = "ButClearPol";
-            this.ButClearPol.UseVisualStyleBackColor = true;
+            this.ButClearPol.Outline = System.Drawing.SystemColors.ButtonShadow;
+            this.ButClearPol.TextColor = System.Drawing.Color.Black;
+            this.ButClearPol.UseVisualStyleBackColor = false;
             this.ButClearPol.Click += new System.EventHandler(this.ButClearPol_Click);
             // 
             // BtSavePol
             // 
+            this.BtSavePol.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.BtSavePol.BGGradBot = System.Drawing.SystemColors.ActiveBorder;
+            this.BtSavePol.BGGradTop = System.Drawing.SystemColors.ButtonFace;
+            this.BtSavePol.ColorMouseDown = System.Drawing.SystemColors.ButtonFace;
+            this.BtSavePol.ColorMouseOver = System.Drawing.SystemColors.ButtonFace;
+            this.BtSavePol.ColorNotEnabled = System.Drawing.SystemColors.ButtonFace;
             resources.ApplyResources(this.BtSavePol, "BtSavePol");
+            this.BtSavePol.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.BtSavePol.Name = "BtSavePol";
-            this.BtSavePol.UseVisualStyleBackColor = true;
+            this.BtSavePol.Outline = System.Drawing.SystemColors.ButtonShadow;
+            this.BtSavePol.TextColor = System.Drawing.Color.Black;
+            this.BtSavePol.UseVisualStyleBackColor = false;
             this.BtSavePol.Click += new System.EventHandler(this.BtSavePol_Click);
             // 
             // ButLoadPol
             // 
+            this.ButLoadPol.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.ButLoadPol.BGGradBot = System.Drawing.SystemColors.ActiveBorder;
+            this.ButLoadPol.BGGradTop = System.Drawing.SystemColors.ButtonFace;
+            this.ButLoadPol.ColorMouseDown = System.Drawing.SystemColors.ButtonFace;
+            this.ButLoadPol.ColorMouseOver = System.Drawing.SystemColors.ButtonFace;
+            this.ButLoadPol.ColorNotEnabled = System.Drawing.SystemColors.ButtonFace;
             resources.ApplyResources(this.ButLoadPol, "ButLoadPol");
+            this.ButLoadPol.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.ButLoadPol.Name = "ButLoadPol";
-            this.ButLoadPol.UseVisualStyleBackColor = true;
+            this.ButLoadPol.Outline = System.Drawing.SystemColors.ButtonShadow;
+            this.ButLoadPol.TextColor = System.Drawing.Color.Black;
+            this.ButLoadPol.UseVisualStyleBackColor = false;
             this.ButLoadPol.Click += new System.EventHandler(this.ButLoadPol_Click_1);
             // 
             // tableLayoutPanel6
@@ -885,22 +1061,28 @@ namespace MissionPlanner.GCSViews
             // ButKMLOverlay
             // 
             resources.ApplyResources(this.ButKMLOverlay, "ButKMLOverlay");
+            this.ButKMLOverlay.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.ButKMLOverlay.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ButKMLOverlay.Name = "ButKMLOverlay";
-            this.ButKMLOverlay.UseVisualStyleBackColor = true;
+            this.ButKMLOverlay.UseVisualStyleBackColor = false;
             this.ButKMLOverlay.Click += new System.EventHandler(this.ButKMLOverlay_Click);
             // 
             // ButMeasureContext
             // 
             resources.ApplyResources(this.ButMeasureContext, "ButMeasureContext");
+            this.ButMeasureContext.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.ButMeasureContext.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ButMeasureContext.Name = "ButMeasureContext";
-            this.ButMeasureContext.UseVisualStyleBackColor = true;
+            this.ButMeasureContext.UseVisualStyleBackColor = false;
             this.ButMeasureContext.Click += new System.EventHandler(this.ButMeasureContext_Click);
             // 
             // BUTCLEARKML
             // 
+            this.BUTCLEARKML.BackColor = System.Drawing.SystemColors.ButtonFace;
             resources.ApplyResources(this.BUTCLEARKML, "BUTCLEARKML");
+            this.BUTCLEARKML.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.BUTCLEARKML.Name = "BUTCLEARKML";
-            this.BUTCLEARKML.UseVisualStyleBackColor = true;
+            this.BUTCLEARKML.UseVisualStyleBackColor = false;
             this.BUTCLEARKML.Click += new System.EventHandler(this.BUTCLEARKML_Click);
             // 
             // LBLarea
@@ -1793,5 +1975,6 @@ namespace MissionPlanner.GCSViews
         private Label label10;
         public TableLayoutPanel tableLayoutPanel12;
         private Button But_SurveyGrid;
+        public MyButton myButton7;
     }
 }
