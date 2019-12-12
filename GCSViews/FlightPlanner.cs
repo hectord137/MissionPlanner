@@ -63,12 +63,13 @@ namespace MissionPlanner.GCSViews
         {
 
         }
-
+        public bool distancia = false;
         private void ButMeasureContext_Click(object sender, System.EventArgs e)
         {
-            _flightPlannerBase.measurecontext();
-          
-        }
+            //_flightPlannerBase.measurecontext();
+             distancia = true;
+
+    }
 
         private void setHomeHereToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
@@ -370,5 +371,10 @@ namespace MissionPlanner.GCSViews
             geotiff.LoadFile(null) ;
                 
                 }
+        public bool btnsethome = false;
+        private void BUt_sethome_Click(object sender, System.EventArgs e)
+        {
+            btnsethome = true;
+        }
     }
 }

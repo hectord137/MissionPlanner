@@ -927,8 +927,11 @@
   <data name="&gt;&gt;groupBox5.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="label42.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label42.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+    <value>20, 64</value>
   </data>
   <data name="label42.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 23</value>
@@ -949,7 +952,7 @@
     <value>0</value>
   </data>
   <data name="num_setservono.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+    <value>7, 19</value>
   </data>
   <data name="num_setservono.Size" type="System.Drawing.Size, System.Drawing">
     <value>120, 20</value>
@@ -969,8 +972,11 @@
   <data name="&gt;&gt;num_setservono.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="label41.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label41.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+    <value>6, 26</value>
   </data>
   <data name="label41.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 23</value>
@@ -989,6 +995,9 @@
   </data>
   <data name="&gt;&gt;label41.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="label39.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label39.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1053,6 +1062,9 @@
   <data name="&gt;&gt;num_setservohigh.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <data name="rad_do_set_servo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="rad_do_set_servo.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
@@ -1073,6 +1085,9 @@
   </data>
   <data name="&gt;&gt;rad_do_set_servo.ZOrder" xml:space="preserve">
     <value>6</value>
+  </data>
+  <data name="chk_stopstart.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="chk_stopstart.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1095,6 +1110,9 @@
   <data name="&gt;&gt;chk_stopstart.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
+  <data name="label18.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label18.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
@@ -1116,6 +1134,9 @@
   <data name="&gt;&gt;label18.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
+  <data name="label17.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label17.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
@@ -1136,6 +1157,9 @@
   </data>
   <data name="&gt;&gt;label17.ZOrder" xml:space="preserve">
     <value>9</value>
+  </data>
+  <data name="label16.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1221,6 +1245,9 @@
   <data name="&gt;&gt;NUM_reptservo.ZOrder" xml:space="preserve">
     <value>13</value>
   </data>
+  <data name="rad_digicam.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="rad_digicam.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
@@ -1242,6 +1269,9 @@
   <data name="&gt;&gt;rad_digicam.ZOrder" xml:space="preserve">
     <value>14</value>
   </data>
+  <data name="rad_repeatservo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="rad_repeatservo.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
@@ -1262,6 +1292,9 @@
   </data>
   <data name="&gt;&gt;rad_repeatservo.ZOrder" xml:space="preserve">
     <value>15</value>
+  </data>
+  <data name="rad_trigdist.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="rad_trigdist.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1285,7 +1318,7 @@
     <value>16</value>
   </data>
   <data name="groupBox3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+    <value>37, 96</value>
   </data>
   <data name="groupBox3.Size" type="System.Drawing.Size, System.Drawing">
     <value>200, 100</value>
@@ -1300,10 +1333,13 @@
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;groupBox3.Parent" xml:space="preserve">
-    <value>tabCamera</value>
+    <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;groupBox3.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="BUT_samplephoto.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="BUT_samplephoto.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1324,7 +1360,10 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;BUT_samplephoto.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
+  </data>
+  <data name="label21.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label21.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1345,7 +1384,10 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label21.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
+  </data>
+  <data name="label19.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label19.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1366,7 +1408,10 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label19.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
+  </data>
+  <data name="label20.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label20.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1387,7 +1432,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label20.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="TXT_fovV.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1408,7 +1453,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;TXT_fovV.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="TXT_fovH.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1429,7 +1474,10 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;TXT_fovH.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
+  </data>
+  <data name="label12.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1450,7 +1498,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="TXT_cmpixel.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1471,7 +1519,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;TXT_cmpixel.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="TXT_sensheight.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1492,7 +1540,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;TXT_sensheight.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="TXT_senswidth.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1513,7 +1561,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;TXT_senswidth.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="TXT_imgheight.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1534,7 +1582,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;TXT_imgheight.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="TXT_imgwidth.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1555,7 +1603,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;TXT_imgwidth.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="NUM_focallength.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1576,7 +1624,10 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;NUM_focallength.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>13</value>
+  </data>
+  <data name="label9.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1597,7 +1648,10 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>14</value>
+  </data>
+  <data name="label10.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1618,7 +1672,10 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>15</value>
+  </data>
+  <data name="label14.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label14.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1639,7 +1696,10 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label14.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>16</value>
+  </data>
+  <data name="label13.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1660,7 +1720,10 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>17</value>
+  </data>
+  <data name="label11.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1681,7 +1744,10 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>18</value>
+  </data>
+  <data name="BUT_save.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="BUT_save.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1702,10 +1768,10 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;BUT_save.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>19</value>
   </data>
   <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+    <value>37, 173</value>
   </data>
   <data name="groupBox2.Size" type="System.Drawing.Size, System.Drawing">
     <value>200, 100</value>
@@ -1723,7 +1789,7 @@
     <value>tabCamera</value>
   </data>
   <data name="&gt;&gt;groupBox2.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="tabCamera.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -2662,7 +2728,7 @@
     <value>6, 6</value>
   </data>
   <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>233, 235</value>
+    <value>233, 268</value>
   </data>
   <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -3247,23 +3313,20 @@ Control-O to load form file</value>
   <data name="&gt;&gt;groupBox6.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="CHK_advanced.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="CHK_advanced.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="CHK_advanced.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 135</value>
+    <value>9, 130</value>
   </data>
   <data name="CHK_advanced.Size" type="System.Drawing.Size, System.Drawing">
-    <value>114, 17</value>
+    <value>104, 24</value>
   </data>
   <data name="CHK_advanced.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>0</value>
   </data>
-  <data name="CHK_advanced.Text" xml:space="preserve">
-    <value>Advanced Options</value>
+  <data name="CHK_advanced.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;CHK_advanced.Name" xml:space="preserve">
     <value>CHK_advanced</value>
@@ -3294,6 +3357,9 @@ Control-O to load form file</value>
   </data>
   <data name="CHK_footprints.Text" xml:space="preserve">
     <value>Footprints</value>
+  </data>
+  <data name="CHK_footprints.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;CHK_footprints.Name" xml:space="preserve">
     <value>CHK_footprints</value>
@@ -3540,6 +3606,9 @@ Control-O to load form file</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>254, 526</value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Survey (Grid)</value>

@@ -242,6 +242,7 @@ namespace MissionPlanner.GCSViews
             this.fenceInclusionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fenceExclusionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.drawAPolygonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.BUt_sethome = new MissionPlanner.Controls.MyButton();
             this.panelWaypoints.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
             this.tableLayoutPanel11.SuspendLayout();
@@ -1053,6 +1054,7 @@ namespace MissionPlanner.GCSViews
             // tableLayoutPanel6
             // 
             resources.ApplyResources(this.tableLayoutPanel6, "tableLayoutPanel6");
+            this.tableLayoutPanel6.Controls.Add(this.BUt_sethome, 0, 1);
             this.tableLayoutPanel6.Controls.Add(this.ButKMLOverlay, 0, 0);
             this.tableLayoutPanel6.Controls.Add(this.ButMeasureContext, 1, 0);
             this.tableLayoutPanel6.Controls.Add(this.BUTCLEARKML, 0, 1);
@@ -1745,6 +1747,22 @@ namespace MissionPlanner.GCSViews
             this.drawAPolygonToolStripMenuItem.Name = "drawAPolygonToolStripMenuItem";
             resources.ApplyResources(this.drawAPolygonToolStripMenuItem, "drawAPolygonToolStripMenuItem");
             // 
+            // BUt_sethome
+            // 
+            this.BUt_sethome.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.BUt_sethome.BGGradBot = System.Drawing.SystemColors.ActiveBorder;
+            this.BUt_sethome.BGGradTop = System.Drawing.SystemColors.ButtonFace;
+            this.BUt_sethome.ColorMouseDown = System.Drawing.SystemColors.ButtonFace;
+            this.BUt_sethome.ColorMouseOver = System.Drawing.SystemColors.ButtonFace;
+            this.BUt_sethome.ColorNotEnabled = System.Drawing.SystemColors.ButtonFace;
+            resources.ApplyResources(this.BUt_sethome, "BUt_sethome");
+            this.BUt_sethome.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.BUt_sethome.Name = "BUt_sethome";
+            this.BUt_sethome.Outline = System.Drawing.SystemColors.ButtonShadow;
+            this.BUt_sethome.TextColor = System.Drawing.Color.Black;
+            this.BUt_sethome.UseVisualStyleBackColor = false;
+            this.BUt_sethome.Click += new System.EventHandler(this.BUt_sethome_Click);
+            // 
             // FlightPlanner
             // 
             this.BackColor = System.Drawing.SystemColors.Control;
@@ -1976,5 +1994,6 @@ namespace MissionPlanner.GCSViews
         public TableLayoutPanel tableLayoutPanel12;
         private Button But_SurveyGrid;
         public MyButton myButton7;
+        public MyButton BUt_sethome;
     }
 }

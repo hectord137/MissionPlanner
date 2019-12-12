@@ -699,11 +699,22 @@ namespace MissionPlanner.GCSViews
         {
             selectedrow = _flightPlanner.Commands.Rows.Add();
 
-            FillCommand(this.selectedrow, cmd, p1, p2, p3, p4, x, y, z, tag);
+            //if (selectedrow == 1) {
+                FillCommand(this.selectedrow, cmd, p1, p2, p3, p4, x, y, z, tag);
+            //}else if (selectedrow == GridUI.instance.wpend - 1)
+            //    {
+            //        FillCommand(this.selectedrow, MAVLink.MAV_CMD.DO_SET_RELAY, p1, p2, p3, p4, x, y, z, tag);
+            //    }
+            //    else { 
+            //    FillCommand(this.selectedrow, MAVLink.MAV_CMD.WAYPOINT, p1, p2, p3, p4, x, y, z, tag);
+            //}
+           
+
 
             writeKML();
 
             return selectedrow;
+           
         }
 
         /// <summary>
@@ -1318,14 +1329,14 @@ namespace MissionPlanner.GCSViews
             {
                 
                 cell = _flightPlanner.Commands.Rows[selectedrow].Cells[Param1.Index] as DataGridViewTextBoxCell;
-                cell.Value = 1;
+             
                 cell.DataGridView.EndEdit();
             }
             if (_flightPlanner.Commands.Columns[Param2.Index].HeaderText.Equals(""))
             {
 
                 cell = _flightPlanner.Commands.Rows[selectedrow].Cells[Param2.Index] as DataGridViewTextBoxCell;
-                cell.Value = 1;
+                
                 cell.DataGridView.EndEdit();
             }
 
@@ -2530,44 +2541,38 @@ namespace MissionPlanner.GCSViews
 
         public void ContextMeasure_Click(object sender, EventArgs e)
         {
-            measurecontext();
+            //measurecontext();
         }
-        public void measurecontext()
+    
+        public void measurecontext(PointLatLng latlng1, PointLatLng latlng2)
         {
-       
-            if (startmeasure.IsEmpty)
-            {
-                startmeasure = MouseDownStart;
-                polygonsoverlay.Markers.Add(new GMarkerGoogle(MouseDownStart, GMarkerGoogleType.red));
-                _flightPlanner.MainMap.Invalidate();
-                Common.MessageShowAgain("Measure Dist",
-                    "You can now pan/zoom around.\nClick this option again to get the distance.");
-               
-            }
-            else
-            {
+            
+
+
                 List<PointLatLng> polygonPoints = new List<PointLatLng>
                 {
                     startmeasure,
                     MouseDownStart
                 };
+            startmeasure = latlng1;
+            MouseDownStart = latlng2;
 
-                GMapPolygon line = new GMapPolygon(polygonPoints, "measure dist");
+            GMapPolygon line = new GMapPolygon(polygonPoints, "measure dist");
                 line.Stroke.Color = Color.Green;
 
                 polygonsoverlay.Polygons.Add(line);
 
-                polygonsoverlay.Markers.Add(new GMarkerGoogle(MouseDownStart, GMarkerGoogleType.red));
+            
                 _flightPlanner.MainMap.Invalidate();
-                CustomMessageBox.Show("Distance: " +
-                                      FormatDistance(_flightPlanner.MainMap.MapProvider.Projection.GetDistance(startmeasure, MouseDownStart), true) +
-                                      " AZ: " +
-                                      (_flightPlanner.MainMap.MapProvider.Projection.GetBearing(startmeasure, MouseDownStart)
-                                          .ToString("0")));
-                polygonsoverlay.Polygons.Remove(line);
+            CustomMessageBox.Show("Distance: " +
+                                  FormatDistance(_flightPlanner.MainMap.MapProvider.Projection.GetDistance(startmeasure, MouseDownStart), true) +
+                                  " AZ: " +
+                                  (_flightPlanner.MainMap.MapProvider.Projection.GetBearing(startmeasure, MouseDownStart)
+                                      .ToString("0")));
+            polygonsoverlay.Polygons.Remove(line);
                 polygonsoverlay.Markers.Clear();
                 startmeasure = new PointLatLng();
-            }
+            
         }
 
         public void contextMenuStrip1_Closed(object sender, ToolStripDropDownClosedEventArgs e)
@@ -5772,6 +5777,14 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             FlightPlannerBase.instance.sethomeh(homealt, homelat, homelng);
         }
+        public void setHomeHeres(PointLatLngAlt rallypt)
+        {
+            object homealt = (srtm.getAltitude(rallypt.Lat, rallypt.Lng).alt * CurrentState.multiplieralt).ToString("0");
+            object homelat = rallypt.Lat.ToString(); ;
+            object homelng = rallypt.Lng.ToString(); ;
+
+            FlightPlannerBase.instance.sethomeh(homealt, homelat, homelng);
+        }
 
         public void sethomeh(object homealt, object homelat, object homelng) {
             _flightPlanner.TXT_homealt.Text = homealt.ToString();
@@ -6444,13 +6457,19 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             _flightPlanner.trackBar1.Value = (int) _flightPlanner.MainMap.Zoom;
         }
-
+        //var measure
+        int i = 0;
+        List<PointLatLng> latlng = new List<PointLatLng>();
+        // end measure
+        //las variables on/of en flightplanner
         private void MainMap_MouseDown(object sender, MouseEventArgs e)
         {
+
             MouseDownStart = _flightPlanner.MainMap.FromLocalToLatLng(e.X, e.Y);
             isMouseDown = true;
             isMouseDraging = true;
-            
+
+            //add waypoint
             if (_flightPlanner.bloqWP == true)
             {
                 if (e.Button == MouseButtons.Left && (groupmarkers.Count > 0 || Control.ModifierKeys == Keys.Control))
@@ -6460,27 +6479,22 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     isMouseDraging = false;
                     return;
                 }
-
                 //   Console.WriteLine("MainMap MD");
-
                 if (isMouseClickOffMenu)
                     return;
-
                 MouseDownStart = _flightPlanner.MainMap.FromLocalToLatLng(e.X, e.Y);
-
                 if (e.Button == MouseButtons.Left && Control.ModifierKeys != Keys.Alt && Control.ModifierKeys != Keys.Control)
                 {
                     isMouseDown = true;
                     isMouseDraging = false;
-
                      if (currentMarker.IsVisible)
                      {
                          currentMarker.Position = _flightPlanner.MainMap.FromLocalToLatLng(e.X, e.Y);
                      }
                 }
-
-
             }
+
+            //activa rally point en main map
             if (_flightPlanner.bloqRallyPoint)
             {
                 try { 
@@ -6501,9 +6515,53 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     CustomMessageBox.Show(Strings.InvalidAlt, Strings.ERROR);
                 }
             }
-           
+  
+            // activa distancia en main map
+            if (_flightPlanner.distancia) {   
+                if (i <= 2)
+                {
+                    MouseDownStart = _flightPlanner.MainMap.FromLocalToLatLng(e.X, e.Y);
+                    latlng.Add(MouseDownStart);
+                    GMapOverlay markersOverlay = new GMapOverlay("markers");
+                    GMarkerGoogle marker = new GMarkerGoogle(new PointLatLng(MouseDownStart.Lat, MouseDownStart.Lng),
+                    GMarkerGoogleType.green);
 
+                    MainMap.Overlays.Add(markersOverlay);
+                    markersOverlay.Markers.Add(marker);
+                    //GMapPolygon line = new GMapPolygon(latlng, "measure dist");
+                    //line.Stroke.Color = Color.Black;
+                    //polygonsoverlay.Polygons.Add(line);    
+                    i++;
+                }
+                if(i == 2){
+                    try
+                    {
+                        measurecontext(latlng[0], latlng[1]);
+                        MainMap._Overlays.Clear();
+                        latlng.Clear();
+                        i = 0;
+                    }
+                    catch
+                    { }
+                }
             }
+
+            //activa set home
+            if (_flightPlanner.btnsethome)
+            {
+                try { 
+     
+                PointLatLngAlt rallypt = new PointLatLngAlt(MouseDownStart.Lat, MouseDownStart.Lng,
+                      100 / CurrentState.multiplieralt, "Rally Point");
+                this.setHomeHeres(rallypt);
+                    _flightPlanner.btnsethome = false;
+                }
+                catch
+                {
+                    CustomMessageBox.Show(Strings.InvalidAlt, Strings.ERROR);
+                }
+            }
+        }
 
         private void MainMap_MouseEnter(object sender, EventArgs e)
         {

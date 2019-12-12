@@ -605,7 +605,15 @@ public partial class MAVLink
         FAILED=16777216, 
     
     };
-    
+    public enum MAV_CMD_bot : ushort
+    {
+        ///<summary> Navigate to waypoint. |Hold time. (ignored by fixed wing, time to stay at waypoint for rotary wing)| Acceptance radius (if the sphere with this radius is hit, the waypoint counts as reached)| or clockwise orbit, negative value for counter-clockwise orbit. Allows trajectory control.| Desired yaw angle at waypoint (rotary wing). NaN for unchanged.| Latitude| Longitude| Altitude|  </summary>
+        [Description("Navigate to waypoint.")]
+        WAYPOINT = 16,
+        ///<summary> Set a relay to a condition. |Relay instance number.| Setting. (1=on, 0=off, others possible depending on system hardware)| Empty| Empty| Empty| Empty| Empty|  </summary>
+        [Description("Set a relay to a condition.")]
+        DO_SET_RELAY = 181
+    }
     ///<summary> Commands to be executed by the MAV. They can be executed on user request, or as part of a mission script. If the action is used in a mission, the parameter mapping to the waypoint/mission message is as follows: Param 1, Param 2, Param 3, Param 4, X: Param 5, Y:Param 6, Z:Param 7. This command list is similar what ARINC 424 is for commercial aircraft: A data format how to interpret waypoint/mission data. See https://mavlink.io/en/guide/xml_schema.html#MAV_CMD for information about the structure of the MAV_CMD entries </summary>
     public enum MAV_CMD: ushort
     {
@@ -14712,7 +14720,9 @@ public partial class MAVLink
         [Units("[m]")]
         [Description("Local Z position of this position in the local coordinate frame")]
         public  float z;
-            /// <summary>World to surface normal and heading transformation of the takeoff position. Used to indicate the heading and slope of the ground   </summary>
+            /// <summary>World to surface normal and heading transformation of the 
+            /// 
+            /// position. Used to indicate the heading and slope of the ground   </summary>
         [Units("")]
         [Description("World to surface normal and heading transformation of the takeoff position. Used to indicate the heading and slope of the ground")]
         [MarshalAs(UnmanagedType.ByValArray,SizeConst=4)]
