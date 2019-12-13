@@ -847,7 +847,7 @@ namespace MissionPlanner.Grid
             FlightPlanner.instance.lblstrips.Text = strips.ToString();
         }
 
-        private void AddWP(double Lng, double Lat, double Alt, string tag, object gridobject = null)
+        public void AddWP(double Lng, double Lat, double Alt, string tag, object gridobject = null)
         {
           
             //if (CHK_copter_headinghold.Checked)

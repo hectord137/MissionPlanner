@@ -723,6 +723,8 @@ namespace MissionPlanner.GCSViews
         /// <param name="lat"></param>
         /// <param name="lng"></param>
         /// <param name="alt"></param>
+        /// 
+        public int contador = 1;
         public void AddWPToMap(double lat, double lng, int alt)
         {
             if (polygongridmode)
@@ -739,30 +741,40 @@ namespace MissionPlanner.GCSViews
             }
             // creating a WP
 
-            selectedrow = _flightPlanner.Commands.Rows.Add();
+            selectedrow =                _flightPlanner.Commands.Rows.Add();
 
-            if ((MAVLink.MAV_MISSION_TYPE)_flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.RALLY)
+            //if ((MAVLink.MAV_MISSION_TYPE)_flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.RALLY)
+            //{
+            //    _flightPlanner.Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.RALLY_POINT.ToString();
+            //    ChangeColumnHeader(MAVLink.MAV_CMD.RALLY_POINT.ToString());
+            //}
+            //else if ((MAVLink.MAV_MISSION_TYPE)_flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.FENCE)
+            //{
+            //    _flightPlanner.Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.FENCE_POLYGON_VERTEX_INCLUSION.ToString();
+            //    ChangeColumnHeader(MAVLink.MAV_CMD.FENCE_POLYGON_VERTEX_INCLUSION.ToString());
+            //}
+            //else if (splinemode)
+            //{
+            //    _flightPlanner.Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.SPLINE_WAYPOINT.ToString();
+            //    ChangeColumnHeader(MAVLink.MAV_CMD.SPLINE_WAYPOINT.ToString());
+            //}
+            //else
+            //{
+          
+            //}
+            if (contador == 2)
             {
-                _flightPlanner.Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.RALLY_POINT.ToString();
-                ChangeColumnHeader(MAVLink.MAV_CMD.RALLY_POINT.ToString());
+                _flightPlanner.Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_SET_RELAY.ToString();
+                ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
             }
-            else if ((MAVLink.MAV_MISSION_TYPE)_flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.FENCE)
-            {
-                _flightPlanner.Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.FENCE_POLYGON_VERTEX_INCLUSION.ToString();
-                ChangeColumnHeader(MAVLink.MAV_CMD.FENCE_POLYGON_VERTEX_INCLUSION.ToString());
-            }
-            else if (splinemode)
-            {
-                _flightPlanner.Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.SPLINE_WAYPOINT.ToString();
-                ChangeColumnHeader(MAVLink.MAV_CMD.SPLINE_WAYPOINT.ToString());
-            }
-            else
-            {
+            else {
                 _flightPlanner.Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
                 ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
             }
 
+
             setfromMap(lat, lng, alt);
+            contador++;
         }
 
         /// <summary>
@@ -6483,14 +6495,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 {
                     isMouseDown = true;
                     isMouseDraging = false;
-                     if (currentMarker.IsVisible)
-                     {
+                    if (currentMarker.IsVisible)
+                    {
                          currentMarker.Position = _flightPlanner.MainMap.FromLocalToLatLng(e.X, e.Y);
                         pointers++;
-                        
-                       
-
-                     }
+                    }
                 }
             }
 
