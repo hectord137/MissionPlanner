@@ -64,10 +64,19 @@ namespace MissionPlanner.GCSViews
 
         }
         public bool distancia = false;
-        private void ButMeasureContext_Click(object sender, System.EventArgs e)
+        public void ButMeasureContext_Click(object sender, System.EventArgs e)
         {
             //_flightPlannerBase.measurecontext();
-             distancia = true;
+             
+            if (distancia) {
+                ButMeasureContext.BackColor = Color.White;
+                distancia = false;
+            }
+            else
+            {
+                ButMeasureContext.BackColor = Color.GreenYellow;
+                distancia = true;
+            }
 
     }
 
@@ -80,24 +89,27 @@ namespace MissionPlanner.GCSViews
         {
 
         }
+
+
+  
+
+
         public bool bloqWP = false;
         public void BUT_insertWP_Click(object sender, System.EventArgs e)
         {
             if (bloqWP)
             {
                 bloqWP = false; 
-                BUT_insertWP.BackColor = Color.FromArgb(255, 0, 0);
-                ButDelwp.Enabled = false;
                 ButInsertPol.Enabled = true;
-               
+                BUT_insertWP.BGGradBot = SystemColors.ActiveBorder;
+                ButDelwp.Enabled = true;
             }
             else
             {
                 bloqWP = true;
-                BUT_insertWP.BackColor = Color.FromArgb(0, 0, 0);
-                ButDelwp.Enabled = true;
                 ButInsertPol.Enabled = false;
-               
+                BUT_insertWP.BGGradBot = Color.GreenYellow;
+                ButDelwp.Enabled = false;
             }
         }
 
@@ -105,53 +117,66 @@ namespace MissionPlanner.GCSViews
         {
             
         }
+        private void modifyMain()
+        {
+            ButClearPol.Enabled = false;
+            BtSavePol.Enabled = false;
+            contextMenuStripPoly.Visible = false;
+            ButClearPol.Enabled = true;
+            But_SurveyGrid.Visible = false;
+        }
+
 
         public bool setPol = false;
         private void ButInsertPol_Click(object sender, System.EventArgs e)
         {
             if (setPol)
             {
-                BUT_insertWP.Enabled = true;
                 ButClearPol.Enabled = true;
+                BUT_insertWP.Enabled = true;        
                 BtSavePol.Enabled = false;
                 bloqWP = false;
                 _flightPlannerBase.addPolygonPointToolStripMenuItem_Click(null, null);
                 setPol = false;
                 _flightPlannerBase.polygongridmode = false;
+                ButInsertPol.BGGradBot = SystemColors.ActiveBorder;
+                But_SurveyGrid.Visible = false;
             }
             else {
+                ButClearPol.Enabled = false;
                 BUT_insertWP.Enabled = false;
-                ButClearPol.Enabled = true;
                 bloqWP = true;
                 BtSavePol.Enabled = true;
                 setPol = true;
+                ButInsertPol.BGGradBot = Color.GreenYellow;
                 _flightPlannerBase.addPolygonPointToolStripMenuItem_Click(sender, e);
-               
+                But_SurveyGrid.Visible = true;
+
             }
 
         }
 
-        private void modifyMain() {
-            ButClearPol.Enabled = false;
-            BtSavePol.Enabled = false;
-            contextMenuStripPoly.Visible = false;
-            ButDelwp.Enabled = false;
-        }
+     
 
         private void ButClearPol_Click(object sender, System.EventArgs e)
         {
                 DialogResult boton = MessageBox.Show("Clear Polygon?", "Alerta", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                 if (boton == DialogResult.OK)
                 {
-                FlightPlannerBase.drawnpolygon.Points.Clear();
-                ButInsertPol_Click(sender, e);
+                //ButInsertPol_Click(sender, e);
                 FlightPlannerBase.drawnpolygonsoverlay.Markers.Clear();
                 ButClearPol.Enabled = false;
                 bloqWP = false;
                 BtSavePol.Enabled = false;
                 BUT_insertWP.Enabled = true;
+                _flightPlannerBase.drawnpolygon.Points.Clear();
+                //// remove full loop is exists
+                _flightPlannerBase.polygongridmode = false;
+                if (_flightPlannerBase.drawnpolygon.Points.Count > 1 &&
+                _flightPlannerBase.drawnpolygon.Points[0] == _flightPlannerBase.drawnpolygon.Points[_flightPlannerBase.drawnpolygon.Points.Count - 1])
+                _flightPlannerBase.drawnpolygon.Points.RemoveAt(_flightPlannerBase.drawnpolygon.Points.Count - 1); // unmake a full loop
             }
-                else { }
+            else { }
            
         }
 
@@ -200,18 +225,21 @@ namespace MissionPlanner.GCSViews
         {
 
         }
+
+
+        //rallypoint
         public bool bloqRallyPoint = false;
         private void myButton1_Click(object sender, System.EventArgs e) {
 
             if (bloqRallyPoint)
             {
                 bloqRallyPoint = false;
-                myButton1.BackColor = Color.FromArgb(255, 0, 0);
+                myButton1.BGGradBot = SystemColors.ActiveBorder;
             }
             else
             {
                 bloqRallyPoint = true;
-                myButton1.BackColor = Color.FromArgb(0, 0, 0);
+                myButton1.BGGradBot = Color.GreenYellow;
             }
   
         }
@@ -249,9 +277,8 @@ namespace MissionPlanner.GCSViews
         private void ButDelwp_Click(object sender, System.EventArgs e)
         {
             _flightPlannerBase.clearMissionToolStripMenuItem_Click(sender, e);
-            BUT_insertWP_Click(sender, e);
-            ButDelwp.Enabled = false;
             ButInsertPol.Enabled = true;
+           
         }
 
         private void label4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -329,22 +356,16 @@ namespace MissionPlanner.GCSViews
         public bool menu = false;
         private void button1_Click_2(object sender, System.EventArgs e)
         {
-
-                if (estadomenu == true ) {
+            if (estadomenu == true ) {
                 //clear point
-                Grid.GridUI.instance.myButton1_Click(sender, e);
-                //clear Polygon 
-                this.ButClearPol_Click(sender, e);
-                //clear mission
-                FlightPlannerBase.instance.clearMissionToolStripMenuItem_Click(sender, e);
-                PaneMenu.Visible = false;
                 estadomenu = false;
+                Grid.GridUI.instance.myButton1_Click(sender, e);
             }
             else
             {
-                FlightPlannerBase.surveyGridToolStripMenuItem_Click(sender, e);
-                PaneMenu.Visible = true;
                 estadomenu = true;
+                FlightPlannerBase.surveyGridToolStripMenuItem_Click(sender, e);
+                
             }
 
 
@@ -375,6 +396,18 @@ namespace MissionPlanner.GCSViews
         private void BUt_sethome_Click(object sender, System.EventArgs e)
         {
             btnsethome = true;
+            //if (btnsethome)
+            //{
+            //    btnsethome = false;
+            //    BUt_sethome.BGGradTop = SystemColors.ActiveBorder;
+            //}
+            //else
+            //{
+                
+            //    BUt_sethome.BGGradTop = Color.GreenYellow;
+            //}
+            
+         
         }
     }
 }

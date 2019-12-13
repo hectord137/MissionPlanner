@@ -137,25 +137,27 @@ namespace MissionPlanner.GCSViews
             this.BtSavePol = new MissionPlanner.Controls.MyButton();
             this.ButLoadPol = new MissionPlanner.Controls.MyButton();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.BUt_sethome = new MissionPlanner.Controls.MyButton();
             this.ButKMLOverlay = new System.Windows.Forms.Button();
             this.ButMeasureContext = new System.Windows.Forms.Button();
             this.BUTCLEARKML = new System.Windows.Forms.Button();
             this.LBLarea = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.label4s = new System.Windows.Forms.Label();
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.panelMap = new System.Windows.Forms.Panel();
             this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
             this.But_SurveyGrid = new System.Windows.Forms.Button();
             this.PaneMenu = new System.Windows.Forms.Panel();
             this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
+            this.label7 = new System.Windows.Forms.Label();
             this.tableLayoutPanel13 = new System.Windows.Forms.TableLayoutPanel();
             this.lblestm = new System.Windows.Forms.Label();
-            this.lblnstrip = new System.Windows.Forms.Label();
+            this.lblnstrips = new System.Windows.Forms.Label();
             this.lblbetween = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.label9s = new System.Windows.Forms.Label();
             this.lbldistancia = new System.Windows.Forms.Label();
             this.LBLdist = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
+            this.label10s = new System.Windows.Forms.Label();
             this.lblstrips = new System.Windows.Forms.Label();
             this.splitter3 = new BSE.Windows.Forms.Splitter();
             this.lbl_homedist = new System.Windows.Forms.Label();
@@ -242,7 +244,6 @@ namespace MissionPlanner.GCSViews
             this.fenceInclusionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fenceExclusionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.drawAPolygonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.BUt_sethome = new MissionPlanner.Controls.MyButton();
             this.panelWaypoints.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
             this.tableLayoutPanel11.SuspendLayout();
@@ -261,6 +262,7 @@ namespace MissionPlanner.GCSViews
             this.panelMap.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
             this.PaneMenu.SuspendLayout();
+            this.tableLayoutPanel12.SuspendLayout();
             this.tableLayoutPanel13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -1060,6 +1062,22 @@ namespace MissionPlanner.GCSViews
             this.tableLayoutPanel6.Controls.Add(this.BUTCLEARKML, 0, 1);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             // 
+            // BUt_sethome
+            // 
+            this.BUt_sethome.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.BUt_sethome.BGGradBot = System.Drawing.SystemColors.ActiveBorder;
+            this.BUt_sethome.BGGradTop = System.Drawing.SystemColors.ButtonFace;
+            this.BUt_sethome.ColorMouseDown = System.Drawing.SystemColors.ButtonFace;
+            this.BUt_sethome.ColorMouseOver = System.Drawing.SystemColors.ButtonFace;
+            this.BUt_sethome.ColorNotEnabled = System.Drawing.SystemColors.ButtonFace;
+            resources.ApplyResources(this.BUt_sethome, "BUt_sethome");
+            this.BUt_sethome.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.BUt_sethome.Name = "BUt_sethome";
+            this.BUt_sethome.Outline = System.Drawing.SystemColors.ButtonShadow;
+            this.BUt_sethome.TextColor = System.Drawing.Color.Black;
+            this.BUt_sethome.UseVisualStyleBackColor = false;
+            this.BUt_sethome.Click += new System.EventHandler(this.BUt_sethome_Click);
+            // 
             // ButKMLOverlay
             // 
             resources.ApplyResources(this.ButKMLOverlay, "ButKMLOverlay");
@@ -1092,10 +1110,10 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.LBLarea, "LBLarea");
             this.LBLarea.Name = "LBLarea";
             // 
-            // label4
+            // label4s
             // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.Name = "label4";
+            resources.ApplyResources(this.label4s, "label4s");
+            this.label4s.Name = "label4s";
             // 
             // splitter2
             // 
@@ -1142,21 +1160,27 @@ namespace MissionPlanner.GCSViews
             // tableLayoutPanel12
             // 
             resources.ApplyResources(this.tableLayoutPanel12, "tableLayoutPanel12");
+            this.tableLayoutPanel12.Controls.Add(this.label7, 0, 0);
             this.tableLayoutPanel12.Name = "tableLayoutPanel12";
             this.tableLayoutPanel12.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel12_Paint);
+            // 
+            // label7
+            // 
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.Name = "label7";
             // 
             // tableLayoutPanel13
             // 
             resources.ApplyResources(this.tableLayoutPanel13, "tableLayoutPanel13");
             this.tableLayoutPanel13.Controls.Add(this.lblestm, 1, 4);
-            this.tableLayoutPanel13.Controls.Add(this.lblnstrip, 0, 2);
+            this.tableLayoutPanel13.Controls.Add(this.lblnstrips, 0, 2);
             this.tableLayoutPanel13.Controls.Add(this.lblbetween, 1, 3);
-            this.tableLayoutPanel13.Controls.Add(this.label9, 0, 3);
-            this.tableLayoutPanel13.Controls.Add(this.label4, 0, 0);
+            this.tableLayoutPanel13.Controls.Add(this.label9s, 0, 3);
+            this.tableLayoutPanel13.Controls.Add(this.label4s, 0, 0);
             this.tableLayoutPanel13.Controls.Add(this.LBLarea, 1, 0);
             this.tableLayoutPanel13.Controls.Add(this.lbldistancia, 1, 1);
             this.tableLayoutPanel13.Controls.Add(this.LBLdist, 0, 1);
-            this.tableLayoutPanel13.Controls.Add(this.label10, 0, 4);
+            this.tableLayoutPanel13.Controls.Add(this.label10s, 0, 4);
             this.tableLayoutPanel13.Controls.Add(this.lblstrips, 1, 2);
             this.tableLayoutPanel13.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.tableLayoutPanel13.Name = "tableLayoutPanel13";
@@ -1166,21 +1190,21 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.lblestm, "lblestm");
             this.lblestm.Name = "lblestm";
             // 
-            // lblnstrip
+            // lblnstrips
             // 
-            resources.ApplyResources(this.lblnstrip, "lblnstrip");
-            this.lblnstrip.Name = "lblnstrip";
-            this.lblnstrip.Click += new System.EventHandler(this.label7_Click);
+            resources.ApplyResources(this.lblnstrips, "lblnstrips");
+            this.lblnstrips.Name = "lblnstrips";
+            this.lblnstrips.Click += new System.EventHandler(this.label7_Click);
             // 
             // lblbetween
             // 
             resources.ApplyResources(this.lblbetween, "lblbetween");
             this.lblbetween.Name = "lblbetween";
             // 
-            // label9
+            // label9s
             // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = "label9";
+            resources.ApplyResources(this.label9s, "label9s");
+            this.label9s.Name = "label9s";
             // 
             // lbldistancia
             // 
@@ -1193,10 +1217,10 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.LBLdist, "LBLdist");
             this.LBLdist.Name = "LBLdist";
             // 
-            // label10
+            // label10s
             // 
-            resources.ApplyResources(this.label10, "label10");
-            this.label10.Name = "label10";
+            resources.ApplyResources(this.label10s, "label10s");
+            this.label10s.Name = "label10s";
             // 
             // lblstrips
             // 
@@ -1747,22 +1771,6 @@ namespace MissionPlanner.GCSViews
             this.drawAPolygonToolStripMenuItem.Name = "drawAPolygonToolStripMenuItem";
             resources.ApplyResources(this.drawAPolygonToolStripMenuItem, "drawAPolygonToolStripMenuItem");
             // 
-            // BUt_sethome
-            // 
-            this.BUt_sethome.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.BUt_sethome.BGGradBot = System.Drawing.SystemColors.ActiveBorder;
-            this.BUt_sethome.BGGradTop = System.Drawing.SystemColors.ButtonFace;
-            this.BUt_sethome.ColorMouseDown = System.Drawing.SystemColors.ButtonFace;
-            this.BUt_sethome.ColorMouseOver = System.Drawing.SystemColors.ButtonFace;
-            this.BUt_sethome.ColorNotEnabled = System.Drawing.SystemColors.ButtonFace;
-            resources.ApplyResources(this.BUt_sethome, "BUt_sethome");
-            this.BUt_sethome.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.BUt_sethome.Name = "BUt_sethome";
-            this.BUt_sethome.Outline = System.Drawing.SystemColors.ButtonShadow;
-            this.BUt_sethome.TextColor = System.Drawing.Color.Black;
-            this.BUt_sethome.UseVisualStyleBackColor = false;
-            this.BUt_sethome.Click += new System.EventHandler(this.BUt_sethome_Click);
-            // 
             // FlightPlanner
             // 
             this.BackColor = System.Drawing.SystemColors.Control;
@@ -1793,6 +1801,8 @@ namespace MissionPlanner.GCSViews
             this.tableLayoutPanel10.ResumeLayout(false);
             this.PaneMenu.ResumeLayout(false);
             this.PaneMenu.PerformLayout();
+            this.tableLayoutPanel12.ResumeLayout(false);
+            this.tableLayoutPanel12.PerformLayout();
             this.tableLayoutPanel13.ResumeLayout(false);
             this.tableLayoutPanel13.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
@@ -1981,19 +1991,20 @@ namespace MissionPlanner.GCSViews
         private TableLayoutPanel tableLayoutPanel10;
         private NumericUpDown numericUpDown1;
         public Label LBLarea;
-        private Label label4;
-        private Label lblnstrip;
+        private Label label4s;
+        private Label lblnstrips;
         private TableLayoutPanel tableLayoutPanel13;
         public Label lblstrips;
         public Label lbldistancia;
         public Label LBLdist;
         public Label lblestm;
         public Label lblbetween;
-        private Label label9;
-        private Label label10;
+        private Label label9s;
+        private Label label10s;
         public TableLayoutPanel tableLayoutPanel12;
         private Button But_SurveyGrid;
         public MyButton myButton7;
         public MyButton BUt_sethome;
+        private Label label7;
     }
 }

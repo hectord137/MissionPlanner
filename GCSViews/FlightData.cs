@@ -5006,6 +5006,11 @@ namespace MissionPlanner.GCSViews
         {
 
         }
+
+        private void LBLrangefinder1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }

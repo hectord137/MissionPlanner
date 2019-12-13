@@ -844,6 +844,7 @@ namespace MissionPlanner.Grid
             CalcHeadingHold();
 
             FlightPlannerBase.instance.MainMap.Invalidate();
+            FlightPlanner.instance.lblstrips.Text = strips.ToString();
         }
 
         private void AddWP(double Lng, double Lat, double Alt, string tag, object gridobject = null)
@@ -869,6 +870,19 @@ namespace MissionPlanner.Grid
                     plugin.Host.AddWPtoList(MAVLink.MAV_CMD.WAYPOINT, 0, 0, 0, 0, Lng, Lat, (int)(Alt * CurrentState.multiplierdist), gridobject);
             //    }
             //}
+        }
+
+        public void addwp(int Lat, int Lng, int pointers)
+        {
+            if (pointers == 1)
+            {
+               plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_RELAY, 1, 1, 0, 0, Lng, Lat, (int)(100), null);
+
+            }
+            else
+            {
+                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.WAYPOINT, 0, 0, 0, 0, Lng, Lat, (int)(100), null);
+            }
         }
 
         string secondsToNice(double seconds)

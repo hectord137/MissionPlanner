@@ -3607,9 +3607,6 @@ Control-O to load form file</value>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>254, 526</value>
   </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Survey (Grid)</value>
   </data>

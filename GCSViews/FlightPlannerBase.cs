@@ -1693,32 +1693,22 @@ namespace MissionPlanner.GCSViews
         }
 
         public void addPolygonPointToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-           
+        {           
                 if (polygongridmode == false)
                 {
                     CustomMessageBox.Show(
                         "You will remain in polygon mode until you clear the polygon or create a grid/upload a fence");
-                    drawnpolygon.Points.Clear();
+                    //
                     polygongridmode = true;
                     return;
                 }
-
-                polygongridmode = true;
-
                 List<PointLatLng> polygonPoints = new List<PointLatLng>();
                 if (drawnpolygonsoverlay.Polygons.Count == 0)
                 {
                     drawnpolygon.Points.Clear();
                     drawnpolygonsoverlay.Polygons.Add(drawnpolygon);
                 }
-
                 drawnpolygon.Fill = Brushes.Transparent;
-
-                // remove full loop is exists
-                if (drawnpolygon.Points.Count > 1 &&
-                    drawnpolygon.Points[0] == drawnpolygon.Points[drawnpolygon.Points.Count - 1])
-                    drawnpolygon.Points.RemoveAt(drawnpolygon.Points.Count - 1); // unmake a full loop
 
                 drawnpolygon.Points.Add(new PointLatLng(MouseDownStart.Lat, MouseDownStart.Lng));
 
@@ -1727,7 +1717,8 @@ namespace MissionPlanner.GCSViews
                 _flightPlanner.MainMap.UpdatePolygonLocalPosition(drawnpolygon);
 
                 _flightPlanner.MainMap.Invalidate();
-            
+
+          
         }
 
         public void areaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -6434,6 +6425,9 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             return serverUrl + "version=1.1.0&Request=GetCapabilities&service=WMS";
         }
 
+   
+
+
         private void groupmarkeradd(GMapMarker marker)
         {
             System.Diagnostics.Debug.WriteLine("add marker " + marker.Tag.ToString());
@@ -6462,6 +6456,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         List<PointLatLng> latlng = new List<PointLatLng>();
         // end measure
         //las variables on/of en flightplanner
+        int pointers = 0;
+
         private void MainMap_MouseDown(object sender, MouseEventArgs e)
         {
 
@@ -6490,6 +6486,10 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                      if (currentMarker.IsVisible)
                      {
                          currentMarker.Position = _flightPlanner.MainMap.FromLocalToLatLng(e.X, e.Y);
+                        pointers++;
+                        
+                       
+
                      }
                 }
             }
@@ -6540,6 +6540,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         MainMap._Overlays.Clear();
                         latlng.Clear();
                         i = 0;
+                      
                     }
                     catch
                     { }
@@ -6549,17 +6550,14 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             //activa set home
             if (_flightPlanner.btnsethome)
             {
-                try { 
+                
      
-                PointLatLngAlt rallypt = new PointLatLngAlt(MouseDownStart.Lat, MouseDownStart.Lng,
+                PointLatLngAlt home = new PointLatLngAlt(MouseDownStart.Lat, MouseDownStart.Lng,
                       100 / CurrentState.multiplieralt, "Rally Point");
-                this.setHomeHeres(rallypt);
+                this.setHomeHeres(home);
                     _flightPlanner.btnsethome = false;
-                }
-                catch
-                {
-                    CustomMessageBox.Show(Strings.InvalidAlt, Strings.ERROR);
-                }
+            
+             
             }
         }
 

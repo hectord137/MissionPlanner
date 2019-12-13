@@ -74,6 +74,7 @@ namespace MissionPlanner.Grid
                     FlightPlannerBase.instance._flightPlanner.tableLayoutPanel12.Controls.Add(gridui.tabControl1);  //Agrego la instancia al panel y listo.
                     gridui.GridUI_Load(sender, e);
                     haypoly = true;
+                    FlightPlanner.instance.PaneMenu.Visible = true;
                 }
                 else
                 {
@@ -86,12 +87,14 @@ namespace MissionPlanner.Grid
                         FlightPlannerBase.instance._flightPlanner.tableLayoutPanel12.Controls.Clear();
                         FlightPlannerBase.instance._flightPlanner.tableLayoutPanel12.Controls.Add(gridui.tabControl1);
                         haypoly = true;
+                        FlightPlanner.instance.PaneMenu.Visible = true;
                     }
                     else
                     {
                         CustomMessageBox.Show("Please define a polygon.", "Error");
                         FlightPlannerBase.instance._flightPlanner.estadomenu = false;
                         haypoly = false;
+                        FlightPlanner.instance.PaneMenu.Visible = false;
                     }
                 }
             }
