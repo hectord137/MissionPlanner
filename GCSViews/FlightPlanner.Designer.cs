@@ -145,6 +145,7 @@ namespace MissionPlanner.GCSViews
             this.label4s = new System.Windows.Forms.Label();
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.panelMap = new System.Windows.Forms.Panel();
+            this.PicBoxTIFF = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
             this.But_SurveyGrid = new System.Windows.Forms.Button();
             this.PaneMenu = new System.Windows.Forms.Panel();
@@ -244,6 +245,7 @@ namespace MissionPlanner.GCSViews
             this.fenceInclusionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fenceExclusionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.drawAPolygonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.panelWaypoints.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
             this.tableLayoutPanel11.SuspendLayout();
@@ -260,6 +262,7 @@ namespace MissionPlanner.GCSViews
             this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
             this.panelMap.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBoxTIFF)).BeginInit();
             this.tableLayoutPanel10.SuspendLayout();
             this.PaneMenu.SuspendLayout();
             this.tableLayoutPanel12.SuspendLayout();
@@ -863,6 +866,7 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.comboBoxMapType, "comboBoxMapType");
             this.comboBoxMapType.Name = "comboBoxMapType";
             this.toolTip1.SetToolTip(this.comboBoxMapType, resources.GetString("comboBoxMapType.ToolTip"));
+            this.comboBoxMapType.SelectedIndexChanged += new System.EventHandler(this.comboBoxMapType_SelectedIndexChanged);
             // 
             // lnk_kml
             // 
@@ -1123,6 +1127,7 @@ namespace MissionPlanner.GCSViews
             // 
             // panelMap
             // 
+            this.panelMap.Controls.Add(this.PicBoxTIFF);
             this.panelMap.Controls.Add(this.tableLayoutPanel10);
             this.panelMap.Controls.Add(this.PaneMenu);
             this.panelMap.Controls.Add(this.splitter3);
@@ -1135,6 +1140,13 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.panelMap, "panelMap");
             this.panelMap.ForeColor = System.Drawing.SystemColors.ControlText;
             this.panelMap.Name = "panelMap";
+            // 
+            // PicBoxTIFF
+            // 
+            this.PicBoxTIFF.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.PicBoxTIFF, "PicBoxTIFF");
+            this.PicBoxTIFF.Name = "PicBoxTIFF";
+            this.PicBoxTIFF.TabStop = false;
             // 
             // tableLayoutPanel10
             // 
@@ -1771,6 +1783,10 @@ namespace MissionPlanner.GCSViews
             this.drawAPolygonToolStripMenuItem.Name = "drawAPolygonToolStripMenuItem";
             resources.ApplyResources(this.drawAPolygonToolStripMenuItem, "drawAPolygonToolStripMenuItem");
             // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
             // FlightPlanner
             // 
             this.BackColor = System.Drawing.SystemColors.Control;
@@ -1798,6 +1814,7 @@ namespace MissionPlanner.GCSViews
             this.tableLayoutPanel6.PerformLayout();
             this.panelMap.ResumeLayout(false);
             this.panelMap.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBoxTIFF)).EndInit();
             this.tableLayoutPanel10.ResumeLayout(false);
             this.PaneMenu.ResumeLayout(false);
             this.PaneMenu.PerformLayout();
@@ -2006,5 +2023,7 @@ namespace MissionPlanner.GCSViews
         public MyButton myButton7;
         public MyButton BUt_sethome;
         private Label label7;
+        private OpenFileDialog openFileDialog1;
+        private PictureBox PicBoxTIFF;
     }
 }

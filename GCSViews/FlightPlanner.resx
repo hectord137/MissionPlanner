@@ -1293,7 +1293,7 @@
     <value>Commands</value>
   </data>
   <data name="&gt;&gt;Commands.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.MyDataGridView, MissionPlanner, Version=1.3.7286.24358, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.MyDataGridView, MissionPlanner, Version=1.3.7291.22179, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;Commands.Parent" xml:space="preserve">
     <value>tableLayoutPanel8</value>
@@ -2504,6 +2504,30 @@
   <data name="&gt;&gt;splitter2.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="PicBoxTIFF.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="PicBoxTIFF.Location" type="System.Drawing.Point, System.Drawing">
+    <value>318, 52</value>
+  </data>
+  <data name="PicBoxTIFF.Size" type="System.Drawing.Size, System.Drawing">
+    <value>531, 305</value>
+  </data>
+  <data name="PicBoxTIFF.TabIndex" type="System.Int32, mscorlib">
+    <value>56</value>
+  </data>
+  <data name="&gt;&gt;PicBoxTIFF.Name" xml:space="preserve">
+    <value>PicBoxTIFF</value>
+  </data>
+  <data name="&gt;&gt;PicBoxTIFF.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PicBoxTIFF.Parent" xml:space="preserve">
+    <value>panelMap</value>
+  </data>
+  <data name="&gt;&gt;PicBoxTIFF.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="tableLayoutPanel10.ColumnCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
@@ -2562,7 +2586,7 @@
     <value>panelMap</value>
   </data>
   <data name="&gt;&gt;tableLayoutPanel10.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="tableLayoutPanel10.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="But_SurveyGrid" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,13,44778,Percent,86,55222" /&gt;&lt;Rows Styles="Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
@@ -2578,6 +2602,9 @@
   </data>
   <data name="label7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 0</value>
@@ -2925,7 +2952,7 @@
     <value>panelMap</value>
   </data>
   <data name="&gt;&gt;PaneMenu.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="splitter3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -2949,7 +2976,7 @@
     <value>panelMap</value>
   </data>
   <data name="&gt;&gt;splitter3.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="lbl_homedist.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2979,7 +3006,7 @@
     <value>panelMap</value>
   </data>
   <data name="&gt;&gt;lbl_homedist.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="lbl_prevdist.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3009,7 +3036,7 @@
     <value>panelMap</value>
   </data>
   <data name="&gt;&gt;lbl_prevdist.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="trackBar1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left</value>
@@ -3039,7 +3066,7 @@
     <value>panelMap</value>
   </data>
   <data name="&gt;&gt;trackBar1.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="label11.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -3072,7 +3099,7 @@
     <value>panelMap</value>
   </data>
   <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="lbl_distance.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3102,7 +3129,7 @@
     <value>panelMap</value>
   </data>
   <data name="&gt;&gt;lbl_distance.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="MainMap.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -3534,7 +3561,7 @@
     <value>panelMap</value>
   </data>
   <data name="&gt;&gt;MainMap.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="panelMap.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -3659,6 +3686,9 @@
   <data name="drawAPolygonToolStripMenuItem.Text" xml:space="preserve">
     <value>Draw a Polygon</value>
   </data>
+  <metadata name="openFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>528, 17</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -4258,6 +4288,12 @@
   </data>
   <data name="&gt;&gt;drawAPolygonToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;openFileDialog1.Name" xml:space="preserve">
+    <value>openFileDialog1</value>
+  </data>
+  <data name="&gt;&gt;openFileDialog1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>FlightPlanner</value>

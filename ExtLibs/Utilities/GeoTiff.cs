@@ -13,6 +13,7 @@ namespace MissionPlanner.Utilities
 {
     public class GeoTiff
     {
+       
         private static readonly ILog log =
             LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -22,8 +23,11 @@ namespace MissionPlanner.Utilities
 
         public class geotiffdata
         {
+           
+
             public bool LoadFile(string filename)
             {
+               
                 FileName = filename;
 
                 log.InfoFormat("GeoTiff {0}", filename);
@@ -113,6 +117,7 @@ namespace MissionPlanner.Utilities
         static GeoTiff()
         {
             generateIndex();
+
         }
 
         private static void generateIndex()
@@ -124,16 +129,14 @@ namespace MissionPlanner.Utilities
 
             foreach (var file in files)
             {
-                try
-                {
+              
                     geotiffdata tif = new geotiffdata();
 
                     tif.LoadFile(file);
-                }
-                catch (Exception ex)
-                {
-                    log.Error(ex);
-                }
+       
+              
+                    
+           
             }
         }
 

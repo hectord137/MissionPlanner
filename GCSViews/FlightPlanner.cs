@@ -1,9 +1,15 @@
-﻿using GMap.NET;
+﻿
+using BitMiracle.LibTiff.Classic;
+using GMap.NET;
 using GMap.NET.WindowsForms;
 using MissionPlanner.Controls;
 using MissionPlanner.Grid;
+using MissionPlanner.Utilities;
+using System;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
+
 
 namespace MissionPlanner.GCSViews
 {
@@ -385,13 +391,22 @@ namespace MissionPlanner.GCSViews
 
         private void but_writewpfast_Click(object sender, System.EventArgs e)
         {
-         
+            OpenFileDialog dialog = new OpenFileDialog();
+            DialogResult result = dialog.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                PicBoxTIFF.Image=  Image.FromFile(dialog.FileName);
+            }
+
+   
 
 
-            MissionPlanner.Utilities.GeoTiff.geotiffdata geotiff = new Utilities.GeoTiff.geotiffdata();
-            geotiff.LoadFile(null) ;
-                
-                }
+
+        }
+
+
+
         public bool btnsethome = false;
         private void BUt_sethome_Click(object sender, System.EventArgs e)
         {
@@ -408,6 +423,11 @@ namespace MissionPlanner.GCSViews
             //}
             
          
+        }
+
+        private void comboBoxMapType_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+
         }
     }
 }

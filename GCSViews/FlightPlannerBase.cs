@@ -724,7 +724,8 @@ namespace MissionPlanner.GCSViews
         /// <param name="lng"></param>
         /// <param name="alt"></param>
         /// 
-        public int contador = 1;
+        public int y = 1;
+        public int x = 0;
         public void AddWPToMap(double lat, double lng, int alt)
         {
             if (polygongridmode)
@@ -740,9 +741,7 @@ namespace MissionPlanner.GCSViews
                 return;
             }
             // creating a WP
-
-            selectedrow =                _flightPlanner.Commands.Rows.Add();
-
+            selectedrow = _flightPlanner.Commands.Rows.Add();
             //if ((MAVLink.MAV_MISSION_TYPE)_flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.RALLY)
             //{
             //    _flightPlanner.Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.RALLY_POINT.ToString();
@@ -760,10 +759,14 @@ namespace MissionPlanner.GCSViews
             //}
             //else
             //{
-          
+
             //}
-            if (contador == 2)
+            x++;
+            if (x == 2)
             {
+                _flightPlanner.Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_SET_RELAY.ToString();
+                ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
+            } else if(y == y - 1) {
                 _flightPlanner.Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_SET_RELAY.ToString();
                 ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
             }
@@ -774,7 +777,8 @@ namespace MissionPlanner.GCSViews
 
 
             setfromMap(lat, lng, alt);
-            contador++;
+         
+            y = y + 2;
         }
 
         /// <summary>
