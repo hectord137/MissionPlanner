@@ -145,7 +145,6 @@ namespace MissionPlanner.GCSViews
             this.label4s = new System.Windows.Forms.Label();
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.panelMap = new System.Windows.Forms.Panel();
-            this.PicBoxTIFF = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
             this.But_SurveyGrid = new System.Windows.Forms.Button();
             this.PaneMenu = new System.Windows.Forms.Panel();
@@ -262,7 +261,6 @@ namespace MissionPlanner.GCSViews
             this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
             this.panelMap.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PicBoxTIFF)).BeginInit();
             this.tableLayoutPanel10.SuspendLayout();
             this.PaneMenu.SuspendLayout();
             this.tableLayoutPanel12.SuspendLayout();
@@ -319,8 +317,8 @@ namespace MissionPlanner.GCSViews
             this.but_writewpfast.ColorMouseDown = System.Drawing.SystemColors.ButtonFace;
             this.but_writewpfast.ColorMouseOver = System.Drawing.SystemColors.ButtonFace;
             this.but_writewpfast.ColorNotEnabled = System.Drawing.SystemColors.ButtonFace;
-            resources.ApplyResources(this.but_writewpfast, "but_writewpfast");
             this.but_writewpfast.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            resources.ApplyResources(this.but_writewpfast, "but_writewpfast");
             this.but_writewpfast.Name = "but_writewpfast";
             this.but_writewpfast.Outline = System.Drawing.SystemColors.ButtonShadow;
             this.but_writewpfast.TextColor = System.Drawing.Color.Black;
@@ -950,6 +948,7 @@ namespace MissionPlanner.GCSViews
             this.tableLayoutPanel3.Controls.Add(this.but_writewpfast, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.BUT_read, 0, 0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel3_Paint);
             // 
             // myButton7
             // 
@@ -1127,7 +1126,6 @@ namespace MissionPlanner.GCSViews
             // 
             // panelMap
             // 
-            this.panelMap.Controls.Add(this.PicBoxTIFF);
             this.panelMap.Controls.Add(this.tableLayoutPanel10);
             this.panelMap.Controls.Add(this.PaneMenu);
             this.panelMap.Controls.Add(this.splitter3);
@@ -1140,13 +1138,6 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.panelMap, "panelMap");
             this.panelMap.ForeColor = System.Drawing.SystemColors.ControlText;
             this.panelMap.Name = "panelMap";
-            // 
-            // PicBoxTIFF
-            // 
-            this.PicBoxTIFF.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.PicBoxTIFF, "PicBoxTIFF");
-            this.PicBoxTIFF.Name = "PicBoxTIFF";
-            this.PicBoxTIFF.TabStop = false;
             // 
             // tableLayoutPanel10
             // 
@@ -1267,6 +1258,7 @@ namespace MissionPlanner.GCSViews
             this.trackBar1.TickFrequency = 1F;
             this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
             this.trackBar1.Value = 2F;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // label11
             // 
@@ -1814,7 +1806,6 @@ namespace MissionPlanner.GCSViews
             this.tableLayoutPanel6.PerformLayout();
             this.panelMap.ResumeLayout(false);
             this.panelMap.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PicBoxTIFF)).EndInit();
             this.tableLayoutPanel10.ResumeLayout(false);
             this.PaneMenu.ResumeLayout(false);
             this.PaneMenu.PerformLayout();
@@ -2024,6 +2015,5 @@ namespace MissionPlanner.GCSViews
         public MyButton BUt_sethome;
         private Label label7;
         private OpenFileDialog openFileDialog1;
-        private PictureBox PicBoxTIFF;
     }
 }

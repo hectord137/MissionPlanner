@@ -1,9 +1,9 @@
-﻿using System;
-using System.Reflection;
-using System.Windows.Forms;
-using log4net;
+﻿using log4net;
 using MissionPlanner.Controls;
+using System;
+using System.Reflection;
 using System.Text;
+using System.Windows.Forms;
 
 namespace MissionPlanner.GCSViews.ConfigurationView
 {
@@ -40,7 +40,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 count++;
                 try
                 {
-                    MainV2.comPort.sendPacket(new MAVLink.mavlink_command_ack_t {command = 1, result = count},
+                    MainV2.comPort.sendPacket(new MAVLink.mavlink_command_ack_t { command = 1, result = count },
                         MainV2.comPort.sysidcurrent, MainV2.comPort.compidcurrent);
                 }
                 catch
@@ -120,11 +120,11 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         public void UpdateUserMessage(string message)
         {
-            Invoke((MethodInvoker) delegate
-            {
-                if (message.ToLower().Contains("place vehicle") || message.ToLower().Contains("calibration"))
-                    lbl_Accel_user.Text = message;
-            });
+            Invoke((MethodInvoker)delegate
+           {
+               if (message.ToLower().Contains("place vehicle") || message.ToLower().Contains("calibration"))
+                   lbl_Accel_user.Text = message;
+           });
         }
 
         private void BUT_level_Click(object sender, EventArgs e)

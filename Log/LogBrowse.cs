@@ -1,31 +1,29 @@
-﻿using System;
+﻿using GMap.NET;
+using GMap.NET.WindowsForms;
+using GMap.NET.WindowsForms.Markers;
+using IronPython.Hosting;
+using log4net;
+using Microsoft.Scripting.Runtime;
+using MissionPlanner.ArduPilot;
+using MissionPlanner.Controls;
+using MissionPlanner.Log;
+using MissionPlanner.Utilities;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Reflection;
-using System.Text;
-using System.Windows.Forms;
 using System.IO;
-using log4net;
-using ZedGraph; // Graphs
-using System.Xml;
-using System.Collections;
-using System.Globalization;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using MissionPlanner.Controls;
-using GMap.NET;
-using GMap.NET.WindowsForms;
-using GMap.NET.WindowsForms.Markers;
-using MissionPlanner.ArduPilot;
-using MissionPlanner.Utilities;
-using IronPython.Hosting;
-using System.Runtime.CompilerServices;
-using Microsoft.Scripting.Runtime;
-using System.Collections.Specialized;
-using MissionPlanner.Log;
-[assembly: ExtensionType(typeof(Dictionary<string,object>), typeof(LogBrowse.ext))]
+using System.Windows.Forms;
+using System.Xml;
+using ZedGraph; // Graphs
+[assembly: ExtensionType(typeof(Dictionary<string, object>), typeof(LogBrowse.ext))]
 
 namespace MissionPlanner.Log
 {
@@ -85,7 +83,7 @@ namespace MissionPlanner.Log
                     return false;
                 }
 
-                char[] splitOnThese = {' ', ','};
+                char[] splitOnThese = { ' ', ',' };
                 string[] split = _commandString.Trim().Split(splitOnThese, 2, StringSplitOptions.RemoveEmptyEntries);
 
                 if (split.Length < 1)
@@ -283,7 +281,7 @@ namespace MissionPlanner.Log
                     }
                     else
                     {
-                        this.BeginInvoke((Action) delegate { this.Close(); });
+                        this.BeginInvoke((Action)delegate { this.Close(); });
                         return;
                     }
                 }
@@ -701,7 +699,7 @@ namespace MissionPlanner.Log
 
         public static Color ConvertFromRange(double r, double g, double b)
         {
-            return Color.FromArgb(255, (int) (r * 127.0) + 127, (int) (g * 127.0) + 127, (int) (b * 127.0) + 127);
+            return Color.FromArgb(255, (int)(r * 127.0) + 127, (int)(g * 127.0) + 127, (int)(b * 127.0) + 127);
         }
 
         public static Color ConvertFromHex(string hex)
@@ -828,7 +826,7 @@ namespace MissionPlanner.Log
 
             if (dataModifierHash.ContainsKey(nodeName))
             {
-                dataModifier = (DataModifer) dataModifierHash[nodeName];
+                dataModifier = (DataModifer)dataModifierHash[nodeName];
             }
 
             // ensure we tick the treeview
@@ -955,7 +953,7 @@ namespace MissionPlanner.Log
             List<Tuple<DFLog.DFItem, double>> answer = new List<Tuple<DFLog.DFItem, double>>();
 
 
-            foreach (var line in logdata.GetEnumeratorType(expression.Split(new char[] {'(', ')', ',', ' ', '.'},
+            foreach (var line in logdata.GetEnumeratorType(expression.Split(new char[] { '(', ')', ',', ' ', '.' },
                 StringSplitOptions.RemoveEmptyEntries)))
             {
                 if (expression.Contains(line.msgtype))
@@ -963,7 +961,7 @@ namespace MissionPlanner.Log
                     var dict = line.ToDictionary();
                     scope.SetVariable(line.msgtype, dict);
                     var result = script.Execute(scope);
-                    answer.Add(line, (double) result);
+                    answer.Add(line, (double)result);
                 }
             }
 
@@ -1089,7 +1087,7 @@ namespace MissionPlanner.Log
                 a++;
             }
 
-            Invoke((Action) delegate { GraphItem_AddCurve(list1, type, fieldname, left); });
+            Invoke((Action)delegate { GraphItem_AddCurve(list1, type, fieldname, left); });
         }
 
         Color pickColour()
@@ -1216,7 +1214,7 @@ namespace MissionPlanner.Log
                         if (item.items.Length <= index)
                             continue;
 
-                        string mode = "Err: " + ((DFLog.LogErrorSubsystem) int.Parse(item.items[index].ToString())) +
+                        string mode = "Err: " + ((DFLog.LogErrorSubsystem)int.Parse(item.items[index].ToString())) +
                                       "-" +
                                       item.items[index2].ToString().Trim();
                         if (top)
@@ -1298,7 +1296,7 @@ namespace MissionPlanner.Log
                         if (item.items.Length <= index)
                             continue;
 
-                        string mode = "EV: " + ((DFLog.Log_Event) int.Parse(item.items[index].ToString()));
+                        string mode = "EV: " + ((DFLog.Log_Event)int.Parse(item.items[index].ToString()));
                         if (top)
                         {
                             var temp = new TextObj(mode, b, zg1.GraphPane.YAxis.Scale.Max, CoordType.AxisXYScale,
@@ -1588,7 +1586,7 @@ namespace MissionPlanner.Log
                             }
                             else
                             {
-                                workingtime = starttime.AddMilliseconds((double) (tempt - startdelta));
+                                workingtime = starttime.AddMilliseconds((double)(tempt - startdelta));
                             }
 
                             TimeSpan span = workingtime - starttime;
@@ -1629,7 +1627,7 @@ namespace MissionPlanner.Log
                 {
                     var mapoverlay = new GMapOverlay("overlay");
                     if (gpscache.Length == 0)
-                        gpscache = logdata.GetEnumeratorType(new string[] {"GPS", "POS", "GPS2", "GPSB", "CMD"})
+                        gpscache = logdata.GetEnumeratorType(new string[] { "GPS", "POS", "GPS2", "GPSB", "CMD" })
                             .ToArray();
 
                     DateTime starttime = DateTime.MinValue;
@@ -2293,7 +2291,7 @@ namespace MissionPlanner.Log
                     }
                     else
                     {
-                        e = DrawMap((long) sender.GraphPane.XAxis.Scale.Min, (long) sender.GraphPane.XAxis.Scale.Max);
+                        e = DrawMap((long)sender.GraphPane.XAxis.Scale.Min, (long)sender.GraphPane.XAxis.Scale.Max);
                     }
                 }
 
@@ -2402,7 +2400,7 @@ namespace MissionPlanner.Log
 
             if (dataModifierHash.ContainsKey(nodeName))
             {
-                DataModifer initialDataModifier = (DataModifer) dataModifierHash[nodeName];
+                DataModifer initialDataModifier = (DataModifer)dataModifierHash[nodeName];
                 if (initialDataModifier.IsValid())
                     dataModifer_str = initialDataModifier.commandString;
             }
@@ -2472,7 +2470,7 @@ namespace MissionPlanner.Log
 
         private void CMB_preselect_SelectedIndexChanged(object sender, EventArgs e)
         {
-            mavgraph.displaylist selectlist = (mavgraph.displaylist) CMB_preselect.SelectedValue;
+            mavgraph.displaylist selectlist = (mavgraph.displaylist)CMB_preselect.SelectedValue;
 
             if (selectlist == null || selectlist.items == null)
                 return;
@@ -2553,7 +2551,7 @@ namespace MissionPlanner.Log
                     if (e.RowIndex > logdatafilter.Count)
                         return;
 
-                    item = (DFLog.DFItem) logdatafilter[e.RowIndex];
+                    item = (DFLog.DFItem)logdatafilter[e.RowIndex];
                 }
 
                 if (e.ColumnIndex == 0)
@@ -2593,7 +2591,7 @@ namespace MissionPlanner.Log
                 }
 
                 //TODO - time fails
-                GoToSample((int) x, true, false, true);
+                GoToSample((int)x, true, false, true);
             }
             catch
             {
@@ -2749,8 +2747,8 @@ namespace MissionPlanner.Log
                         }
                     }
 
-                    double perc = (double) nBest / (double) item.LocalPoints.Count;
-                    int SampleID = (int) (lri.firstpoint + (lri.lastpoint - lri.firstpoint) * perc);
+                    double perc = (double)nBest / (double)item.LocalPoints.Count;
+                    int SampleID = (int)(lri.firstpoint + (lri.lastpoint - lri.firstpoint) * perc);
 
                     if ((lri.samples.Count > 0) && (nBest < lri.samples.Count))
                         SampleID = lri.samples[nBest];
@@ -2817,8 +2815,8 @@ namespace MissionPlanner.Log
                     dataGridView1.CurrentCell = dataGridView1.Rows[SampleID].Cells[1];
 
                     dataGridView1.ClearSelection();
-                    dataGridView1.Rows[(int) SampleID].Selected = true;
-                    dataGridView1.Rows[(int) SampleID].Cells[1].Selected = true;
+                    dataGridView1.Rows[(int)SampleID].Selected = true;
+                    dataGridView1.Rows[(int)SampleID].Cells[1].Selected = true;
                 }
                 catch
                 {

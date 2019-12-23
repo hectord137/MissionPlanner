@@ -291,9 +291,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="BitMiracle.LibTiff.NET">
-      <Version>2.4.528</Version>
-    </PackageReference>
     <PackageReference Include="Crc32.NET">
       <Version>1.2.0</Version>
     </PackageReference>
@@ -468,6 +465,7 @@
     </Compile>
     <Compile Include="Utilities\AltitudeAngel\MissionPlannerStateAdapter.cs" />
     <Compile Include="Utilities\NativeLibrary.cs" />
+    <Compile Include="Utilities\ReadGeotiff.cs" />
     <Compile Include="Utilities\Speech.cs" />
     <Compile Include="Utilities\SSHTerminal.cs" />
     <Compile Include="Grid\camerainfo.cs" />

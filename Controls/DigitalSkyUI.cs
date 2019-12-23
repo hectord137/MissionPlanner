@@ -33,7 +33,7 @@ namespace MissionPlanner.Controls
 
             var login = "https://digitalsky-uat.centralindia.cloudapp.azure.com:8080"
                 .AppendPathSegment("api/auth/token")
-                .PostJsonAsync(new {email = "", password = ""}).ReceiveJson<JObject>()
+                .PostJsonAsync(new { email = "", password = "" }).ReceiveJson<JObject>()
                 .Result;
 
             var login2 = login as IDictionary<String, Object>;
@@ -45,7 +45,7 @@ namespace MissionPlanner.Controls
 
             //https://github.com/iSPIRT/digital-sky-api/blob/develop/src/main/java/com/ispirit/digitalsky/controller/UserController.java#L74
             var user = "https://digitalsky-uat.centralindia.cloudapp.azure.com:8080"
-                .AppendPathSegment("api/user/"+myuserid)
+                .AppendPathSegment("api/user/" + myuserid)
                 .WithOAuthBearerToken(accessToken)
                 .GetJsonAsync<JObject>().Result;
 
@@ -65,19 +65,19 @@ namespace MissionPlanner.Controls
             var droneid = "https://digitalsky-uat.centralindia.cloudapp.azure.com:8080"
                 .AppendPathSegment("api/operatorDrone/7")
                 .WithOAuthBearerToken(accessToken)
-                .GetJsonAsync<JObject> ().Result;
+                .GetJsonAsync<JObject>().Result;
 
             //https://github.com/iSPIRT/digital-sky-api/blob/a0144df5e558db27e15ecda25e1e4836408bc8d9/src/main/java/com/ispirit/digitalsky/controller/FlyDronePermissionApplicationController.java#L136
             var flyDronePermissionApplication_list = "https://digitalsky-uat.centralindia.cloudapp.azure.com:8080"
                 .AppendPathSegment("/api/applicationForm/flyDronePermissionApplication/list")
-                .SetQueryParam("droneId","7")
+                .SetQueryParam("droneId", "7")
                 .WithOAuthBearerToken(accessToken)
                 .GetJsonAsync<JArray>().Result;
-                
-    var flyDronePermissionApplication_application = "https://digitalsky-uat.centralindia.cloudapp.azure.com:8080"
-        .AppendPathSegment(
-            "api/applicationForm/flyDronePermissionApplication/5d175f1c4cedfd0005d76bea/document/permissionArtifact")
-        .WithOAuthBearerToken(accessToken).GetStringAsync().Result;
+
+            var flyDronePermissionApplication_application = "https://digitalsky-uat.centralindia.cloudapp.azure.com:8080"
+                .AppendPathSegment(
+                    "api/applicationForm/flyDronePermissionApplication/5d175f1c4cedfd0005d76bea/document/permissionArtifact")
+                .WithOAuthBearerToken(accessToken).GetStringAsync().Result;
             /*
                 //https://github.com/iSPIRT/digital-sky-api/blob/develop/src/main/java/com/ispirit/digitalsky/controller/AirspaceCategoryController.java#L63
                         var getAllAirspaceCategory = "https://digitalsky-uat.centralindia.cloudapp.azure.com:8080"
@@ -93,7 +93,7 @@ namespace MissionPlanner.Controls
                 .AllowAnyHttpStatus()
                 .WithOAuthBearerToken(accessToken)
                 .PostMultipartAsync(mp => mp.AddFile("flightLogDocument", @"C:\Users\mich1\Downloads\permissionArtifact")).ReceiveJson<JObject>().Result;
-            
+
 
 
 
@@ -142,7 +142,7 @@ namespace MissionPlanner.Controls
                     maxAltitude = 400,
                     startDateTime = DateTime.Now.AddDays(2).ToString("dd-MM-yyyy HH:mm:ss"),
                     endDateTime = DateTime.Now.AddDays(2).AddHours(2).ToString("dd-MM-yyyy HH:mm:ss"),
-                  //  status= "SUBMITTED",
+                    //  status= "SUBMITTED",
                     /* recurringTimeExpression = "",
                      recurringTimeDurationInMinutes = 0,
                      recurringPatternType = "",
@@ -199,7 +199,7 @@ namespace MissionPlanner.Controls
                         cmb_drones.DisplayMember = "Value";
                         cmb_drones.ValueMember = "Key";
                         cmb_drones.DataSource = displaylist.ToList();
-      
+
                         CustomMessageBox.Show("Login Successful");
                     }
                     else
@@ -213,10 +213,10 @@ namespace MissionPlanner.Controls
         private async void Cmb_drones_SelectedIndexChanged(object sender, EventArgs e)
         {
             var applist = (await digitalSky
-                .ListFlyPermission((int) cmb_drones.SelectedValue));
+                .ListFlyPermission((int)cmb_drones.SelectedValue));
 
             var displaylist =
-                applist.Where(a=>a.Value["status"].Value<string>().Contains("APPROVED")).Select(a => new KeyValuePair<string, JToken>(a.Key, a.Value));
+                applist.Where(a => a.Value["status"].Value<string>().Contains("APPROVED")).Select(a => new KeyValuePair<string, JToken>(a.Key, a.Value));
 
             cmb_applications.DisplayMember = "Key";
             cmb_applications.ValueMember = "Value";
@@ -228,14 +228,14 @@ namespace MissionPlanner.Controls
             var perm = (JToken)cmb_applications.SelectedValue;
 
             var flyArea = perm["flyArea"].Children().Select(a =>
-                new PointLatLngAlt(a["latitude"].Value<double>(), a["longitude"].Value<double>(),perm["maxAltitude"].Value<double>() / 3.281,perm["id"].Value<string>()));
+                new PointLatLngAlt(a["latitude"].Value<double>(), a["longitude"].Value<double>(), perm["maxAltitude"].Value<double>() / 3.281, perm["id"].Value<string>()));
 
             lbl_approvedstatus.Text = perm["status"].Value<string>();
 
             markeroverlay.Markers.Clear();
             markeroverlay.Polygons.Clear();
 
-            markeroverlay.Polygons.Add(new GMapPolygon(flyArea.ToList().Select(a=>(PointLatLng)a).ToList(), ""));
+            markeroverlay.Polygons.Add(new GMapPolygon(flyArea.ToList().Select(a => (PointLatLng)a).ToList(), ""));
 
             foreach (var pointLatLngAlt in flyArea)
             {
@@ -268,8 +268,8 @@ namespace MissionPlanner.Controls
 
             File.WriteAllText(destlocalfile, xmlfile);
 
-            MAVFtp ftp = new MAVFtp(MainV2.comPort, (byte) MainV2.comPort.sysidcurrent,
-                (byte) MainV2.comPort.compidcurrent);
+            MAVFtp ftp = new MAVFtp(MainV2.comPort, (byte)MainV2.comPort.sysidcurrent,
+                (byte)MainV2.comPort.compidcurrent);
 
             ftp.UploadFile(id + ".xml", destlocalfile, null);
 

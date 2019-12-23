@@ -1,7 +1,7 @@
-﻿using System;
-using System.Windows.Forms;
-using MissionPlanner.Mavlink;
+﻿using MissionPlanner.Mavlink;
 using MissionPlanner.Utilities;
+using System;
+using System.Windows.Forms;
 
 namespace MissionPlanner.Controls
 {
@@ -41,7 +41,7 @@ namespace MissionPlanner.Controls
         {
             if (e.ColumnIndex == Use.Index)
             {
-                MainV2.comPort.setupSigning("",Convert.FromBase64String(dataGridView1[Key.Index,e.RowIndex].Value.ToString()));
+                MainV2.comPort.setupSigning("", Convert.FromBase64String(dataGridView1[Key.Index, e.RowIndex].Value.ToString()));
             }
         }
 

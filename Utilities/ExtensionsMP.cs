@@ -1,7 +1,6 @@
 ﻿using log4net;
 using System;
 using System.Windows.Forms;
-using Xamarin.Forms;
 
 namespace MissionPlanner.Utilities
 {
@@ -22,11 +21,11 @@ namespace MissionPlanner.Utilities
         {
             if (height)
             {
-                return (int) ((current / (double) ctl.Height) * 100.0);
+                return (int)((current / (double)ctl.Height) * 100.0);
             }
             else
             {
-                return (int) ((current / (double) ctl.Width) * 100.0);
+                return (int)((current / (double)ctl.Width) * 100.0);
             }
         }
 
@@ -34,11 +33,11 @@ namespace MissionPlanner.Utilities
         {
             if (height)
             {
-                return (int)((current/100.0 * (double)ctl.Height));
+                return (int)((current / 100.0 * (double)ctl.Height));
             }
             else
             {
-                return (int)((current/100.0 * (double)ctl.Width) );
+                return (int)((current / 100.0 * (double)ctl.Width));
             }
         }
 

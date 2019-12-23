@@ -1,23 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using ExifLibrary;
-using Force.Crc32;
-using ICSharpCode.SharpZipLib.Checksum;
-using Ionic.Zip;
+﻿using Ionic.Zip;
 using log4net;
 using MissionPlanner.ArduPilot.Mavlink;
 using MissionPlanner.Utilities;
-using OpenTK.Audio.OpenAL;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MissionPlanner.Controls
 {
@@ -31,7 +22,7 @@ namespace MissionPlanner.Controls
         public MavFTPUI(MAVLinkInterface mav)
         {
             _mav = mav;
-            _mavftp = new MAVFtp(_mav, (byte) _mav.sysidcurrent, (byte) mav.compidcurrent);
+            _mavftp = new MAVFtp(_mav, (byte)_mav.sysidcurrent, (byte)mav.compidcurrent);
             _mavftp.Progress += (percent) =>
             {
                 if (toolStripProgressBar1.Value == percent)
@@ -43,7 +34,8 @@ namespace MissionPlanner.Controls
                     return;
                 }
 
-                this.BeginInvokeIfRequired(() => {
+                this.BeginInvokeIfRequired(() =>
+                {
                     toolStripProgressBar1.Value = percent;
                     statusStrip1.Refresh();
                 });
@@ -102,7 +94,7 @@ namespace MissionPlanner.Controls
                 //subSubDirs = await ((DirectoryInfo)treeNode.Tag).GetDirectories();
                 //if (subSubDirs.Length != 0)
                 {
-                  //  await GetDirectories(subSubDirs, treeNode);
+                    //  await GetDirectories(subSubDirs, treeNode);
                 }
 
             }
@@ -115,7 +107,7 @@ namespace MissionPlanner.Controls
 
             TreeNode newSelected = e.Node;
             listView1.Items.Clear();
-            DirectoryInfo nodeDirInfo = (DirectoryInfo) newSelected.Tag;
+            DirectoryInfo nodeDirInfo = (DirectoryInfo)newSelected.Tag;
             ListViewItem.ListViewSubItem[] subItems;
             ListViewItem item = null;
 
@@ -154,10 +146,11 @@ namespace MissionPlanner.Controls
             try
             {
                 listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            } catch { }
+            }
+            catch { }
         }
 
-        public class DirectoryInfo: FileSystemInfo
+        public class DirectoryInfo : FileSystemInfo
         {
             private readonly MAVFtp _mavftp;
             private List<MAVFtp.FtpFileInfo> cache;
@@ -230,7 +223,7 @@ namespace MissionPlanner.Controls
                 var v2 = o1.SubItems[e.Column].Text;
                 if (v1.All(a => a >= '0' && a <= '9') && v2.All(a => a >= '0' && a <= '9'))
                 {
-                    if(listView1.Sorting == SortOrder.Descending)
+                    if (listView1.Sorting == SortOrder.Descending)
                         return double.Parse("0" + v1).CompareTo(double.Parse("0" + v2)) * -1;
                     return double.Parse("0" + v1).CompareTo(double.Parse("0" + v2));
                 }
@@ -262,7 +255,7 @@ namespace MissionPlanner.Controls
                         _mavftp.kCmdResetSessions();
                     };
                     prd.doWorkArgs.ForceExit = false;
-                    Action<int> progress = delegate(int i) { prd.UpdateProgressAndStatus(i, toolStripStatusLabel1.Text); };
+                    Action<int> progress = delegate (int i) { prd.UpdateProgressAndStatus(i, toolStripStatusLabel1.Text); };
                     _mavftp.Progress += progress;
 
                     prd.DoWork += (iprd) =>
@@ -418,12 +411,12 @@ namespace MissionPlanner.Controls
 
             prd.RunBackgroundOperationAsync();
 
-            CustomMessageBox.Show(listView1.SelectedItems[0].Text + ": 0x" +crc.ToString("X"));
+            CustomMessageBox.Show(listView1.SelectedItems[0].Text + ": 0x" + crc.ToString("X"));
         }
 
         private void ListView1_MouseDown(object sender, MouseEventArgs e)
         {
-      
+
         }
 
         private void ListView1_DragEnter(object sender, DragEventArgs e)
@@ -436,7 +429,7 @@ namespace MissionPlanner.Controls
 
         private void ListView1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (listView1.SelectedItems.Count > 0 )
+            if (listView1.SelectedItems.Count > 0)
             {
                 treeView1.SelectedNode?.Expand();
                 // find child node with name
@@ -445,7 +438,7 @@ namespace MissionPlanner.Controls
                     if (node.Text == listView1.SelectedItems[0].Text)
                     {
                         treeView1.SelectedNode = node;
-                        
+
                         TreeView1_NodeMouseClick(null,
                             new TreeNodeMouseClickEventArgs(treeView1.SelectedNode, MouseButtons.Left, 1, 1, 1));
                         break;

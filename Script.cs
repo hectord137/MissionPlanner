@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using IronPython.Hosting;
-using System.IO;
-using MissionPlanner.Utilities;
+﻿using IronPython.Hosting;
 using Microsoft.Scripting.Hosting;
+using MissionPlanner.Utilities;
+using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace MissionPlanner
 {
@@ -37,7 +37,8 @@ namespace MissionPlanner
 
             var all = System.Reflection.Assembly.GetExecutingAssembly();
             var asss = AppDomain.CurrentDomain.GetAssemblies();
-            foreach (var ass in asss) {
+            foreach (var ass in asss)
+            {
                 engine.Runtime.LoadAssembly(ass);
             }
             scope.SetVariable("Ports", MainV2.Comports);
@@ -135,7 +136,7 @@ namespace MissionPlanner
         public float GetParam(string param)
         {
             if (MainV2.comPort.MAV.param[param] != null)
-                return (float) MainV2.comPort.MAV.param[param];
+                return (float)MainV2.comPort.MAV.param[param];
 
             return 0.0f;
         }
@@ -203,7 +204,7 @@ namespace MissionPlanner
 
             if (sendnow)
             {
-                MainV2.comPort.sendPacket(rc, rc.target_system,rc.target_component);
+                MainV2.comPort.sendPacket(rc, rc.target_system, rc.target_component);
                 System.Threading.Thread.Sleep(20);
                 MainV2.comPort.sendPacket(rc, rc.target_system, rc.target_component);
             }

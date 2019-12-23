@@ -1,9 +1,9 @@
-﻿using System;
+﻿using log4net;
+using MissionPlanner.Utilities;
+using System;
 using System.ComponentModel;
 using System.Reflection;
 using System.Windows.Forms;
-using MissionPlanner.Utilities;
-using log4net;
 
 namespace MissionPlanner.Controls
 {
@@ -39,7 +39,7 @@ namespace MissionPlanner.Controls
                         if (Instance.IsHandleCreated)
                         {
 
-                            MainV2.instance.Invoke((MethodInvoker) delegate { ((Form) Instance).Close(); });
+                            MainV2.instance.Invoke((MethodInvoker)delegate { ((Form)Instance).Close(); });
 
                             Instance = null;
                         }
@@ -72,23 +72,23 @@ namespace MissionPlanner.Controls
 
                 log.Info("Create Instance");
                 // create form on ui thread
-                MainV2.instance.Invoke((MethodInvoker) delegate
-                {
-                    Loading frm = new Loading();
-                    if(owner == null)
-                        frm.TopMost = true;
-                    frm.StartPosition = FormStartPosition.CenterParent;
-                    frm.Closing += Frm_Closing;
+                MainV2.instance.Invoke((MethodInvoker)delegate
+               {
+                   Loading frm = new Loading();
+                   if (owner == null)
+                       frm.TopMost = true;
+                   frm.StartPosition = FormStartPosition.CenterParent;
+                   frm.Closing += Frm_Closing;
 
                     // set instance
                     Instance = frm;
                     // set text
                     Instance.label1.Text = Text;
 
-                    ThemeManager.ApplyThemeTo(frm);
-                    frm.Show(owner);
-                    frm.Focus();
-                });
+                   ThemeManager.ApplyThemeTo(frm);
+                   frm.Show(owner);
+                   frm.Focus();
+               });
             }
         }
 

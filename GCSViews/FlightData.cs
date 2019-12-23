@@ -1,4 +1,17 @@
-﻿using System;
+﻿using GMap.NET;
+using GMap.NET.MapProviders;
+using GMap.NET.WindowsForms;
+using GMap.NET.WindowsForms.Markers;
+using log4net;
+using MissionPlanner.ArduPilot;
+using MissionPlanner.Controls;
+using MissionPlanner.Joystick;
+using MissionPlanner.Log;
+using MissionPlanner.Maps;
+using MissionPlanner.Utilities;
+using MissionPlanner.Warnings;
+using SharpDX.DirectInput;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -11,24 +24,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using DirectShowLib;
-using Flurl.Util;
-using GMap.NET;
-using GMap.NET.WindowsForms;
-using GMap.NET.WindowsForms.Markers;
-using log4net;
-using MissionPlanner.ArduPilot;
-using MissionPlanner.Controls;
-using MissionPlanner.Joystick;
-using MissionPlanner.Log;
-using MissionPlanner.Utilities;
-using MissionPlanner.Warnings;
 using WebCamService;
 using ZedGraph;
 using LogAnalyzer = MissionPlanner.Utilities.LogAnalyzer;
-using MissionPlanner.Maps;
-using SharpDX.DirectInput;
-using GMap.NET.MapProviders;
 
 namespace MissionPlanner.GCSViews
 {
@@ -137,7 +135,7 @@ namespace MissionPlanner.GCSViews
             log.Info("Ctor Start");
 
             InitializeComponent();
-      
+
             // get map type
             this.comboBoxMapTypeData.ValueMember = "Name";
             this.comboBoxMapTypeData.DataSource = GMapProviders.List.ToArray();
@@ -306,7 +304,7 @@ namespace MissionPlanner.GCSViews
             /* contextMenuStripHud.Visible = false;
              contextMenuStripHud.Items.RemoveByKey("1"); */
 
-        
+
         }
 
 
@@ -324,7 +322,7 @@ namespace MissionPlanner.GCSViews
                 LBLrangefinder1.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
 
             }
-            catch {}
+            catch { }
         }
 
 
@@ -454,7 +452,7 @@ namespace MissionPlanner.GCSViews
 
             hud1.doResize();
             this.hidetabs();
-            
+
         }
 
         private void hidetabs()
@@ -468,7 +466,7 @@ namespace MissionPlanner.GCSViews
             tabControlactions.Controls.Remove(tablogbrowse);
             tabControlactions.Controls.Remove(tabQuick);
             tabControlactions.Controls.Remove(tabStatus);
-            
+
         }
 
         public void BUT_playlog_Click(object sender, EventArgs e)
@@ -1163,8 +1161,9 @@ namespace MissionPlanner.GCSViews
             }
         }
 
-        private void activatedjoy(object sender, EventArgs e) {
-  
+        private void activatedjoy(object sender, EventArgs e)
+        {
+
             JoystickSetup JoystickSetup = new JoystickSetup();
             JoystickSetup.Joystick_Load(sender, e);
             JoystickSetup.BUT_enable_Click(sender, e);
@@ -4846,66 +4845,67 @@ namespace MissionPlanner.GCSViews
 
             if (!joystick.start(COMBJOY.Text))
             {
-              
+
                 ButJoyOn.Enabled = false;
-                    }
+            }
 
         }
 
 
         public void ButJoyOn_Click(object sender, EventArgs e)
         {
-            activatedjoy(sender,  e);
-            
+            activatedjoy(sender, e);
 
-                /*if (MainV2.joystick == null || MainV2.joystick.enabled == false)
+
+            /*if (MainV2.joystick == null || MainV2.joystick.enabled == false)
+            {
+                try
                 {
-                    try
-                    {
-                        if (MainV2.joystick != null)
-                            MainV2.joystick.UnAcquireJoyStick();
-                    }
-                    catch
-                    {
-                    }
-
-                    // all config is loaded from the xmls
-                    Joystick.Joystick joystick = new Joystick.Joystick(() => MainV2.comPort);
-                    //joy.elevons = CHK_elevons.Checked;
-
-                    if (!joystick.start(COMBJOY.Text))
-                    {
-                        CustomMessageBox.Show("Please Connect a Joystick", "No Joystick");
-                        joystick.Dispose();
-                        return;
-                    }
-
-                    //Settings.Instance["joystick_name"] = CMB_joysticks.Text;
-
-                    MainV2.joystick = joystick;
-                    MainV2.joystick.enabled = true;
-
-                   // BUT_enable.Text = "Disable";
-
-                    //timer1.Start();
+                    if (MainV2.joystick != null)
+                        MainV2.joystick.UnAcquireJoyStick();
                 }
-                else
+                catch
                 {
-                    MainV2.joystick.enabled = false;
-
-                    MainV2.joystick.clearRCOverride();
-
-                    MainV2.joystick = null;
-
-
-                    //timer1.Stop();
-
-                  //  BUT_enable.Text = "Enable";
                 }
-                */
+
+                // all config is loaded from the xmls
+                Joystick.Joystick joystick = new Joystick.Joystick(() => MainV2.comPort);
+                //joy.elevons = CHK_elevons.Checked;
+
+                if (!joystick.start(COMBJOY.Text))
+                {
+                    CustomMessageBox.Show("Please Connect a Joystick", "No Joystick");
+                    joystick.Dispose();
+                    return;
+                }
+
+                //Settings.Instance["joystick_name"] = CMB_joysticks.Text;
+
+                MainV2.joystick = joystick;
+                MainV2.joystick.enabled = true;
+
+               // BUT_enable.Text = "Disable";
+
+                //timer1.Start();
             }
+            else
+            {
+                MainV2.joystick.enabled = false;
 
-            private void loadjoy() {
+                MainV2.joystick.clearRCOverride();
+
+                MainV2.joystick = null;
+
+
+                //timer1.Stop();
+
+              //  BUT_enable.Text = "Enable";
+            }
+            */
+        }
+
+        private void loadjoy()
+        {
             try
             {
                 var joysticklist = Joystick.Joystick.getDevices();
@@ -4936,12 +4936,12 @@ namespace MissionPlanner.GCSViews
 
             try
             {
-                
+
             }
             catch
             {
                 if (Settings.Instance.ContainsKey("joy_elevons")) ;
-                    
+
             } // IF 1 DOESNT EXIST NONE WILL
 
             var tempjoystick = new Joystick.Joystick(() => MainV2.comPort);
@@ -4992,10 +4992,10 @@ namespace MissionPlanner.GCSViews
 
         }
 
-    
 
 
-  
+
+
         private void timer1_Tick_2(object sender, EventArgs e)
         {
             rechargelabel();

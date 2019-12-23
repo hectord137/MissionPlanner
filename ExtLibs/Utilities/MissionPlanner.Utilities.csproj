@@ -30,7 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BitMiracle.LibTiff.NET" Version="2.4.584.1" />
     <PackageReference Include="csmatio" Version="1.0.20" />
     <PackageReference Include="DotNetZip.NetStandard" Version="1.12.0" />
     <PackageReference Include="ExifLibNet" Version="1.2.21" />
@@ -63,6 +62,12 @@
     <ProjectReference Include="..\ProjNet\ProjNET.csproj" />
     <ProjectReference Include="..\SharpKml\SharpKml.csproj" />
     <ProjectReference Include="..\Zeroconf\Zeroconf\Zeroconf.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="BitMiracle.LibTiff.NetStandard">
+      <HintPath>..\BitMiracle.LibTiff.NetStandard.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 

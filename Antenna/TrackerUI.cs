@@ -1,6 +1,6 @@
-﻿using System.Windows.Forms;
-using MissionPlanner.Controls;
+﻿using MissionPlanner.Controls;
 using MissionPlanner.Utilities;
+using System.Windows.Forms;
 
 namespace MissionPlanner.Antenna
 {

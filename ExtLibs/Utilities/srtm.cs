@@ -105,10 +105,10 @@ namespace MissionPlanner.Utilities
 
             try
             {
-                var trytiff = Utilities.GeoTiff.getAltitude(lat, lng);
+               // var trytiff = Utilities.GeoTiff.getAltitude(lat, lng);
 
-                if (trytiff.currenttype == tiletype.valid)
-                    return trytiff;
+                //if (trytiff.currenttype == tiletype.valid)
+                //    return trytiff;
             }
             catch (FileNotFoundException)
             {

@@ -1,31 +1,31 @@
-﻿using System;
+﻿using GMap.NET.WindowsForms;
+using log4net;
+using MissionPlanner.ArduPilot;
+using MissionPlanner.Comms;
+using MissionPlanner.Controls;
+using MissionPlanner.Log;
+using MissionPlanner.Utilities;
+using MissionPlanner.Utilities.AltitudeAngel;
+using MissionPlanner.Warnings;
+using SkiaSharp;
+using System;
+using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using System.IO;
-using System.Collections;
-using System.Runtime.InteropServices;
-using System.Globalization;
-using System.Linq;
-using System.Threading;
-using MissionPlanner.Utilities;
-using log4net;
-using MissionPlanner.Controls;
-using MissionPlanner.Comms;
-using MissionPlanner.Log;
-using Transitions;
-using MissionPlanner.Warnings;
-using System.Collections.Concurrent;
 using System.Drawing.Imaging;
+using System.Globalization;
+using System.IO;
+using System.Linq;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
+using System.Text;
 using System.Text.RegularExpressions;
-using MissionPlanner.ArduPilot;
-using MissionPlanner.Utilities.AltitudeAngel;
+using System.Threading;
 using System.Threading.Tasks;
-using GMap.NET.WindowsForms;
-using SkiaSharp;
+using System.Windows.Forms;
+using Transitions;
 
 namespace MissionPlanner
 {
@@ -342,7 +342,7 @@ namespace MissionPlanner
         /// joystick static class
         /// </summary>
         public static Joystick.Joystick joystick { get; set; }
-        
+
         /// <summary>
         /// track last joystick packet sent. used to control rate
         /// </summary>
@@ -544,13 +544,13 @@ namespace MissionPlanner
                 MainV2.instance.FlightPlanner.FlightPlannerBase.updateDisplayView();
             }
 
-           // MenuSimulation.Visible = false;
+            // MenuSimulation.Visible = false;
             MenuHelp.Visible = false;
             MenuTerminal.Visible = false;
             MenuHelp.Visible = false;
             MenuDonate.Visible = false;
             MenuInitConfig.Visible = false;
-                }
+        }
 
 
         public MainV2()
@@ -558,7 +558,7 @@ namespace MissionPlanner
             log.Info("Mainv2 ctor");
 
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-            
+
             // create one here - but override on load
             Settings.Instance["guid"] = Guid.NewGuid().ToString();
 
@@ -582,7 +582,7 @@ namespace MissionPlanner
                     if (MainV2.instance.adsbPlanes.ContainsKey(tuple.id))
                     {
                         // update existing
-                        ((adsb.PointLatLngAltHdg) instance.adsbPlanes[tuple.id]).ThreatLevel = tuple.threat_level;
+                        ((adsb.PointLatLngAltHdg)instance.adsbPlanes[tuple.id]).ThreatLevel = tuple.threat_level;
                     }
                 }
             };
@@ -1069,8 +1069,8 @@ namespace MissionPlanner
             {
                 this.Invoke((MethodInvoker)delegate
                {
-                    //enable the payload control page if a mavlink gimbal is detected
-                    if (instance.FlightData != null)
+                   //enable the payload control page if a mavlink gimbal is detected
+                   if (instance.FlightData != null)
                    {
                        instance.FlightData.updatePayloadTabVisible();
                    }
@@ -1217,7 +1217,7 @@ namespace MissionPlanner
                         new adsb.PointLatLngAltHdg(adsb.Lat, adsb.Lng,
                                 adsb.Alt, adsb.Heading, adsb.Speed, id,
                                 DateTime.Now)
-                            {CallSign = adsb.CallSign, Raw = adsb.Raw};
+                        { CallSign = adsb.CallSign, Raw = adsb.Raw };
                 }
 
                 try
@@ -1748,15 +1748,16 @@ namespace MissionPlanner
                         }
 
                         if (comPort.MAV.param.ContainsKey("RALLY_LIMIT_KM") &&
-                            (maxdist / 1000.0) > (float) comPort.MAV.param["RALLY_LIMIT_KM"])
+                            (maxdist / 1000.0) > (float)comPort.MAV.param["RALLY_LIMIT_KM"])
                         {
                             CustomMessageBox.Show(Strings.Warningrallypointdistance + " " +
                                                   (maxdist / 1000.0).ToString("0.00") + " > " +
-                                                  (float) comPort.MAV.param["RALLY_LIMIT_KM"]);
+                                                  (float)comPort.MAV.param["RALLY_LIMIT_KM"]);
                         }
-                    } catch (Exception ex) { log.Warn(ex); }
+                    }
+                    catch (Exception ex) { log.Warn(ex); }
                 }
-   
+
                 // get any fences
                 if (MainV2.comPort.MAV.param.ContainsKey("FENCE_TOTAL") &&
                     int.Parse(MainV2.comPort.MAV.param["FENCE_TOTAL"].ToString()) > 1 &&
@@ -1765,7 +1766,8 @@ namespace MissionPlanner
                     try
                     {
                         FlightPlanner.FlightPlannerBase.GeoFencedownloadToolStripMenuItem_Click(null, null);
-                    } catch (Exception ex) { log.Warn(ex); }
+                    }
+                    catch (Exception ex) { log.Warn(ex); }
                 }
                 //Add HUD custom items source 
                 HUD.Custom.src = MainV2.comPort.MAV.cs;

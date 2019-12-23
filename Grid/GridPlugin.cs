@@ -1,9 +1,6 @@
-﻿using System;
+﻿using MissionPlanner.GCSViews;
+using System;
 using System.Windows.Forms;
-using MissionPlanner.ArduPilot;
-using MissionPlanner.GCSViews;
-using MissionPlanner.Maps;
-using MissionPlanner.Utilities;
 
 namespace MissionPlanner.Grid
 {
@@ -82,7 +79,7 @@ namespace MissionPlanner.Grid
                         CustomMessageBox.Show("No polygon defined. Load a file?", "Load File", MessageBoxButtons.YesNo) ==
                         (int)DialogResult.Yes)
                     {
-                      
+
                         gridui.LoadGrid();
                         FlightPlannerBase.instance._flightPlanner.tableLayoutPanel12.Controls.Clear();
                         FlightPlannerBase.instance._flightPlanner.tableLayoutPanel12.Controls.Add(gridui.tabControl1);

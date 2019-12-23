@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using MissionPlanner.Controls;
+﻿using MissionPlanner.Controls;
 using MissionPlanner.Utilities;
-using UAVCAN;
+using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using MissionPlanner.Comms;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using UAVCAN;
 
 namespace MissionPlanner.GCSViews.ConfigurationView
 {
@@ -27,7 +22,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             if (MainV2.comPort.BaseStream.IsOpen && !MainV2.comPort.MAV.param.ContainsKey("CAN_SLCAN_TIMOUT"))
                 this.Enabled = false;
         }
-        
+
         List<UAVCANModel> allnodes = new List<UAVCANModel>();
 
         public void Activate()
@@ -66,7 +61,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                     MainV2.comPort.setParam("CAN_SLCAN_SERNUM", 0, true); // usb
                 }
             }
-            catch 
+            catch
             {
 
             }
@@ -107,7 +102,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 if (!port.IsOpen)
                     port.Open();
 
-                if(chk_log.Checked)
+                if (chk_log.Checked)
                     can.LogFile = Settings.Instance.LogDir + Path.DirectorySeparatorChar +
                               DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + ".can";
 
@@ -189,12 +184,12 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                         {
                             item.Name = ASCIIEncoding.ASCII.GetString(gnires.name, 0, gnires.name_len);
                             item.HardwareVersion = gnires.hardware_version.major + "." + gnires.hardware_version.minor;
-                            item.SoftwareVersion  = gnires.software_version.major + "." + gnires.software_version.minor + "."+gnires.software_version.vcs_commit.ToString("X");
+                            item.SoftwareVersion = gnires.software_version.major + "." + gnires.software_version.minor + "." + gnires.software_version.vcs_commit.ToString("X");
                             item.SoftwareCRC = gnires.software_version.image_crc;
-                            item.HardwareUID = gnires.hardware_version.unique_id.Select(a=>a.ToString("X2")).Aggregate((a, b) =>
-                                {
-                                    return a + " " + b;
-                                });
+                            item.HardwareUID = gnires.hardware_version.unique_id.Select(a => a.ToString("X2")).Aggregate((a, b) =>
+                                  {
+                                      return a + " " + b;
+                                  });
                             item.RawMsg = gnires;
                         }
 
@@ -237,7 +232,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 ProgressReporterDialogue prd = new ProgressReporterDialogue();
                 uavcan.FileSendProgressArgs filesend = (id, file, percent) =>
                 {
-                    prd.UpdateProgressAndStatus((int) percent, id + " " + file);
+                    prd.UpdateProgressAndStatus((int)percent, id + " " + file);
                 };
                 can.FileSendProgress += filesend;
                 if (CustomMessageBox.Show("Do you want to search the internet for an update?", "Update", CustomMessageBox.MessageBoxButtons.YesNo) == CustomMessageBox.DialogResult.Yes)
@@ -251,7 +246,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                     {
                         try
                         {
-                            prd.DoWork += dialogue => 
+                            prd.DoWork += dialogue =>
                             {
                                 var tempfile = Path.GetTempFileName();
                                 Download.getFilefromNet(url, tempfile);

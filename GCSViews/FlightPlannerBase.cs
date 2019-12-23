@@ -239,7 +239,7 @@ namespace MissionPlanner.GCSViews
 
 
             _flightPlanner.but_writewpfast.Click += new System.EventHandler(but_writewpfast_Click); _flightPlanner.BUT_write.Click += new System.EventHandler(BUT_write_Click); _flightPlanner.BUT_read.Click += new System.EventHandler(BUT_read_Click);
-          
+
 
             _flightPlanner.TXT_homealt.TextChanged += new System.EventHandler(TXT_homealt_TextChanged);
             _flightPlanner.TXT_homelng.TextChanged += new System.EventHandler(TXT_homelng_TextChanged);
@@ -467,7 +467,7 @@ namespace MissionPlanner.GCSViews
 
             timer.Start();
             */
-                  }
+        }
 
         public List<PointLatLngAlt> pointlist { get; set; } = new List<PointLatLngAlt>();
 
@@ -700,7 +700,7 @@ namespace MissionPlanner.GCSViews
             selectedrow = _flightPlanner.Commands.Rows.Add();
 
             //if (selectedrow == 1) {
-                FillCommand(this.selectedrow, cmd, p1, p2, p3, p4, x, y, z, tag);
+            FillCommand(this.selectedrow, cmd, p1, p2, p3, p4, x, y, z, tag);
             //}else if (selectedrow == GridUI.instance.wpend - 1)
             //    {
             //        FillCommand(this.selectedrow, MAVLink.MAV_CMD.DO_SET_RELAY, p1, p2, p3, p4, x, y, z, tag);
@@ -708,13 +708,13 @@ namespace MissionPlanner.GCSViews
             //    else { 
             //    FillCommand(this.selectedrow, MAVLink.MAV_CMD.WAYPOINT, p1, p2, p3, p4, x, y, z, tag);
             //}
-           
+
 
 
             writeKML();
 
             return selectedrow;
-           
+
         }
 
         /// <summary>
@@ -766,18 +766,21 @@ namespace MissionPlanner.GCSViews
             {
                 _flightPlanner.Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_SET_RELAY.ToString();
                 ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
-            } else if(y == y - 1) {
+            }
+            else if (y == y - 1)
+            {
                 _flightPlanner.Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_SET_RELAY.ToString();
                 ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
             }
-            else {
+            else
+            {
                 _flightPlanner.Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
                 ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
             }
 
 
             setfromMap(lat, lng, alt);
-         
+
             y = y + 2;
         }
 
@@ -931,7 +934,7 @@ namespace MissionPlanner.GCSViews
                 _flightPlanner.TXT_homealt.Text = (srtm.getAltitude(lat, lng).alt * CurrentState.multiplieralt).ToString();
 
                 _flightPlanner.TXT_homelat.Text = lat.ToString();
-                
+
                 _flightPlanner.TXT_homelng.Text = lng.ToString();
                 return;
             }
@@ -1072,7 +1075,7 @@ namespace MissionPlanner.GCSViews
 
             _flightPlanner.MainMap.UpdatePolygonLocalPosition(geofencepolygon);
             _flightPlanner.MainMap.UpdateMarkerLocalPosition(geofenceoverlay.Markers[0]);
-            
+
             _flightPlanner.MainMap.Invalidate();
         }
 
@@ -1227,9 +1230,9 @@ namespace MissionPlanner.GCSViews
                     {
                         ans = (int)ans;
 
-                        DataGridViewTextBoxCell celllat     = _flightPlanner.Commands.Rows[selectedrow].Cells[Lat.Index] as DataGridViewTextBoxCell;
-                        DataGridViewTextBoxCell celllon     = _flightPlanner.Commands.Rows[selectedrow].Cells[Lon.Index] as DataGridViewTextBoxCell;
-                       
+                        DataGridViewTextBoxCell celllat = _flightPlanner.Commands.Rows[selectedrow].Cells[Lat.Index] as DataGridViewTextBoxCell;
+                        DataGridViewTextBoxCell celllon = _flightPlanner.Commands.Rows[selectedrow].Cells[Lon.Index] as DataGridViewTextBoxCell;
+
                         int oldsrtm =
                             (int)
                             ((srtm.getAltitude(double.Parse(celllat.Value.ToString()),
@@ -1343,16 +1346,16 @@ namespace MissionPlanner.GCSViews
             // agrega a paraetros
             if (_flightPlanner.Commands.Columns[Param1.Index].HeaderText.Equals(""))
             {
-                
+
                 cell = _flightPlanner.Commands.Rows[selectedrow].Cells[Param1.Index] as DataGridViewTextBoxCell;
-             
+
                 cell.DataGridView.EndEdit();
             }
             if (_flightPlanner.Commands.Columns[Param2.Index].HeaderText.Equals(""))
             {
 
                 cell = _flightPlanner.Commands.Rows[selectedrow].Cells[Param2.Index] as DataGridViewTextBoxCell;
-                
+
                 cell.DataGridView.EndEdit();
             }
 
@@ -1709,32 +1712,32 @@ namespace MissionPlanner.GCSViews
         }
 
         public void addPolygonPointToolStripMenuItem_Click(object sender, EventArgs e)
-        {           
-                if (polygongridmode == false)
-                {
-                    CustomMessageBox.Show(
-                        "You will remain in polygon mode until you clear the polygon or create a grid/upload a fence");
-                    //
-                    polygongridmode = true;
-                    return;
-                }
-                List<PointLatLng> polygonPoints = new List<PointLatLng>();
-                if (drawnpolygonsoverlay.Polygons.Count == 0)
-                {
-                    drawnpolygon.Points.Clear();
-                    drawnpolygonsoverlay.Polygons.Add(drawnpolygon);
-                }
-                drawnpolygon.Fill = Brushes.Transparent;
+        {
+            if (polygongridmode == false)
+            {
+                CustomMessageBox.Show(
+                    "You will remain in polygon mode until you clear the polygon or create a grid/upload a fence");
+                //
+                polygongridmode = true;
+                return;
+            }
+            List<PointLatLng> polygonPoints = new List<PointLatLng>();
+            if (drawnpolygonsoverlay.Polygons.Count == 0)
+            {
+                drawnpolygon.Points.Clear();
+                drawnpolygonsoverlay.Polygons.Add(drawnpolygon);
+            }
+            drawnpolygon.Fill = Brushes.Transparent;
 
-                drawnpolygon.Points.Add(new PointLatLng(MouseDownStart.Lat, MouseDownStart.Lng));
+            drawnpolygon.Points.Add(new PointLatLng(MouseDownStart.Lat, MouseDownStart.Lng));
 
-                addpolygonmarkergrid(drawnpolygon.Points.Count.ToString(), MouseDownStart.Lng, MouseDownStart.Lat, 0);
+            addpolygonmarkergrid(drawnpolygon.Points.Count.ToString(), MouseDownStart.Lng, MouseDownStart.Lat, 0);
 
-                _flightPlanner.MainMap.UpdatePolygonLocalPosition(drawnpolygon);
+            _flightPlanner.MainMap.UpdatePolygonLocalPosition(drawnpolygon);
 
-                _flightPlanner.MainMap.Invalidate();
+            _flightPlanner.MainMap.Invalidate();
 
-          
+
         }
 
         public void areaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2318,7 +2321,7 @@ namespace MissionPlanner.GCSViews
             try
             {
                 selectedrow = e.RowIndex;
-               
+
                 string option = _flightPlanner.Commands[Command.Index, selectedrow].EditedFormattedValue.ToString();
                 string cmd;
                 try
@@ -2372,7 +2375,7 @@ namespace MissionPlanner.GCSViews
                     // do default values
                 }
             }
-           
+
 
             DataGridViewComboBoxCell cellFrame = _flightPlanner.Commands.Rows[e.RowIndex].Cells[Frame.Index] as DataGridViewComboBoxCell;
             if (cellFrame.Value == null)
@@ -2550,13 +2553,13 @@ namespace MissionPlanner.GCSViews
         {
             //measurecontext();
         }
-    
+
         public void measurecontext(PointLatLng latlng1, PointLatLng latlng2)
         {
-            
 
 
-                List<PointLatLng> polygonPoints = new List<PointLatLng>
+
+            List<PointLatLng> polygonPoints = new List<PointLatLng>
                 {
                     startmeasure,
                     MouseDownStart
@@ -2565,21 +2568,21 @@ namespace MissionPlanner.GCSViews
             MouseDownStart = latlng2;
 
             GMapPolygon line = new GMapPolygon(polygonPoints, "measure dist");
-                line.Stroke.Color = Color.Green;
+            line.Stroke.Color = Color.Green;
 
-                polygonsoverlay.Polygons.Add(line);
+            polygonsoverlay.Polygons.Add(line);
 
-            
-                _flightPlanner.MainMap.Invalidate();
+
+            _flightPlanner.MainMap.Invalidate();
             CustomMessageBox.Show("Distance: " +
                                   FormatDistance(_flightPlanner.MainMap.MapProvider.Projection.GetDistance(startmeasure, MouseDownStart), true) +
                                   " AZ: " +
                                   (_flightPlanner.MainMap.MapProvider.Projection.GetBearing(startmeasure, MouseDownStart)
                                       .ToString("0")));
             polygonsoverlay.Polygons.Remove(line);
-                polygonsoverlay.Markers.Clear();
-                startmeasure = new PointLatLng();
-            
+            polygonsoverlay.Markers.Clear();
+            startmeasure = new PointLatLng();
+
         }
 
         public void contextMenuStrip1_Closed(object sender, ToolStripDropDownClosedEventArgs e)
@@ -2619,12 +2622,12 @@ namespace MissionPlanner.GCSViews
         public void ContextMenuStripPoly_Opening(object sender, CancelEventArgs e)
         {
             // update the displayed items
-            if ((MAVLink.MAV_MISSION_TYPE) _flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.RALLY)
+            if ((MAVLink.MAV_MISSION_TYPE)_flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.RALLY)
             {
                 _flightPlanner.fenceInclusionToolStripMenuItem.Visible = false;
                 _flightPlanner.fenceExclusionToolStripMenuItem.Visible = false;
             }
-            else if ((MAVLink.MAV_MISSION_TYPE) _flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.FENCE)
+            else if ((MAVLink.MAV_MISSION_TYPE)_flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.FENCE)
             {
                 _flightPlanner.fenceInclusionToolStripMenuItem.Visible = true;
                 _flightPlanner.fenceExclusionToolStripMenuItem.Visible = true;
@@ -2971,7 +2974,7 @@ namespace MissionPlanner.GCSViews
                 Locationwp temp = new Locationwp();
                 if (_flightPlanner.Commands.Rows[a].Cells[Command.Index].Value.ToString().Contains("UNKNOWN"))
                 {
-                    temp.id = (ushort) _flightPlanner.Commands.Rows[a].Cells[Command.Index].Tag;
+                    temp.id = (ushort)_flightPlanner.Commands.Rows[a].Cells[Command.Index].Tag;
                 }
                 else
                 {
@@ -2994,7 +2997,7 @@ namespace MissionPlanner.GCSViews
 
                 temp.Tag = _flightPlanner.Commands.Rows[a].Cells[TagData.Index].Value;
 
-                temp.frame = (byte) (int)_flightPlanner.Commands.Rows[a].Cells[Frame.Index].Value;
+                temp.frame = (byte)(int)_flightPlanner.Commands.Rows[a].Cells[Frame.Index].Value;
 
                 /*
                 var mode = currentaltmode;
@@ -3160,7 +3163,7 @@ namespace MissionPlanner.GCSViews
         {
             writeKML();
             double homealt = MainV2.comPort.MAV.cs.HomeAlt;
-            Form temp = new ElevationProfile(pointlist, homealt, (altmode) _flightPlanner.CMB_altmode.SelectedValue);
+            Form temp = new ElevationProfile(pointlist, homealt, (altmode)_flightPlanner.CMB_altmode.SelectedValue);
             ThemeManager.ApplyThemeTo(temp);
             temp.ShowDialog();
         }
@@ -3345,7 +3348,7 @@ namespace MissionPlanner.GCSViews
                 WMSProvider.szWmsLayer = Settings.Instance["WMSLayer"];
             }
 
-            _flightPlanner.trackBar1.Value = (int) _flightPlanner.MainMap.Zoom;
+            _flightPlanner.trackBar1.Value = (int)_flightPlanner.MainMap.Zoom;
 
             updateCMDParams();
 
@@ -3759,10 +3762,10 @@ namespace MissionPlanner.GCSViews
 
         private void getWPs(IProgressReporterDialogue sender)
         {
-            var type = (MAVLink.MAV_MISSION_TYPE) _flightPlanner.Invoke((Func<MAVLink.MAV_MISSION_TYPE>)delegate
-            {
-                return (MAVLink.MAV_MISSION_TYPE) _flightPlanner.cmb_missiontype.SelectedValue;
-            });
+            var type = (MAVLink.MAV_MISSION_TYPE)_flightPlanner.Invoke((Func<MAVLink.MAV_MISSION_TYPE>)delegate
+           {
+               return (MAVLink.MAV_MISSION_TYPE)_flightPlanner.cmb_missiontype.SelectedValue;
+           });
 
             List<Locationwp> cmds = mav_mission.download(MainV2.comPort,
                 type,
@@ -3879,7 +3882,8 @@ namespace MissionPlanner.GCSViews
             kmloverlay();
         }
 
-        public void kmloverlay() {
+        public void kmloverlay()
+        {
             using (OpenFileDialog fd = new OpenFileDialog())
             {
                 fd.Filter = "All Supported|*.kml;*.kmz;*.dxf;*.gpkg|Google Earth KML|*.kml;*.kmz|AutoCad DXF|*.dxf|GeoPackage|*.gpkg";
@@ -4992,10 +4996,10 @@ namespace MissionPlanner.GCSViews
 
             setWPParams();
 
-            var type = (MAVLink.MAV_MISSION_TYPE) _flightPlanner.Invoke((Func<MAVLink.MAV_MISSION_TYPE>)delegate
-            {
-                return (MAVLink.MAV_MISSION_TYPE) _flightPlanner.cmb_missiontype.SelectedValue;
-            });
+            var type = (MAVLink.MAV_MISSION_TYPE)_flightPlanner.Invoke((Func<MAVLink.MAV_MISSION_TYPE>)delegate
+           {
+               return (MAVLink.MAV_MISSION_TYPE)_flightPlanner.cmb_missiontype.SelectedValue;
+           });
 
             if (!append && type == MAVLink.MAV_MISSION_TYPE.MISSION)
             {
@@ -5220,8 +5224,8 @@ namespace MissionPlanner.GCSViews
                 {
                     MainV2.comPort.setRallyPoint(count, new PointLatLngAlt(pnt.Position) { Alt = pnt.Alt }, 0, 0, 0,
                         (byte)(float)MainV2.comPort.MAV.param["RALLY_TOTAL"]);
-                        CustomMessageBox.Show("Save Rally point");
-                    
+                    CustomMessageBox.Show("Save Rally point");
+
                     count++;
                 }
                 catch
@@ -5363,7 +5367,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                             list.Insert(0, home);
 
-                            var format = MissionFile.ConvertFromLocationwps(list, (byte)(altmode) _flightPlanner.CMB_altmode.SelectedValue);
+                            var format = MissionFile.ConvertFromLocationwps(list, (byte)(altmode)_flightPlanner.CMB_altmode.SelectedValue);
 
                             MissionFile.WriteFile(file, format);
                             return;
@@ -5392,7 +5396,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                             if (_flightPlanner.Commands.Rows[a].Cells[0].Value.ToString() == "UNKNOWN")
                             {
-                                mode = (ushort) _flightPlanner.Commands.Rows[a].Cells[Command.Index].Tag;
+                                mode = (ushort)_flightPlanner.Commands.Rows[a].Cells[Command.Index].Tag;
                             }
                             else
                             {
@@ -5479,10 +5483,10 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 log.Info("wps values " + MainV2.comPort.MAV.wps.Values.Count);
                 log.Info("cmd rows " + (_flightPlanner.Commands.Rows.Count + 1)); // + home
 
-                var type = (MAVLink.MAV_MISSION_TYPE) _flightPlanner.Invoke((Func<MAVLink.MAV_MISSION_TYPE>)delegate
-                {
-                    return (MAVLink.MAV_MISSION_TYPE) _flightPlanner.cmb_missiontype.SelectedValue;
-                });
+                var type = (MAVLink.MAV_MISSION_TYPE)_flightPlanner.Invoke((Func<MAVLink.MAV_MISSION_TYPE>)delegate
+               {
+                   return (MAVLink.MAV_MISSION_TYPE)_flightPlanner.cmb_missiontype.SelectedValue;
+               });
 
                 // get the command list from the datagrid
                 var commandlist = GetCommandList();
@@ -5776,7 +5780,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
         }
 
-        public void setHomeHereToolStripMenuItem_Click(object sender,  EventArgs e)
+        public void setHomeHereToolStripMenuItem_Click(object sender, EventArgs e)
         {
             object homealt = (srtm.getAltitude(MouseDownStart.Lat, MouseDownStart.Lng).alt * CurrentState.multiplieralt).ToString("0");
             object homelat = MouseDownStart.Lat.ToString(); ;
@@ -5793,45 +5797,46 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             FlightPlannerBase.instance.sethomeh(homealt, homelat, homelng);
         }
 
-        public void sethomeh(object homealt, object homelat, object homelng) {
+        public void sethomeh(object homealt, object homelat, object homelng)
+        {
             _flightPlanner.TXT_homealt.Text = homealt.ToString();
             _flightPlanner.TXT_homelat.Text = homelat.ToString();
-            _flightPlanner.TXT_homelng.Text = homelng.ToString(); 
+            _flightPlanner.TXT_homelng.Text = homelng.ToString();
         }
 
         public void setRallyPointToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           /* string altstring = _flightPlanner.TXT_DefaultAlt.Text;
+            /* string altstring = _flightPlanner.TXT_DefaultAlt.Text;
 
-            if (InputBox.Show("Altitude", "Altitude", ref altstring) == DialogResult.Cancel)
-                return;
+             if (InputBox.Show("Altitude", "Altitude", ref altstring) == DialogResult.Cancel)
+                 return;
 
-            int alt = 0;
+             int alt = 0;
 
-            if (int.TryParse(altstring, out alt))
-            {
-                PointLatLngAlt rallypt = new PointLatLngAlt(MouseDownStart.Lat, MouseDownStart.Lng,
-                    alt / CurrentState.multiplieralt, "Rally Point");
-                rallypointoverlay.Markers.Add(
-                    new GMapMarkerRallyPt(rallypt)
-                    {
-                        ToolTipMode = MarkerTooltipMode.OnMouseOver,
-                        ToolTipText = "Rally Point" + "\nAlt: " + alt,
-                        Tag = rallypointoverlay.Markers.Count,
-                        Alt = (int)rallypt.Alt
-                    }
-                );
-            }
-            else
-            {
-                CustomMessageBox.Show(Strings.InvalidAlt, Strings.ERROR);
-            }
+             if (int.TryParse(altstring, out alt))
+             {
+                 PointLatLngAlt rallypt = new PointLatLngAlt(MouseDownStart.Lat, MouseDownStart.Lng,
+                     alt / CurrentState.multiplieralt, "Rally Point");
+                 rallypointoverlay.Markers.Add(
+                     new GMapMarkerRallyPt(rallypt)
+                     {
+                         ToolTipMode = MarkerTooltipMode.OnMouseOver,
+                         ToolTipText = "Rally Point" + "\nAlt: " + alt,
+                         Tag = rallypointoverlay.Markers.Count,
+                         Alt = (int)rallypt.Alt
+                     }
+                 );
+             }
+             else
+             {
+                 CustomMessageBox.Show(Strings.InvalidAlt, Strings.ERROR);
+             }
 
-            isMouseClickOffMenu = false;*/
+             isMouseClickOffMenu = false;*/
         }
 
 
-   
+
 
 
         public void setReturnLocationToolStripMenuItem_Click(object sender, EventArgs e)
@@ -5839,7 +5844,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             geofenceoverlay.Markers.Clear();
             geofenceoverlay.Markers.Add(new GMarkerGoogle(new PointLatLng(MouseDownStart.Lat, MouseDownStart.Lng),
                     GMarkerGoogleType.red)
-                { ToolTipMode = MarkerTooltipMode.OnMouseOver, ToolTipText = "GeoFence Return" });
+            { ToolTipMode = MarkerTooltipMode.OnMouseOver, ToolTipText = "GeoFence Return" });
 
             _flightPlanner.MainMap.Invalidate();
         }
@@ -5920,7 +5925,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         }
 
-        public void lblInfo(string area) {
+        public void lblInfo(string area)
+        {
             _flightPlanner.LBLarea.Text = area;
 
         }
@@ -6233,7 +6239,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             cmdParamNames = readCMDXML();
 
-            if ((MAVLink.MAV_MISSION_TYPE) _flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.FENCE)
+            if ((MAVLink.MAV_MISSION_TYPE)_flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.FENCE)
             {
                 var fence = new[]
                 {
@@ -6255,7 +6261,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 cmdParamNames.Add(MAVLink.MAV_CMD.FENCE_CIRCLE_INCLUSION.ToString(), fence.ToArray());
 
             }
-            if ((MAVLink.MAV_MISSION_TYPE) _flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.RALLY)
+            if ((MAVLink.MAV_MISSION_TYPE)_flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.RALLY)
             {
                 var rally = new[]
                 {
@@ -6317,7 +6323,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             });
         }
 
-       private void updateMapType(object sender, System.Timers.ElapsedEventArgs e)
+        private void updateMapType(object sender, System.Timers.ElapsedEventArgs e)
         {
             log.Info("updateMapType invoke req? " + _flightPlanner.comboBoxMapType.InvokeRequired);
 
@@ -6381,33 +6387,33 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 return;
 
             // number rows 
-            _flightPlanner.BeginInvoke((MethodInvoker) delegate
-            {
+            _flightPlanner.BeginInvoke((MethodInvoker)delegate
+           {
                 // thread for updateing row numbers
                 for (int a = 0; a < _flightPlanner.Commands.Rows.Count - 0; a++)
-                {
-                    if (_flightPlanner.IsDisposed || _flightPlanner.Disposing)
-                        return;
-                    try
-                    {
-                        if (_flightPlanner.Commands.Rows[a].HeaderCell.Value == null)
-                        {
+               {
+                   if (_flightPlanner.IsDisposed || _flightPlanner.Disposing)
+                       return;
+                   try
+                   {
+                       if (_flightPlanner.Commands.Rows[a].HeaderCell.Value == null)
+                       {
                             //Commands.Rows[a].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
                             _flightPlanner.Commands.Rows[a].HeaderCell.Value = (a + 1).ToString();
-                        }
+                       }
                         // skip rows with the correct number
                         string rowno = _flightPlanner.Commands.Rows[a].HeaderCell.Value.ToString();
-                        if (!rowno.Equals((a + 1).ToString()))
-                        {
+                       if (!rowno.Equals((a + 1).ToString()))
+                       {
                             // this code is where the delay is when deleting.
                             _flightPlanner.Commands.Rows[a].HeaderCell.Value = (a + 1).ToString();
-                        }
-                    }
-                    catch (Exception)
-                    {
-                    }
-                }
-            });
+                       }
+                   }
+                   catch (Exception)
+                   {
+                   }
+               }
+           });
         }
 
         /// <summary>
@@ -6441,7 +6447,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             return serverUrl + "version=1.1.0&Request=GetCapabilities&service=WMS";
         }
 
-   
+
 
 
         private void groupmarkeradd(GMapMarker marker)
@@ -6465,7 +6471,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 _flightPlanner.MainMap.ZoomAndCenterMarkers(null);
             }
 
-            _flightPlanner.trackBar1.Value = (int) _flightPlanner.MainMap.Zoom;
+            _flightPlanner.trackBar1.Value = (int)_flightPlanner.MainMap.Zoom;
         }
         //var measure
         int i = 0;
@@ -6501,7 +6507,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     isMouseDraging = false;
                     if (currentMarker.IsVisible)
                     {
-                         currentMarker.Position = _flightPlanner.MainMap.FromLocalToLatLng(e.X, e.Y);
+                        currentMarker.Position = _flightPlanner.MainMap.FromLocalToLatLng(e.X, e.Y);
                         pointers++;
                     }
                 }
@@ -6510,7 +6516,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             //activa rally point en main map
             if (_flightPlanner.bloqRallyPoint)
             {
-                try { 
+                try
+                {
                     PointLatLngAlt rallypt = new PointLatLngAlt(MouseDownStart.Lat, MouseDownStart.Lng,
                         100 / CurrentState.multiplieralt, "Rally Point");
                     rallypointoverlay.Markers.Add(
@@ -6528,32 +6535,32 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     CustomMessageBox.Show(Strings.InvalidAlt, Strings.ERROR);
                 }
             }
-  
+
             // activa distancia en main map
-            if (_flightPlanner.distancia) {   
+            if (_flightPlanner.distancia)
+            {
                 if (i <= 2)
                 {
                     MouseDownStart = _flightPlanner.MainMap.FromLocalToLatLng(e.X, e.Y);
                     latlng.Add(MouseDownStart);
-                    GMapOverlay markersOverlay = new GMapOverlay("markers");
-                    GMarkerGoogle marker = new GMarkerGoogle(new PointLatLng(MouseDownStart.Lat, MouseDownStart.Lng),
+                    GMapOverlay markersOverlay2 = new GMapOverlay("markers");
+                    GMarkerGoogle marker2 = new GMarkerGoogle(new PointLatLng(MouseDownStart.Lat, MouseDownStart.Lng),
                     GMarkerGoogleType.green);
 
-                    MainMap.Overlays.Add(markersOverlay);
-                    markersOverlay.Markers.Add(marker);
-                    //GMapPolygon line = new GMapPolygon(latlng, "measure dist");
-                    //line.Stroke.Color = Color.Black;
-                    //polygonsoverlay.Polygons.Add(line);    
+                    MainMap.Overlays.Add(markersOverlay2);
+                    markersOverlay2.Markers.Add(marker2);
+                
                     i++;
                 }
-                if(i == 2){
+                if (i == 2)
+                {
                     try
                     {
                         measurecontext(latlng[0], latlng[1]);
                         MainMap._Overlays.Clear();
                         latlng.Clear();
-                        i = 0;
-                      
+                           i = 0;
+
                     }
                     catch
                     { }
@@ -6563,14 +6570,14 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             //activa set home
             if (_flightPlanner.btnsethome)
             {
-                
-     
+
+
                 PointLatLngAlt home = new PointLatLngAlt(MouseDownStart.Lat, MouseDownStart.Lng,
                       100 / CurrentState.multiplieralt, "Rally Point");
                 this.setHomeHeres(home);
-                    _flightPlanner.btnsethome = false;
-            
-             
+                _flightPlanner.btnsethome = false;
+
+
             }
         }
 
@@ -7258,7 +7265,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     iSelect++;
                 }
             }
-           
+
             //only select layer if there is one
             if (szListLayerName.Count != 0)
             {
