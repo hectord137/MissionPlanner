@@ -60,7 +60,6 @@ namespace MissionPlanner.GCSViews
             this.LBL_defalutalt = new System.Windows.Forms.Label();
             this.TXT_loiterrad = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.but_writewpfast = new MissionPlanner.Controls.MyButton();
             this.BUT_write = new MissionPlanner.Controls.MyButton();
             this.BUT_read = new MissionPlanner.Controls.MyButton();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
@@ -129,6 +128,7 @@ namespace MissionPlanner.GCSViews
             this.BUT_saveWPFile = new MissionPlanner.Controls.MyButton();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.myButton7 = new MissionPlanner.Controls.MyButton();
+            this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.cmb_missiontype = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
@@ -309,22 +309,6 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.label5, "label5");
             this.label5.Name = "label5";
             // 
-            // but_writewpfast
-            // 
-            this.but_writewpfast.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.but_writewpfast.BGGradBot = System.Drawing.SystemColors.ActiveBorder;
-            this.but_writewpfast.BGGradTop = System.Drawing.SystemColors.ButtonFace;
-            this.but_writewpfast.ColorMouseDown = System.Drawing.SystemColors.ButtonFace;
-            this.but_writewpfast.ColorMouseOver = System.Drawing.SystemColors.ButtonFace;
-            this.but_writewpfast.ColorNotEnabled = System.Drawing.SystemColors.ButtonFace;
-            this.but_writewpfast.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            resources.ApplyResources(this.but_writewpfast, "but_writewpfast");
-            this.but_writewpfast.Name = "but_writewpfast";
-            this.but_writewpfast.Outline = System.Drawing.SystemColors.ButtonShadow;
-            this.but_writewpfast.TextColor = System.Drawing.Color.Black;
-            this.but_writewpfast.UseVisualStyleBackColor = false;
-            this.but_writewpfast.Click += new System.EventHandler(this.but_writewpfast_Click);
-            // 
             // BUT_write
             // 
             this.BUT_write.BackColor = System.Drawing.SystemColors.ButtonFace;
@@ -390,6 +374,7 @@ namespace MissionPlanner.GCSViews
             this.coords1.Lng = 0D;
             this.coords1.Name = "coords1";
             this.coords1.Vertical = true;
+            this.coords1.Load += new System.EventHandler(this.coords1_Load);
             // 
             // lbl_status
             // 
@@ -945,8 +930,8 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.tableLayoutPanel3, "tableLayoutPanel3");
             this.tableLayoutPanel3.Controls.Add(this.myButton7, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.BUT_write, 1, 0);
-            this.tableLayoutPanel3.Controls.Add(this.but_writewpfast, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.BUT_read, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.button1, 1, 1);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel3_Paint);
             // 
@@ -964,6 +949,13 @@ namespace MissionPlanner.GCSViews
             this.myButton7.Outline = System.Drawing.SystemColors.ButtonShadow;
             this.myButton7.TextColor = System.Drawing.Color.Black;
             this.myButton7.UseVisualStyleBackColor = false;
+            // 
+            // button1
+            // 
+            resources.ApplyResources(this.button1, "button1");
+            this.button1.Name = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_3);
             // 
             // tableLayoutPanel4
             // 
@@ -1910,7 +1902,6 @@ namespace MissionPlanner.GCSViews
         public ToolStripMenuItem areaToolStripMenuItem;
         public ToolStripMenuItem setHomeHereToolStripMenuItem;
         public ToolStripMenuItem currentPositionToolStripMenuItem;
-        public MyButton but_writewpfast;
         public ComboBox cmb_missiontype;
         public ContextMenuStrip contextMenuStripPoly;
         public ToolStripMenuItem drawAPolygonToolStripMenuItem;
@@ -2015,5 +2006,6 @@ namespace MissionPlanner.GCSViews
         public MyButton BUt_sethome;
         private Label label7;
         private OpenFileDialog openFileDialog1;
+        private Button button1;
     }
 }

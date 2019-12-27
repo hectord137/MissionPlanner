@@ -238,7 +238,7 @@ namespace MissionPlanner.GCSViews
             _flightPlanner.TXT_loiterrad.Leave += new System.EventHandler(TXT_loiterrad_Leave);
 
 
-            _flightPlanner.but_writewpfast.Click += new System.EventHandler(but_writewpfast_Click); _flightPlanner.BUT_write.Click += new System.EventHandler(BUT_write_Click); _flightPlanner.BUT_read.Click += new System.EventHandler(BUT_read_Click);
+            /*_flightPlanner.but_writewpfast.Click += new System.EventHandler(but_writewpfast_Click);*/ _flightPlanner.BUT_write.Click += new System.EventHandler(BUT_write_Click); _flightPlanner.BUT_read.Click += new System.EventHandler(BUT_read_Click);
 
 
             _flightPlanner.TXT_homealt.TextChanged += new System.EventHandler(TXT_homealt_TextChanged);
@@ -6536,20 +6536,19 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 }
             }
 
+
+
             // activa distancia en main map
             if (_flightPlanner.distancia)
             {
                 if (i <= 2)
                 {
                     MouseDownStart = _flightPlanner.MainMap.FromLocalToLatLng(e.X, e.Y);
-                    latlng.Add(MouseDownStart);
-                    GMapOverlay markersOverlay2 = new GMapOverlay("markers");
-                    GMarkerGoogle marker2 = new GMarkerGoogle(new PointLatLng(MouseDownStart.Lat, MouseDownStart.Lng),
+                    latlng.Add(MouseDownStart);       
+                     marker2 = new GMarkerGoogle(new PointLatLng(MouseDownStart.Lat, MouseDownStart.Lng),
                     GMarkerGoogleType.green);
-
                     MainMap.Overlays.Add(markersOverlay2);
                     markersOverlay2.Markers.Add(marker2);
-                
                     i++;
                 }
                 if (i == 2)
@@ -6557,10 +6556,12 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     try
                     {
                         measurecontext(latlng[0], latlng[1]);
-                        MainMap._Overlays.Clear();
                         latlng.Clear();
-                           i = 0;
-
+                        MainMap.Overlays.Remove(markersOverlay2);
+                        MainMap._Overlays.Remove(markersOverlay2);
+                        markersOverlay2.Markers.Remove(marker2);
+                        markersOverlay2.Clear();
+                        i = 0;
                     }
                     catch
                     { }
@@ -6570,21 +6571,22 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             //activa set home
             if (_flightPlanner.btnsethome)
             {
-
-
                 PointLatLngAlt home = new PointLatLngAlt(MouseDownStart.Lat, MouseDownStart.Lng,
                       100 / CurrentState.multiplieralt, "Rally Point");
                 this.setHomeHeres(home);
                 _flightPlanner.btnsethome = false;
-
-
             }
         }
+
+        GMapOverlay markersOverlay2 = new GMapOverlay("markers");
+        GMarkerGoogle marker2;
 
         private void MainMap_MouseEnter(object sender, EventArgs e)
         {
             // MainMap.Focus();
         }
+
+  
 
         private void MainMap_MouseMove(object sender, MouseEventArgs e)
         {

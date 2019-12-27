@@ -9,6 +9,7 @@ using MissionPlanner.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -399,33 +400,14 @@ namespace MissionPlanner.GCSViews
         {
 
         }
-    
-  
-        
+
+
+
         private void but_writewpfast_Click(object sender, System.EventArgs e)
         {
 
-            OpenFileDialog dialog = new OpenFileDialog();
-            DialogResult result = dialog.ShowDialog();     
 
-            if (result == DialogResult.OK)
-            {
-                ReadGeotiff geotiff = new ReadGeotiff();
-                geotiff.getlonlatutm(dialog.FileName);
-                double Latitud = geotiff.latitud;
-                double Longitud = geotiff.longitud;
 
-                Image imagen = Image.FromFile(dialog.FileName);
-               
-
-                GMapOverlay markers = new GMapOverlay("markers");
-                GMapMarker marker = new GMarkerGoogle(
-                    new PointLatLng(Latitud, Longitud),
-                    new Bitmap(imagen));
-                MainMap.Overlays.Add(markers);
-                markers.Markers.Add(marker);
-            }
-           
         }
 
 
@@ -475,7 +457,7 @@ namespace MissionPlanner.GCSViews
                 double currentLat = startLat;
                 double currentLon = startLon;
                 object geodata = null;
-             
+
                 for (int i = 0; i < height; i++)
                 {
                     tiff.ReadScanline(scanline, i); //Loading ith Line            
@@ -484,7 +466,7 @@ namespace MissionPlanner.GCSViews
                     for (var j = 0; j < scanline.Length; j++)
                     {
                         var longitude = currentLon + (pixelSizeX * j);
-                        geodata= new[] { longitude, latitude};
+                        geodata = new[] { longitude, latitude };
                         object value = scanline[j];
 
                         //... process each data item
@@ -496,7 +478,7 @@ namespace MissionPlanner.GCSViews
         }
 
 
-    public bool btnsethome = false;
+        public bool btnsethome = false;
         private void BUt_sethome_Click(object sender, System.EventArgs e)
         {
             btnsethome = true;
@@ -523,8 +505,89 @@ namespace MissionPlanner.GCSViews
         {
 
         }
-
+        public double tracksroll {get; set;}
         private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            tracksroll = (double)trackBar1.Size.Width;
+
+            CustomMessageBox.Show(tracksroll.ToString()+ " map ");
+           
+        }
+
+        private void button1_Click_3(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            DialogResult result = dialog.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                ReadGeotiff geotiff = new ReadGeotiff();
+                geotiff.getlonlatutm(dialog.FileName);
+                double Latitud = geotiff.latitud;
+                double Longitud = geotiff.longitud;
+
+                Image imagen = Image.FromFile(dialog.FileName);
+                Image la_imagen = CambiarTamanoImagen(imagen, (Convert.ToInt32(panelMap.Size.Width.ToString())) - Convert.ToInt32(geotiff.scalex), (Convert.ToInt32(panelMap.Size.Width.ToString())) - Convert.ToInt32(geotiff.scaley));
+
+
+
+                GMapOverlay markers = new GMapOverlay("markers");
+                GMarkerGoogle imgtiff = new GMarkerGoogle(
+                    new PointLatLng(Latitud, Longitud),
+                    new Bitmap(la_imagen)
+                    );
+
+
+
+                MainMap.Overlays.Add(markers);
+                markers.Markers.Add(imgtiff);
+
+                MainMap.PerformLayout();
+
+
+            }
+
+        }
+
+        private void MainMap_MouseHover(object sender, System.EventArgs e)
+        {
+            // Update the mouse event label to indicate the MouseHover event occurred.
+           
+        }
+
+        public Image CambiarTamanoImagen(Image pImagen, int pAncho, int pAlto)
+        {
+            try
+            {
+                //creamos un bitmap con el nuevo tamaño
+                Bitmap vBitmap = new Bitmap(pAncho, pAlto);
+                //creamos un graphics tomando como base el nuevo Bitmap
+                using (Graphics vGraphics = Graphics.FromImage((Image)vBitmap))
+                {
+                    //especificamos el tipo de transformación, se escoge esta para no perder calidad.
+                    vGraphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    //Se dibuja la nueva imagen
+                    vGraphics.DrawImage(pImagen, 0, 0, pAncho, pAlto);
+                }
+                //retornamos la nueva imagen
+                return (Image)vBitmap;
+            }
+            catch (Exception ex) {
+                CustomMessageBox.Show(ex.ToString());
+                return null;
+            }
+            return null;
+        }
+
+        private void myGMAP1_Load(object sender, EventArgs e)
+        {
+            
+            this.BackColor = Color.FromArgb(0x00, 0xAA, 0x00, 0xFF);
+     
+
+        }
+
+        private void coords1_Load(object sender, EventArgs e)
         {
 
         }

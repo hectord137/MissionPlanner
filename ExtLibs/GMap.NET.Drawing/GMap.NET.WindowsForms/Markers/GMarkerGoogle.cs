@@ -236,7 +236,7 @@ namespace GMap.NET.WindowsForms.Markers
          //   g.FillPolygon(Brushes.Red, Arrow);
          //}
 
-         //if(!Bearing.HasValue)
+         if(!Bearing.HasValue)
          {
             g.DrawImage(Bitmap, LocalPosition.X, LocalPosition.Y, Size.Width, Size.Height);
          }

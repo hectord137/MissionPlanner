@@ -59,7 +59,7 @@ namespace MissionPlanner.Controls
 
                 if (HoldInvalidation)
                     return;
-
+                
                 lastx = e.X;
                 lasty = e.Y;
 
