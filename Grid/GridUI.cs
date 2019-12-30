@@ -588,7 +588,7 @@ namespace MissionPlanner.Grid
                     (Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), CMB_startfrom.Text), false,
                     (float)NUM_Lane_Dist.Value, (float)NUM_leadin.Value, MainV2.comPort.MAV.cs.HomeLocation);
             }
-
+           
             FlightPlannerBase.instance.MainMap.HoldInvalidation = true;
 
             routesOverlay.Routes.Clear();
@@ -873,19 +873,7 @@ namespace MissionPlanner.Grid
             //}
         }
 
-        public void addwp(int Lat, int Lng, int pointers)
-        {
-            if (pointers == 1)
-            {
-                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_RELAY, 1, 1, 0, 0, Lng, Lat, (int)(100), null);
-
-            }
-            else
-            {
-                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.WAYPOINT, 0, 0, 0, 0, Lng, Lat, (int)(100), null);
-            }
-        }
-
+ 
         string secondsToNice(double seconds)
         {
             if (seconds < 0)
@@ -1592,9 +1580,11 @@ namespace MissionPlanner.Grid
                     int i = 0;
                     //bool startedtrigdist = false;
                     PointLatLngAlt lastplla = PointLatLngAlt.Zero;
-                    foreach (var plla in grid)
-                    {
+                    var end = grid.Where(iquery => iquery.Tag == "S" || iquery.Tag == "E").Count();
 
+                    foreach (var plla in grid.Where(iquery => iquery.Tag == "S" || iquery.Tag=="E"))
+                    {
+                        
                         // skip before start point
                         if (i < wpstart)
                         {
@@ -1604,34 +1594,23 @@ namespace MissionPlanner.Grid
                         // skip after endpoint
                         if (i >= wpend)
                             break;
-                        if (i > wpstart)
+
+                        
+                        if (i == 1)
                         {
-
-
-                            if (i == 1)
-                            {
-                                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_RELAY, 1,
-                                        1, 0, 0, 0, 0, 0, gridobject);
-                            }
-                            if (i == wpend - 1)
-                            {
-                                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_RELAY, 1,
-                                        0, 0, 0, 0, 0, 0, gridobject);
-                            }
-
-
-
+                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_RELAY, 1,
+                                    1, 0, 0, 0, 0, 0, gridobject);
                         }
-                        else
-                        {
 
-
-                        }
-                        AddWP(plla.Lng, plla.Lat, plla.Alt, plla.Tag, gridobject);
+                        AddWP(plla.Lng, plla.Lat, plla.Alt, plla.Tag);
                         lastplla = plla;
+
                         ++i;
-                        if (i == wpend)
+
+                        if (i == end)
                         {
+                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_RELAY, 1,
+                                    0, 0, 0, 0, 0, 0, gridobject);
                             plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_HOME, 0,
                                     0, 0, 0, 0, 0, 0, gridobject);
                         }
