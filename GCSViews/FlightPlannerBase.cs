@@ -99,7 +99,7 @@ namespace MissionPlanner.GCSViews
         public bool polygongridmode;
         private MissionPlanner.Controls.Icon.Polygon polyicon = new MissionPlanner.Controls.Icon.Polygon();
         private ComponentResourceManager rm = new ComponentResourceManager(typeof(FlightPlanner));
-        private int selectedrow;
+        public int selectedrow;
         private bool sethome;
         private bool splinemode;
         private PointLatLng startmeasure;
@@ -698,24 +698,13 @@ namespace MissionPlanner.GCSViews
             double z, object tag = null)
         {
             selectedrow = _flightPlanner.Commands.Rows.Add();
-
-            //if (selectedrow == 1) {
-            FillCommand(this.selectedrow, cmd, p1, p2, p3, p4, x, y, z, tag);
-            //}else if (selectedrow == GridUI.instance.wpend - 1)
-            //    {
-            //        FillCommand(this.selectedrow, MAVLink.MAV_CMD.DO_SET_RELAY, p1, p2, p3, p4, x, y, z, tag);
-            //    }
-            //    else { 
-            //    FillCommand(this.selectedrow, MAVLink.MAV_CMD.WAYPOINT, p1, p2, p3, p4, x, y, z, tag);
-            //}
-
-
-
+            FillCommand(selectedrow, cmd, p1, p2, p3, p4, x, y, z, tag);
             writeKML();
-
             return selectedrow;
 
         }
+ 
+
 
         /// <summary>
         /// Used to create a new WP
@@ -724,8 +713,7 @@ namespace MissionPlanner.GCSViews
         /// <param name="lng"></param>
         /// <param name="alt"></param>
         /// 
-        public int y = 1;
-        public int x = 0;
+        public bool insertrelay = false;
         public void AddWPToMap(double lat, double lng, int alt)
         {
             if (polygongridmode)
@@ -740,48 +728,30 @@ namespace MissionPlanner.GCSViews
                 callMeDrag("H", lat, lng, alt);
                 return;
             }
-            // creating a WP
+            //// creating a WP
             selectedrow = _flightPlanner.Commands.Rows.Add();
-            //if ((MAVLink.MAV_MISSION_TYPE)_flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.RALLY)
-            //{
-            //    _flightPlanner.Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.RALLY_POINT.ToString();
-            //    ChangeColumnHeader(MAVLink.MAV_CMD.RALLY_POINT.ToString());
-            //}
-            //else if ((MAVLink.MAV_MISSION_TYPE)_flightPlanner.cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.FENCE)
-            //{
-            //    _flightPlanner.Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.FENCE_POLYGON_VERTEX_INCLUSION.ToString();
-            //    ChangeColumnHeader(MAVLink.MAV_CMD.FENCE_POLYGON_VERTEX_INCLUSION.ToString());
-            //}
-            //else if (splinemode)
-            //{
-            //    _flightPlanner.Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.SPLINE_WAYPOINT.ToString();
-            //    ChangeColumnHeader(MAVLink.MAV_CMD.SPLINE_WAYPOINT.ToString());
-            //}
-            //else
-            //{
 
-            //}
-            x++;
-            if (x == 2)
+        
+            if (!insertrelay)
             {
-                _flightPlanner.Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_SET_RELAY.ToString();
+                
+                _flightPlanner.Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
                 ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
-            }
-            else if (y == y - 1)
-            {
-                _flightPlanner.Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_SET_RELAY.ToString();
-                ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
+                setfromMap(lat, lng, alt);
+                AddCommand(MAVLink.MAV_CMD.DO_SET_RELAY, 1, 1, 0, 0, 0, 0, 0);
+                insertrelay = !insertrelay;
             }
             else
             {
                 _flightPlanner.Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
                 ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
+                setfromMap(lat, lng, alt);
             }
+            
 
 
-            setfromMap(lat, lng, alt);
 
-            y = y + 2;
+
         }
 
         /// <summary>
@@ -1206,6 +1176,7 @@ namespace MissionPlanner.GCSViews
                     var currentlist = GetCommandList();
                     // add history
                     history.Add(currentlist);
+                    
                 }
             }
             catch (Exception ex)
@@ -2034,7 +2005,8 @@ namespace MissionPlanner.GCSViews
             catch { }
 
             _flightPlanner.Commands.Rows.Clear();
-
+            rallypointoverlay.Markers.Clear();
+            history.Clear();
             selectedrow = 0;
             quickadd = false;
             writeKML();
@@ -3286,7 +3258,7 @@ namespace MissionPlanner.GCSViews
             }
         }
 
-        private void FillCommand(int rowIndex, MAVLink.MAV_CMD cmd, double p1, double p2, double p3, double p4, double x,
+        public void FillCommand(int rowIndex, MAVLink.MAV_CMD cmd, double p1, double p2, double p3, double p4, double x,
             double y, double z, object tag = null)
         {
             _flightPlanner.Commands.Rows[rowIndex].Cells[Command.Index].Value = cmd.ToString();
@@ -6533,6 +6505,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 catch
                 {
                     CustomMessageBox.Show(Strings.InvalidAlt, Strings.ERROR);
+                   
                 }
             }
 

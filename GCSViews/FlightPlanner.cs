@@ -110,21 +110,42 @@ namespace MissionPlanner.GCSViews
 
 
         public bool bloqWP = false;
+        int contador_delete = 0;
+        public bool Del_relay_home_last = false;
         public void BUT_insertWP_Click(object sender, System.EventArgs e)
         {
             if (bloqWP)
             {
+              
+                contador_delete = _flightPlannerBase.AddCommand(MAVLink.MAV_CMD.DO_SET_RELAY, 1, 0, 0, 0, 0, 0, 0);
+
                 bloqWP = false;
                 ButInsertPol.Enabled = true;
                 BUT_insertWP.BGGradBot = SystemColors.ActiveBorder;
                 ButDelwp.Enabled = true;
+
+                _flightPlannerBase.AddCommand(MAVLink.MAV_CMD.DO_SET_HOME, 0, 0, 0, 0, 0, 0, 0);
+
+                Del_relay_home_last = true;
+                BUT_write.Enabled = true;
+                myButton7.Enabled = true;
+
             }
             else
             {
+               
                 bloqWP = true;
                 ButInsertPol.Enabled = false;
                 BUT_insertWP.BGGradBot = Color.GreenYellow;
                 ButDelwp.Enabled = false;
+                if (Del_relay_home_last)
+                {
+                    this.Commands.Rows.RemoveAt(contador_delete);
+                    this.Commands.Rows.RemoveAt(contador_delete++);
+                   
+                }
+                BUT_write.Enabled = false;
+                myButton7.Enabled = false;
             }
         }
 
@@ -294,7 +315,9 @@ namespace MissionPlanner.GCSViews
         private void ButDelwp_Click(object sender, System.EventArgs e)
         {
             _flightPlannerBase.clearMissionToolStripMenuItem_Click(sender, e);
+            _flightPlannerBase.insertrelay = false;
             ButInsertPol.Enabled = true;
+            Del_relay_home_last = false;
 
         }
 
@@ -591,6 +614,8 @@ namespace MissionPlanner.GCSViews
         {
 
         }
+
+     
     }
 
     
