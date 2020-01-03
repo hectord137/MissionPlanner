@@ -537,38 +537,10 @@ namespace MissionPlanner.GCSViews
            
         }
 
-        private void button1_Click_3(object sender, EventArgs e)
+        private void button1_Click_3(object sender, EventArgs e, PaintEventArgs PE)
         {
-            OpenFileDialog dialog = new OpenFileDialog();
-            DialogResult result = dialog.ShowDialog();
-
-            if (result == DialogResult.OK)
-            {
-                ReadGeotiff geotiff = new ReadGeotiff();
-                geotiff.getlonlatutm(dialog.FileName);
-                double Latitud = geotiff.latitud;
-                double Longitud = geotiff.longitud;
-
-                Image imagen = Image.FromFile(dialog.FileName);
-                Image la_imagen = CambiarTamanoImagen(imagen, (Convert.ToInt32(panelMap.Size.Width.ToString())) - Convert.ToInt32(geotiff.scalex), (Convert.ToInt32(panelMap.Size.Width.ToString())) - Convert.ToInt32(geotiff.scaley));
-
-
-
-                GMapOverlay markers = new GMapOverlay("markers");
-                GMarkerGoogle imgtiff = new GMarkerGoogle(
-                    new PointLatLng(Latitud, Longitud),
-                    new Bitmap(la_imagen)
-                    );
-
-
-
-                MainMap.Overlays.Add(markers);
-                markers.Markers.Add(imgtiff);
-
-                MainMap.PerformLayout();
-
-
-            }
+           
+          
 
         }
 
@@ -578,30 +550,7 @@ namespace MissionPlanner.GCSViews
            
         }
 
-        public Image CambiarTamanoImagen(Image pImagen, int pAncho, int pAlto)
-        {
-            try
-            {
-                //creamos un bitmap con el nuevo tamaño
-                Bitmap vBitmap = new Bitmap(pAncho, pAlto);
-                //creamos un graphics tomando como base el nuevo Bitmap
-                using (Graphics vGraphics = Graphics.FromImage((Image)vBitmap))
-                {
-                    //especificamos el tipo de transformación, se escoge esta para no perder calidad.
-                    vGraphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                    //Se dibuja la nueva imagen
-                    vGraphics.DrawImage(pImagen, 0, 0, pAncho, pAlto);
-                }
-                //retornamos la nueva imagen
-                return (Image)vBitmap;
-            }
-            catch (Exception ex) {
-                CustomMessageBox.Show(ex.ToString());
-                return null;
-            }
-            return null;
-        }
-
+       
         private void myGMAP1_Load(object sender, EventArgs e)
         {
             
@@ -615,7 +564,15 @@ namespace MissionPlanner.GCSViews
 
         }
 
-     
+        private void button1_Paint(object sender, PaintEventArgs e, EventArgs ea)
+        {
+         ;
+        }
+
+        private void button1_Click_3(object sender, EventArgs e)
+        {
+            FlightPlannerBase.instance.loadimgtiff(sender, e);
+        }
     }
 
     

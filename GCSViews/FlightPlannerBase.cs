@@ -366,7 +366,7 @@ namespace MissionPlanner.GCSViews
             _flightPlanner.MainMap.MinZoom = 0;
             _flightPlanner.MainMap.MaxZoom = 24;
 
-            // draw this layer first
+            //draw this layer first
             kmlpolygonsoverlay = new GMapOverlay("kmlpolygons");
             _flightPlanner.MainMap.Overlays.Add(kmlpolygonsoverlay);
 
@@ -4485,6 +4485,75 @@ namespace MissionPlanner.GCSViews
 
             writeKML();
         }
+
+        public void loadimgtiff(object sender, EventArgs e)
+        {
+            
+            OpenFileDialog dialog = new OpenFileDialog();
+            DialogResult result = dialog.ShowDialog();
+
+
+            if (result == DialogResult.OK)
+            {
+                ReadGeotiff geotiff = new ReadGeotiff();
+                geotiff.getlonlatutm(dialog.FileName);
+                double Latitud = geotiff.latitud;
+                double Longitud = geotiff.longitud;
+
+                Image imagen = Image.FromFile(dialog.FileName);
+                Image la_imagen = CambiarTamanoImagen(imagen, (Convert.ToInt32(_flightPlanner.panelMap.Size.Width.ToString()) + 20) - Convert.ToInt32(geotiff.scalex), (Convert.ToInt32(_flightPlanner.panelMap.Size.Width.ToString()) + 20) - Convert.ToInt32(geotiff.scaley));
+
+                GMapImage image = new GMapImage();
+                image.Img = la_imagen; 
+
+                GMapOverlay markers = new GMapOverlay("markers");
+                GMarkerGoogle imgtiff = new GMarkerGoogle(
+                    new PointLatLng(Latitud, Longitud),
+                    new Bitmap(la_imagen)
+                    );
+              
+
+  
+
+
+                //MainMap.Overlays.Add(markers);
+                MainMap.Overlays.Insert(0, markers);
+                FlightData.instance.gMapControl1.Overlays.Insert(0, markers);
+                markers.Markers.Add(imgtiff);
+
+                //MainMap.PerformLayout();
+                //pe.Graphics.DrawImage(la_imagen, Convert.ToInt32(Latitud), Convert.ToInt32(Longitud));
+
+            }
+
+
+        }
+
+        public Image CambiarTamanoImagen(Image pImagen, int pAncho, int pAlto)
+        {
+            try
+            {
+                //creamos un bitmap con el nuevo tamaño
+                Bitmap vBitmap = new Bitmap(pAncho, pAlto);
+                //creamos un graphics tomando como base el nuevo Bitmap
+                using (Graphics vGraphics = Graphics.FromImage((Image)vBitmap))
+                {
+                    //especificamos el tipo de transformación, se escoge esta para no perder calidad.
+                    vGraphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    //Se dibuja la nueva imagen
+                    vGraphics.DrawImage(pImagen, 0, 0, pAncho, pAlto);
+                }
+                //retornamos la nueva imagen
+                return (Image)vBitmap;
+            }
+            catch (Exception ex)
+            {
+                CustomMessageBox.Show(ex.ToString());
+                return null;
+            }
+            return null;
+        }
+
 
         public void MainMap_Paint(object sender, PaintEventArgs e)
         {

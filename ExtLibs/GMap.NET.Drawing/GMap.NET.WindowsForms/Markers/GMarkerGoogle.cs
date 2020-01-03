@@ -199,6 +199,7 @@ namespace GMap.NET.WindowsForms.Markers
          this.Bitmap = Bitmap;
          Size = new System.Drawing.Size(Bitmap.Width, Bitmap.Height);
          Offset = new Point(-Size.Width / 2, -Size.Height);
+            
       }
 
       static readonly Dictionary<string, Image> iconCache = new Dictionary<string, Image>();

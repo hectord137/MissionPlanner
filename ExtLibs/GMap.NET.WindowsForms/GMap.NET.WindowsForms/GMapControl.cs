@@ -1672,11 +1672,12 @@ namespace GMap.NET.WindowsForms
 #endif
          foreach(GMapOverlay o in Overlays)
          {
-            if(o.IsVisibile)
-            {
-               o.OnRender(g);
+                if (o.IsVisibile)
+                {
+                    o.OnRender(g, false); //call without drawing the tooltips
+                }
+
             }
-         }
 
          // center in virtual spcace...
 #if DEBUG

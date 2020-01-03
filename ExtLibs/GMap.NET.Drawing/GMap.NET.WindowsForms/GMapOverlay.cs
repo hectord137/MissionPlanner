@@ -286,11 +286,11 @@ namespace GMap.NET.WindowsForms
       /// renders objects/routes/polygons
       /// </summary>
       /// <param name="g"></param>
-      public virtual void OnRender(IGraphics g)
+      public virtual void OnRender(IGraphics g, bool drawOnlyToolTips = false)
       {
          if(Control != null)
          {
-            if(Control.RoutesEnabled)
+            if(Control.RoutesEnabled & !drawOnlyToolTips)
             {
                foreach(GMapRoute r in Routes)
                {
@@ -301,7 +301,7 @@ namespace GMap.NET.WindowsForms
                }
             }
 
-             if (Control.PolygonsEnabled)
+             if (Control.PolygonsEnabled && !drawOnlyToolTips)
              {
                  var viewarea = Control.ViewArea;
                  viewarea.Inflate(1, 1);
@@ -329,21 +329,23 @@ namespace GMap.NET.WindowsForms
 
              if(Control.MarkersEnabled)
             {
-               // markers
-               foreach(GMapMarker m in Markers)
-               {
-                  //if(m.IsVisible && (m.DisableRegionCheck || Control.Core.currentRegion.Contains(m.LocalPosition.X, m.LocalPosition.Y)))
-                  if(m.IsVisible || m.DisableRegionCheck)
-                  {
-                     m.OnRender(g);
-                  }
-               }
-
+                    // markers
+                    if (!drawOnlyToolTips)
+                    {
+                        foreach (GMapMarker m in Markers)
+                        {
+                            //if(m.IsVisible && (m.DisableRegionCheck || Control.Core.currentRegion.Contains(m.LocalPosition.X, m.LocalPosition.Y)))
+                            if (m.IsVisible || m.DisableRegionCheck)
+                            {
+                                m.OnRender(g);
+                            }
+                        }
+                    }
                // tooltips above
                foreach(GMapMarker m in Markers)
                {
                   //if(m.ToolTip != null && m.IsVisible && Control.Core.currentRegion.Contains(m.LocalPosition.X, m.LocalPosition.Y))
-                  if(m.ToolTip != null && m.IsVisible)
+                  if(m.ToolTip != null && m.IsVisible && drawOnlyToolTips)
                   {
                      if(!string.IsNullOrEmpty(m.ToolTipText) && (m.ToolTipMode == MarkerTooltipMode.Always || (m.ToolTipMode == MarkerTooltipMode.OnMouseOver && m.IsMouseOver)))
                      {
