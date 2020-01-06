@@ -26,12 +26,13 @@ namespace MissionPlanner.GCSViews
         public FlightPlanner()
         {
             InitializeComponent();
-
+            //MainMap.MouseWheel += MainMap.MouseWheel;
             _flightPlannerBase = new FlightPlannerBase(this);
             modifyMain();
             PaneMenu.Visible = false;
             instance = this;
         }
+   
 
         public FlightPlannerBase FlightPlannerBase
         {
@@ -116,20 +117,24 @@ namespace MissionPlanner.GCSViews
         {
             if (bloqWP)
             {
-              
-                contador_delete = _flightPlannerBase.AddCommand(MAVLink.MAV_CMD.DO_SET_RELAY, 1, 0, 0, 0, 0, 0, 0);
-
                 bloqWP = false;
                 ButInsertPol.Enabled = true;
                 BUT_insertWP.BGGradBot = SystemColors.ActiveBorder;
                 ButDelwp.Enabled = true;
-
-                _flightPlannerBase.AddCommand(MAVLink.MAV_CMD.DO_SET_HOME, 0, 0, 0, 0, 0, 0, 0);
-
-                Del_relay_home_last = true;
                 BUT_write.Enabled = true;
                 myButton7.Enabled = true;
 
+                if (_flightPlannerBase.pointers != 0)
+                {
+                    contador_delete = _flightPlannerBase.AddCommand(MAVLink.MAV_CMD.DO_SET_RELAY, 1, 0, 0, 0, 0, 0, 0);
+                    _flightPlannerBase.AddCommand(MAVLink.MAV_CMD.RETURN_TO_LAUNCH, 0, 0, 0, 0, 0, 0, 0);
+                    _flightPlannerBase.pointers = 0;
+                    Del_relay_home_last = true;
+                }
+                else {
+                    Del_relay_home_last = false;
+                }
+              
             }
             else
             {
@@ -531,7 +536,7 @@ namespace MissionPlanner.GCSViews
         public double tracksroll {get; set;}
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            tracksroll = (double)trackBar1.Size.Width;
+            tracksroll = (double)trackBar1.Value;
 
             CustomMessageBox.Show(tracksroll.ToString()+ " map ");
            

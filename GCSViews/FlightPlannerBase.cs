@@ -4518,7 +4518,7 @@ namespace MissionPlanner.GCSViews
 
                 //MainMap.Overlays.Add(markers);
                 MainMap.Overlays.Insert(0, markers);
-                FlightData.instance.gMapControl1.Overlays.Insert(0, markers);
+                //FlightData.instance.gMapControl1.Overlays.Insert(0, markers);
                 markers.Markers.Add(imgtiff);
 
                 //MainMap.PerformLayout();
@@ -6519,7 +6519,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         List<PointLatLng> latlng = new List<PointLatLng>();
         // end measure
         //las variables on/of en flightplanner
-        int pointers = 0;
+       public int pointers = 0;
 
         private void MainMap_MouseDown(object sender, MouseEventArgs e)
         {
