@@ -1203,10 +1203,16 @@ namespace GMap.NET.Internals
          pxRes1000km = (int)(1000000.0 / rez); // 1000km
          pxRes5000km = (int)(5000000.0 / rez); // 5000km
       }
+        public double test(int zoom, int latitude) {
 
-      #region IDisposable Members
+            //double rez = Provider.Projection.GetGroundResolution(Zoom, Position.Lat);
+            // return rez;
+           var rex = Provider.Projection.GetGroundResolution(zoom, latitude);
+            return rex;
+        }
+        #region IDisposable Members
 
-      ~Core()
+        ~Core()
       {
          Dispose(false);
       }

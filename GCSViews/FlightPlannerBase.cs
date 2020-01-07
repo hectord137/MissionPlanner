@@ -216,8 +216,6 @@ namespace MissionPlanner.GCSViews
         {
             instance = this;
             _flightPlanner = flightPlanner;
-
-
             _flightPlanner.Commands.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(Commands_CellContentClick);
             _flightPlanner.Commands.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(Commands_CellEndEdit);
             _flightPlanner.Commands.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(Commands_DataError);
@@ -238,7 +236,9 @@ namespace MissionPlanner.GCSViews
             _flightPlanner.TXT_loiterrad.Leave += new System.EventHandler(TXT_loiterrad_Leave);
 
 
-            /*_flightPlanner.but_writewpfast.Click += new System.EventHandler(but_writewpfast_Click);*/ _flightPlanner.BUT_write.Click += new System.EventHandler(BUT_write_Click); _flightPlanner.BUT_read.Click += new System.EventHandler(BUT_read_Click);
+            /*_flightPlanner.but_writewpfast.Click += new System.EventHandler(but_writewpfast_Click);*/ 
+            _flightPlanner.BUT_write.Click += new System.EventHandler(BUT_write_Click);
+            _flightPlanner.BUT_read.Click += new System.EventHandler(BUT_read_Click);
 
 
             _flightPlanner.TXT_homealt.TextChanged += new System.EventHandler(TXT_homealt_TextChanged);
@@ -4488,48 +4488,90 @@ namespace MissionPlanner.GCSViews
 
         public void loadimgtiff(object sender, EventArgs e)
         {
-            
-            OpenFileDialog dialog = new OpenFileDialog();
-            DialogResult result = dialog.ShowDialog();
-
-
-            if (result == DialogResult.OK)
+            try
             {
+                var tuple = openImage();
+
+                GMap.NET.Internals.Core core = new GMap.NET.Internals.Core();
+
+                var x = core.test(Convert.ToInt32(_flightPlanner.tracksroll), 0);
+
+
+                tiff(tuple.Item1, tuple.Item2, Convert.ToInt32(x), Convert.ToInt32(x));
+            }
+            catch { }
+        }
+
+       
+        public void tiff(Image img, string ruta, int widht, int height) {
+            Image la_imagen = null;
                 ReadGeotiff geotiff = new ReadGeotiff();
-                geotiff.getlonlatutm(dialog.FileName);
+                geotiff.getlonlatutm(ruta);
                 double Latitud = geotiff.latitud;
                 double Longitud = geotiff.longitud;
+                int scalax = Convert.ToInt32(geotiff.scalex);
+                int scalay = Convert.ToInt32(geotiff.scaley);
 
-                Image imagen = Image.FromFile(dialog.FileName);
-                Image la_imagen = CambiarTamanoImagen(imagen, (Convert.ToInt32(_flightPlanner.panelMap.Size.Width.ToString()) + 20) - Convert.ToInt32(geotiff.scalex), (Convert.ToInt32(_flightPlanner.panelMap.Size.Width.ToString()) + 20) - Convert.ToInt32(geotiff.scaley));
-
-                GMapImage image = new GMapImage();
-                image.Img = la_imagen; 
+                if (widht > scalax) 
+            {
+                if (height > scalay)
+                {
+                    la_imagen = CambiarTamanoImagen(img, (widht / scalax), (height / scalay));
+                }
+                else 
+                {
+                    la_imagen = CambiarTamanoImagen(img, (widht / scalax), (scalay / height));
+                }
+            }
+            else 
+            {
+             
+                if (height > scalay)
+                {
+                    la_imagen = CambiarTamanoImagen(img, (widht / scalax), (height / scalay));
+                }
+                else
+                {
+                    la_imagen = CambiarTamanoImagen(img, (scalax / widht), (scalay / height));
+                }
+            }
+                
 
                 GMapOverlay markers = new GMapOverlay("markers");
                 GMarkerGoogle imgtiff = new GMarkerGoogle(
                     new PointLatLng(Latitud, Longitud),
                     new Bitmap(la_imagen)
                     );
-              
-
-  
-
 
                 //MainMap.Overlays.Add(markers);
                 MainMap.Overlays.Insert(0, markers);
-                //FlightData.instance.gMapControl1.Overlays.Insert(0, markers);
+              
                 markers.Markers.Add(imgtiff);
+            FlightData.instance.gMapControl1.Overlays.Insert(0, markers);
 
-                //MainMap.PerformLayout();
-                //pe.Graphics.DrawImage(la_imagen, Convert.ToInt32(Latitud), Convert.ToInt32(Longitud));
-
-            }
 
 
         }
+        public Image IMAGEpUBLIC;
+        public string rutas;
+        public Tuple<Image, string> openImage() {
 
-        public Image CambiarTamanoImagen(Image pImagen, int pAncho, int pAlto)
+            OpenFileDialog dialog = new OpenFileDialog();
+            DialogResult result = dialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                Image img = Image.FromFile(dialog.FileName);
+                IMAGEpUBLIC = img;
+                rutas = dialog.FileName;
+                return Tuple.Create(img, dialog.FileName);
+            }
+            return null;
+       }
+
+
+
+
+            public Image CambiarTamanoImagen(Image pImagen, int pAncho, int pAlto)
         {
             try
             {

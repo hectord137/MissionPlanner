@@ -301,7 +301,7 @@ namespace GMap.NET.WindowsForms
       /// <summary>
       /// show map scale info
       /// </summary>
-      public bool MapScaleInfoEnabled = false;
+      public bool MapScaleInfoEnabled = true;
 
       /// <summary>
       /// enables filling empty tiles using lower level images
@@ -563,9 +563,9 @@ namespace GMap.NET.WindowsForms
 
               if (GMaps.Instance.IsRunningOnMono)
               {
-                  // no imports to move pointer
-                  MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionWithoutCenter;
-              }
+                    // no imports to move pointer
+                    MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionWithoutCenter;
+                }
 
               Overlays.CollectionChanged += new NotifyCollectionChangedEventHandler(Overlays_CollectionChanged);
             }
@@ -1740,8 +1740,8 @@ namespace GMap.NET.WindowsForms
 
          #endregion
 
-         #region -- draw scale --
-#if !PocketPC
+         //#region -- draw scale --
+//#if !PocketPC
          if(MapScaleInfoEnabled)
          {
              var brush = new SolidBrush(ScalePen.Color);
@@ -1780,8 +1780,8 @@ namespace GMap.NET.WindowsForms
                 g.DrawString("100m", ScaleFont, brush, (int)(Core.pxRes100m * transform) + 9, 11);
             }
          }
-#endif
-         #endregion
+//#endif
+         //#endregion
       }
 
 #if !PocketPC
@@ -2411,20 +2411,24 @@ namespace GMap.NET.WindowsForms
 
          if(mouseIn && (!IsMouseOverMarker || IgnoreMarkerOnMouseWheel) && !Core.IsDragging)
          {
+                
             if(Core.mouseLastZoom.X != e.X && Core.mouseLastZoom.Y != e.Y)
             {
                if(MouseWheelZoomType == MouseWheelZoomType.MousePositionAndCenter)
                {
                   Core.position = FromLocalToLatLng(e.X, e.Y);
-               }
+                        Console.WriteLine(Core.position);
+                    }
                else if(MouseWheelZoomType == MouseWheelZoomType.ViewCenter)
                {
                   Core.position = FromLocalToLatLng((int)Width / 2, (int)Height / 2);
-               }
+                        Console.WriteLine(Core.position);
+                    }
                else if(MouseWheelZoomType == MouseWheelZoomType.MousePositionWithoutCenter)
                {
                   Core.position = FromLocalToLatLng(e.X, e.Y);
-               }
+                        Console.WriteLine(Core.position);
+                    }
 
                Core.mouseLastZoom.X = e.X;
                Core.mouseLastZoom.Y = e.Y;

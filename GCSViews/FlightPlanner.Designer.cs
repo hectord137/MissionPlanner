@@ -127,6 +127,7 @@ namespace MissionPlanner.GCSViews
             this.ButDelwp = new MissionPlanner.Controls.MyButton();
             this.BUT_saveWPFile = new MissionPlanner.Controls.MyButton();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.button3 = new System.Windows.Forms.Button();
             this.myButton7 = new MissionPlanner.Controls.MyButton();
             this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
@@ -928,12 +929,20 @@ namespace MissionPlanner.GCSViews
             // tableLayoutPanel3
             // 
             resources.ApplyResources(this.tableLayoutPanel3, "tableLayoutPanel3");
+            this.tableLayoutPanel3.Controls.Add(this.button3, 0, 2);
             this.tableLayoutPanel3.Controls.Add(this.myButton7, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.BUT_write, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.BUT_read, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.button1, 1, 1);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel3_Paint);
+            // 
+            // button3
+            // 
+            resources.ApplyResources(this.button3, "button3");
+            this.button3.Name = "button3";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // myButton7
             // 
@@ -2007,5 +2016,6 @@ namespace MissionPlanner.GCSViews
         private OpenFileDialog openFileDialog1;
         private Button button1;
         public ComboBox comboBoxMapType;
+        private Button button3;
     }
 }

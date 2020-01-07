@@ -31,8 +31,9 @@ namespace MissionPlanner.GCSViews
             modifyMain();
             PaneMenu.Visible = false;
             instance = this;
+            tracksroll = (double)trackBar1.Value;
         }
-   
+
 
         public FlightPlannerBase FlightPlannerBase
         {
@@ -134,11 +135,11 @@ namespace MissionPlanner.GCSViews
                 else {
                     Del_relay_home_last = false;
                 }
-              
+
             }
             else
             {
-               
+
                 bloqWP = true;
                 ButInsertPol.Enabled = false;
                 BUT_insertWP.BGGradBot = Color.GreenYellow;
@@ -147,7 +148,7 @@ namespace MissionPlanner.GCSViews
                 {
                     this.Commands.Rows.RemoveAt(contador_delete);
                     this.Commands.Rows.RemoveAt(contador_delete++);
-                   
+
                 }
                 BUT_write.Enabled = false;
                 myButton7.Enabled = false;
@@ -533,14 +534,48 @@ namespace MissionPlanner.GCSViews
         {
 
         }
-        public double tracksroll {get; set;}
+        public double tracksroll { get; set; }
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             tracksroll = (double)trackBar1.Value;
+            var tracksroll1 = Convert.ToInt32(tracksroll);
 
-            CustomMessageBox.Show(tracksroll.ToString()+ " map ");
+         
+            int widht = Convert.ToInt32(this.panelMap.ClientSize.Width.ToString());
+            int height = Convert.ToInt32(this.panelMap.ClientSize.Height.ToString());
+
+            if (_flightPlannerBase.IMAGEpUBLIC != null) {
+                _flightPlannerBase.tiff(_flightPlannerBase.IMAGEpUBLIC, _flightPlannerBase.rutas, widht - tracksroll1 , height - tracksroll1 );
+            }
+
            
         }
+
+        public Image CambiarTamano(Image pImagen, int pAncho, int pAlto)
+        {
+            try
+            {
+                //creamos un bitmap con el nuevo tamaño
+                Bitmap vBitmap = new Bitmap(pAncho, pAlto);
+                //creamos un graphics tomando como base el nuevo Bitmap
+                using (Graphics vGraphics = Graphics.FromImage((Image)vBitmap))
+                {
+                    //especificamos el tipo de transformación, se escoge esta para no perder calidad.
+                    vGraphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    //Se dibuja la nueva imagen
+                    vGraphics.DrawImage(pImagen, 0, 0, pAncho, pAlto);
+                }
+                //retornamos la nueva imagen
+                return (Image)vBitmap;
+            }
+            catch (Exception ex)
+            {
+                CustomMessageBox.Show(ex.ToString());
+                return null;
+            }
+            return null;
+        }
+
 
         private void button1_Click_3(object sender, EventArgs e, PaintEventArgs PE)
         {
@@ -577,6 +612,16 @@ namespace MissionPlanner.GCSViews
         private void button1_Click_3(object sender, EventArgs e)
         {
             FlightPlannerBase.instance.loadimgtiff(sender, e);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+          
+            GMap.NET.Internals.Core core = new GMap.NET.Internals.Core();
+     
+            var x = core.test(Convert.ToInt32(this.tracksroll), 0);
+            CustomMessageBox.Show(x.ToString());
+            MainMap.Overlays.Clear();
         }
     }
 
