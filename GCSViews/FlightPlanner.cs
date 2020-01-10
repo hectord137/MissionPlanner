@@ -534,21 +534,14 @@ namespace MissionPlanner.GCSViews
         {
 
         }
-        public double tracksroll { get; set; }
+        public double tracksroll {get; set; }
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             tracksroll = (double)trackBar1.Value;
-            var tracksroll1 = Convert.ToInt32(tracksroll);
 
-         
-            int widht = Convert.ToInt32(this.panelMap.ClientSize.Width.ToString());
-            int height = Convert.ToInt32(this.panelMap.ClientSize.Height.ToString());
-
-            if (_flightPlannerBase.IMAGEpUBLIC != null) {
-                _flightPlannerBase.tiff(_flightPlannerBase.IMAGEpUBLIC, _flightPlannerBase.rutas, widht - tracksroll1 , height - tracksroll1 );
+            if (_flightPlannerBase.ruta_imagen != null) {
+                _flightPlannerBase.tiff( _flightPlannerBase.ruta_imagen);
             }
-
-           
         }
 
         public Image CambiarTamano(Image pImagen, int pAncho, int pAlto)
@@ -612,15 +605,12 @@ namespace MissionPlanner.GCSViews
         private void button1_Click_3(object sender, EventArgs e)
         {
             FlightPlannerBase.instance.loadimgtiff(sender, e);
+
+         
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-          
-            GMap.NET.Internals.Core core = new GMap.NET.Internals.Core();
-     
-            var x = core.test(Convert.ToInt32(this.tracksroll), 0);
-            CustomMessageBox.Show(x.ToString());
             MainMap.Overlays.Clear();
         }
     }

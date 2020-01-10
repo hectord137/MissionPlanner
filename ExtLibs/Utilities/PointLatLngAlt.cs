@@ -173,7 +173,7 @@ namespace MissionPlanner.Utilities
 
         public static PointLatLngAlt FromUTM(int zone,double x, double y)
         {
-            GeoUtility.GeoSystem.UTM utm = new GeoUtility.GeoSystem.UTM(Math.Abs(zone), x, y, zone < 0 ? GeoUtility.GeoSystem.Base.Geocentric.Hemisphere.South : GeoUtility.GeoSystem.Base.Geocentric.Hemisphere.North);
+            GeoUtility.GeoSystem.UTM utm = new GeoUtility.GeoSystem.UTM(Math.Abs(zone), x, y, GeoUtility.GeoSystem.Base.Geocentric.Hemisphere.South);
 
             PointLatLngAlt ans = ((GeoUtility.GeoSystem.Geographic)utm);
 

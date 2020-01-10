@@ -198,7 +198,7 @@ namespace GMap.NET.WindowsForms.Markers
       {
          this.Bitmap = Bitmap;
          Size = new System.Drawing.Size(Bitmap.Width, Bitmap.Height);
-         Offset = new Point(-Size.Width / 2, -Size.Height);
+         Offset = new Point(-Size.Width / 2, -Size.Height / 2);
             
       }
 

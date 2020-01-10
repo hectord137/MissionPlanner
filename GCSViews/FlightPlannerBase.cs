@@ -9,6 +9,7 @@ using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
+using ImageMagick;
 using Ionic.Zip;
 using log4net;
 using MissionPlanner.ArduPilot;
@@ -44,6 +45,7 @@ using Feature = SharpKml.Dom.Feature;
 using ILog = log4net.ILog;
 using Placemark = SharpKml.Dom.Placemark;
 using Point = System.Drawing.Point;
+
 
 namespace MissionPlanner.GCSViews
 {
@@ -4485,116 +4487,191 @@ namespace MissionPlanner.GCSViews
 
             writeKML();
         }
-
+        Thread sub;
         public void loadimgtiff(object sender, EventArgs e)
         {
-            try
-            {
-                var tuple = openImage();
-
-                GMap.NET.Internals.Core core = new GMap.NET.Internals.Core();
-
-                var x = core.test(Convert.ToInt32(_flightPlanner.tracksroll), 0);
+      
+            
+            
 
 
-                tiff(tuple.Item1, tuple.Item2, Convert.ToInt32(x), Convert.ToInt32(x));
-            }
-            catch { }
+            //abre imagen y extrae imagen y ruta
+            string ruta = openImage();
+            _flightPlanner.button1.Enabled = false;
+            _flightPlanner.pictureBox2.Visible = true;
+
+            ThreadStart trd = new ThreadStart(() => tiff(ruta)) ;
+            sub = new Thread(trd);
+            sub.IsBackground = false;
+            sub.Start();
+
+          
+
+        
+
+
+
+
+
+
         }
 
-       
-        public void tiff(Image img, string ruta, int widht, int height) {
-            Image la_imagen = null;
-                ReadGeotiff geotiff = new ReadGeotiff();
+ 
+        public void tiff(string ruta) {
+
+            
+         
+
+            //extrae latitud, longitud, scala x e y segun ruta
+            ReadGeotiff geotiff = new ReadGeotiff();
                 geotiff.getlonlatutm(ruta);
+
                 double Latitud = geotiff.latitud;
                 double Longitud = geotiff.longitud;
-                int scalax = Convert.ToInt32(geotiff.scalex);
-                int scalay = Convert.ToInt32(geotiff.scaley);
+                double scalax = geotiff.scalex;
+                double scalay = geotiff.scaley;
 
-                if (widht > scalax) 
+                //Factor e escala segun zoom
+                GMap.NET.Internals.Core core = new GMap.NET.Internals.Core();
+                double factor_escala = core.Get_scale(Convert.ToInt32(_flightPlanner.tracksroll), Latitud);
+
+        
+
+            if (factor_escala > scalax)
             {
-                if (height > scalay)
+                if (factor_escala > scalay)
                 {
-                    la_imagen = CambiarTamanoImagen(img, (widht / scalax), (height / scalay));
-                }
-                else 
-                {
-                    la_imagen = CambiarTamanoImagen(img, (widht / scalax), (scalay / height));
-                }
-            }
-            else 
-            {
-             
-                if (height > scalay)
-                {
-                    la_imagen = CambiarTamanoImagen(img, (widht / scalax), (height / scalay));
+                    var image = resize(ruta, Convert.ToInt32(factor_escala / scalax), Convert.ToInt32(scalay / factor_escala));
+                    imageToMap(Latitud, Longitud, image/*, Convert.ToInt32(factor_escala / scalax), Convert.ToInt32(factor_escala / scalay)*/);
                 }
                 else
                 {
-                    la_imagen = CambiarTamanoImagen(img, (scalax / widht), (scalay / height));
+                    var image = resize(ruta, Convert.ToInt32(factor_escala / scalax), Convert.ToInt32(scalay / factor_escala));
+                    imageToMap(Latitud, Longitud, image/*, Convert.ToInt32(factor_escala / scalax), Convert.ToInt32(factor_escala / scalay)*/);
                 }
             }
-                
+            else
+            {
+                if (factor_escala > scalay)
+                {
+                    var image = resize(ruta, Convert.ToInt32(factor_escala / scalax), Convert.ToInt32(factor_escala / scalay));
+                    imageToMap(Latitud, Longitud, image/*, Convert.ToInt32(factor_escala / scalax), Convert.ToInt32(factor_escala / scalay)*/);
+                }
+                else
+                {
+                    var image = resize(ruta, Convert.ToInt32(scalax / factor_escala), Convert.ToInt32(scalay / factor_escala));
+                    imageToMap(Latitud, Longitud, image);
+                }
+            }
 
-                GMapOverlay markers = new GMapOverlay("markers");
-                GMarkerGoogle imgtiff = new GMarkerGoogle(
-                    new PointLatLng(Latitud, Longitud),
-                    new Bitmap(la_imagen)
-                    );
 
-                //MainMap.Overlays.Add(markers);
-                MainMap.Overlays.Insert(0, markers);
-              
-                markers.Markers.Add(imgtiff);
-            FlightData.instance.gMapControl1.Overlays.Insert(0, markers);
+
 
 
 
         }
-        public Image IMAGEpUBLIC;
-        public string rutas;
-        public Tuple<Image, string> openImage() {
 
+        private void imageToMap(double Lat, double lng, Image Tiff ) {
+           
+
+            GMapOverlay markers = new GMapOverlay("markers");
+            GMarkerGoogle imgtiff = new GMarkerGoogle(
+                new PointLatLng(Lat, lng),
+                new Bitmap(Tiff)
+                );
+
+            //Size s = imgtiff.Size;
+            //s.Width *= Width;
+            //s.Height *= height;
+            //imgtiff.Size = s;
+
+
+
+            //MainMap.Overlays.Add(markers);
+            MainMap.Overlays.Insert(0, markers);
+            markers.Markers.Add(imgtiff);
+
+            //FlightData.instance.gMapControl1.Overlays.Insert(0, markers);
+
+            if (sub.IsAlive)
+            {
+                Control.CheckForIllegalCrossThreadCalls = false;
+
+                _flightPlanner.pictureBox2.Visible = false;
+                _flightPlanner.button1.Enabled = true;
+            }
+
+
+
+        }
+
+        public string ruta_imagen;
+        public string openImage() {
             OpenFileDialog dialog = new OpenFileDialog();
             DialogResult result = dialog.ShowDialog();
             if (result == DialogResult.OK)
             {
-                Image img = Image.FromFile(dialog.FileName);
-                IMAGEpUBLIC = img;
-                rutas = dialog.FileName;
-                return Tuple.Create(img, dialog.FileName);
+                return  dialog.FileName;
             }
             return null;
-       }
 
-
-
-
-            public Image CambiarTamanoImagen(Image pImagen, int pAncho, int pAlto)
-        {
-            try
-            {
-                //creamos un bitmap con el nuevo tamaño
-                Bitmap vBitmap = new Bitmap(pAncho, pAlto);
-                //creamos un graphics tomando como base el nuevo Bitmap
-                using (Graphics vGraphics = Graphics.FromImage((Image)vBitmap))
-                {
-                    //especificamos el tipo de transformación, se escoge esta para no perder calidad.
-                    vGraphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                    //Se dibuja la nueva imagen
-                    vGraphics.DrawImage(pImagen, 0, 0, pAncho, pAlto);
-                }
-                //retornamos la nueva imagen
-                return (Image)vBitmap;
-            }
-            catch (Exception ex)
-            {
-                CustomMessageBox.Show(ex.ToString());
-                return null;
-            }
-            return null;
+         
         }
+
+
+        
+
+        //    public Image CambiarTamanoImagen(string pImagen, int pAncho, int pAlto)
+        //    {
+
+        //    var image = resize(pImagen, pAncho, pAlto);
+
+        //    return image;
+
+        //    try
+        //    {
+        //        //creamos un bitmap con el nuevo tamaño
+        //        Bitmap vBitmap = new Bitmap(pAncho, pAlto);
+        //        //creamos un graphics tomando como base el nuevo Bitmap
+        //        using (Graphics vGraphics = Graphics.FromImage((Image)vBitmap))
+        //        {
+        //            //especificamos el tipo de transformación, se escoge esta para no perder calidad.
+        //            vGraphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+        //            //Se dibuja la nueva imagen
+        //            vGraphics.DrawImage(pImagen, 0, 0, pAncho, pAlto);
+        //        }
+        //        //retornamos la nueva imagen
+        //        return (Image)vBitmap;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        CustomMessageBox.Show(ex.ToString());
+        //        return null;
+        //    }
+        //    return null;
+        //}
+
+
+
+        public Bitmap resize(string imagen, int pAncho, int pAlto) {
+
+         
+                using (MagickImage image = new MagickImage(imagen))
+                {
+                    MagickGeometry size = new MagickGeometry(pAncho, pAlto);
+                // This will resize the image to a fixed size without maintaining the aspect ratio.
+                // Normally an image will be resized to fit inside the specified size.
+                size.IgnoreAspectRatio = true;
+                image.Resize(size);
+                image.ColorFuzz = new Percentage(10);
+                // -transparent white
+                image.Transparent(MagickColors.White);
+                return image.ToBitmap();
+            }
+        }
+
+  
+
 
 
         public void MainMap_Paint(object sender, PaintEventArgs e)

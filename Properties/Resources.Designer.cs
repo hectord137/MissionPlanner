@@ -1047,6 +1047,16 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap load {
+            get {
+                object obj = ResourceManager.GetObject("load", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap logo {
             get {
                 object obj = ResourceManager.GetObject("logo", resourceCulture);
@@ -1765,6 +1775,16 @@ namespace MissionPlanner.Properties {
         internal static System.Drawing.Bitmap y6b {
             get {
                 object obj = ResourceManager.GetObject("y6b", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ZKZg {
+            get {
+                object obj = ResourceManager.GetObject("ZKZg", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
