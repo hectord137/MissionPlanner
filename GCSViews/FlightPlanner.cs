@@ -538,10 +538,6 @@ namespace MissionPlanner.GCSViews
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             tracksroll = (double)trackBar1.Value;
-
-            if (_flightPlannerBase.ruta_imagen != null) {
-                _flightPlannerBase.tiff( _flightPlannerBase.ruta_imagen);
-            }
         }
 
         public Image CambiarTamano(Image pImagen, int pAncho, int pAlto)
@@ -605,19 +601,40 @@ namespace MissionPlanner.GCSViews
         private void button1_Click_3(object sender, EventArgs e)
         {
             FlightPlannerBase.instance.loadimgtiff(sender, e);
+            button3.Visible = true;
 
-         
+
+
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             MainMap.Overlays.Clear();
+            try
+            {
+                System.IO.File.Delete(@"C:\IMGtmp.tiff");
+                button3.Visible = false;
+                _flightPlannerBase.Kill_Em_all();
+            }
+            catch (System.IO.IOException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return;
+            }
+
         }
+
+        private void FlightPlanner_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _flightPlannerBase.Kill_Em_all();
+        }
+
+      
     }
 
-    
 
-    }
+
+}
 
 
 

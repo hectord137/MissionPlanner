@@ -18,7 +18,7 @@ namespace MissionPlanner.Controls
             : base()
         {
             this.Text = "Map";
-            IgnoreMarkerOnMouseWheel = true;
+            IgnoreMarkerOnMouseWheel = false;
         }
 
         protected override void OnPaint(System.Windows.Forms.PaintEventArgs e)

@@ -469,7 +469,12 @@ namespace MissionPlanner.GCSViews
 
             timer.Start();
             */
+          
+            var dd = (int)_flightPlanner.MainMap.Zoom;
+            CustomMessageBox.Show(dd.ToString());
+         
         }
+        public int zoom_ini;
 
         public List<PointLatLngAlt> pointlist { get; set; } = new List<PointLatLngAlt>();
 
@@ -4487,93 +4492,170 @@ namespace MissionPlanner.GCSViews
 
             writeKML();
         }
+
+      
+
         Thread sub;
         public void loadimgtiff(object sender, EventArgs e)
         {
-      
-            
-            
-
-
             //abre imagen y extrae imagen y ruta
             string ruta = openImage();
-            _flightPlanner.button1.Enabled = false;
-            _flightPlanner.pictureBox2.Visible = true;
+            if (ruta != null)
+            {
+                _flightPlanner.button1.Enabled = false;
+                _flightPlanner.pictureBox2.Visible = true;
 
-            ThreadStart trd = new ThreadStart(() => tiff(ruta)) ;
-            sub = new Thread(trd);
-            sub.IsBackground = false;
-            sub.Start();
-
-          
-
-        
-
-
-
-
-
-
+                ThreadStart trd = new ThreadStart(() => tiff(ruta));
+                sub = new Thread(trd);
+                sub.IsBackground = false;
+                sub.Start();
+            }
         }
 
- 
+        public Bitmap image;
+        public double Latitud;
+        public double Longitud;
+        public double scalax;
+        public double scalay;
         public void tiff(string ruta) {
-
-            
-         
-
             //extrae latitud, longitud, scala x e y segun ruta
             ReadGeotiff geotiff = new ReadGeotiff();
                 geotiff.getlonlatutm(ruta);
 
-                double Latitud = geotiff.latitud;
-                double Longitud = geotiff.longitud;
-                double scalax = geotiff.scalex;
-                double scalay = geotiff.scaley;
+                 Latitud = geotiff.latitud;
+                 Longitud = geotiff.longitud;
+                 scalax = geotiff.scalex;
+                 scalay = geotiff.scaley;
 
                 //Factor e escala segun zoom
                 GMap.NET.Internals.Core core = new GMap.NET.Internals.Core();
-                double factor_escala = core.Get_scale(Convert.ToInt32(_flightPlanner.tracksroll), Latitud);
+               double  factor_escala = core.Get_scale(Convert.ToInt32(3), Latitud);
 
-        
+            image = resize(ruta, 2290, 2604);
+            string destino = @"C:\IMGtmp.tiff";
+            image.Save(destino);
 
             if (factor_escala > scalax)
             {
                 if (factor_escala > scalay)
                 {
-                    var image = resize(ruta, Convert.ToInt32(factor_escala / scalax), Convert.ToInt32(scalay / factor_escala));
-                    imageToMap(Latitud, Longitud, image/*, Convert.ToInt32(factor_escala / scalax), Convert.ToInt32(factor_escala / scalay)*/);
+                    int widht = Convert.ToInt32(factor_escala / scalax);
+                    int height = Convert.ToInt32(scalay / factor_escala);
+                    image = resize(@"C:\IMGtmp.tiff", widht, height);
+                    imageToMap(Latitud, Longitud, image, widht, height);
                 }
                 else
                 {
-                    var image = resize(ruta, Convert.ToInt32(factor_escala / scalax), Convert.ToInt32(scalay / factor_escala));
-                    imageToMap(Latitud, Longitud, image/*, Convert.ToInt32(factor_escala / scalax), Convert.ToInt32(factor_escala / scalay)*/);
+                    int widht = Convert.ToInt32(factor_escala / scalax);
+                    int height = Convert.ToInt32(scalay / factor_escala);
+                    image = resize(@"C:\IMGtmp.tiff", widht, height);
+                    imageToMap(Latitud, Longitud, image, widht, height);
                 }
             }
             else
             {
                 if (factor_escala > scalay)
                 {
-                    var image = resize(ruta, Convert.ToInt32(factor_escala / scalax), Convert.ToInt32(factor_escala / scalay));
-                    imageToMap(Latitud, Longitud, image/*, Convert.ToInt32(factor_escala / scalax), Convert.ToInt32(factor_escala / scalay)*/);
+                    int widht = Convert.ToInt32(factor_escala / scalax);
+                    int height = Convert.ToInt32(factor_escala / scalay);
+                    image = resize(@"C:\IMGtmp.tiff", widht, height);
+                    imageToMap(Latitud, Longitud, image, widht, height);
                 }
                 else
                 {
-                    var image = resize(ruta, Convert.ToInt32(scalax / factor_escala), Convert.ToInt32(scalay / factor_escala));
-                    imageToMap(Latitud, Longitud, image);
+                    int widht = Convert.ToInt32(scalax / factor_escala);
+                    int height = Convert.ToInt32(scalay / factor_escala);
+                    image = resize(@"C:\IMGtmp.tiff", widht, height);
+                    imageToMap(Latitud, Longitud, image, widht, height);
                 }
             }
+        }
 
-
-
-
-
+        public void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            try
+            {
+                lock (thisLock)
+                {
+                    _flightPlanner.MainMap.Zoom = _flightPlanner.trackBar1.Value;
+                    the_magic(Convert.ToInt32(_flightPlanner.trackBar1.Value));
+                   
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
 
         }
 
-        private void imageToMap(double Lat, double lng, Image Tiff ) {
-           
+        private void the_magic(int zoom) {
 
+            if (image != null)
+            {
+                GMap.NET.Internals.Core core = new GMap.NET.Internals.Core();
+                double factor_escala_zoom = core.Get_scale(Convert.ToInt32(zoom), Latitud);
+
+                if (factor_escala_zoom > scalax)
+                {
+                    if (factor_escala_zoom > scalay)
+                    {
+                        int widht = Convert.ToInt32(factor_escala_zoom / scalax);
+                        int height = Convert.ToInt32(scalay / factor_escala_zoom);
+                        image = resize(@"C:\IMGtmp.tiff", widht, height);
+                        imageToMap(Latitud, Longitud, image, widht, height);
+                    }
+                    else
+                    {
+                        int widht = Convert.ToInt32(factor_escala_zoom / scalax);
+                        int height = Convert.ToInt32(scalay / factor_escala_zoom);
+                        image = resize(@"C:\IMGtmp.tiff", widht, height);
+                        imageToMap(Latitud, Longitud, image, widht, height);
+                    }
+                }
+                else
+                {
+                    if (factor_escala_zoom > scalay)
+                    {
+                        int widht = Convert.ToInt32(factor_escala_zoom / scalax);
+                        int height = Convert.ToInt32(factor_escala_zoom / scalay);
+                        image = resize(@"C:\IMGtmp.tiff", widht, height);
+                        imageToMap(Latitud, Longitud, image, widht, height);
+                    }
+                    else
+                    {
+                        int widht = Convert.ToInt32(scalax / factor_escala_zoom);
+                        int height = Convert.ToInt32(scalay / factor_escala_zoom);
+                        image = resize(@"C:\IMGtmp.tiff", widht, height);
+                        imageToMap(Latitud, Longitud, image, widht, height);
+                    }
+                }
+            }
+        }
+
+        private void MainMap_OnMapZoomChanged()
+        {
+            if (_flightPlanner.MainMap.Zoom > 0)
+            {
+                try
+                {
+                    var x = _flightPlanner.trackBar1.Value = (int)(_flightPlanner.MainMap.Zoom);
+                    _flightPlanner.MainMap.Zoom = _flightPlanner.trackBar1.Value;
+
+                    the_magic(Convert.ToInt32(x));
+                }
+                catch (Exception ex)
+                {
+                    log.Error(ex);
+                }
+                //textBoxZoomCurrent.Text = MainMap.Zoom.ToString();
+                center.Position = _flightPlanner.MainMap.Position;
+            }
+        }
+
+        private void imageToMap(double Lat, double lng, Image Tiff, int widht, int height ) {
+
+            MainMap.Overlays.Clear();
             GMapOverlay markers = new GMapOverlay("markers");
             GMarkerGoogle imgtiff = new GMarkerGoogle(
                 new PointLatLng(Lat, lng),
@@ -4581,8 +4663,8 @@ namespace MissionPlanner.GCSViews
                 );
 
             //Size s = imgtiff.Size;
-            //s.Width *= Width;
-            //s.Height *= height;
+            //s.Width = widht;
+            //s.Height = height;
             //imgtiff.Size = s;
 
 
@@ -4605,17 +4687,42 @@ namespace MissionPlanner.GCSViews
 
         }
 
+        public void Kill_Em_all()
+        {
+            try
+            {
+                System.IO.File.Delete(@"C:\IMGtmp.tiff");
+            }
+            catch (System.IO.IOException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return;
+            }
+            if (sub.IsAlive)
+            {
+                Control.CheckForIllegalCrossThreadCalls = false;
+                sub.Interrupt();
+                _flightPlanner.pictureBox2.Visible = false;
+                _flightPlanner.button1.Enabled = true;
+            }
+        }
+
         public string ruta_imagen;
         public string openImage() {
-            OpenFileDialog dialog = new OpenFileDialog();
-            DialogResult result = dialog.ShowDialog();
-            if (result == DialogResult.OK)
+            try
             {
-                return  dialog.FileName;
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = "(*.tif)|*.tif";
+                DialogResult result = dialog.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    return dialog.FileName;
+                }
+               
             }
+            catch { }
             return null;
 
-         
         }
 
 
@@ -6246,20 +6353,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
         }
 
-        public void trackBar1_Scroll(object sender, EventArgs e)
-        {
-            try
-            {
-                lock (thisLock)
-                {
-                    _flightPlanner.MainMap.Zoom = _flightPlanner.trackBar1.Value;
-                }
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex);
-            }
-        }
+      
 
         private void trackBar1_ValueChanged(object sender, EventArgs e)
         {
@@ -7144,22 +7238,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
         }
 
-        private void MainMap_OnMapZoomChanged()
-        {
-            if (_flightPlanner.MainMap.Zoom > 0)
-            {
-                try
-                {
-                    _flightPlanner.trackBar1.Value = (int)(_flightPlanner.MainMap.Zoom);
-                }
-                catch (Exception ex)
-                {
-                    log.Error(ex);
-                }
-                //textBoxZoomCurrent.Text = MainMap.Zoom.ToString();
-                center.Position = _flightPlanner.MainMap.Position;
-            }
-        }
+
 
         private void MainMap_OnMarkerClick(GMapMarker item, object ei)
         {
