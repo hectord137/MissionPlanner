@@ -18,8 +18,8 @@ namespace MissionPlanner.Utilities
 
 
         private string FileName;
-        private int width;
-        private int height;
+        private double width;
+        private double height;
         private int bits;
         private RectLatLng Area;
         private double i;
@@ -55,10 +55,8 @@ namespace MissionPlanner.Utilities
 
                 using (Tiff tiff = Tiff.Open(filename, "r"))
                 {
-                    width = tiff.GetField(TiffTag.IMAGEWIDTH)[0].ToInt();
-                    int middleW = width / 2;
-                    height = tiff.GetField(TiffTag.IMAGELENGTH)[0].ToInt();
-                    int middleH = height / 2;
+                    width = tiff.GetField(TiffTag.IMAGEWIDTH)[0].ToDouble();              
+                    height = tiff.GetField(TiffTag.IMAGELENGTH)[0].ToDouble();
                     bits = tiff.GetField(TiffTag.BITSPERSAMPLE)[0].ToInt();
 
 

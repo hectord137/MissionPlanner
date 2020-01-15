@@ -32,6 +32,18 @@ namespace MissionPlanner.GCSViews
             PaneMenu.Visible = false;
             instance = this;
             tracksroll = (double)trackBar1.Value;
+
+            BtnTiff.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255); //transparent
+
+            this.TXT_WPRad.AutoSize = false;
+            this.TXT_WPRad.Size = new System.Drawing.Size(366, 25);
+
+            this.TXT_loiterrad.AutoSize = false;
+            this.TXT_loiterrad.Size = new System.Drawing.Size(366, 25);
+
+            this.TXT_WPRad.AutoSize = false;
+            this.TXT_WPRad.Size = new System.Drawing.Size(366, 25);
+
         }
 
 
@@ -72,30 +84,14 @@ namespace MissionPlanner.GCSViews
 
         private void ButKMLOverlay_Click(object sender, System.EventArgs e)
         {
-            _flightPlannerBase.kmloverlay();
+            
         }
 
         private void button1_Click(object sender, System.EventArgs e)
         {
 
         }
-        public bool distancia = false;
-        public void ButMeasureContext_Click(object sender, System.EventArgs e)
-        {
-            //_flightPlannerBase.measurecontext();
-
-            if (distancia)
-            {
-                ButMeasureContext.BackColor = Color.White;
-                distancia = false;
-            }
-            else
-            {
-                ButMeasureContext.BackColor = Color.GreenYellow;
-                distancia = true;
-            }
-
-        }
+  
 
         private void setHomeHereToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
@@ -361,16 +357,7 @@ namespace MissionPlanner.GCSViews
 
         private void BUTCLEARKML_Click(object sender, System.EventArgs e)
         {
-            _flightPlannerBase.kmlpolygonsoverlay.Clear();
-            _flightPlannerBase.kmlpolygonsoverlay.Polygons.Clear();
-            _flightPlannerBase.kmlpolygonsoverlay.Routes.Clear();
-            _flightPlannerBase.kmlpolygonsoverlay.Markers.Clear();
-
-            FlightData.kmlpolygons.Routes.Clear();
-            FlightData.kmlpolygons.Polygons.Clear();
-            FlightData.kmlpolygons.Markers.Clear();
-            FlightData.kmlpolygons.Clear();
-            FlightData.rallypointoverlay.Clear();
+           
         }
 
         private void label11_Click(object sender, System.EventArgs e)
@@ -601,7 +588,7 @@ namespace MissionPlanner.GCSViews
         private void button1_Click_3(object sender, EventArgs e)
         {
             FlightPlannerBase.instance.loadimgtiff(sender, e);
-            button3.Visible = true;
+            BtnDelTiff.Visible = true;
 
 
 
@@ -613,7 +600,7 @@ namespace MissionPlanner.GCSViews
             try
             {
                 System.IO.File.Delete(@"C:\IMGtmp.tiff");
-                button3.Visible = false;
+                BtnDelTiff.Visible = false;
                 _flightPlannerBase.Kill_Em_all();
             }
             catch (System.IO.IOException ex)
@@ -629,7 +616,72 @@ namespace MissionPlanner.GCSViews
             _flightPlannerBase.Kill_Em_all();
         }
 
-      
+        private void BtnTiff_Click(object sender, EventArgs e)
+        {
+            FlightPlannerBase.instance.loadimgtiff(sender, e);
+            BtnDelTiff.Visible = true;
+        }
+
+        private void BtnDelTiff_Click(object sender, EventArgs e)
+        {
+            MainMap.Overlays.Clear();
+            try
+            {
+                System.IO.File.Delete(@"C:\IMGtmp.tiff");
+                BtnDelTiff.Visible = false;
+                _flightPlannerBase.Kill_Em_all();
+            }
+            catch (System.IO.IOException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return;
+            }
+        }
+        public bool distancia = false;
+        private void myButton8_Click(object sender, EventArgs e)
+        {
+            //_flightPlannerBase.measurecontext();
+
+            if (distancia)
+            {
+                Buttmeasurecontext.BackColor = Color.White;
+                distancia = false;
+            }
+            else
+            {
+                Buttmeasurecontext.BackColor = Color.GreenYellow;
+                distancia = true;
+            }
+        }
+
+        private void BtnKMLOverlay_Click(object sender, EventArgs e)
+        {
+            _flightPlannerBase.kmloverlay();
+        }
+
+        private void BtnClearKml_Click(object sender, EventArgs e)
+        {
+            _flightPlannerBase.kmlpolygonsoverlay.Clear();
+            _flightPlannerBase.kmlpolygonsoverlay.Polygons.Clear();
+            _flightPlannerBase.kmlpolygonsoverlay.Routes.Clear();
+            _flightPlannerBase.kmlpolygonsoverlay.Markers.Clear();
+
+            FlightData.kmlpolygons.Routes.Clear();
+            FlightData.kmlpolygons.Polygons.Clear();
+            FlightData.kmlpolygons.Markers.Clear();
+            FlightData.kmlpolygons.Clear();
+            FlightData.rallypointoverlay.Clear();
+        }
+
+        private void myButton8_Click_1(object sender, EventArgs e)
+        {
+            _flightPlannerBase.label4_LinkClicked(sender, e);
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 
 

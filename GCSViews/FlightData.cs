@@ -1318,6 +1318,7 @@ namespace MissionPlanner.GCSViews
             {
                 ((Control)sender).Enabled = false;
                 MainV2.comPort.setMode("Auto");
+                //if (MainV2.comPort.setMode. "Auto") { }
             }
             catch
             {
@@ -2149,6 +2150,9 @@ namespace MissionPlanner.GCSViews
             thisthread.Name = "FD Mainloop";
             thisthread.IsBackground = true;
             thisthread.Start();
+
+
+
         }
 
         private void FlightData_ParentChanged(object sender, EventArgs e)
@@ -3419,6 +3423,7 @@ namespace MissionPlanner.GCSViews
                 CustomMessageBox.Show(Strings.ErrorCommunicating, Strings.ERROR);
             }
         }
+
 
         private void modifyandSetSpeed_Click(object sender, EventArgs e)
         {
@@ -5008,6 +5013,36 @@ namespace MissionPlanner.GCSViews
         }
 
         private void LBLrangefinder1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnSpeed_Click(object sender, EventArgs e)
+        {
+            modifyandSetSpeed_Click(sender, e);
+        }
+
+        private void CMB_modes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel4_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void ButJoyOn_Click_1(object sender, EventArgs e)
+        {
+            activatedjoy(sender, e);
+        }
+
+        private void lblindicadores_Click(object sender, EventArgs e)
         {
 
         }

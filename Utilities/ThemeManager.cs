@@ -951,7 +951,7 @@ mc:Ignorable=""d""
                 {
                     if (!(ctl.Tag is string && (string)ctl.Tag == "custom"))
                     {
-                        ctl.ForeColor = TextColor;
+                        //ctl.ForeColor = TextColor;
                     }
                 }
                 else if (ctl.GetType() == typeof(QuickView))

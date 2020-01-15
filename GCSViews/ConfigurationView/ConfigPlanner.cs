@@ -27,6 +27,12 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             CMB_Layout.Items.Add(DisplayNames.Advanced);
 
             txt_log_dir.TextChanged += OnLogDirTextChanged;
+            this.txt_log_dir.AutoSize = false;
+            this.txt_log_dir.Size = new System.Drawing.Size(366, 25);
+         
+            LBLTittleConfig.ForeColor = Color.FromArgb(217, 172, 24);
+
+
 
         }
 
@@ -963,6 +969,21 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         {
             MAVLinkInterface.gcssysid = (byte)num_gcsid.Value;
             Settings.Instance["gcsid"] = num_gcsid.Value.ToString();
+        }
+
+        private void label107_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label103_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label98_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

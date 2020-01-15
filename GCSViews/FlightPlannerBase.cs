@@ -470,12 +470,10 @@ namespace MissionPlanner.GCSViews
             timer.Start();
             */
           
-            var dd = (int)_flightPlanner.MainMap.Zoom;
-            CustomMessageBox.Show(dd.ToString());
+  
          
         }
-        public int zoom_ini;
-
+        
         public List<PointLatLngAlt> pointlist { get; set; } = new List<PointLatLngAlt>();
 
         public GMapControl MainMap => _flightPlanner.MainMap;
@@ -4502,9 +4500,8 @@ namespace MissionPlanner.GCSViews
             string ruta = openImage();
             if (ruta != null)
             {
-                _flightPlanner.button1.Enabled = false;
+                _flightPlanner.BtnTiff.Enabled = false;
                 _flightPlanner.pictureBox2.Visible = true;
-
                 ThreadStart trd = new ThreadStart(() => tiff(ruta));
                 sub = new Thread(trd);
                 sub.IsBackground = false;
@@ -4512,24 +4509,41 @@ namespace MissionPlanner.GCSViews
             }
         }
 
+        public string ruta_imagen;
+        public string openImage()
+        {
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = "(*.tif)|*.tif";
+                DialogResult result = dialog.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    return dialog.FileName;
+                }
+            }
+            catch { }
+            return null;
+        }
+
+
         public Bitmap image;
         public double Latitud;
         public double Longitud;
         public double scalax;
         public double scalay;
-        public void tiff(string ruta) {
-            //extrae latitud, longitud, scala x e y segun ruta
-            ReadGeotiff geotiff = new ReadGeotiff();
-                geotiff.getlonlatutm(ruta);
-
-                 Latitud = geotiff.latitud;
-                 Longitud = geotiff.longitud;
-                 scalax = geotiff.scalex;
-                 scalay = geotiff.scaley;
-
-                //Factor e escala segun zoom
-                GMap.NET.Internals.Core core = new GMap.NET.Internals.Core();
-               double  factor_escala = core.Get_scale(Convert.ToInt32(3), Latitud);
+        public void tiff(string ruta) 
+        {
+         //extrae latitud, longitud, scala x e y segun ruta
+         ReadGeotiff geotiff = new ReadGeotiff();
+         geotiff.getlonlatutm(ruta);
+         Latitud = geotiff.latitud;
+         Longitud = geotiff.longitud;
+         scalax = geotiff.scalex;
+         scalay = geotiff.scaley;
+         //Factor e escala segun zoom
+         GMap.NET.Internals.Core core = new GMap.NET.Internals.Core();
+         double  factor_escala = core.Get_scale(Convert.ToInt32(3), Latitud);
 
             image = resize(ruta, 2290, 2604);
             string destino = @"C:\IMGtmp.tiff";
@@ -4542,14 +4556,14 @@ namespace MissionPlanner.GCSViews
                     int widht = Convert.ToInt32(factor_escala / scalax);
                     int height = Convert.ToInt32(scalay / factor_escala);
                     image = resize(@"C:\IMGtmp.tiff", widht, height);
-                    imageToMap(Latitud, Longitud, image, widht, height);
+                    imageToMap(Latitud, Longitud, image);
                 }
                 else
                 {
                     int widht = Convert.ToInt32(factor_escala / scalax);
                     int height = Convert.ToInt32(scalay / factor_escala);
                     image = resize(@"C:\IMGtmp.tiff", widht, height);
-                    imageToMap(Latitud, Longitud, image, widht, height);
+                    imageToMap(Latitud, Longitud, image);
                 }
             }
             else
@@ -4559,17 +4573,40 @@ namespace MissionPlanner.GCSViews
                     int widht = Convert.ToInt32(factor_escala / scalax);
                     int height = Convert.ToInt32(factor_escala / scalay);
                     image = resize(@"C:\IMGtmp.tiff", widht, height);
-                    imageToMap(Latitud, Longitud, image, widht, height);
+                    imageToMap(Latitud, Longitud, image);
                 }
                 else
                 {
                     int widht = Convert.ToInt32(scalax / factor_escala);
                     int height = Convert.ToInt32(scalay / factor_escala);
                     image = resize(@"C:\IMGtmp.tiff", widht, height);
-                    imageToMap(Latitud, Longitud, image, widht, height);
+                    imageToMap(Latitud, Longitud, image);
                 }
             }
         }
+
+
+        private void imageToMap(double Lat, double lng, Image Tiff)
+        {
+            MainMap.Overlays.Clear();
+            GMapOverlay markers = new GMapOverlay("markers");
+            GMarkerGoogle imgtiff = new GMarkerGoogle(
+                new PointLatLng(Lat, lng),
+                new Bitmap(Tiff)
+                );
+            //MainMap.Overlays.Add(markers);
+            MainMap.Overlays.Insert(0, markers);
+           
+            //FlightData.instance.gMapControl1.Overlays.Insert(0, markers);
+            markers.Markers.Add(imgtiff);
+            if (sub.IsAlive)
+            {
+                Control.CheckForIllegalCrossThreadCalls = false;
+                _flightPlanner.pictureBox2.Visible = false;
+                _flightPlanner.BtnTiff.Enabled = true;
+            }
+        }
+
 
         public void trackBar1_Scroll(object sender, EventArgs e)
         {
@@ -4579,15 +4616,14 @@ namespace MissionPlanner.GCSViews
                 {
                     _flightPlanner.MainMap.Zoom = _flightPlanner.trackBar1.Value;
                     the_magic(Convert.ToInt32(_flightPlanner.trackBar1.Value));
-                   
                 }
             }
             catch (Exception ex)
             {
                 log.Error(ex);
             }
-
         }
+
 
         private void the_magic(int zoom) {
 
@@ -4603,14 +4639,14 @@ namespace MissionPlanner.GCSViews
                         int widht = Convert.ToInt32(factor_escala_zoom / scalax);
                         int height = Convert.ToInt32(scalay / factor_escala_zoom);
                         image = resize(@"C:\IMGtmp.tiff", widht, height);
-                        imageToMap(Latitud, Longitud, image, widht, height);
+                        imageToMap(Latitud, Longitud, image);
                     }
                     else
                     {
                         int widht = Convert.ToInt32(factor_escala_zoom / scalax);
                         int height = Convert.ToInt32(scalay / factor_escala_zoom);
                         image = resize(@"C:\IMGtmp.tiff", widht, height);
-                        imageToMap(Latitud, Longitud, image, widht, height);
+                        imageToMap(Latitud, Longitud, image);
                     }
                 }
                 else
@@ -4620,14 +4656,14 @@ namespace MissionPlanner.GCSViews
                         int widht = Convert.ToInt32(factor_escala_zoom / scalax);
                         int height = Convert.ToInt32(factor_escala_zoom / scalay);
                         image = resize(@"C:\IMGtmp.tiff", widht, height);
-                        imageToMap(Latitud, Longitud, image, widht, height);
+                        imageToMap(Latitud, Longitud, image);
                     }
                     else
                     {
                         int widht = Convert.ToInt32(scalax / factor_escala_zoom);
                         int height = Convert.ToInt32(scalay / factor_escala_zoom);
                         image = resize(@"C:\IMGtmp.tiff", widht, height);
-                        imageToMap(Latitud, Longitud, image, widht, height);
+                        imageToMap(Latitud, Longitud, image);
                     }
                 }
             }
@@ -4641,128 +4677,17 @@ namespace MissionPlanner.GCSViews
                 {
                     var x = _flightPlanner.trackBar1.Value = (int)(_flightPlanner.MainMap.Zoom);
                     _flightPlanner.MainMap.Zoom = _flightPlanner.trackBar1.Value;
-
                     the_magic(Convert.ToInt32(x));
                 }
                 catch (Exception ex)
                 {
                     log.Error(ex);
                 }
-                //textBoxZoomCurrent.Text = MainMap.Zoom.ToString();
                 center.Position = _flightPlanner.MainMap.Position;
             }
         }
 
-        private void imageToMap(double Lat, double lng, Image Tiff, int widht, int height ) {
-
-            MainMap.Overlays.Clear();
-            GMapOverlay markers = new GMapOverlay("markers");
-            GMarkerGoogle imgtiff = new GMarkerGoogle(
-                new PointLatLng(Lat, lng),
-                new Bitmap(Tiff)
-                );
-
-            //Size s = imgtiff.Size;
-            //s.Width = widht;
-            //s.Height = height;
-            //imgtiff.Size = s;
-
-
-
-            //MainMap.Overlays.Add(markers);
-            MainMap.Overlays.Insert(0, markers);
-            markers.Markers.Add(imgtiff);
-
-            //FlightData.instance.gMapControl1.Overlays.Insert(0, markers);
-
-            if (sub.IsAlive)
-            {
-                Control.CheckForIllegalCrossThreadCalls = false;
-
-                _flightPlanner.pictureBox2.Visible = false;
-                _flightPlanner.button1.Enabled = true;
-            }
-
-
-
-        }
-
-        public void Kill_Em_all()
-        {
-            try
-            {
-                System.IO.File.Delete(@"C:\IMGtmp.tiff");
-            }
-            catch (System.IO.IOException ex)
-            {
-                Console.WriteLine(ex.Message);
-                return;
-            }
-            if (sub.IsAlive)
-            {
-                Control.CheckForIllegalCrossThreadCalls = false;
-                sub.Interrupt();
-                _flightPlanner.pictureBox2.Visible = false;
-                _flightPlanner.button1.Enabled = true;
-            }
-        }
-
-        public string ruta_imagen;
-        public string openImage() {
-            try
-            {
-                OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Filter = "(*.tif)|*.tif";
-                DialogResult result = dialog.ShowDialog();
-                if (result == DialogResult.OK)
-                {
-                    return dialog.FileName;
-                }
-               
-            }
-            catch { }
-            return null;
-
-        }
-
-
-        
-
-        //    public Image CambiarTamanoImagen(string pImagen, int pAncho, int pAlto)
-        //    {
-
-        //    var image = resize(pImagen, pAncho, pAlto);
-
-        //    return image;
-
-        //    try
-        //    {
-        //        //creamos un bitmap con el nuevo tamaño
-        //        Bitmap vBitmap = new Bitmap(pAncho, pAlto);
-        //        //creamos un graphics tomando como base el nuevo Bitmap
-        //        using (Graphics vGraphics = Graphics.FromImage((Image)vBitmap))
-        //        {
-        //            //especificamos el tipo de transformación, se escoge esta para no perder calidad.
-        //            vGraphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-        //            //Se dibuja la nueva imagen
-        //            vGraphics.DrawImage(pImagen, 0, 0, pAncho, pAlto);
-        //        }
-        //        //retornamos la nueva imagen
-        //        return (Image)vBitmap;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        CustomMessageBox.Show(ex.ToString());
-        //        return null;
-        //    }
-        //    return null;
-        //}
-
-
-
-        public Bitmap resize(string imagen, int pAncho, int pAlto) {
-
-         
+        public Bitmap resize(string imagen, int pAncho, int pAlto) {        
                 using (MagickImage image = new MagickImage(imagen))
                 {
                     MagickGeometry size = new MagickGeometry(pAncho, pAlto);
@@ -4777,7 +4702,22 @@ namespace MissionPlanner.GCSViews
             }
         }
 
-  
+        public void Kill_Em_all()
+        {
+            try
+            {
+                System.IO.File.Delete(@"C:\IMGtmp.tiff");
+                Control.CheckForIllegalCrossThreadCalls = false;
+                sub.Interrupt();
+                _flightPlanner.pictureBox2.Visible = false;
+                _flightPlanner.BtnTiff.Enabled = true;
+            }
+            catch (System.IO.IOException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return;
+            }
+        }
 
 
 

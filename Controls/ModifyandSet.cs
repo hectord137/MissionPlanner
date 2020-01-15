@@ -64,5 +64,10 @@ namespace MissionPlanner.Controls
             if (ValueChanged != null)
                 ValueChanged(sender, e);
         }
+
+        private void ModifyandSet_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
