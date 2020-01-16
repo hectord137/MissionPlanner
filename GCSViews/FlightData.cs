@@ -511,7 +511,7 @@ namespace MissionPlanner.GCSViews
             if (MainV2.comPort.MAV.param.ContainsKey("BATT_MONITOR") &&
                 (float)MainV2.comPort.MAV.param["BATT_MONITOR"] != 0)
             {
-                hud1.batteryon = true;
+                hud1.batteryon = false;
             }
             else
             {
@@ -1161,12 +1161,22 @@ namespace MissionPlanner.GCSViews
             }
         }
 
+        bool stateJoys = false;
         private void activatedjoy(object sender, EventArgs e)
         {
-
-            JoystickSetup JoystickSetup = new JoystickSetup();
-            JoystickSetup.Joystick_Load(sender, e);
-            JoystickSetup.BUT_enable_Click(sender, e);
+            if (stateJoys == false) {
+                activecolor(ButJoyOn);
+                stateJoys = !stateJoys;
+                JoystickSetup JoystickSetup = new JoystickSetup();
+                JoystickSetup.Joystick_Load(sender, e);
+                JoystickSetup.BUT_enable_Click(sender, e);
+            }
+            else
+            {
+                Normalcolor(ButJoyOn);
+                stateJoys = !stateJoys;
+                but_disablejoystick_Click(sender, e);
+            }
         }
 
         private void BUT_joystick_Click(object sender, EventArgs e)
@@ -1339,15 +1349,16 @@ namespace MissionPlanner.GCSViews
             string mode = Convert.ToString(myObject.GetPropertyOrField("mode"));
 
             if (mode == "Auto")
-            { 
+            {
                 this.activecolor(BUT_quickauto);
                 this.Normalcolor(BUT_quickmanual);
             }
-            else if (mode == "unknow"){
-              
-                    this.Normalcolor(BUT_quickmanual);
-                    this.Normalcolor(BUT_quickauto);
-                    this.activecolor(BUT_quickrtl);
+            else if (mode == "unknow")
+            {
+
+                this.Normalcolor(BUT_quickmanual);
+                this.Normalcolor(BUT_quickauto);
+                this.activecolor(BUT_quickrtl);
             }
             else if (mode == "Loiter")
             {
@@ -1359,6 +1370,12 @@ namespace MissionPlanner.GCSViews
                 this.activecolor(BUT_quickrtl);
                 this.Normalcolor(BUT_quickauto);
                 this.Normalcolor(BUT_quickmanual);
+            }
+            else {
+                this.Normalcolor(BUT_quickauto);
+                this.Normalcolor(BUT_quickmanual);
+                this.Normalcolor(BUT_quickrtl);
+
             }
 
 

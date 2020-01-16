@@ -3206,17 +3206,5 @@ namespace MissionPlanner.Controls
                 }
             }
         }
-
-        private void InitializeComponent()
-        {
-            this.SuspendLayout();
-            // 
-            // HUD
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.Name = "HUD";
-            this.ResumeLayout(false);
-
-        }
     }
 }
