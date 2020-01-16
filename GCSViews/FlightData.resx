@@ -543,45 +543,6 @@
   <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="LBLgroundspeed.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left, Right</value>
-  </data>
-  <data name="LBLgroundspeed.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="LBLgroundspeed.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft YaHei, 48pt, style=Bold</value>
-  </data>
-  <data name="LBLgroundspeed.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="LBLgroundspeed.Location" type="System.Drawing.Point, System.Drawing">
-    <value>230, 32</value>
-  </data>
-  <data name="LBLgroundspeed.Size" type="System.Drawing.Size, System.Drawing">
-    <value>222, 86</value>
-  </data>
-  <data name="LBLgroundspeed.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="LBLgroundspeed.Text" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="LBLgroundspeed.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>BottomCenter</value>
-  </data>
-  <data name="&gt;&gt;LBLgroundspeed.Name" xml:space="preserve">
-    <value>LBLgroundspeed</value>
-  </data>
-  <data name="&gt;&gt;LBLgroundspeed.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;LBLgroundspeed.Parent" xml:space="preserve">
-    <value>tableLayoutPanel10</value>
-  </data>
-  <data name="&gt;&gt;LBLgroundspeed.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
   <data name="label9.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left, Right</value>
   </data>
@@ -619,7 +580,7 @@
     <value>tableLayoutPanel10</value>
   </data>
   <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="label8.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left, Right</value>
@@ -658,7 +619,7 @@
     <value>tableLayoutPanel10</value>
   </data>
   <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="label10.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left, Right</value>
@@ -697,7 +658,7 @@
     <value>tableLayoutPanel10</value>
   </data>
   <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="LBLDistToHome.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left, Right</value>
@@ -712,10 +673,10 @@
     <value>NoControl</value>
   </data>
   <data name="LBLDistToHome.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 32</value>
+    <value>230, 32</value>
   </data>
   <data name="LBLDistToHome.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 86</value>
+    <value>222, 86</value>
   </data>
   <data name="LBLDistToHome.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -736,6 +697,45 @@
     <value>tableLayoutPanel10</value>
   </data>
   <data name="&gt;&gt;LBLDistToHome.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="LBLgroundspeed.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="LBLgroundspeed.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="LBLgroundspeed.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft YaHei, 48pt, style=Bold</value>
+  </data>
+  <data name="LBLgroundspeed.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="LBLgroundspeed.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 32</value>
+  </data>
+  <data name="LBLgroundspeed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>221, 86</value>
+  </data>
+  <data name="LBLgroundspeed.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="LBLgroundspeed.Text" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="LBLgroundspeed.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="&gt;&gt;LBLgroundspeed.Name" xml:space="preserve">
+    <value>LBLgroundspeed</value>
+  </data>
+  <data name="&gt;&gt;LBLgroundspeed.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LBLgroundspeed.Parent" xml:space="preserve">
+    <value>tableLayoutPanel10</value>
+  </data>
+  <data name="&gt;&gt;LBLgroundspeed.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
   <data name="tableLayoutPanel10.Location" type="System.Drawing.Point, System.Drawing">
@@ -763,7 +763,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanel10.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="LBLwp_dist" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="LBLrangefinder1" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label11" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="LBLgroundspeed" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="label9" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label8" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label10" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="LBLDistToHome" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="Percent,23,19588,Percent,76,80412,Absolute,43,Absolute,104" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="LBLwp_dist" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="LBLrangefinder1" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label11" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="label9" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label8" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label10" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="LBLDistToHome" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="LBLgroundspeed" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="Percent,23,19588,Percent,76,80412,Absolute,43,Absolute,104" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="tableLayoutPanel3.ColumnCount" type="System.Int32, mscorlib">
     <value>3</value>
@@ -1462,7 +1462,7 @@
     <value>4</value>
   </data>
   <data name="tableLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1, 3</value>
+    <value>1, 0</value>
   </data>
   <data name="tableLayoutPanel1.RowCount" type="System.Int32, mscorlib">
     <value>5</value>

@@ -14,6 +14,7 @@ using Ionic.Zip;
 using log4net;
 using MissionPlanner.ArduPilot;
 using MissionPlanner.Controls;
+using MissionPlanner.GCSViews.ConfigurationView;
 using MissionPlanner.Grid;
 using MissionPlanner.Maps;
 using MissionPlanner.Plugin;
@@ -1603,6 +1604,7 @@ namespace MissionPlanner.GCSViews
 
                     _flightPlanner.MainMap.Refresh();
                 }
+                CustomColor.instance.Normalcolor(_flightPlanner.BUT_saveWPFile);
             }
             catch (FormatException ex)
             {
@@ -1772,6 +1774,7 @@ namespace MissionPlanner.GCSViews
 
         public void BUT_loadwpfile_Click(object sender, EventArgs e)
         {
+            CustomColor.instance.activecolor(_flightPlanner.BUT_loadwpfile);
             using (OpenFileDialog fd = new OpenFileDialog())
             {
                 fd.Filter = "All Supported Types|*.txt;*.waypoints;*.shp;*.plan";
@@ -1812,6 +1815,8 @@ namespace MissionPlanner.GCSViews
                     }
 
                     _flightPlanner.lbl_wpfile.Text = "Loaded " + Path.GetFileName(file);
+                    CustomColor.instance.Normalcolor(_flightPlanner.BUT_loadwpfile);
+
                 }
             }
         }
@@ -1822,6 +1827,7 @@ namespace MissionPlanner.GCSViews
 
         public void BUT_saveWPFile_Click(object sender, EventArgs e)
         {
+            CustomColor.instance.activecolor(_flightPlanner.BUT_saveWPFile);
             SaveFile_Click(null, null);
         }
 
@@ -6770,6 +6776,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                       100 / CurrentState.multiplieralt, "Rally Point");
                 this.setHomeHeres(home);
                 _flightPlanner.btnsethome = false;
+                CustomColor.instance.Normalcolor(_flightPlanner.BUt_sethome);
             }
         }
 

@@ -5,6 +5,7 @@ using GMap.NET.WindowsForms.Markers;
 using log4net;
 using MissionPlanner.ArduPilot;
 using MissionPlanner.Controls;
+using MissionPlanner.GCSViews.ConfigurationView;
 using MissionPlanner.Joystick;
 using MissionPlanner.Log;
 using MissionPlanner.Maps;
@@ -1165,7 +1166,7 @@ namespace MissionPlanner.GCSViews
         private void activatedjoy(object sender, EventArgs e)
         {
             if (stateJoys == false) {
-                activecolor(ButJoyOn);
+                CustomColor.instance.activecolor(ButJoyOn);
                 stateJoys = !stateJoys;
                 JoystickSetup JoystickSetup = new JoystickSetup();
                 JoystickSetup.Joystick_Load(sender, e);
@@ -1173,7 +1174,7 @@ namespace MissionPlanner.GCSViews
             }
             else
             {
-                Normalcolor(ButJoyOn);
+               CustomColor.instance.Normalcolor(ButJoyOn);
                 stateJoys = !stateJoys;
                 but_disablejoystick_Click(sender, e);
             }
@@ -1322,26 +1323,7 @@ namespace MissionPlanner.GCSViews
             }
         }
 
-        private void activecolor(MyButton butname)
-        {
-            if (butname != null)
-            {
-                butname.BGGradBot = Color.FromArgb(207, 185, 23);
-                butname.BGGradTop = Color.FromArgb(207, 185, 23);
-                butname.Outline = Color.FromArgb(207, 150, 18);
-            }
-        }
 
-
-        private void Normalcolor(MyButton btn)
-        {
-            if (btn != null)
-            {
-                btn.BGGradBot = Color.FromArgb(148, 193, 31);
-                btn.BGGradTop = Color.FromArgb(148, 193, 31);
-                btn.Outline = Color.FromArgb(148, 170, 50);
-            }
-        }
 
         private void ChangeColorBtns()
         {
@@ -1350,31 +1332,31 @@ namespace MissionPlanner.GCSViews
 
             if (mode == "Auto")
             {
-                this.activecolor(BUT_quickauto);
-                this.Normalcolor(BUT_quickmanual);
+                CustomColor.instance.activecolor(BUT_quickauto);
+                CustomColor.instance.Normalcolor(BUT_quickmanual);
             }
             else if (mode == "unknow")
             {
 
-                this.Normalcolor(BUT_quickmanual);
-                this.Normalcolor(BUT_quickauto);
-                this.activecolor(BUT_quickrtl);
+                CustomColor.instance.Normalcolor(BUT_quickmanual);
+                CustomColor.instance.Normalcolor(BUT_quickauto);
+                CustomColor.instance.activecolor(BUT_quickrtl);
             }
             else if (mode == "Loiter")
             {
-                this.activecolor(BUT_quickmanual);
-                this.Normalcolor(BUT_quickauto);
+                CustomColor.instance.activecolor(BUT_quickmanual);
+                CustomColor.instance.Normalcolor(BUT_quickauto);
             }
             else if (mode == "RTL")
             {
-                this.activecolor(BUT_quickrtl);
-                this.Normalcolor(BUT_quickauto);
-                this.Normalcolor(BUT_quickmanual);
+                CustomColor.instance.activecolor(BUT_quickrtl);
+                CustomColor.instance.Normalcolor(BUT_quickauto);
+                CustomColor.instance.Normalcolor(BUT_quickmanual);
             }
             else {
-                this.Normalcolor(BUT_quickauto);
-                this.Normalcolor(BUT_quickmanual);
-                this.Normalcolor(BUT_quickrtl);
+                CustomColor.instance.Normalcolor(BUT_quickauto);
+                CustomColor.instance.Normalcolor(BUT_quickmanual);
+                CustomColor.instance.Normalcolor(BUT_quickrtl);
 
             }
 
@@ -1382,10 +1364,10 @@ namespace MissionPlanner.GCSViews
             bool armed = Convert.ToBoolean(myObject.GetPropertyOrField("armed"));
 
             if (armed) {
-                activecolor(BUT_ARM);
+                CustomColor.instance.activecolor(BUT_ARM);
             }
             else {
-                Normalcolor(BUT_ARM);
+                CustomColor.instance.Normalcolor(BUT_ARM);
             }
 
         }

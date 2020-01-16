@@ -914,11 +914,11 @@
             this.tableLayoutPanel10.Controls.Add(this.LBLwp_dist, 1, 3);
             this.tableLayoutPanel10.Controls.Add(this.LBLrangefinder1, 0, 3);
             this.tableLayoutPanel10.Controls.Add(this.label11, 1, 2);
-            this.tableLayoutPanel10.Controls.Add(this.LBLgroundspeed, 1, 1);
             this.tableLayoutPanel10.Controls.Add(this.label9, 0, 2);
             this.tableLayoutPanel10.Controls.Add(this.label8, 0, 0);
             this.tableLayoutPanel10.Controls.Add(this.label10, 1, 0);
-            this.tableLayoutPanel10.Controls.Add(this.LBLDistToHome, 0, 1);
+            this.tableLayoutPanel10.Controls.Add(this.LBLDistToHome, 1, 1);
+            this.tableLayoutPanel10.Controls.Add(this.LBLgroundspeed, 0, 1);
             this.tableLayoutPanel10.Name = "tableLayoutPanel10";
             // 
             // LBLwp_dist

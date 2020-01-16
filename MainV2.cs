@@ -3,6 +3,7 @@ using log4net;
 using MissionPlanner.ArduPilot;
 using MissionPlanner.Comms;
 using MissionPlanner.Controls;
+using MissionPlanner.GCSViews.ConfigurationView;
 using MissionPlanner.Log;
 using MissionPlanner.Utilities;
 using MissionPlanner.Utilities.AltitudeAngel;
@@ -409,6 +410,7 @@ namespace MissionPlanner
         /// ie configuration gets reloaded on every click
         /// </summary>
         public GCSViews.FlightData FlightData;
+       
 
         public GCSViews.FlightPlanner FlightPlanner;
         GCSViews.SITL Simulation;
@@ -806,6 +808,7 @@ namespace MissionPlanner
             {
                 log.Info("Create FD");
                 FlightData = new GCSViews.FlightData();
+                CustomColor customcolor = new CustomColor();
                 log.Info("Create FP");
                 FlightPlanner = new GCSViews.FlightPlanner();
                 //Configuration = new GCSViews.ConfigurationView.Setup();

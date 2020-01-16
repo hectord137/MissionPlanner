@@ -4,6 +4,7 @@ using GMap.NET;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
 using MissionPlanner.Controls;
+using MissionPlanner.GCSViews.ConfigurationView;
 using MissionPlanner.Grid;
 using MissionPlanner.Utilities;
 using System;
@@ -114,9 +115,10 @@ namespace MissionPlanner.GCSViews
         {
             if (bloqWP)
             {
+
+                CustomColor.instance.Normalcolor(BUT_insertWP);
                 bloqWP = false;
                 ButInsertPol.Enabled = true;
-                BUT_insertWP.BGGradBot = SystemColors.ActiveBorder;
                 ButDelwp.Enabled = true;
                 BUT_write.Enabled = true;
                 myButton7.Enabled = true;
@@ -138,7 +140,8 @@ namespace MissionPlanner.GCSViews
 
                 bloqWP = true;
                 ButInsertPol.Enabled = false;
-                BUT_insertWP.BGGradBot = Color.GreenYellow;
+                CustomColor.instance.activecolor(BUT_insertWP);
+                
                 ButDelwp.Enabled = false;
                 if (Del_relay_home_last)
                 {
@@ -177,7 +180,7 @@ namespace MissionPlanner.GCSViews
                 _flightPlannerBase.addPolygonPointToolStripMenuItem_Click(null, null);
                 setPol = false;
                 _flightPlannerBase.polygongridmode = false;
-                ButInsertPol.BGGradBot = SystemColors.ActiveBorder;
+                CustomColor.instance.Normalcolor(ButInsertPol);
                 But_SurveyGrid.Visible = false;
             }
             else
@@ -187,9 +190,10 @@ namespace MissionPlanner.GCSViews
                 bloqWP = true;
                 BtSavePol.Enabled = true;
                 setPol = true;
-                ButInsertPol.BGGradBot = Color.GreenYellow;
+                CustomColor.instance.activecolor(ButInsertPol);
                 _flightPlannerBase.addPolygonPointToolStripMenuItem_Click(sender, e);
                 But_SurveyGrid.Visible = true;
+               
 
             }
 
@@ -274,12 +278,14 @@ namespace MissionPlanner.GCSViews
             if (bloqRallyPoint)
             {
                 bloqRallyPoint = false;
-                myButton1.BGGradBot = SystemColors.ActiveBorder;
+                CustomColor.instance.Normalcolor(myButton1);
+
             }
             else
             {
                 bloqRallyPoint = true;
-                myButton1.BGGradBot = Color.GreenYellow;
+               
+                CustomColor.instance.activecolor(myButton1);
             }
 
         }
@@ -497,6 +503,7 @@ namespace MissionPlanner.GCSViews
         public bool btnsethome = false;
         private void BUt_sethome_Click(object sender, System.EventArgs e)
         {
+            CustomColor.instance.activecolor(BUt_sethome);
             btnsethome = true;
             //if (btnsethome)
             //{
@@ -618,6 +625,7 @@ namespace MissionPlanner.GCSViews
 
         private void BtnTiff_Click(object sender, EventArgs e)
         {
+            CustomColor.instance.activecolor(BtnTiff);
             FlightPlannerBase.instance.loadimgtiff(sender, e);
             BtnDelTiff.Visible = true;
         }
@@ -630,6 +638,7 @@ namespace MissionPlanner.GCSViews
                 System.IO.File.Delete(@"C:\IMGtmp.tiff");
                 BtnDelTiff.Visible = false;
                 _flightPlannerBase.Kill_Em_all();
+                CustomColor.instance.Normalcolor(BtnTiff);
             }
             catch (System.IO.IOException ex)
             {
@@ -640,16 +649,17 @@ namespace MissionPlanner.GCSViews
         public bool distancia = false;
         private void myButton8_Click(object sender, EventArgs e)
         {
-            //_flightPlannerBase.measurecontext();
+            
 
             if (distancia)
             {
-                Buttmeasurecontext.BackColor = Color.White;
+               CustomColor.instance.Normalcolor(Buttmeasurecontext);
                 distancia = false;
             }
             else
             {
-                Buttmeasurecontext.BackColor = Color.GreenYellow;
+                
+                CustomColor.instance.activecolor(Buttmeasurecontext);
                 distancia = true;
             }
         }
