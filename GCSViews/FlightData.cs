@@ -1312,13 +1312,76 @@ namespace MissionPlanner.GCSViews
             }
         }
 
+        private void activecolor(MyButton butname)
+        {
+            if (butname != null)
+            {
+                butname.BGGradBot = Color.FromArgb(207, 185, 23);
+                butname.BGGradTop = Color.FromArgb(207, 185, 23);
+                butname.Outline = Color.FromArgb(207, 150, 18);
+            }
+        }
+
+
+        private void Normalcolor(MyButton btn)
+        {
+            if (btn != null)
+            {
+                btn.BGGradBot = Color.FromArgb(148, 193, 31);
+                btn.BGGradTop = Color.FromArgb(148, 193, 31);
+                btn.Outline = Color.FromArgb(148, 170, 50);
+            }
+        }
+
+        private void ChangeColorBtns()
+        {
+            object myObject = bindingSourceHud.Current;
+            string mode = Convert.ToString(myObject.GetPropertyOrField("mode"));
+
+            if (mode == "Auto")
+            { 
+                this.activecolor(BUT_quickauto);
+                this.Normalcolor(BUT_quickmanual);
+            }
+            else if (mode == "unknow"){
+              
+                    this.Normalcolor(BUT_quickmanual);
+                    this.Normalcolor(BUT_quickauto);
+                    this.activecolor(BUT_quickrtl);
+            }
+            else if (mode == "Loiter")
+            {
+                this.activecolor(BUT_quickmanual);
+                this.Normalcolor(BUT_quickauto);
+            }
+            else if (mode == "RTL")
+            {
+                this.activecolor(BUT_quickrtl);
+                this.Normalcolor(BUT_quickauto);
+                this.Normalcolor(BUT_quickmanual);
+            }
+
+
+            bool armed = Convert.ToBoolean(myObject.GetPropertyOrField("armed"));
+
+            if (armed) {
+                activecolor(BUT_ARM);
+            }
+            else {
+                Normalcolor(BUT_ARM);
+            }
+
+        }
+
+
         private void BUT_quickauto_Click(object sender, EventArgs e)
         {
+           
             try
             {
                 ((Control)sender).Enabled = false;
                 MainV2.comPort.setMode("Auto");
-                //if (MainV2.comPort.setMode. "Auto") { }
+          
             }
             catch
             {
@@ -1327,10 +1390,15 @@ namespace MissionPlanner.GCSViews
             ((Control)sender).Enabled = true;
         }
 
+ 
+
         private void BUT_quickmanual_Click(object sender, EventArgs e)
         {
+            
             try
             {
+                
+
                 ((Control)sender).Enabled = false;
                 if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduPlane ||
                     MainV2.comPort.MAV.cs.firmware == Firmwares.Ateryx ||
@@ -1338,6 +1406,8 @@ namespace MissionPlanner.GCSViews
                     MainV2.comPort.setMode("Loiter");
                 if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
                     MainV2.comPort.setMode("Loiter");
+
+                   
             }
             catch
             {
@@ -5004,6 +5074,7 @@ namespace MissionPlanner.GCSViews
         private void timer1_Tick_2(object sender, EventArgs e)
         {
             rechargelabel();
+            ChangeColorBtns();
 
         }
 

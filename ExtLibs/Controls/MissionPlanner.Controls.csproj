@@ -228,6 +228,9 @@
     <EmbeddedResource Include="HSI.resx">
       <DependentUpon>HSI.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="HUD.resx">
+      <DependentUpon>HUD.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ImageLabel.resx">
       <DependentUpon>ImageLabel.cs</DependentUpon>
     </EmbeddedResource>
