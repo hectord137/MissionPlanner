@@ -1818,6 +1818,9 @@ namespace MissionPlanner.GCSViews
                     CustomColor.instance.Normalcolor(_flightPlanner.BUT_loadwpfile);
 
                 }
+                else {
+                    CustomColor.instance.Normalcolor(_flightPlanner.BUT_loadwpfile);
+                }
             }
         }
 

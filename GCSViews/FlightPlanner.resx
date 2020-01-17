@@ -840,7 +840,7 @@
     <value>Commands</value>
   </data>
   <data name="&gt;&gt;Commands.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.MyDataGridView, MissionPlanner, Version=1.3.7320.28678, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.MyDataGridView, MissionPlanner, Version=1.3.7321.17355, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;Commands.Parent" xml:space="preserve">
     <value>tableLayoutPanel8</value>
@@ -1359,7 +1359,7 @@
     <value>13</value>
   </data>
   <data name="tableLayoutPanel9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>476, 279</value>
+    <value>298, 6</value>
   </data>
   <data name="tableLayoutPanel9.RowCount" type="System.Int32, mscorlib">
     <value>2</value>
@@ -2694,10 +2694,10 @@
     <value>3, 3</value>
   </data>
   <data name="But_SurveyGrid.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 32</value>
+    <value>75, 32</value>
   </data>
   <data name="But_SurveyGrid.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="But_SurveyGrid.Text" xml:space="preserve">
     <value>Survey Grid</value>
@@ -2706,7 +2706,7 @@
     <value>But_SurveyGrid</value>
   </data>
   <data name="&gt;&gt;But_SurveyGrid.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;But_SurveyGrid.Parent" xml:space="preserve">
     <value>tableLayoutPanel10</value>

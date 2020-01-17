@@ -589,6 +589,7 @@
             // 
             resources.ApplyResources(this.BUT_samplephoto, "BUT_samplephoto");
             this.BUT_samplephoto.Name = "BUT_samplephoto";
+            this.BUT_samplephoto.TextColor = System.Drawing.Color.White;
             this.BUT_samplephoto.UseVisualStyleBackColor = true;
             this.BUT_samplephoto.Click += new System.EventHandler(this.BUT_samplephoto_Click);
             // 
@@ -707,6 +708,7 @@
             // 
             resources.ApplyResources(this.BUT_save, "BUT_save");
             this.BUT_save.Name = "BUT_save";
+            this.BUT_save.TextColor = System.Drawing.Color.White;
             this.BUT_save.UseVisualStyleBackColor = true;
             this.BUT_save.Click += new System.EventHandler(this.BUT_save_Click);
             // 
@@ -1044,6 +1046,13 @@
             this.tabSimple.Controls.Add(this.groupBox6);
             this.tabSimple.Controls.Add(this.groupBox4);
             this.tabSimple.Controls.Add(this.BUT_Accept);
+            this.tabSimple.Controls.Add(this.CMB_camera);
+            this.tabSimple.Controls.Add(this.label1);
+            this.tabSimple.Controls.Add(this.label26);
+            this.tabSimple.Controls.Add(this.NUM_altitude);
+            this.tabSimple.Controls.Add(this.label4);
+            this.tabSimple.Controls.Add(this.CHK_camdirection);
+            this.tabSimple.Controls.Add(this.NUM_angle);
             resources.ApplyResources(this.tabSimple, "tabSimple");
             this.tabSimple.Name = "tabSimple";
             this.tabSimple.UseVisualStyleBackColor = true;
@@ -1051,7 +1060,13 @@
             // myButton1
             // 
             resources.ApplyResources(this.myButton1, "myButton1");
+            this.myButton1.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
+            this.myButton1.ColorMouseDown = System.Drawing.Color.Transparent;
+            this.myButton1.ColorMouseOver = System.Drawing.Color.Transparent;
+            this.myButton1.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.myButton1.Name = "myButton1";
+            this.myButton1.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
+            this.myButton1.TextColor = System.Drawing.Color.White;
             this.myButton1.UseVisualStyleBackColor = true;
             this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
             // 
@@ -1069,16 +1084,10 @@
             this.groupBox6.Controls.Add(this.CHK_toandland);
             this.groupBox6.Controls.Add(this.label24);
             this.groupBox6.Controls.Add(this.NUM_UpDownFlySpeed);
-            this.groupBox6.Controls.Add(this.label26);
-            this.groupBox6.Controls.Add(this.label4);
-            this.groupBox6.Controls.Add(this.NUM_angle);
-            this.groupBox6.Controls.Add(this.CMB_camera);
-            this.groupBox6.Controls.Add(this.CHK_camdirection);
-            this.groupBox6.Controls.Add(this.NUM_altitude);
-            this.groupBox6.Controls.Add(this.label1);
             resources.ApplyResources(this.groupBox6, "groupBox6");
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.TabStop = false;
+            this.groupBox6.Enter += new System.EventHandler(this.groupBox6_Enter);
             // 
             // label37
             // 
@@ -1280,7 +1289,13 @@
             // BUT_Accept
             // 
             resources.ApplyResources(this.BUT_Accept, "BUT_Accept");
+            this.BUT_Accept.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
+            this.BUT_Accept.ColorMouseDown = System.Drawing.Color.Transparent;
+            this.BUT_Accept.ColorMouseOver = System.Drawing.Color.Transparent;
+            this.BUT_Accept.ColorNotEnabled = System.Drawing.Color.Transparent;
             this.BUT_Accept.Name = "BUT_Accept";
+            this.BUT_Accept.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(50)))));
+            this.BUT_Accept.TextColor = System.Drawing.Color.White;
             this.BUT_Accept.UseVisualStyleBackColor = true;
             this.BUT_Accept.Click += new System.EventHandler(this.BUT_Accept_Click);
             // 

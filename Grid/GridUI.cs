@@ -9,6 +9,7 @@ using GMap.NET.WindowsForms.Markers;
 using log4net;
 using MissionPlanner.ArduPilot;
 using MissionPlanner.GCSViews;
+using MissionPlanner.GCSViews.ConfigurationView;
 using MissionPlanner.Maps;
 using MissionPlanner.Utilities;
 using ProjNet.CoordinateSystems;
@@ -67,7 +68,8 @@ namespace MissionPlanner.Grid
 
 
             this.plugin = plugin;
-
+            CustomColor.instance.Normalcolor(BUT_Accept);
+            CustomColor.instance.Normalcolor(myButton1);
             InitializeComponent();
             instance = this;
             loading = true;
@@ -1703,6 +1705,11 @@ namespace MissionPlanner.Grid
             routesOverlay.Markers.Clear();
             FlightPlannerBase.instance._flightPlanner.PaneMenu.Visible = false;
             FlightPlannerBase.instance.clearMissionToolStripMenuItem_Click(sender, e);
+        }
+
+        private void groupBox6_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

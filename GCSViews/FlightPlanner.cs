@@ -56,7 +56,6 @@ namespace MissionPlanner.GCSViews
         public object Points { get; private set; }
 
         private GridPlugin plugin;
-
         public void test(object sender, System.EventArgs e)
         {
             GridUI grid = new GridUI(plugin);
@@ -165,6 +164,7 @@ namespace MissionPlanner.GCSViews
             contextMenuStripPoly.Visible = false;
             ButClearPol.Enabled = true;
             But_SurveyGrid.Visible = false;
+            CustomColor.instance.Normalcolor(But_SurveyGrid);
         }
 
 
@@ -395,19 +395,7 @@ namespace MissionPlanner.GCSViews
         public bool menu = false;
         private void button1_Click_2(object sender, System.EventArgs e)
         {
-            if (estadomenu == true)
-            {
-                //clear point
-                estadomenu = false;
-                Grid.GridUI.instance.myButton1_Click(sender, e);
-            }
-            else
-            {
-                estadomenu = true;
-                FlightPlannerBase.surveyGridToolStripMenuItem_Click(sender, e);
-
-            }
-
+     
 
 
 
@@ -691,6 +679,35 @@ namespace MissionPlanner.GCSViews
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void BUT_loadwpfile_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click_4(object sender, EventArgs e)
+        {
+          
+
+        }
+
+        private void myButton9_Click(object sender, EventArgs e)
+        {
+            if (estadomenu == true)
+            {
+                //clear point
+                estadomenu = false;
+                Grid.GridUI.instance.myButton1_Click(sender, e);
+                CustomColor.instance.Normalcolor(But_SurveyGrid);
+            }
+            else
+            {
+                estadomenu = true;
+                FlightPlannerBase.surveyGridToolStripMenuItem_Click(sender, e);
+                CustomColor.instance.activecolor(But_SurveyGrid);
+
+            }
         }
     }
 

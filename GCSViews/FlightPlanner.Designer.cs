@@ -128,7 +128,6 @@ namespace MissionPlanner.GCSViews
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.panelMap = new System.Windows.Forms.Panel();
             this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
-            this.But_SurveyGrid = new System.Windows.Forms.Button();
             this.PaneMenu = new System.Windows.Forms.Panel();
             this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
             this.label7 = new System.Windows.Forms.Label();
@@ -227,6 +226,7 @@ namespace MissionPlanner.GCSViews
             this.fenceExclusionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.drawAPolygonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.But_SurveyGrid = new MissionPlanner.Controls.MyButton();
             this.Commands = new MissionPlanner.Controls.MyDataGridView();
             this.Command = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Param1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -619,6 +619,7 @@ namespace MissionPlanner.GCSViews
             this.BUT_loadwpfile.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(50)))));
             this.BUT_loadwpfile.TextColor = System.Drawing.Color.Black;
             this.BUT_loadwpfile.UseVisualStyleBackColor = false;
+            this.BUT_loadwpfile.Click += new System.EventHandler(this.BUT_loadwpfile_Click);
             // 
             // BUT_insertWP
             // 
@@ -984,13 +985,6 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.tableLayoutPanel10, "tableLayoutPanel10");
             this.tableLayoutPanel10.Controls.Add(this.But_SurveyGrid, 0, 0);
             this.tableLayoutPanel10.Name = "tableLayoutPanel10";
-            // 
-            // But_SurveyGrid
-            // 
-            resources.ApplyResources(this.But_SurveyGrid, "But_SurveyGrid");
-            this.But_SurveyGrid.Name = "But_SurveyGrid";
-            this.But_SurveyGrid.UseVisualStyleBackColor = true;
-            this.But_SurveyGrid.Click += new System.EventHandler(this.button1_Click_2);
             // 
             // PaneMenu
             // 
@@ -1619,6 +1613,14 @@ namespace MissionPlanner.GCSViews
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // But_SurveyGrid
+            // 
+            resources.ApplyResources(this.But_SurveyGrid, "But_SurveyGrid");
+            this.But_SurveyGrid.Name = "But_SurveyGrid";
+            this.But_SurveyGrid.TextColor = System.Drawing.Color.White;
+            this.But_SurveyGrid.UseVisualStyleBackColor = true;
+            this.But_SurveyGrid.Click += new System.EventHandler(this.myButton9_Click);
+            // 
             // Commands
             // 
             this.Commands.AllowUserToAddRows = false;
@@ -2026,7 +2028,6 @@ namespace MissionPlanner.GCSViews
         private Label label9s;
         private Label label10s;
         public TableLayoutPanel tableLayoutPanel12;
-        private Button But_SurveyGrid;
         public MyButton myButton7;
         public MyButton BUt_sethome;
         private Label label7;
@@ -2042,5 +2043,6 @@ namespace MissionPlanner.GCSViews
         private TableLayoutPanel tableLayoutPanel14;
         private Label lblmaps;
         public PictureBox pictureBox2;
+        private MyButton But_SurveyGrid;
     }
 }
