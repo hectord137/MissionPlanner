@@ -2351,7 +2351,7 @@ namespace MissionPlanner.GCSViews
             DataGridViewComboBoxCell cell = _flightPlanner.Commands.Rows[e.RowIndex].Cells[Command.Index] as DataGridViewComboBoxCell;
             if (cell.Value == null)
             {
-                cell.Value = "CTM";
+                
                 cell.DropDownWidth = 200;
                 _flightPlanner.Commands.Rows[e.RowIndex].Cells[Delete.Index].Value = "X";
                 if (!quickadd)

@@ -126,8 +126,10 @@ namespace MissionPlanner.GCSViews
                 {
                     contador_delete = _flightPlannerBase.AddCommand(MAVLink.MAV_CMD.DO_SET_RELAY, 1, 0, 0, 0, 0, 0, 0);
                     _flightPlannerBase.AddCommand(MAVLink.MAV_CMD.RETURN_TO_LAUNCH, 0, 0, 0, 0, 0, 0, 0);
+
                     _flightPlannerBase.pointers = 0;
                     Del_relay_home_last = true;
+                    Commands.Columns["Delete"].Visible = false;
                 }
                 else {
                     Del_relay_home_last = false;
@@ -146,7 +148,7 @@ namespace MissionPlanner.GCSViews
                 {
                     this.Commands.Rows.RemoveAt(contador_delete);
                     this.Commands.Rows.RemoveAt(contador_delete++);
-
+                    Commands.Columns["Delete"].Visible = true;
                 }
                 BUT_write.Enabled = false;
                 myButton7.Enabled = false;
@@ -157,6 +159,8 @@ namespace MissionPlanner.GCSViews
         {
 
         }
+
+
         private void modifyMain()
         {
             ButClearPol.Enabled = false;
@@ -708,6 +712,16 @@ namespace MissionPlanner.GCSViews
                 CustomColor.instance.activecolor(But_SurveyGrid);
 
             }
+        }
+
+        private void panelWaypoints_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void Commands_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 

@@ -29,22 +29,22 @@
             this.groundColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bindingSourceHud = new System.Windows.Forms.BindingSource(this.components);
             this.tabControlactions = new System.Windows.Forms.TabControl();
-            this.contextMenuStripactionstab = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabQuick = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelQuick = new System.Windows.Forms.TableLayoutPanel();
             this.s = new System.Windows.Forms.Label();
             this.tabActions = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblindicadores = new System.Windows.Forms.Label();
             this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
             this.LBLwp_dist = new System.Windows.Forms.Label();
             this.LBLrangefinder1 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.LBLgroundspeed = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.LBLDistToHome = new System.Windows.Forms.Label();
+            this.LBLgroundspeed = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.BUT_quickauto = new MissionPlanner.Controls.MyButton();
             this.BUT_quickrtl = new MissionPlanner.Controls.MyButton();
@@ -52,6 +52,10 @@
             this.BUT_quickmanual = new MissionPlanner.Controls.MyButton();
             this.ButJoyOn = new MissionPlanner.Controls.MyButton();
             this.BUTrestartmission = new MissionPlanner.Controls.MyButton();
+            this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
+            this.BUT_joystick_settings = new MissionPlanner.Controls.MyButton();
+            this.BUT_ARM = new MissionPlanner.Controls.MyButton();
+            this.BUT_clear_track = new MissionPlanner.Controls.MyButton();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.BUT_setwp = new MissionPlanner.Controls.MyButton();
@@ -60,13 +64,8 @@
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.CMB_modes = new System.Windows.Forms.ComboBox();
             this.BUT_setmode = new MissionPlanner.Controls.MyButton();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.BUT_clear_track = new MissionPlanner.Controls.MyButton();
-            this.BUT_ARM = new MissionPlanner.Controls.MyButton();
-            this.lblindicadores = new System.Windows.Forms.Label();
             this.BUT_Homealt = new MissionPlanner.Controls.MyButton();
             this.BUT_abortland = new MissionPlanner.Controls.MyButton();
-            this.BUT_joystick_settings = new MissionPlanner.Controls.MyButton();
             this.CMB_mountmode = new System.Windows.Forms.ComboBox();
             this.BUT_mountmode = new MissionPlanner.Controls.MyButton();
             this.CMB_action = new System.Windows.Forms.ComboBox();
@@ -153,7 +152,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.zg1 = new ZedGraph.ZedGraphControl();
             this.contextMenuStripMap = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.goHereToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.goHereToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.flyToHereAltToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addPoiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -515,6 +514,8 @@
             this.Zoomlevel = new System.Windows.Forms.NumericUpDown();
             this.CHK_autopan = new System.Windows.Forms.CheckBox();
             this.CB_tuning = new System.Windows.Forms.CheckBox();
+            this.contextMenuStripactionstab = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bindingSourceGaugesTab = new System.Windows.Forms.BindingSource(this.components);
             this.contextMenuStripQuickView = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.setViewCountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -538,17 +539,17 @@
             this.contextMenuStripHud.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).BeginInit();
             this.tabControlactions.SuspendLayout();
-            this.contextMenuStripactionstab.SuspendLayout();
             this.tabQuick.SuspendLayout();
             this.tableLayoutPanelQuick.SuspendLayout();
             this.tabActions.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel7.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
+            this.tableLayoutPanel12.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
             this.tableLayoutPanel9.SuspendLayout();
-            this.tableLayoutPanel5.SuspendLayout();
             this.tabActionsSimple.SuspendLayout();
             this.tabPagePreFlight.SuspendLayout();
             this.tabGauges.SuspendLayout();
@@ -582,6 +583,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.TRK_zoom)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Zoomlevel)).BeginInit();
+            this.contextMenuStripactionstab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceGaugesTab)).BeginInit();
             this.contextMenuStripQuickView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceStatusTab)).BeginInit();
@@ -604,8 +606,9 @@
             // 
             // SubMainLeft
             // 
-            this.SubMainLeft.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             resources.ApplyResources(this.SubMainLeft, "SubMainLeft");
+            this.SubMainLeft.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.SubMainLeft.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.SubMainLeft.Name = "SubMainLeft";
             // 
             // SubMainLeft.Panel1
@@ -615,6 +618,8 @@
             // SubMainLeft.Panel2
             // 
             this.SubMainLeft.Panel2.Controls.Add(this.tabControlactions);
+            this.SubMainLeft.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.SubMainLeft_Panel2_Paint);
+            this.SubMainLeft.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.SubMainLeft_SplitterMoved);
             // 
             // hud1
             // 
@@ -622,6 +627,7 @@
             this.hud1.alt = 0F;
             this.hud1.altunit = null;
             this.hud1.AOA = 0F;
+            resources.ApplyResources(this.hud1, "hud1");
             this.hud1.BackColor = System.Drawing.Color.Black;
             this.hud1.batterylevel = 0F;
             this.hud1.batteryon = false;
@@ -675,7 +681,6 @@
             this.hud1.displayAOASSA = false;
             this.hud1.disttowp = 0F;
             this.hud1.distunit = null;
-            resources.ApplyResources(this.hud1, "hud1");
             this.hud1.ekfstatus = 0F;
             this.hud1.failsafe = false;
             this.hud1.gpsfix = 0F;
@@ -828,6 +833,7 @@
             // 
             // tabControlactions
             // 
+            resources.ApplyResources(this.tabControlactions, "tabControlactions");
             this.tabControlactions.Controls.Add(this.tabQuick);
             this.tabControlactions.Controls.Add(this.tabActions);
             this.tabControlactions.Controls.Add(this.tabActionsSimple);
@@ -840,26 +846,12 @@
             this.tabControlactions.Controls.Add(this.tabScripts);
             this.tabControlactions.Controls.Add(this.tabPagemessages);
             this.tabControlactions.Controls.Add(this.tabPayload);
-            resources.ApplyResources(this.tabControlactions, "tabControlactions");
             this.tabControlactions.Multiline = true;
             this.tabControlactions.Name = "tabControlactions";
             this.tabControlactions.SelectedIndex = 0;
             this.tabControlactions.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControlactions.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
             this.tabControlactions.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
-            // 
-            // contextMenuStripactionstab
-            // 
-            this.contextMenuStripactionstab.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.customizeToolStripMenuItem});
-            this.contextMenuStripactionstab.Name = "contextMenuStripactionstab";
-            resources.ApplyResources(this.contextMenuStripactionstab, "contextMenuStripactionstab");
-            // 
-            // customizeToolStripMenuItem
-            // 
-            this.customizeToolStripMenuItem.Name = "customizeToolStripMenuItem";
-            resources.ApplyResources(this.customizeToolStripMenuItem, "customizeToolStripMenuItem");
-            this.customizeToolStripMenuItem.Click += new System.EventHandler(this.customizeToolStripMenuItem_Click);
             // 
             // tabQuick
             // 
@@ -883,7 +875,8 @@
             // 
             // tabActions
             // 
-            this.tabActions.Controls.Add(this.tableLayoutPanel1);
+            resources.ApplyResources(this.tabActions, "tabActions");
+            this.tabActions.Controls.Add(this.flowLayoutPanel1);
             this.tabActions.Controls.Add(this.BUT_Homealt);
             this.tabActions.Controls.Add(this.BUT_abortland);
             this.tabActions.Controls.Add(this.CMB_mountmode);
@@ -893,20 +886,31 @@
             this.tabActions.Controls.Add(this.BUTactiondo);
             this.tabActions.Controls.Add(this.modifyandSetLoiterRad);
             this.tabActions.Controls.Add(this.modifyandSetAlt);
-            resources.ApplyResources(this.tabActions, "tabActions");
             this.tabActions.Name = "tabActions";
             this.tabActions.UseVisualStyleBackColor = true;
             // 
-            // tableLayoutPanel1
+            // flowLayoutPanel1
             // 
-            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel10, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel4, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel5, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.lblindicadores, 0, 3);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint_1);
+            resources.ApplyResources(this.flowLayoutPanel1, "flowLayoutPanel1");
+            this.flowLayoutPanel1.Controls.Add(this.tableLayoutPanel7);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            // 
+            // tableLayoutPanel7
+            // 
+            resources.ApplyResources(this.tableLayoutPanel7, "tableLayoutPanel7");
+            this.tableLayoutPanel7.Controls.Add(this.lblindicadores, 0, 3);
+            this.tableLayoutPanel7.Controls.Add(this.tableLayoutPanel10, 0, 4);
+            this.tableLayoutPanel7.Controls.Add(this.tableLayoutPanel3, 0, 0);
+            this.tableLayoutPanel7.Controls.Add(this.tableLayoutPanel12, 0, 2);
+            this.tableLayoutPanel7.Controls.Add(this.tableLayoutPanel4, 0, 1);
+            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
+            // 
+            // lblindicadores
+            // 
+            resources.ApplyResources(this.lblindicadores, "lblindicadores");
+            this.lblindicadores.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(172)))), ((int)(((byte)(24)))));
+            this.lblindicadores.Name = "lblindicadores";
+            this.lblindicadores.Click += new System.EventHandler(this.lblindicadores_Click);
             // 
             // tableLayoutPanel10
             // 
@@ -939,12 +943,6 @@
             resources.ApplyResources(this.label11, "label11");
             this.label11.Name = "label11";
             // 
-            // LBLgroundspeed
-            // 
-            resources.ApplyResources(this.LBLgroundspeed, "LBLgroundspeed");
-            this.LBLgroundspeed.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(188)))), ((int)(((byte)(224)))));
-            this.LBLgroundspeed.Name = "LBLgroundspeed";
-            // 
             // label9
             // 
             resources.ApplyResources(this.label9, "label9");
@@ -965,6 +963,12 @@
             resources.ApplyResources(this.LBLDistToHome, "LBLDistToHome");
             this.LBLDistToHome.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(188)))), ((int)(((byte)(224)))));
             this.LBLDistToHome.Name = "LBLDistToHome";
+            // 
+            // LBLgroundspeed
+            // 
+            resources.ApplyResources(this.LBLgroundspeed, "LBLgroundspeed");
+            this.LBLgroundspeed.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(188)))), ((int)(((byte)(224)))));
+            this.LBLgroundspeed.Name = "LBLgroundspeed";
             // 
             // tableLayoutPanel3
             // 
@@ -1057,6 +1061,55 @@
             this.toolTip1.SetToolTip(this.BUTrestartmission, resources.GetString("BUTrestartmission.ToolTip"));
             this.BUTrestartmission.UseVisualStyleBackColor = true;
             this.BUTrestartmission.Click += new System.EventHandler(this.BUTrestartmission_Click);
+            // 
+            // tableLayoutPanel12
+            // 
+            resources.ApplyResources(this.tableLayoutPanel12, "tableLayoutPanel12");
+            this.tableLayoutPanel12.Controls.Add(this.BUT_joystick_settings, 2, 0);
+            this.tableLayoutPanel12.Controls.Add(this.BUT_ARM, 0, 0);
+            this.tableLayoutPanel12.Controls.Add(this.BUT_clear_track, 1, 0);
+            this.tableLayoutPanel12.Name = "tableLayoutPanel12";
+            // 
+            // BUT_joystick_settings
+            // 
+            resources.ApplyResources(this.BUT_joystick_settings, "BUT_joystick_settings");
+            this.BUT_joystick_settings.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
+            this.BUT_joystick_settings.ColorMouseDown = System.Drawing.Color.Empty;
+            this.BUT_joystick_settings.ColorMouseOver = System.Drawing.Color.Empty;
+            this.BUT_joystick_settings.ColorNotEnabled = System.Drawing.Color.Empty;
+            this.BUT_joystick_settings.Name = "BUT_joystick_settings";
+            this.BUT_joystick_settings.TextColor = System.Drawing.Color.Black;
+            this.toolTip1.SetToolTip(this.BUT_joystick_settings, resources.GetString("BUT_joystick_settings.ToolTip"));
+            this.BUT_joystick_settings.UseVisualStyleBackColor = true;
+            this.BUT_joystick_settings.Click += new System.EventHandler(this.BUT_joystick_Click);
+            // 
+            // BUT_ARM
+            // 
+            resources.ApplyResources(this.BUT_ARM, "BUT_ARM");
+            this.BUT_ARM.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
+            this.BUT_ARM.ColorMouseDown = System.Drawing.Color.Empty;
+            this.BUT_ARM.ColorMouseOver = System.Drawing.Color.Empty;
+            this.BUT_ARM.ColorNotEnabled = System.Drawing.Color.Empty;
+            this.BUT_ARM.Name = "BUT_ARM";
+            this.BUT_ARM.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(50)))));
+            this.BUT_ARM.TextColor = System.Drawing.Color.Black;
+            this.toolTip1.SetToolTip(this.BUT_ARM, resources.GetString("BUT_ARM.ToolTip"));
+            this.BUT_ARM.UseVisualStyleBackColor = true;
+            this.BUT_ARM.Click += new System.EventHandler(this.BUT_ARM_Click);
+            // 
+            // BUT_clear_track
+            // 
+            resources.ApplyResources(this.BUT_clear_track, "BUT_clear_track");
+            this.BUT_clear_track.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
+            this.BUT_clear_track.ColorMouseDown = System.Drawing.Color.Empty;
+            this.BUT_clear_track.ColorMouseOver = System.Drawing.Color.Empty;
+            this.BUT_clear_track.ColorNotEnabled = System.Drawing.Color.Empty;
+            this.BUT_clear_track.Name = "BUT_clear_track";
+            this.BUT_clear_track.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(50)))));
+            this.BUT_clear_track.TextColor = System.Drawing.Color.Black;
+            this.toolTip1.SetToolTip(this.BUT_clear_track, resources.GetString("BUT_clear_track.ToolTip"));
+            this.BUT_clear_track.UseVisualStyleBackColor = true;
+            this.BUT_clear_track.Click += new System.EventHandler(this.BUT_clear_track_Click);
             // 
             // tableLayoutPanel4
             // 
@@ -1153,50 +1206,6 @@
             this.BUT_setmode.UseVisualStyleBackColor = true;
             this.BUT_setmode.Click += new System.EventHandler(this.BUT_setmode_Click);
             // 
-            // tableLayoutPanel5
-            // 
-            resources.ApplyResources(this.tableLayoutPanel5, "tableLayoutPanel5");
-            this.tableLayoutPanel5.Controls.Add(this.BUT_clear_track, 1, 0);
-            this.tableLayoutPanel5.Controls.Add(this.BUT_ARM, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.BUT_joystick_settings, 2, 0);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel5_Paint);
-            // 
-            // BUT_clear_track
-            // 
-            resources.ApplyResources(this.BUT_clear_track, "BUT_clear_track");
-            this.BUT_clear_track.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
-            this.BUT_clear_track.ColorMouseDown = System.Drawing.Color.Empty;
-            this.BUT_clear_track.ColorMouseOver = System.Drawing.Color.Empty;
-            this.BUT_clear_track.ColorNotEnabled = System.Drawing.Color.Empty;
-            this.BUT_clear_track.Name = "BUT_clear_track";
-            this.BUT_clear_track.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(50)))));
-            this.BUT_clear_track.TextColor = System.Drawing.Color.Black;
-            this.toolTip1.SetToolTip(this.BUT_clear_track, resources.GetString("BUT_clear_track.ToolTip"));
-            this.BUT_clear_track.UseVisualStyleBackColor = true;
-            this.BUT_clear_track.Click += new System.EventHandler(this.BUT_clear_track_Click);
-            // 
-            // BUT_ARM
-            // 
-            resources.ApplyResources(this.BUT_ARM, "BUT_ARM");
-            this.BUT_ARM.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
-            this.BUT_ARM.ColorMouseDown = System.Drawing.Color.Empty;
-            this.BUT_ARM.ColorMouseOver = System.Drawing.Color.Empty;
-            this.BUT_ARM.ColorNotEnabled = System.Drawing.Color.Empty;
-            this.BUT_ARM.Name = "BUT_ARM";
-            this.BUT_ARM.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(50)))));
-            this.BUT_ARM.TextColor = System.Drawing.Color.Black;
-            this.toolTip1.SetToolTip(this.BUT_ARM, resources.GetString("BUT_ARM.ToolTip"));
-            this.BUT_ARM.UseVisualStyleBackColor = true;
-            this.BUT_ARM.Click += new System.EventHandler(this.BUT_ARM_Click);
-            // 
-            // lblindicadores
-            // 
-            resources.ApplyResources(this.lblindicadores, "lblindicadores");
-            this.lblindicadores.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(172)))), ((int)(((byte)(24)))));
-            this.lblindicadores.Name = "lblindicadores";
-            this.lblindicadores.Click += new System.EventHandler(this.lblindicadores_Click);
-            // 
             // BUT_Homealt
             // 
             this.BUT_Homealt.ColorMouseDown = System.Drawing.Color.Empty;
@@ -1220,19 +1229,6 @@
             this.toolTip1.SetToolTip(this.BUT_abortland, resources.GetString("BUT_abortland.ToolTip"));
             this.BUT_abortland.UseVisualStyleBackColor = true;
             this.BUT_abortland.Click += new System.EventHandler(this.BUT_abortland_Click);
-            // 
-            // BUT_joystick_settings
-            // 
-            resources.ApplyResources(this.BUT_joystick_settings, "BUT_joystick_settings");
-            this.BUT_joystick_settings.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
-            this.BUT_joystick_settings.ColorMouseDown = System.Drawing.Color.Empty;
-            this.BUT_joystick_settings.ColorMouseOver = System.Drawing.Color.Empty;
-            this.BUT_joystick_settings.ColorNotEnabled = System.Drawing.Color.Empty;
-            this.BUT_joystick_settings.Name = "BUT_joystick_settings";
-            this.BUT_joystick_settings.TextColor = System.Drawing.Color.Black;
-            this.toolTip1.SetToolTip(this.BUT_joystick_settings, resources.GetString("BUT_joystick_settings.ToolTip"));
-            this.BUT_joystick_settings.UseVisualStyleBackColor = true;
-            this.BUT_joystick_settings.Click += new System.EventHandler(this.BUT_joystick_Click);
             // 
             // CMB_mountmode
             // 
@@ -2463,7 +2459,7 @@
             // contextMenuStripMap
             // 
             this.contextMenuStripMap.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.goHereToolStripMenuItem,
+            this.goHereToolStripMenuItem1,
             this.flyToHereAltToolStripMenuItem,
             this.addPoiToolStripMenuItem,
             this.pointCameraHereToolStripMenuItem,
@@ -2478,11 +2474,11 @@
             this.contextMenuStripMap.Name = "contextMenuStrip1";
             resources.ApplyResources(this.contextMenuStripMap, "contextMenuStripMap");
             // 
-            // goHereToolStripMenuItem
+            // goHereToolStripMenuItem1
             // 
-            this.goHereToolStripMenuItem.Name = "goHereToolStripMenuItem";
-            resources.ApplyResources(this.goHereToolStripMenuItem, "goHereToolStripMenuItem");
-            this.goHereToolStripMenuItem.Click += new System.EventHandler(this.goHereToolStripMenuItem_Click);
+            this.goHereToolStripMenuItem1.Name = "goHereToolStripMenuItem1";
+            resources.ApplyResources(this.goHereToolStripMenuItem1, "goHereToolStripMenuItem1");
+            this.goHereToolStripMenuItem1.Click += new System.EventHandler(this.goHereToolStripMenuItem_Click);
             // 
             // flyToHereAltToolStripMenuItem
             // 
@@ -5121,6 +5117,19 @@
             this.CB_tuning.UseVisualStyleBackColor = true;
             this.CB_tuning.CheckedChanged += new System.EventHandler(this.CB_tuning_CheckedChanged);
             // 
+            // contextMenuStripactionstab
+            // 
+            this.contextMenuStripactionstab.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.customizeToolStripMenuItem});
+            this.contextMenuStripactionstab.Name = "contextMenuStripactionstab";
+            resources.ApplyResources(this.contextMenuStripactionstab, "contextMenuStripactionstab");
+            // 
+            // customizeToolStripMenuItem
+            // 
+            this.customizeToolStripMenuItem.Name = "customizeToolStripMenuItem";
+            resources.ApplyResources(this.customizeToolStripMenuItem, "customizeToolStripMenuItem");
+            this.customizeToolStripMenuItem.Click += new System.EventHandler(this.customizeToolStripMenuItem_Click);
+            // 
             // bindingSourceGaugesTab
             // 
             this.bindingSourceGaugesTab.DataSource = typeof(MissionPlanner.CurrentState);
@@ -5195,31 +5204,33 @@
             ((System.ComponentModel.ISupportInitialize)(this.MainH)).EndInit();
             this.MainH.ResumeLayout(false);
             this.SubMainLeft.Panel1.ResumeLayout(false);
+            this.SubMainLeft.Panel1.PerformLayout();
             this.SubMainLeft.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SubMainLeft)).EndInit();
             this.SubMainLeft.ResumeLayout(false);
             this.contextMenuStripHud.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).EndInit();
             this.tabControlactions.ResumeLayout(false);
-            this.contextMenuStripactionstab.ResumeLayout(false);
             this.tabQuick.ResumeLayout(false);
             this.tableLayoutPanelQuick.ResumeLayout(false);
             this.tableLayoutPanelQuick.PerformLayout();
             this.tabActions.ResumeLayout(false);
             this.tabActions.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel7.ResumeLayout(false);
+            this.tableLayoutPanel7.PerformLayout();
             this.tableLayoutPanel10.ResumeLayout(false);
             this.tableLayoutPanel10.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
+            this.tableLayoutPanel12.ResumeLayout(false);
+            this.tableLayoutPanel12.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel8.ResumeLayout(false);
             this.tableLayoutPanel8.PerformLayout();
             this.tableLayoutPanel9.ResumeLayout(false);
             this.tableLayoutPanel9.PerformLayout();
-            this.tableLayoutPanel5.ResumeLayout(false);
-            this.tableLayoutPanel5.PerformLayout();
             this.tabActionsSimple.ResumeLayout(false);
             this.tabPagePreFlight.ResumeLayout(false);
             this.tabGauges.ResumeLayout(false);
@@ -5262,6 +5273,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Zoomlevel)).EndInit();
+            this.contextMenuStripactionstab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceGaugesTab)).EndInit();
             this.contextMenuStripQuickView.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceStatusTab)).EndInit();
@@ -5277,7 +5289,7 @@
         private System.Windows.Forms.Timer ZedGraphTimer;
         private System.Windows.Forms.SplitContainer MainH;
         private System.Windows.Forms.SplitContainer SubMainLeft;
-        private System.Windows.Forms.ToolStripMenuItem goHereToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem goHereToolStripMenuItem1;
         private Controls.HUD hud1;
         private Controls.MyButton BUT_clear_track;
         private System.Windows.Forms.CheckBox CB_tuning;
@@ -5444,7 +5456,6 @@
         private Controls.MyButton BUT_setwp;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private Controls.ModifyandSet modifyandSetSpeed;
         private Controls.MyButton BUT_resumemis;
         private System.Windows.Forms.ToolStripMenuItem setHomeHereToolStripMenuItem2;
@@ -5458,7 +5469,6 @@
         private Controls.MyButton BUT_logbrowse;
         private System.Windows.Forms.ComboBox COMBJOY;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelQuick;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label s;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Timer RecargaLbl;
@@ -5801,5 +5811,8 @@
         private System.Windows.Forms.Label lblindicadores;
         private Controls.MyButton ButJoyOn;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel12;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }

@@ -314,13 +314,13 @@ namespace MissionPlanner.GCSViews
             try
             {
                 //groundspeed
-                LBLgroundspeed.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                LBLgroundspeed.Text = Math.Round(Convert.ToDouble(dataGridView1.CurrentRow.Cells[0].Value)).ToString();
                 //wp_dist
-                LBLwp_dist.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+                LBLwp_dist.Text = Math.Round(Convert.ToDouble(dataGridView1.CurrentRow.Cells[1].Value)).ToString();
                 //DistToHome
-                LBLDistToHome.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
+                LBLDistToHome.Text = Math.Round(Convert.ToDouble(dataGridView1.CurrentRow.Cells[2].Value)).ToString();
                 //rangefinder1
-                LBLrangefinder1.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+                LBLrangefinder1.Text = Math.Round(Convert.ToDouble(dataGridView1.CurrentRow.Cells[3].Value)).ToString();
 
             }
             catch { }
@@ -1334,6 +1334,7 @@ namespace MissionPlanner.GCSViews
             {
                 CustomColor.instance.activecolor(BUT_quickauto);
                 CustomColor.instance.Normalcolor(BUT_quickmanual);
+                CustomColor.instance.Normalcolor(BUT_quickrtl);
             }
             else if (mode == "unknow")
             {
@@ -1346,6 +1347,7 @@ namespace MissionPlanner.GCSViews
             {
                 CustomColor.instance.activecolor(BUT_quickmanual);
                 CustomColor.instance.Normalcolor(BUT_quickauto);
+                CustomColor.instance.Normalcolor(BUT_quickrtl); 
             }
             else if (mode == "RTL")
             {
@@ -2146,6 +2148,7 @@ namespace MissionPlanner.GCSViews
 
         private void FlightData_FormClosing(object sender, FormClosingEventArgs e)
         {
+            RecargaLbl.Stop();
             threadrun = false;
 
             DateTime end = DateTime.Now.AddSeconds(5);
@@ -5113,6 +5116,21 @@ namespace MissionPlanner.GCSViews
         }
 
         private void lblindicadores_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel11_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void SubMainLeft_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+
+        }
+
+        private void SubMainLeft_Panel2_Paint(object sender, PaintEventArgs e)
         {
 
         }
