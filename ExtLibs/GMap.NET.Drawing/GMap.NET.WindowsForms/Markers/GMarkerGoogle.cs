@@ -1,22 +1,21 @@
-﻿
-using System.ComponentModel;
-using System.IO;
-using GMap.NET.Drawing;
+﻿using System.IO;
+
+
 
 namespace GMap.NET.WindowsForms.Markers
 {
-   using System.Drawing;
-   using System.Collections.Generic;
+    using System.Drawing;
+    using System.Collections.Generic;
 
 #if !PocketPC
     using GMap.NET.Drawing.Properties;
-   using System;
-   using System.Runtime.Serialization;
+    using System;
+    using System.Runtime.Serialization;
 #else
    using GMap.NET.WindowsMobile.Properties;
 #endif
 
-   public enum GMarkerGoogleType
+    public enum GMarkerGoogleType
    {
       none = 0,
       arrow,
@@ -193,15 +192,17 @@ namespace GMap.NET.WindowsForms.Markers
       /// </summary>
       /// <param name="p"></param>
       /// <param name="Bitmap"></param>
+      /// public 
+      
       public GMarkerGoogle(PointLatLng p, Bitmap Bitmap)
          : base(p)
       {
          this.Bitmap = Bitmap;
          Size = new System.Drawing.Size(Bitmap.Width, Bitmap.Height);
-         Offset = new Point(-Size.Width / 2, -Size.Height / 2);
+         Offset = new Point(-Size.Width / 2 - 10 , -Size.Height / 2 - 10);
             
       }
-
+  
       static readonly Dictionary<string, Image> iconCache = new Dictionary<string, Image>();
 
       internal static Image GetIcon(string name)

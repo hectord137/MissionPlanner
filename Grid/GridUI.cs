@@ -1613,7 +1613,7 @@ namespace MissionPlanner.Grid
                         {
                             plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_RELAY, 1,
                                     0, 0, 0, 0, 0, 0, gridobject);
-                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_HOME, 0,
+                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.RETURN_TO_LAUNCH, 0,
                                     0, 0, 0, 0, 0, 0, gridobject);
                         }
                     }

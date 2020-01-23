@@ -116,6 +116,7 @@ namespace MissionPlanner.GCSViews
             {
 
                 CustomColor.instance.Normalcolor(BUT_insertWP);
+                     Commands.Columns["Delete"].Visible = false;
                 bloqWP = false;
                 ButInsertPol.Enabled = true;
                 ButDelwp.Enabled = true;
@@ -129,7 +130,7 @@ namespace MissionPlanner.GCSViews
 
                     _flightPlannerBase.pointers = 0;
                     Del_relay_home_last = true;
-                    Commands.Columns["Delete"].Visible = false;
+                   
                 }
                 else {
                     Del_relay_home_last = false;
@@ -142,13 +143,13 @@ namespace MissionPlanner.GCSViews
                 bloqWP = true;
                 ButInsertPol.Enabled = false;
                 CustomColor.instance.activecolor(BUT_insertWP);
-                
+                Commands.Columns["Delete"].Visible = true;
                 ButDelwp.Enabled = false;
                 if (Del_relay_home_last)
                 {
                     this.Commands.Rows.RemoveAt(contador_delete);
                     this.Commands.Rows.RemoveAt(contador_delete++);
-                    Commands.Columns["Delete"].Visible = true;
+                    
                 }
                 BUT_write.Enabled = false;
                 myButton7.Enabled = false;
@@ -704,12 +705,17 @@ namespace MissionPlanner.GCSViews
                 estadomenu = false;
                 Grid.GridUI.instance.myButton1_Click(sender, e);
                 CustomColor.instance.Normalcolor(But_SurveyGrid);
+              
             }
             else
             {
                 estadomenu = true;
                 FlightPlannerBase.surveyGridToolStripMenuItem_Click(sender, e);
                 CustomColor.instance.activecolor(But_SurveyGrid);
+                ButInsertPol_Click(sender, e);
+
+
+
 
             }
         }

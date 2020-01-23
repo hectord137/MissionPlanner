@@ -143,13 +143,6 @@
             this.CHK_toandland = new System.Windows.Forms.CheckBox();
             this.label24 = new System.Windows.Forms.Label();
             this.NUM_UpDownFlySpeed = new System.Windows.Forms.NumericUpDown();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.NUM_angle = new System.Windows.Forms.NumericUpDown();
-            this.CMB_camera = new System.Windows.Forms.ComboBox();
-            this.CHK_camdirection = new System.Windows.Forms.CheckBox();
-            this.NUM_altitude = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.CHK_advanced = new System.Windows.Forms.CheckBox();
             this.CHK_footprints = new System.Windows.Forms.CheckBox();
@@ -158,6 +151,13 @@
             this.CHK_markers = new System.Windows.Forms.CheckBox();
             this.CHK_boundary = new System.Windows.Forms.CheckBox();
             this.BUT_Accept = new MissionPlanner.Controls.MyButton();
+            this.CMB_camera = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.NUM_altitude = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
+            this.CHK_camdirection = new System.Windows.Forms.CheckBox();
+            this.NUM_angle = new System.Windows.Forms.NumericUpDown();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.groupBox5.SuspendLayout();
             this.tabCamera.SuspendLayout();
@@ -188,9 +188,9 @@
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_split)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_UpDownFlySpeed)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NUM_angle)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NUM_altitude)).BeginInit();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NUM_altitude)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NUM_angle)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -1158,74 +1158,6 @@
             0});
             this.NUM_UpDownFlySpeed.ValueChanged += new System.EventHandler(this.domainUpDown1_ValueChanged);
             // 
-            // label26
-            // 
-            resources.ApplyResources(this.label26, "label26");
-            this.label26.Name = "label26";
-            // 
-            // label4
-            // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.Name = "label4";
-            // 
-            // NUM_angle
-            // 
-            resources.ApplyResources(this.NUM_angle, "NUM_angle");
-            this.NUM_angle.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
-            this.NUM_angle.Name = "NUM_angle";
-            this.NUM_angle.ValueChanged += new System.EventHandler(this.domainUpDown1_ValueChanged);
-            // 
-            // CMB_camera
-            // 
-            this.CMB_camera.FormattingEnabled = true;
-            resources.ApplyResources(this.CMB_camera, "CMB_camera");
-            this.CMB_camera.Name = "CMB_camera";
-            this.CMB_camera.SelectedIndexChanged += new System.EventHandler(this.CMB_camera_SelectedIndexChanged);
-            // 
-            // CHK_camdirection
-            // 
-            resources.ApplyResources(this.CHK_camdirection, "CHK_camdirection");
-            this.CHK_camdirection.Checked = true;
-            this.CHK_camdirection.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CHK_camdirection.Name = "CHK_camdirection";
-            this.CHK_camdirection.UseVisualStyleBackColor = true;
-            this.CHK_camdirection.CheckedChanged += new System.EventHandler(this.CHK_camdirection_CheckedChanged);
-            // 
-            // NUM_altitude
-            // 
-            this.NUM_altitude.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            resources.ApplyResources(this.NUM_altitude, "NUM_altitude");
-            this.NUM_altitude.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.NUM_altitude.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.NUM_altitude.Name = "NUM_altitude";
-            this.NUM_altitude.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.NUM_altitude.ValueChanged += new System.EventHandler(this.domainUpDown1_ValueChanged);
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
-            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.CHK_advanced);
@@ -1299,6 +1231,74 @@
             this.BUT_Accept.UseVisualStyleBackColor = true;
             this.BUT_Accept.Click += new System.EventHandler(this.BUT_Accept_Click);
             // 
+            // CMB_camera
+            // 
+            this.CMB_camera.FormattingEnabled = true;
+            resources.ApplyResources(this.CMB_camera, "CMB_camera");
+            this.CMB_camera.Name = "CMB_camera";
+            this.CMB_camera.SelectedIndexChanged += new System.EventHandler(this.CMB_camera_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
+            // label26
+            // 
+            resources.ApplyResources(this.label26, "label26");
+            this.label26.Name = "label26";
+            // 
+            // NUM_altitude
+            // 
+            this.NUM_altitude.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            resources.ApplyResources(this.NUM_altitude, "NUM_altitude");
+            this.NUM_altitude.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.NUM_altitude.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NUM_altitude.Name = "NUM_altitude";
+            this.NUM_altitude.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.NUM_altitude.ValueChanged += new System.EventHandler(this.domainUpDown1_ValueChanged);
+            // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.Name = "label4";
+            // 
+            // CHK_camdirection
+            // 
+            resources.ApplyResources(this.CHK_camdirection, "CHK_camdirection");
+            this.CHK_camdirection.Checked = true;
+            this.CHK_camdirection.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CHK_camdirection.Name = "CHK_camdirection";
+            this.CHK_camdirection.UseVisualStyleBackColor = true;
+            this.CHK_camdirection.CheckedChanged += new System.EventHandler(this.CHK_camdirection_CheckedChanged);
+            // 
+            // NUM_angle
+            // 
+            resources.ApplyResources(this.NUM_angle, "NUM_angle");
+            this.NUM_angle.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.NUM_angle.Name = "NUM_angle";
+            this.NUM_angle.ValueChanged += new System.EventHandler(this.domainUpDown1_ValueChanged);
+            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabSimple);
@@ -1363,10 +1363,10 @@
             this.groupBox6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_split)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_UpDownFlySpeed)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NUM_angle)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NUM_altitude)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NUM_altitude)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NUM_angle)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
 

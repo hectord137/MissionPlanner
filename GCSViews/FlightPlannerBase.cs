@@ -4552,8 +4552,8 @@ namespace MissionPlanner.GCSViews
          scalay = geotiff.scaley;
          //Factor e escala segun zoom
          GMap.NET.Internals.Core core = new GMap.NET.Internals.Core();
-         double  factor_escala = core.Get_scale(Convert.ToInt32(3), Latitud);
-
+         double  factor_escala = core.Get_scale(Convert.ToInt32(16), Latitud);
+          
             image = resize(ruta, 2290, 2604);
             string destino = @"C:\IMGtmp.tiff";
             image.Save(destino);
@@ -4603,6 +4603,7 @@ namespace MissionPlanner.GCSViews
                 new PointLatLng(Lat, lng),
                 new Bitmap(Tiff)
                 );
+         
             //MainMap.Overlays.Add(markers);
             MainMap.Overlays.Insert(0, markers);
            
@@ -4616,7 +4617,7 @@ namespace MissionPlanner.GCSViews
             }
         }
 
-
+  
         public void trackBar1_Scroll(object sender, EventArgs e)
         {
             try
@@ -4624,7 +4625,7 @@ namespace MissionPlanner.GCSViews
                 lock (thisLock)
                 {
                     _flightPlanner.MainMap.Zoom = _flightPlanner.trackBar1.Value;
-                    the_magic(Convert.ToInt32(_flightPlanner.trackBar1.Value));
+                    Resize_scroll(Convert.ToInt32(_flightPlanner.trackBar1.Value));
                 }
             }
             catch (Exception ex)
@@ -4634,7 +4635,7 @@ namespace MissionPlanner.GCSViews
         }
 
 
-        private void the_magic(int zoom) {
+        private void Resize_scroll(int zoom) {
 
             if (image != null)
             {
@@ -4686,7 +4687,7 @@ namespace MissionPlanner.GCSViews
                 {
                     var x = _flightPlanner.trackBar1.Value = (int)(_flightPlanner.MainMap.Zoom);
                     _flightPlanner.MainMap.Zoom = _flightPlanner.trackBar1.Value;
-                    the_magic(Convert.ToInt32(x));
+                    Resize_scroll(Convert.ToInt32(x));
                 }
                 catch (Exception ex)
                 {
