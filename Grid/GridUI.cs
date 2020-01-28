@@ -1704,7 +1704,12 @@ namespace MissionPlanner.Grid
             routesOverlay.Polygons.Clear();
             routesOverlay.Markers.Clear();
             FlightPlannerBase.instance._flightPlanner.PaneMenu.Visible = false;
-            FlightPlannerBase.instance.clearMissionToolStripMenuItem_Click(sender, e);
+            //FlightPlanner.instance.ButClearPol_Click(sender, e);
+            FlightPlanner.instance.ButInsertPol_Click(sender, e);
+            FlightPlanner.instance.But_SurveyGrid.Visible = false;
+            FlightPlanner.instance.estadomenu = false;
+
+
         }
 
         private void groupBox6_Enter(object sender, EventArgs e)

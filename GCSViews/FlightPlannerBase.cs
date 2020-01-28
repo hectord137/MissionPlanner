@@ -1688,9 +1688,10 @@ namespace MissionPlanner.GCSViews
                 log.Info(ex.ToString());
             }
         }
-
+        public bool addmarkerpoly;
         public void addPolygonPointToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             if (polygongridmode == false)
             {
                 CustomMessageBox.Show(

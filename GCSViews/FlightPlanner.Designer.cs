@@ -2031,7 +2031,7 @@ namespace MissionPlanner.GCSViews
         private TableLayoutPanel tableLayoutPanel14;
         private Label lblmaps;
         public PictureBox pictureBox2;
-        private MyButton But_SurveyGrid;
+        public MyButton But_SurveyGrid;
         public Panel panelWaypoints;
         private TableLayoutPanel tableLayoutPanel8;
         public Panel panel3;

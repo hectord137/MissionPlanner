@@ -174,30 +174,29 @@ namespace MissionPlanner.GCSViews
 
 
         public bool setPol = false;
-        private void ButInsertPol_Click(object sender, System.EventArgs e)
+        public void ButInsertPol_Click(object sender, System.EventArgs e)
         {
+         
             if (setPol)
             {
                 ButClearPol.Enabled = true;
                 BUT_insertWP.Enabled = true;
                 BtSavePol.Enabled = false;
                 bloqWP = false;
-                _flightPlannerBase.addPolygonPointToolStripMenuItem_Click(null, null);
                 setPol = false;
-                _flightPlannerBase.polygongridmode = false;
                 CustomColor.instance.Normalcolor(ButInsertPol);
-                But_SurveyGrid.Visible = false;
             }
             else
             {
                 ButClearPol.Enabled = false;
                 BUT_insertWP.Enabled = false;
-                bloqWP = true;
                 BtSavePol.Enabled = true;
+                bloqWP = true;
                 setPol = true;
+                But_SurveyGrid.Visible = true;
                 CustomColor.instance.activecolor(ButInsertPol);
                 _flightPlannerBase.addPolygonPointToolStripMenuItem_Click(sender, e);
-                But_SurveyGrid.Visible = true;
+                
                
 
             }
@@ -206,7 +205,7 @@ namespace MissionPlanner.GCSViews
 
 
 
-        private void ButClearPol_Click(object sender, System.EventArgs e)
+        public void ButClearPol_Click(object sender, System.EventArgs e)
         {
             DialogResult boton = MessageBox.Show("Clear Polygon?", "Alerta", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
             if (boton == DialogResult.OK)
@@ -701,22 +700,18 @@ namespace MissionPlanner.GCSViews
         {
             if (estadomenu == true)
             {
-                //clear point
                 estadomenu = false;
                 Grid.GridUI.instance.myButton1_Click(sender, e);
                 CustomColor.instance.Normalcolor(But_SurveyGrid);
-              
+                bloqWP = true;
+
             }
             else
             {
                 estadomenu = true;
                 FlightPlannerBase.surveyGridToolStripMenuItem_Click(sender, e);
                 CustomColor.instance.activecolor(But_SurveyGrid);
-                ButInsertPol_Click(sender, e);
-
-
-
-
+                bloqWP = false;
             }
         }
 
