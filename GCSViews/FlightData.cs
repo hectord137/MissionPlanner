@@ -467,6 +467,7 @@ namespace MissionPlanner.GCSViews
             tabControlactions.Controls.Remove(tablogbrowse);
             tabControlactions.Controls.Remove(tabQuick);
             tabControlactions.Controls.Remove(tabStatus);
+            tabControlactions.Controls.Remove(tabPayload);
 
         }
 
@@ -5075,9 +5076,13 @@ namespace MissionPlanner.GCSViews
 
         private void timer1_Tick_2(object sender, EventArgs e)
         {
-            rechargelabel();
-            ChangeColorBtns();
-
+            try
+            {
+                rechargelabel();
+                ChangeColorBtns();
+            }
+            catch { 
+            }
         }
 
         private void toolTip1_Popup(object sender, PopupEventArgs e)
