@@ -1699,17 +1699,22 @@ namespace MissionPlanner.Grid
 
         public void myButton1_Click(object sender, EventArgs e)
         {
+            clear_routes_poly();
+            FlightPlanner.instance.ButClearPol_Click(sender, e);
+            FlightPlanner.instance.But_SurveyGrid.Visible = false;
+            FlightPlanner.instance.estadomenu = false;
+            FlightPlanner.instance.Estado_btn_insert_poly = false;
+            CustomColor.instance.Normalcolor(FlightPlanner.instance.ButInsertPol);
+            CustomColor.instance.Normalcolor(FlightPlanner.instance.But_SurveyGrid);
+
+        }
+
+        public void clear_routes_poly() {
             GMapMarkerOverlap.Clear();
             routesOverlay.Routes.Clear();
             routesOverlay.Polygons.Clear();
             routesOverlay.Markers.Clear();
             FlightPlannerBase.instance._flightPlanner.PaneMenu.Visible = false;
-            //FlightPlanner.instance.ButClearPol_Click(sender, e);
-            FlightPlanner.instance.ButInsertPol_Click(sender, e);
-            FlightPlanner.instance.But_SurveyGrid.Visible = false;
-            FlightPlanner.instance.estadomenu = false;
-
-
         }
 
         private void groupBox6_Enter(object sender, EventArgs e)

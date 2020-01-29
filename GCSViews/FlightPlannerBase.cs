@@ -6140,7 +6140,16 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             GridPlugin grid = new GridPlugin();
             grid.Host = new PluginHost();
             grid.but_Click(sender, e);
+        
+        }
 
+        public bool reload_parameters(bool estado_poly)
+        {
+            FlightPlannerBase.instance._flightPlanner.estadomenu = false;
+            FlightPlanner.instance.PaneMenu.Visible = false;
+            FlightPlanner.instance.Estado_btn_insert_poly = true;
+            CustomColor.instance.Normalcolor(FlightPlanner.instance.But_SurveyGrid);
+            return estado_poly;
         }
 
         public void lblInfo(string area)

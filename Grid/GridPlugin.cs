@@ -1,4 +1,5 @@
 ﻿using MissionPlanner.GCSViews;
+using MissionPlanner.GCSViews.ConfigurationView;
 using System;
 using System.Windows.Forms;
 
@@ -78,6 +79,7 @@ namespace MissionPlanner.Grid
                     if (
                         CustomMessageBox.Show("No polygon defined. Load a file?", "Load File", MessageBoxButtons.YesNo) ==
                         (int)DialogResult.Yes)
+                        
                     {
 
                         gridui.LoadGrid();
@@ -92,10 +94,14 @@ namespace MissionPlanner.Grid
                         FlightPlannerBase.instance._flightPlanner.estadomenu = false;
                         haypoly = false;
                         FlightPlanner.instance.PaneMenu.Visible = false;
+                        FlightPlanner.instance.Estado_btn_insert_poly = true;
+                        CustomColor.instance.Normalcolor(FlightPlanner.instance.But_SurveyGrid);
+
                     }
                 }
             }
         }
+
 
         public override bool Exit()
         {
