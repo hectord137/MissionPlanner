@@ -242,6 +242,7 @@ namespace MissionPlanner.GCSViews
         {
             ButClearPol.Enabled = true;
             _flightPlannerBase.loadPolygonToolStripMenuItem_Click(sender, e);
+            ButInsertPol_Click(sender, e);
         }
 
         private void BUT_write_Click(object sender, System.EventArgs e)
