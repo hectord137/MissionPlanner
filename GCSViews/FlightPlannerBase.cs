@@ -1688,33 +1688,36 @@ namespace MissionPlanner.GCSViews
                 log.Info(ex.ToString());
             }
         }
-        public bool addmarkerpoly;
+        public bool addmarkerpoly = false;
         public void addPolygonPointToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-            if (polygongridmode == false)
+            
+                if (polygongridmode == false)
+                {
+                    CustomMessageBox.Show(
+                        "You will remain in polygon mode until you clear the polygon or create a grid/upload a fence");
+                    //
+                    polygongridmode = true;
+                    return;
+                }
+                List<PointLatLng> polygonPoints = new List<PointLatLng>();
+                if (drawnpolygonsoverlay.Polygons.Count == 0)
+                {
+                    drawnpolygon.Points.Clear();
+                    drawnpolygonsoverlay.Polygons.Add(drawnpolygon);
+                }
+            if (addmarkerpoly == true)
             {
-                CustomMessageBox.Show(
-                    "You will remain in polygon mode until you clear the polygon or create a grid/upload a fence");
-                //
-                polygongridmode = true;
-                return;
+                drawnpolygon.Fill = Brushes.Transparent;
+
+                drawnpolygon.Points.Add(new PointLatLng(MouseDownStart.Lat, MouseDownStart.Lng));
+
+                addpolygonmarkergrid(drawnpolygon.Points.Count.ToString(), MouseDownStart.Lng, MouseDownStart.Lat, 0);
+
+                _flightPlanner.MainMap.UpdatePolygonLocalPosition(drawnpolygon);
+
+                _flightPlanner.MainMap.Invalidate();
             }
-            List<PointLatLng> polygonPoints = new List<PointLatLng>();
-            if (drawnpolygonsoverlay.Polygons.Count == 0)
-            {
-                drawnpolygon.Points.Clear();
-                drawnpolygonsoverlay.Polygons.Add(drawnpolygon);
-            }
-            drawnpolygon.Fill = Brushes.Transparent;
-
-            drawnpolygon.Points.Add(new PointLatLng(MouseDownStart.Lat, MouseDownStart.Lng));
-
-            addpolygonmarkergrid(drawnpolygon.Points.Count.ToString(), MouseDownStart.Lng, MouseDownStart.Lat, 0);
-
-            _flightPlanner.MainMap.UpdatePolygonLocalPosition(drawnpolygon);
-
-            _flightPlanner.MainMap.Invalidate();
 
 
         }

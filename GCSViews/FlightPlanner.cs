@@ -182,14 +182,13 @@ namespace MissionPlanner.GCSViews
             But_SurveyGrid.Visible = true;
             CustomColor.instance.activecolor(ButInsertPol);
             _flightPlannerBase.addPolygonPointToolStripMenuItem_Click(sender, e);
+            
         }
 
         public void no_poly (){
             ButClearPol.Enabled = true;
             BUT_insertWP.Enabled = true;
             Estado_btn_insert_poly = false;
-            
-
         }
 
         public bool Estado_btn_insert_poly = false;
@@ -201,11 +200,14 @@ namespace MissionPlanner.GCSViews
                 no_poly();
                 CustomColor.instance.Normalcolor(ButInsertPol);
                 bloqWP = false;
+                Estado_btn_insert_poly = false;
+                _flightPlannerBase.addmarkerpoly = false;
 
             }
             else
             {
                 inset_poly(sender, e);
+                _flightPlannerBase.addmarkerpoly = true;
             }
 
         }
