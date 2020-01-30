@@ -85,14 +85,14 @@ namespace MissionPlanner.GCSViews
 
         private void ButKMLOverlay_Click(object sender, System.EventArgs e)
         {
-            
+
         }
 
         private void button1_Click(object sender, System.EventArgs e)
         {
 
         }
-  
+
 
         private void setHomeHereToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
@@ -131,7 +131,7 @@ namespace MissionPlanner.GCSViews
 
                     _flightPlannerBase.pointers = 0;
                     Del_relay_home_last = true;
-                   
+
                 }
                 else {
                     Del_relay_home_last = false;
@@ -150,7 +150,7 @@ namespace MissionPlanner.GCSViews
                 {
                     this.Commands.Rows.RemoveAt(contador_delete);
                     this.Commands.Rows.RemoveAt(contador_delete++);
-                    
+
                 }
                 BUT_write.Enabled = false;
                 myButton7.Enabled = false;
@@ -182,10 +182,10 @@ namespace MissionPlanner.GCSViews
             But_SurveyGrid.Visible = true;
             CustomColor.instance.activecolor(ButInsertPol);
             _flightPlannerBase.addPolygonPointToolStripMenuItem_Click(sender, e);
-            
+
         }
 
-        public void no_poly (){
+        public void no_poly() {
             ButClearPol.Enabled = true;
             BUT_insertWP.Enabled = true;
             Estado_btn_insert_poly = false;
@@ -194,7 +194,7 @@ namespace MissionPlanner.GCSViews
         public bool Estado_btn_insert_poly = false;
         public void ButInsertPol_Click(object sender, System.EventArgs e)
         {
-         
+
             if (Estado_btn_insert_poly)
             {
                 no_poly();
@@ -216,20 +216,20 @@ namespace MissionPlanner.GCSViews
 
         public void ButClearPol_Click(object sender, System.EventArgs e)
         {
-           
-                //ButInsertPol_Click(sender, e);
-                FlightPlannerBase.drawnpolygonsoverlay.Markers.Clear();
-                ButClearPol.Enabled = false;
-                bloqWP = false;
-                BtSavePol.Enabled = false;
-                BUT_insertWP.Enabled = true;
-                _flightPlannerBase.drawnpolygon.Points.Clear();
-                //// remove full loop is exists
-                _flightPlannerBase.polygongridmode = false;
-                if (_flightPlannerBase.drawnpolygon.Points.Count > 1 &&
-                _flightPlannerBase.drawnpolygon.Points[0] == _flightPlannerBase.drawnpolygon.Points[_flightPlannerBase.drawnpolygon.Points.Count - 1])
+
+            //ButInsertPol_Click(sender, e);
+            FlightPlannerBase.drawnpolygonsoverlay.Markers.Clear();
+            ButClearPol.Enabled = false;
+            bloqWP = false;
+            BtSavePol.Enabled = false;
+            BUT_insertWP.Enabled = true;
+            _flightPlannerBase.drawnpolygon.Points.Clear();
+            //// remove full loop is exists
+            _flightPlannerBase.polygongridmode = false;
+            if (_flightPlannerBase.drawnpolygon.Points.Count > 1 &&
+            _flightPlannerBase.drawnpolygon.Points[0] == _flightPlannerBase.drawnpolygon.Points[_flightPlannerBase.drawnpolygon.Points.Count - 1])
                 _flightPlannerBase.drawnpolygon.Points.RemoveAt(_flightPlannerBase.drawnpolygon.Points.Count - 1); // unmake a full loop
-            
+
 
         }
 
@@ -295,7 +295,7 @@ namespace MissionPlanner.GCSViews
             else
             {
                 bloqRallyPoint = true;
-               
+
                 CustomColor.instance.activecolor(myButton1);
             }
 
@@ -374,7 +374,7 @@ namespace MissionPlanner.GCSViews
 
         private void BUTCLEARKML_Click(object sender, System.EventArgs e)
         {
-           
+
         }
 
         private void label11_Click(object sender, System.EventArgs e)
@@ -402,10 +402,10 @@ namespace MissionPlanner.GCSViews
         {
 
         }
-       
+
         private void button1_Click_2(object sender, System.EventArgs e)
         {
-     
+
 
 
 
@@ -526,7 +526,7 @@ namespace MissionPlanner.GCSViews
         {
 
         }
-        public double tracksroll {get; set; }
+        public double tracksroll { get; set; }
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             tracksroll = (double)trackBar1.Value;
@@ -560,23 +560,23 @@ namespace MissionPlanner.GCSViews
 
         private void button1_Click_3(object sender, EventArgs e, PaintEventArgs PE)
         {
-           
-          
+
+
 
         }
 
         private void MainMap_MouseHover(object sender, System.EventArgs e)
         {
             // Update the mouse event label to indicate the MouseHover event occurred.
-           
+
         }
 
-       
+
         private void myGMAP1_Load(object sender, EventArgs e)
         {
-            
+
             this.BackColor = Color.FromArgb(0x00, 0xAA, 0x00, 0xFF);
-     
+
 
         }
 
@@ -587,7 +587,7 @@ namespace MissionPlanner.GCSViews
 
         private void button1_Paint(object sender, PaintEventArgs e, EventArgs ea)
         {
-         ;
+            ;
         }
 
         private void button1_Click_3(object sender, EventArgs e)
@@ -647,16 +647,16 @@ namespace MissionPlanner.GCSViews
         public bool distancia = false;
         private void myButton8_Click(object sender, EventArgs e)
         {
-            
+
 
             if (distancia)
             {
-               CustomColor.instance.Normalcolor(Buttmeasurecontext);
+                CustomColor.instance.Normalcolor(Buttmeasurecontext);
                 distancia = false;
             }
             else
             {
-                
+
                 CustomColor.instance.activecolor(Buttmeasurecontext);
                 distancia = true;
             }
@@ -698,36 +698,62 @@ namespace MissionPlanner.GCSViews
 
         private void button1_Click_4(object sender, EventArgs e)
         {
-          
+
 
         }
         public bool estadomenu = false;
 
         public void cierra_sinEliminar_poly() {
-
-            estadomenu = false;
-            CustomColor.instance.Normalcolor(But_SurveyGrid);
             bloqWP = true;
+            estadomenu = false;
+            CustomColor.instance.Normalcolor(But_SurveyGrid);  
             no_poly();
             Grid.GridUI.instance.clear_routes_poly();
             PaneMenu.Visible = false;
         }
+        public int cont_wps {get;set;}
         private void myButton9_Click(object sender, EventArgs e)
         {
-            if (estadomenu == true)
-            {
-                cierra_sinEliminar_poly();
-            }
-            else
-            {
-                           
-                estadomenu = true;
-                FlightPlannerBase.surveyGridToolStripMenuItem_Click(sender, e);
 
-                CustomColor.instance.activecolor(But_SurveyGrid);
-                bloqWP = false;
+            if (cont_wps > 0) {
+                if (CustomMessageBox.Show("¿Crear nuevos WP?", "Mission created", MessageBoxButtons.YesNo) ==
+                            (int)DialogResult.Yes)
+                {
+                    CustomColor.instance.activecolor(ButInsertPol);
+
+                    ButDelwp_Click(sender, e);
+                    cont_wps = 0;
+                    cierra_sinEliminar_poly();
+                }
+                else 
+                {
+                    bloqWP = false;
+                    _flightPlannerBase.polygongridmode = false;
+                }
+
             }
+            else {
+
+                if (estadomenu == true)
+                {
+                    cierra_sinEliminar_poly();
+
+                }
+                else
+                {
+                   
+                    FlightPlannerBase.surveyGridToolStripMenuItem_Click(sender, e);
+                    CustomColor.instance.activecolor(But_SurveyGrid);
+                    bloqWP = false;
+                    estadomenu = true;
+                }
+            }
+
+            
         }
+
+    
+
 
         private void panelWaypoints_Paint(object sender, PaintEventArgs e)
         {

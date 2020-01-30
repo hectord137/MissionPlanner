@@ -6797,8 +6797,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
         }
 
-        GMapOverlay markersOverlay2 = new GMapOverlay("markers");
-        GMarkerGoogle marker2;
+        public GMapOverlay markersOverlay2 = new GMapOverlay("markers");
+        public GMarkerGoogle marker2;
 
         private void MainMap_MouseEnter(object sender, EventArgs e)
         {

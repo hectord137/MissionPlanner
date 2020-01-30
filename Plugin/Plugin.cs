@@ -201,6 +201,7 @@ namespace MissionPlanner.Plugin
             get { return MainV2.instance.FlightData.gMapControl1; }
         }
 
+        public int contador_wps = 0;
         /// <summary>
         /// add wp to command queue - dont upload to mav
         /// </summary>
@@ -215,6 +216,9 @@ namespace MissionPlanner.Plugin
         public int AddWPtoList(MAVLink.MAV_CMD cmd, double p1, double p2, double p3, double p4, double x, double y,
             double z, object tag = null)
         {
+            
+            contador_wps++;
+            FlightPlanner.instance.cont_wps = contador_wps;
             return MainV2.instance.FlightPlanner.FlightPlannerBase.AddCommand(cmd, p1, p2, p3, p4, x, y, z, tag);
         }
 

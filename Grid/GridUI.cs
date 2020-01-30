@@ -1336,7 +1336,6 @@ namespace MissionPlanner.Grid
             }
             else
             {
-                tabControl1.TabPages.Remove(tabGrid);
                 tabControl1.TabPages.Remove(tabCamera);
             }
         }
@@ -1549,6 +1548,7 @@ namespace MissionPlanner.Grid
         {
             if (grid != null && grid.Count > 0)
             {
+                CustomColor.instance.Normalcolor(FlightPlanner.instance.ButInsertPol);
                 MainV2.instance.FlightPlanner.FlightPlannerBase.quickadd = true;
 
                 if (NUM_split.Value > 1 && CHK_toandland.Checked != true)
@@ -1556,6 +1556,10 @@ namespace MissionPlanner.Grid
                     CustomMessageBox.Show("You must use Land/RTL to split a mission", Strings.ERROR);
                     return;
                 }
+
+                FlightPlanner.instance.PaneMenu.Visible = false;
+                CustomColor.instance.Normalcolor(FlightPlanner.instance.But_SurveyGrid);
+                
 
                 var gridobject = savegriddata();
 
@@ -1700,7 +1704,10 @@ namespace MissionPlanner.Grid
         public void myButton1_Click(object sender, EventArgs e)
         {
             FlightPlanner.instance.cierra_sinEliminar_poly();
-
+            FlightPlanner.instance.ButClearPol_Click(sender, e);
+            FlightPlanner.instance.Estado_btn_insert_poly = false;
+            CustomColor.instance.Normalcolor(FlightPlanner.instance.ButInsertPol);
+            FlightPlanner.instance.But_SurveyGrid.Visible = false;
         }
 
         public void clear_routes_poly() {
