@@ -126,6 +126,7 @@ namespace MissionPlanner.Joystick
             return temp;
         }
 
+        public bool hay_joystick;
         public void BUT_enable_Click(object sender, EventArgs e)
         {
             if (MainV2.joystick == null || MainV2.joystick.enabled == false)
@@ -134,6 +135,8 @@ namespace MissionPlanner.Joystick
                 {
                     if (MainV2.joystick != null)
                         MainV2.joystick.UnAcquireJoyStick();
+                    hay_joystick = true;
+
                 }
                 catch
                 {
@@ -149,6 +152,7 @@ namespace MissionPlanner.Joystick
                 {
                     CustomMessageBox.Show("Please Connect a Joystick", "No Joystick");
                     joy.Dispose();
+                    hay_joystick = false;
                     return;
                 }
 

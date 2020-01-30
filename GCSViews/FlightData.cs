@@ -1167,11 +1167,19 @@ namespace MissionPlanner.GCSViews
         private void activatedjoy(object sender, EventArgs e)
         {
             if (stateJoys == false) {
-                CustomColor.instance.activecolor(ButJoyOn);
                 stateJoys = !stateJoys;
                 JoystickSetup JoystickSetup = new JoystickSetup();
                 JoystickSetup.Joystick_Load(sender, e);
+
                 JoystickSetup.BUT_enable_Click(sender, e);
+                Thread.Sleep(100);
+                if (JoystickSetup.hay_joystick == false)
+                {
+                    CustomColor.instance.Normalcolor(ButJoyOn);
+                }
+                else {
+                    CustomColor.instance.activecolor(ButJoyOn);
+                }
             }
             else
             {
