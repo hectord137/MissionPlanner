@@ -1336,6 +1336,7 @@ namespace MissionPlanner.GCSViews
                 CustomColor.instance.activecolor(BUT_quickauto);
                 CustomColor.instance.Normalcolor(BUT_quickmanual);
                 CustomColor.instance.Normalcolor(BUT_quickrtl);
+                MainV2.instance.MenuFlightPlanner.Enabled = false;
             }
             else if (mode == "unknow")
             {

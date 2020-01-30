@@ -552,6 +552,7 @@ namespace MissionPlanner
             MenuHelp.Visible = false;
             MenuDonate.Visible = false;
             MenuInitConfig.Visible = false;
+            
         }
 
 
