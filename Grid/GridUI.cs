@@ -1699,13 +1699,7 @@ namespace MissionPlanner.Grid
 
         public void myButton1_Click(object sender, EventArgs e)
         {
-            clear_routes_poly();
-            FlightPlanner.instance.ButClearPol_Click(sender, e);
-            FlightPlanner.instance.But_SurveyGrid.Visible = false;
-            FlightPlanner.instance.estadomenu = false;
-            FlightPlanner.instance.Estado_btn_insert_poly = false;
-            CustomColor.instance.Normalcolor(FlightPlanner.instance.ButInsertPol);
-            CustomColor.instance.Normalcolor(FlightPlanner.instance.But_SurveyGrid);
+            FlightPlanner.instance.cierra_sinEliminar_poly();
 
         }
 

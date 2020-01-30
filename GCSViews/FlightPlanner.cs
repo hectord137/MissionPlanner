@@ -702,17 +702,21 @@ namespace MissionPlanner.GCSViews
 
         }
         public bool estadomenu = false;
-    
+
+        public void cierra_sinEliminar_poly() {
+
+            estadomenu = false;
+            CustomColor.instance.Normalcolor(But_SurveyGrid);
+            bloqWP = true;
+            no_poly();
+            Grid.GridUI.instance.clear_routes_poly();
+            PaneMenu.Visible = false;
+        }
         private void myButton9_Click(object sender, EventArgs e)
         {
             if (estadomenu == true)
             {
-                estadomenu = false;
-                CustomColor.instance.Normalcolor(But_SurveyGrid);
-                bloqWP = true;
-                no_poly();
-                Grid.GridUI.instance.clear_routes_poly();
-                PaneMenu.Visible = false; 
+                cierra_sinEliminar_poly();
             }
             else
             {
