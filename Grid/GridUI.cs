@@ -1548,6 +1548,8 @@ namespace MissionPlanner.Grid
         {
             if (grid != null && grid.Count > 0)
             {
+               FlightPlanner.instance.BUT_insertWP.Enabled = true;
+
                 CustomColor.instance.Normalcolor(FlightPlanner.instance.ButInsertPol);
                 MainV2.instance.FlightPlanner.FlightPlannerBase.quickadd = true;
 
@@ -1708,6 +1710,8 @@ namespace MissionPlanner.Grid
             FlightPlanner.instance.Estado_btn_insert_poly = false;
             CustomColor.instance.Normalcolor(FlightPlanner.instance.ButInsertPol);
             FlightPlanner.instance.But_SurveyGrid.Visible = false;
+            FlightPlanner.instance.BUT_insertWP.Enabled = true;
+
         }
 
         public void clear_routes_poly() {

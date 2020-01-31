@@ -95,7 +95,9 @@ namespace MissionPlanner.Grid
                         haypoly = false;
                         FlightPlanner.instance.PaneMenu.Visible = false;
                         FlightPlanner.instance.Estado_btn_insert_poly = true;
+                        FlightPlanner.instance.ButInsertPol_Click(sender, e);
                         CustomColor.instance.Normalcolor(FlightPlanner.instance.But_SurveyGrid);
+
 
                     }
                 }
