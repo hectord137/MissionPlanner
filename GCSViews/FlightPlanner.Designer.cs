@@ -115,6 +115,7 @@ namespace MissionPlanner.GCSViews
             this.BtnDelTiff = new MissionPlanner.Controls.MyButton();
             this.myButton7 = new MissionPlanner.Controls.MyButton();
             this.BtnTiff = new MissionPlanner.Controls.MyButton();
+            this.myButton9 = new MissionPlanner.Controls.MyButton();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.BtnKMLOverlay = new MissionPlanner.Controls.MyButton();
             this.Buttmeasurecontext = new MissionPlanner.Controls.MyButton();
@@ -755,6 +756,7 @@ namespace MissionPlanner.GCSViews
             this.tableLayoutPanel3.Controls.Add(this.BUT_write, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.BUT_read, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.BtnTiff, 1, 1);
+            this.tableLayoutPanel3.Controls.Add(this.myButton9, 1, 2);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel3_Paint);
             // 
@@ -789,6 +791,14 @@ namespace MissionPlanner.GCSViews
             this.BtnTiff.TextColor = System.Drawing.Color.White;
             this.BtnTiff.UseVisualStyleBackColor = true;
             this.BtnTiff.Click += new System.EventHandler(this.BtnTiff_Click);
+            // 
+            // myButton9
+            // 
+            resources.ApplyResources(this.myButton9, "myButton9");
+            this.myButton9.Name = "myButton9";
+            this.myButton9.TextColor = System.Drawing.Color.White;
+            this.myButton9.UseVisualStyleBackColor = true;
+            this.myButton9.Click += new System.EventHandler(this.myButton9_Click_1);
             // 
             // tableLayoutPanel6
             // 
@@ -2057,5 +2067,6 @@ namespace MissionPlanner.GCSViews
         private DataGridViewTextBoxColumn Dist;
         private DataGridViewTextBoxColumn AZ;
         private DataGridViewTextBoxColumn TagData;
+        private MyButton myButton9;
     }
 }

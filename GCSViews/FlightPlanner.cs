@@ -10,6 +10,7 @@ using MissionPlanner.Plugin;
 using MissionPlanner.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
@@ -761,6 +762,12 @@ namespace MissionPlanner.GCSViews
         private void Commands_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void myButton9_Click_1(object sender, EventArgs e)
+        {
+            ConexWifi conn = new ConexWifi();
+            conn.main();
         }
     }
 

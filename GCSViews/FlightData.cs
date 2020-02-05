@@ -5148,6 +5148,14 @@ namespace MissionPlanner.GCSViews
         {
 
         }
+
+        private void BUT_Wifi_Click(object sender, EventArgs e)
+        {
+            ConexWifi wifi = new ConexWifi();
+            wifi.main();
+            string signal = wifi.signal();
+            LBLSignal.Text = "Signal " + signal;
+        }
     }
 
 }
