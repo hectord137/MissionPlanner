@@ -766,8 +766,7 @@ namespace MissionPlanner.GCSViews
 
         private void myButton9_Click_1(object sender, EventArgs e)
         {
-            ConexWifi conn = new ConexWifi();
-            conn.main();
+  
         }
     }
 

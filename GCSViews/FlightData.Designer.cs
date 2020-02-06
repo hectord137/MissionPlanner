@@ -490,6 +490,9 @@
             this.gMapControl1 = new MissionPlanner.Controls.myGMAP();
             this.TRK_zoom = new MissionPlanner.Controls.MyTrackBar();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.BUT_Wifi = new MissionPlanner.Controls.MyButton();
+            this.LBLSignal = new System.Windows.Forms.Label();
             this.comboBoxMapTypeData = new System.Windows.Forms.ComboBox();
             this.coords1 = new MissionPlanner.Controls.Coords();
             this.Zoomlevel = new System.Windows.Forms.NumericUpDown();
@@ -528,9 +531,6 @@
             this.relayOptions3 = new MissionPlanner.Controls.RelayOptions();
             this.relayOptions4 = new MissionPlanner.Controls.RelayOptions();
             this.distanceBar1 = new MissionPlanner.Controls.DistanceBar();
-            this.BUT_Wifi = new MissionPlanner.Controls.MyButton();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.LBLSignal = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.MainH)).BeginInit();
             this.MainH.Panel1.SuspendLayout();
             this.MainH.Panel2.SuspendLayout();
@@ -585,12 +585,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TRK_zoom)).BeginInit();
             this.panel1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Zoomlevel)).BeginInit();
             this.contextMenuStripactionstab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceGaugesTab)).BeginInit();
             this.contextMenuStripQuickView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceStatusTab)).BeginInit();
-            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainH
@@ -4795,7 +4795,7 @@
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSource1, "wind_dir", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSource1, "wind_vel", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.windDir1.Direction = 360D;
+            this.windDir1.Direction = 4680D;
             resources.ApplyResources(this.windDir1, "windDir1");
             this.windDir1.Name = "windDir1";
             this.windDir1.Speed = 0D;
@@ -4887,6 +4887,26 @@
             this.panel1.Controls.Add(this.CB_tuning);
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
+            // 
+            // tableLayoutPanel1
+            // 
+            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
+            this.tableLayoutPanel1.Controls.Add(this.BUT_Wifi, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.LBLSignal, 0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            // 
+            // BUT_Wifi
+            // 
+            resources.ApplyResources(this.BUT_Wifi, "BUT_Wifi");
+            this.BUT_Wifi.Name = "BUT_Wifi";
+            this.BUT_Wifi.TextColor = System.Drawing.Color.White;
+            this.BUT_Wifi.UseVisualStyleBackColor = true;
+            this.BUT_Wifi.Click += new System.EventHandler(this.BUT_Wifi_Click);
+            // 
+            // LBLSignal
+            // 
+            resources.ApplyResources(this.LBLSignal, "LBLSignal");
+            this.LBLSignal.Name = "LBLSignal";
             // 
             // comboBoxMapTypeData
             // 
@@ -5195,26 +5215,6 @@
             this.distanceBar1.totaldist = 100F;
             this.distanceBar1.traveleddist = 0F;
             // 
-            // BUT_Wifi
-            // 
-            resources.ApplyResources(this.BUT_Wifi, "BUT_Wifi");
-            this.BUT_Wifi.Name = "BUT_Wifi";
-            this.BUT_Wifi.TextColor = System.Drawing.Color.White;
-            this.BUT_Wifi.UseVisualStyleBackColor = true;
-            this.BUT_Wifi.Click += new System.EventHandler(this.BUT_Wifi_Click);
-            // 
-            // tableLayoutPanel1
-            // 
-            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-            this.tableLayoutPanel1.Controls.Add(this.BUT_Wifi, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.LBLSignal, 0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            // 
-            // LBLSignal
-            // 
-            resources.ApplyResources(this.LBLSignal, "LBLSignal");
-            this.LBLSignal.Name = "LBLSignal";
-            // 
             // FlightData
             // 
             this.Controls.Add(this.MainH);
@@ -5297,13 +5297,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.TRK_zoom)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Zoomlevel)).EndInit();
             this.contextMenuStripactionstab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceGaugesTab)).EndInit();
             this.contextMenuStripQuickView.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceStatusTab)).EndInit();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -5843,6 +5843,6 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private Controls.MyButton BUT_Wifi;
-        private System.Windows.Forms.Label LBLSignal;
+        public System.Windows.Forms.Label LBLSignal;
     }
 }

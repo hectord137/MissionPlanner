@@ -5153,8 +5153,10 @@ namespace MissionPlanner.GCSViews
         {
             ConexWifi wifi = new ConexWifi();
             wifi.main();
-            string signal = wifi.signal();
-            LBLSignal.Text = "Signal " + signal;
+            if (wifi.status_conection) {
+                CustomColor.instance.activecolor(BUT_Wifi);
+                LBLSignal.Text = "Connected: " + wifi.Name_wifi;
+            }    
         }
     }
 
