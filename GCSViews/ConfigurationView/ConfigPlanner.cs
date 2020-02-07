@@ -4,8 +4,10 @@ using MissionPlanner.Joystick;
 using MissionPlanner.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -984,6 +986,26 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         private void label98_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void myButton1_Click(object sender, EventArgs e)
+        {
+           
+                string PathDoc = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Mission Planner\config.txt";
+            if (!File.Exists(PathDoc))
+            {
+                ConexWifi wifi = new ConexWifi();
+                wifi.TxtParameters();
+                var p = new Process();
+                p.StartInfo.FileName = PathDoc;
+                p.Start();
+            }
+            else
+            {
+                var p = new Process();
+                p.StartInfo.FileName = PathDoc;
+                p.Start();
+            }
         }
     }
 }

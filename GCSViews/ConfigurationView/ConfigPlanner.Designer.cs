@@ -105,6 +105,7 @@
             this.CMB_language = new System.Windows.Forms.ComboBox();
             this.label93 = new System.Windows.Forms.Label();
             this.LBLTittleConfig = new System.Windows.Forms.Label();
+            this.myButton1 = new MissionPlanner.Controls.MyButton();
             ((System.ComponentModel.ISupportInitialize)(this.num_gcsid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_tracklength)).BeginInit();
             this.SuspendLayout();
@@ -739,9 +740,18 @@
             this.LBLTittleConfig.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(172)))), ((int)(((byte)(24)))));
             this.LBLTittleConfig.Name = "LBLTittleConfig";
             // 
+            // myButton1
+            // 
+            resources.ApplyResources(this.myButton1, "myButton1");
+            this.myButton1.Name = "myButton1";
+            this.myButton1.TextColor = System.Drawing.Color.White;
+            this.myButton1.UseVisualStyleBackColor = true;
+            this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
+            // 
             // ConfigPlanner
             // 
             resources.ApplyResources(this, "$this");
+            this.Controls.Add(this.myButton1);
             this.Controls.Add(this.LBLTittleConfig);
             this.Controls.Add(this.myUserControl1);
             this.Controls.Add(this.CMB_language);
@@ -904,5 +914,6 @@
         private System.Windows.Forms.ComboBox CMB_language;
         private System.Windows.Forms.Label label93;
         private System.Windows.Forms.Label LBLTittleConfig;
+        private Controls.MyButton myButton1;
     }
 }

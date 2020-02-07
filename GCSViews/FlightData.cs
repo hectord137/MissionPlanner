@@ -5148,16 +5148,47 @@ namespace MissionPlanner.GCSViews
         {
 
         }
-
+       public bool status_btn = false;
+        public bool manual_status = false;
         private void BUT_Wifi_Click(object sender, EventArgs e)
         {
             ConexWifi wifi = new ConexWifi();
-            wifi.main();
-            if (wifi.status_conection) {
-                CustomColor.instance.activecolor(BUT_Wifi);
-                LBLSignal.Text = "Connected: " + wifi.Name_wifi;
-            }    
+            System.Timers.Timer tick = new System.Timers.Timer(5000);
+            if (status_btn)
+            {
+                wifi.main();
+                if (wifi.status_conection)
+                {
+                    CustomColor.instance.activecolor(BUT_Wifi);
+                    LBLSignal.Text = "Connected: " + wifi.Name_wifi;
+                    BUT_Wifi.Text = "Disconect";                
+                    tick.Elapsed += wifi.Tick_Elapsed;
+                    tick.Start();
+                    status_btn = false;
+                    manual_status = true;
+                }
+            }
+            else {
+                tick.Enabled = false;
+                tick.Stop();
+                //btn off
+                CustomColor.instance.Normalcolor(BUT_Wifi);
+                BUT_Wifi.Text = "Connect";
+                LBLSignal.Text = "";
+                status_btn = true;
+                wifi.disconect();
+                manual_status = false;
+            }
+         
         }
+
+        private bool get_status_conection() {
+            ConexWifi wifi = new ConexWifi();
+            return wifi.status_conection;
+        }
+    
+
+    }
     }
 
-}
+

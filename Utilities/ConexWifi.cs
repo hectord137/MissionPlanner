@@ -23,7 +23,7 @@ namespace MissionPlanner.Utilities
 {
     class ConexWifi
     {
- 
+
         private string interfaz;
         private string password;
         public string Name_wifi;
@@ -34,16 +34,16 @@ namespace MissionPlanner.Utilities
         //unidad de disco duro
         string C = System.Environment.SystemDirectory.Substring(0, 1);
         //Path archivo de configuración
-        private string Parameterfile = @"C:\ConfigMissionplanner\config.txt";
+        private string PathDoc = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Mission Planner\";
 
         public void main() {
 
-            if (Directory.Exists(C + @":\ConfigMissionplanner\"))
+            if (File.Exists(PathDoc + @"config.txt"))
             {
                 ReadParameters();
                 if (interfaz == " " || Name_wifi == " " || password == " " || mac == " ")
                 {
-                    CustomMessageBox.Show("Configurar Parametros de conexion en: " + Parameterfile);
+                    CustomMessageBox.Show("Configurar Parametros en pesataña de configuración");
                 }
                 else
                 {
@@ -56,37 +56,37 @@ namespace MissionPlanner.Utilities
             else {
                 configfile();
             }
-        
+
 
 
 
         }
 
 
-     
 
-        private void configfile() {        
-            string ruta = C + @":\ConfigMissionplanner\";
-            if (!Directory.Exists(ruta))
+
+        private void configfile() {
+
+            if (!File.Exists(PathDoc + @"config.txt"))
             {
-                DirectoryInfo di = Directory.CreateDirectory(ruta);
+                DirectoryInfo di = Directory.CreateDirectory(PathDoc);
                 TxtParameters();
-                CustomMessageBox.Show("Configurar Parametros de conexion en: " + Parameterfile);
+                CustomMessageBox.Show("Configurar Parametros pesataña de configuración");
             }
-          
+
         }
 
-        private void TxtParameters()
+        public void TxtParameters()
         {
             string[] lines = { @"# == comentarios", "#Adaptador de red", " ", "#Red Wifi", " ", "#Contraseña", " ", "#Mac xx-xx-xx-xx-xx-xx ", " " };
-            System.IO.File.WriteAllLines(C + @":\ConfigMissionplanner\config.txt", lines);
+            System.IO.File.WriteAllLines(PathDoc + @"config.txt", lines);
         }
 
 
         List<string> parameters = new List<string>();
         public void ReadParameters()
         {
-            string[] lines = System.IO.File.ReadAllLines(Parameterfile);
+            string[] lines = System.IO.File.ReadAllLines(PathDoc + @"config.txt");
             foreach (string line in lines)
             {
                 if (line.Substring(0, 1) != "#")
@@ -100,10 +100,9 @@ namespace MissionPlanner.Utilities
             this.password = this.parameters[2];
             this.mac = this.parameters[3];
 
-           
         }
 
- 
+
 
         private string ExecuteComand(String strCommandParameters) {
 
@@ -121,7 +120,7 @@ namespace MissionPlanner.Utilities
 
             //Set output of program to be written to process output stream
             pProcess.StartInfo.RedirectStandardOutput = true;
-            
+
 
             //Start the process
             pProcess.Start();
@@ -142,7 +141,7 @@ namespace MissionPlanner.Utilities
             {
                 Listinterfaces.Add(wlanIface.InterfaceName);
             }
-       
+
             bool Interface_ex = Listinterfaces.Any(x => x == interfaz);
 
             if (Interface_ex)
@@ -159,7 +158,7 @@ namespace MissionPlanner.Utilities
         }
 
 
-      
+
 
         private void ChangePriority()
         {
@@ -168,7 +167,7 @@ namespace MissionPlanner.Utilities
         }
 
         private Tuple<bool, List<AccessPoint>> FindWifi()
-        {   
+        {
             List<string> name_Wifi = new List<string>();
             List<AccessPoint> aps = objwifi.GetAccessPoints();
             foreach (AccessPoint ap in aps)
@@ -209,7 +208,7 @@ namespace MissionPlanner.Utilities
                 CustomMessageBox.Show("Device not found", "Error");
                 status_conection = false;
             }
-           else if (!GetMac())
+            else if (!GetMac())
             {
                 CustomMessageBox.Show("Incorrect Mac Address");
                 status_conection = false;
@@ -217,78 +216,125 @@ namespace MissionPlanner.Utilities
             else if (FindWifi().Item1)
 
             {
-                    CustomMessageBox.Show("Trying to connect..");
-                    // for each access point from list
-                    foreach (AccessPoint ap in FindWifi().Item2.Where(i => i.Name == Name_wifi))
+                CustomMessageBox.Show("Trying to connect..");
+                // for each access point from list
+                foreach (AccessPoint ap in FindWifi().Item2.Where(i => i.Name == Name_wifi))
+                {
+                    if (ap.IsConnected)
                     {
-                        if (ap.IsConnected)
-                        {
-                            objwifi.Disconnect();
-                        }
-                        AuthRequest authRequest = new AuthRequest(ap);
-                        authRequest.Password = password;
-                        ap.Name.startswith(Name_wifi);
-                        if (ap.Connect(authRequest))
-                        {
-                            CustomMessageBox.Show("Connected", "Success");
+                        objwifi.Disconnect();
+                    }
+                    AuthRequest authRequest = new AuthRequest(ap);
+                    authRequest.Password = password;
+                    ap.Name.startswith(Name_wifi);
+                    if (ap.Connect(authRequest))
+                    {
+                        CustomMessageBox.Show("Connected", "Success");
                         status_conection = true;
 
-                        }
+                    }
                 }
-                    ChangePriority();
-                    System.Timers.Timer tick = new System.Timers.Timer(5000);
-                    tick.Elapsed += Tick_Elapsed;
-                    tick.Start();
+                ChangePriority();
+
             }
-      
+
         }
 
+        public void disconect() {
+        objwifi.Disconnect();          
+        }
 
         public void Tick_Elapsed(object sender, ElapsedEventArgs e)
         {
+
             Conecctionstatus();
+            signal();
         }
 
-       public string signallbl;
+
+        public void Conecctionstatus()
+        {
+            FlightData fd = new FlightData();
+            if (fd.manual_status)
+            {
+                try
+                {
+                    if (GetDefaultGateway() == null)
+                    {
+                        conectwifi();
+                        status_conection = false;
+                        FlightData.instance.LBLSignal.Text = "signal lost";
+
+                    }
+                    else
+                    {
+                        Ping myPing = new Ping();
+                        var host = GetDefaultGateway();
+                        byte[] buffer = new byte[32];
+                        int timeout = 1000;
+                        PingOptions pingOptions = new PingOptions();
+                        PingReply reply = myPing.Send(host, timeout, buffer, pingOptions);
+                        if (reply.Status == IPStatus.Success)
+                        {
+                            status_conection = true;
+                        }
+                        else
+                        {
+                            conectwifi();
+                            status_conection = false;
+                            FlightData.instance.LBLSignal.Text = "signal lost";
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    status_conection = false;
+                    conectwifi();
+                }
+            }
+        }
+   
+
+        public static IPAddress GetDefaultGateway()
+        {
+            IPAddress result = null;
+            var cards = NetworkInterface.GetAllNetworkInterfaces().ToList();
+            if (cards.Any())
+            {
+                foreach (var card in cards)
+                {
+                    var props = card.GetIPProperties();
+                    if (props == null)
+                        continue;
+
+                    var gateways = props.GatewayAddresses;
+                    if (!gateways.Any())
+                        continue;
+
+                    var gateway =
+                        gateways.FirstOrDefault(g => g.Address.AddressFamily.ToString() == "InterNetwork");
+                    if (gateway == null)
+                        continue;
+
+                    result = gateway.Address;
+                    break;
+                };
+            }
+
+            return result;
+        }
+
+        public string signallbl;
         public void signal()
         {
-            string signalvalue = "";            
+            string signalvalue = "";
             List<AccessPoint> pa = objwifi.GetAccessPoints();
-            foreach (AccessPoint ap in pa.Where(i =>i.Name == Name_wifi))
+            foreach (AccessPoint ap in pa.Where(i => i.Name == Name_wifi))
             {
-                 signalvalue = ap.SignalStrength + "%";
+                signalvalue = ap.SignalStrength + "%";
             }
 
             signallbl = signalvalue;
-        }
-
-        public void Conecctionstatus() {
-            Ping myPing = new Ping();
-            String host = "http://www.google.cl"/*GetIP()*/;
-            byte[] buffer = new byte[32];
-            int timeout = 1000;
-            PingOptions pingOptions = new PingOptions();
-            PingReply reply = myPing.Send(host, timeout, buffer, pingOptions);
-            if (reply.Status == IPStatus.Success)
-            {
-                //signal();
-                status_conection = true;
-            }
-            else {
-                CustomMessageBox.Show("Signal Lost!", "Error");
-                status_conection = false;
-            }
-
-        }
-        private string GetIP() {
-            string strHostName = System.Net.Dns.GetHostName();
-            //IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName()); <-- Obsolete
-            IPHostEntry ipHostInfo = Dns.GetHostEntry(strHostName);
-            IPAddress ipAddress = ipHostInfo.AddressList[0];
-
-            return ipAddress.ToString();
-        
-
         }
 
     }
