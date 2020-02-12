@@ -1697,8 +1697,10 @@ namespace MissionPlanner.GCSViews
                     CustomMessageBox.Show(
                         "You will remain in polygon mode until you clear the polygon or create a grid/upload a fence");
                     //
-                    polygongridmode = true;
-                    return;
+                polygongridmode = true;
+                addmarkerpoly = true;
+                FlightPlanner.instance.bloqWP = true;
+                return;
                 }
                 List<PointLatLng> polygonPoints = new List<PointLatLng>();
                 if (drawnpolygonsoverlay.Polygons.Count == 0)
@@ -2038,7 +2040,6 @@ namespace MissionPlanner.GCSViews
             drawnpolygon.Points.Clear();
             drawnpolygonsoverlay.Markers.Clear();
             _flightPlanner.MainMap.Invalidate();
-
             writeKML();
         }
 

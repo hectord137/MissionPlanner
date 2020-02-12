@@ -990,22 +990,29 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         private void myButton1_Click(object sender, EventArgs e)
         {
+            Config_wifi Conex = new Config_wifi();
+            Conex.Show();
            
-                string PathDoc = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Mission Planner\config.txt";
-            if (!File.Exists(PathDoc))
-            {
-                ConexWifi wifi = new ConexWifi();
-                wifi.TxtParameters();
-                var p = new Process();
-                p.StartInfo.FileName = PathDoc;
-                p.Start();
-            }
-            else
-            {
-                var p = new Process();
-                p.StartInfo.FileName = PathDoc;
-                p.Start();
-            }
+            //    string PathDoc = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Mission Planner\config.txt";
+            //if (!File.Exists(PathDoc))
+            //{
+            //    ConexWifi wifi = new ConexWifi();
+            //    wifi.TxtParameters();
+            //    var p = new Process();
+            //    p.StartInfo.FileName = PathDoc;
+            //    p.Start();
+            //}
+            //else
+            //{
+            //    var p = new Process();
+            //    p.StartInfo.FileName = PathDoc;
+            //    p.Start();
+            //}
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

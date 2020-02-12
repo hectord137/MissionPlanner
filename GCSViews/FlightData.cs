@@ -129,10 +129,11 @@ namespace MissionPlanner.GCSViews
             Console.WriteLine(this);
         }
 
+     
+
         public FlightData()
         {
-
-
+          
             log.Info("Ctor Start");
 
             InitializeComponent();
@@ -308,7 +309,7 @@ namespace MissionPlanner.GCSViews
 
         }
 
-
+     
         public void rechargelabel()
         {
             try
@@ -1352,24 +1353,28 @@ namespace MissionPlanner.GCSViews
                 CustomColor.instance.Normalcolor(BUT_quickmanual);
                 CustomColor.instance.Normalcolor(BUT_quickauto);
                 CustomColor.instance.activecolor(BUT_quickrtl);
+                MainV2.instance.MenuFlightPlanner.Enabled = true;
+
             }
             else if (mode == "Loiter")
             {
                 CustomColor.instance.activecolor(BUT_quickmanual);
                 CustomColor.instance.Normalcolor(BUT_quickauto);
-                CustomColor.instance.Normalcolor(BUT_quickrtl); 
+                CustomColor.instance.Normalcolor(BUT_quickrtl);
+                MainV2.instance.MenuFlightPlanner.Enabled = true;
             }
             else if (mode == "RTL")
             {
                 CustomColor.instance.activecolor(BUT_quickrtl);
                 CustomColor.instance.Normalcolor(BUT_quickauto);
                 CustomColor.instance.Normalcolor(BUT_quickmanual);
+                MainV2.instance.MenuFlightPlanner.Enabled = true;
             }
             else {
                 CustomColor.instance.Normalcolor(BUT_quickauto);
                 CustomColor.instance.Normalcolor(BUT_quickmanual);
                 CustomColor.instance.Normalcolor(BUT_quickrtl);
-
+                MainV2.instance.MenuFlightPlanner.Enabled = true;
             }
 
 
@@ -5152,33 +5157,33 @@ namespace MissionPlanner.GCSViews
         public bool manual_status = false;
         private void BUT_Wifi_Click(object sender, EventArgs e)
         {
-            ConexWifi wifi = new ConexWifi();
-            System.Timers.Timer tick = new System.Timers.Timer(5000);
-            if (status_btn)
-            {
-                wifi.main();
-                if (wifi.status_conection)
-                {
-                    CustomColor.instance.activecolor(BUT_Wifi);
-                    LBLSignal.Text = "Connected: " + wifi.Name_wifi;
-                    BUT_Wifi.Text = "Disconect";                
-                    tick.Elapsed += wifi.Tick_Elapsed;
-                    tick.Start();
-                    status_btn = false;
-                    manual_status = true;
-                }
-            }
-            else {
-                tick.Enabled = false;
-                tick.Stop();
-                //btn off
-                CustomColor.instance.Normalcolor(BUT_Wifi);
-                BUT_Wifi.Text = "Connect";
-                LBLSignal.Text = "";
-                status_btn = true;
-                wifi.disconect();
-                manual_status = false;
-            }
+            //ConexWifi wifi = new ConexWifi();
+            //System.Timers.Timer tick = new System.Timers.Timer(5000);
+            //if (status_btn)
+            //{
+            //    wifi.main();
+            //    if (wifi.status_conection)
+            //    {
+            //        CustomColor.instance.activecolor(BUT_Wifi);
+            //        LBLSignal.Text = "Connected: " + wifi.Name_wifi;
+            //        BUT_Wifi.Text = "Disconect";                
+            //        tick.Elapsed += wifi.Tick_Elapsed;
+            //        tick.Start();
+            //        status_btn = false;
+            //        manual_status = true;
+            //    }
+            //}
+            //else {
+            //    tick.Enabled = false;
+            //    tick.Stop();
+            //    //btn off
+            //    CustomColor.instance.Normalcolor(BUT_Wifi);
+            //    BUT_Wifi.Text = "Connect";
+            //    LBLSignal.Text = "";
+            //    status_btn = true;
+            //    wifi.disconect();
+            //    manual_status = false;
+            //}
          
         }
 
@@ -5186,8 +5191,11 @@ namespace MissionPlanner.GCSViews
             ConexWifi wifi = new ConexWifi();
             return wifi.status_conection;
         }
-    
 
+        private void tableLayoutPanel1_Paint_2(object sender, PaintEventArgs e)
+        {
+
+        }
     }
     }
 

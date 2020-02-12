@@ -106,6 +106,7 @@
             this.label93 = new System.Windows.Forms.Label();
             this.LBLTittleConfig = new System.Windows.Forms.Label();
             this.myButton1 = new MissionPlanner.Controls.MyButton();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.num_gcsid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_tracklength)).BeginInit();
             this.SuspendLayout();
@@ -748,9 +749,16 @@
             this.myButton1.UseVisualStyleBackColor = true;
             this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
             // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
+            // 
             // ConfigPlanner
             // 
             resources.ApplyResources(this, "$this");
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.myButton1);
             this.Controls.Add(this.LBLTittleConfig);
             this.Controls.Add(this.myUserControl1);
@@ -914,6 +922,7 @@
         private System.Windows.Forms.ComboBox CMB_language;
         private System.Windows.Forms.Label label93;
         private System.Windows.Forms.Label LBLTittleConfig;
-        private Controls.MyButton myButton1;
+        public Controls.MyButton myButton1;
+        public System.Windows.Forms.Label label3;
     }
 }

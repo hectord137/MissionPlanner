@@ -177,36 +177,26 @@ namespace MissionPlanner.GCSViews
 
   
 
-        public void no_poly() {
-            ButClearPol.Enabled = true;
-            BUT_insertWP.Enabled = true;
-        }
-
         public bool Estado_btn_insert_poly = false;
         public void ButInsertPol_Click(object sender, System.EventArgs e)
         {
             if (Estado_btn_insert_poly)
-            {
-                no_poly();
+            {          
                 CustomColor.instance.Normalcolor(ButInsertPol);
                 bloqWP = false;
                 Estado_btn_insert_poly = false;
                 _flightPlannerBase.addmarkerpoly = false;
                 _flightPlannerBase.polygongridmode = false;
+                ButClearPol.Enabled = true;
 
             }
             else
             {
-                ButClearPol.Enabled = false;
+                Estado_btn_insert_poly = true;
                 BUT_insertWP.Enabled = false;
                 BtSavePol.Enabled = true;
                 But_SurveyGrid.Visible = true;
                 CustomColor.instance.activecolor(ButInsertPol);
-                // on/off insert poly
-                _flightPlannerBase.addmarkerpoly = true;
-                _flightPlannerBase.polygongridmode = false;
-                bloqWP = true;
-                Estado_btn_insert_poly = true;
                 _flightPlannerBase.addPolygonPointToolStripMenuItem_Click(sender, e);               
              }
         }
@@ -216,19 +206,14 @@ namespace MissionPlanner.GCSViews
         public void ButClearPol_Click(object sender, System.EventArgs e)
         {
 
-            FlightPlannerBase.drawnpolygonsoverlay.Markers.Clear();
-            ButClearPol.Enabled = false;
-            BtSavePol.Enabled = false;
-            BUT_insertWP.Enabled = true;
-            _flightPlannerBase.drawnpolygon.Points.Clear();
-            //// remove full loop is exists
-            _flightPlannerBase.polygongridmode = false;
-            if (_flightPlannerBase.drawnpolygon.Points.Count > 1 &&
-            _flightPlannerBase.drawnpolygon.Points[0] == _flightPlannerBase.drawnpolygon.Points[_flightPlannerBase.drawnpolygon.Points.Count - 1])
-                _flightPlannerBase.drawnpolygon.Points.RemoveAt(_flightPlannerBase.drawnpolygon.Points.Count - 1); // unmake a full loop
-
-
-        }
+            try
+            {
+                FlightPlannerBase.instance.clearPolygonToolStripMenuItem_Click(sender, e);
+                GridUI.instance.clear_routes_poly();
+                ButInsertPol_Click(sender, e);
+            }
+            catch { }
+       }
 
         private void BtSavePol_Click(object sender, System.EventArgs e)
         {
@@ -701,20 +686,19 @@ namespace MissionPlanner.GCSViews
 
         }
         public bool estadomenu = false;
+        public int cont_wps;
 
         public void cierra_sinEliminar_poly() {
-            //bloqWP = true;
             estadomenu = false;
             CustomColor.instance.Normalcolor(But_SurveyGrid);  
-            no_poly();
-            Grid.GridUI.instance.clear_routes_poly();
             PaneMenu.Visible = false;
         }
-        public int cont_wps {get;set;}
+
         private void myButton9_Click(object sender, EventArgs e)
         {
-
-            if (cont_wps > 0) {
+            ButClearPol.Enabled = false;
+            if (cont_wps > 0)
+            {
                 if (CustomMessageBox.Show("¿Crear nuevos WP?", "Mission created", MessageBoxButtons.YesNo) == (int)DialogResult.Yes)
                 {
                     CustomColor.instance.activecolor(ButInsertPol);
@@ -724,24 +708,22 @@ namespace MissionPlanner.GCSViews
                     BUT_insertWP.Enabled = false;
                     Estado_btn_insert_poly = false;
                     ButInsertPol_Click(sender, e);
+                    GridUI.instance.clear_routes_poly();
+                    ButInsertPol_Click(sender, e);
                 }
-                else 
-                {
-                  
-                }
-
             }
-            else 
+            else
             {
 
-                if (estadomenu == true)
+                if (estadomenu)
                 {
                     cierra_sinEliminar_poly();
+                   GridUI.instance.clear_routes_poly();
+                    ButInsertPol_Click(sender, e);
                 }
                 else
                 {
                     CustomColor.instance.activecolor(But_SurveyGrid);
-
                     FlightPlannerBase.surveyGridToolStripMenuItem_Click(sender, e);
                     bloqWP = false;
                     estadomenu = true;

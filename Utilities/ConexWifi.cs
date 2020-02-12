@@ -1,4 +1,5 @@
 ﻿using IronPython.Runtime.Operations;
+
 using ManagedNativeWifi.Simple;
 using SimpleWifi;
 using SimpleWifi.Win32;
@@ -24,8 +25,8 @@ namespace MissionPlanner.Utilities
     class ConexWifi
     {
 
-        private string interfaz;
-        private string password;
+        public string interfaz;
+        public string password;
         public string Name_wifi;
         private string mac;
 
@@ -38,30 +39,28 @@ namespace MissionPlanner.Utilities
 
         public void main() {
 
-            if (File.Exists(PathDoc + @"config.txt"))
-            {
-                ReadParameters();
-                if (interfaz == " " || Name_wifi == " " || password == " " || mac == " ")
-                {
-                    CustomMessageBox.Show("Configurar Parametros en pesataña de configuración");
-                }
-                else
-                {
-                    if (GetInterfaces())
-                    {
-                        conectwifi();
-                    }
-                }
-            }
-            else {
-                configfile();
-            }
-
-
-
+            //if (File.Exists(PathDoc + @"config.txt"))
+            //{
+            //    ReadParameters();
+            //    if (interfaz == " " || Name_wifi == " " || password == " " || mac == " ")
+            //    {
+            //        CustomMessageBox.Show("Configurar Parametros en pesataña de configuración");
+            //    }
+            //    else
+            //    {
+            //        if (GetInterfaces().Item1)
+            //        {
+            //            conectwifi();
+            //        }
+            //    }
+            //}
+            //else {
+            //    configfile();
+            //}
 
         }
 
+    
 
 
 
@@ -133,7 +132,7 @@ namespace MissionPlanner.Utilities
         }
 
 
-        public bool GetInterfaces()
+        public Tuple<bool, List<string>> GetInterfaces()
         {
             WlanClient client = new WlanClient();
             List<string> Listinterfaces = new List<string>();
@@ -146,12 +145,11 @@ namespace MissionPlanner.Utilities
 
             if (Interface_ex)
             {
-                return true;
+                return Tuple.Create(true, Listinterfaces);
             }
             else
             {
-                CustomMessageBox.Show("Interfaz " + interfaz + " no conectada", "Error");
-                return false;
+                return Tuple.Create(false, Listinterfaces);
             }
 
 
@@ -160,13 +158,13 @@ namespace MissionPlanner.Utilities
 
 
 
-        private void ChangePriority()
+        public void ChangePriority()
         {
             string command = "netsh wlan set profileorder name=" + Name_wifi + " interface=" + interfaz + " priority=1";
             ExecuteComand(command);
         }
 
-        private Tuple<bool, List<AccessPoint>> FindWifi()
+        public Tuple<bool, List<AccessPoint>, List<string>> FindWifi()
         {
             List<string> name_Wifi = new List<string>();
             List<AccessPoint> aps = objwifi.GetAccessPoints();
@@ -174,7 +172,7 @@ namespace MissionPlanner.Utilities
             {
                 name_Wifi.Add(ap.Name);
             }
-            return Tuple.Create(name_Wifi.Any(x => x == Name_wifi), aps);
+            return Tuple.Create(name_Wifi.Any(x => x == Name_wifi), aps, name_Wifi);
         }
 
         public bool GetMac()
@@ -202,18 +200,19 @@ namespace MissionPlanner.Utilities
 
         }
 
+        public void startTimer()
+        {
+
+            System.Timers.Timer tick = new System.Timers.Timer(5000);
+            tick.Elapsed += Tick_Elapsed;
+            tick.Start();
+        }
+
         public bool status_conection;
-        private void conectwifi() {
-            if (!FindWifi().Item1) {
-                CustomMessageBox.Show("Device not found", "Error");
-                status_conection = false;
-            }
-            else if (!GetMac())
-            {
-                CustomMessageBox.Show("Incorrect Mac Address");
-                status_conection = false;
-            }
-            else if (FindWifi().Item1)
+        public void conectwifi() {
+       
+     
+           if (FindWifi().Item1)
 
             {
                 CustomMessageBox.Show("Trying to connect..");
@@ -231,7 +230,12 @@ namespace MissionPlanner.Utilities
                     {
                         CustomMessageBox.Show("Connected", "Success");
                         status_conection = true;
+                        startTimer();
 
+                    }
+                    else {
+                        CustomMessageBox.Show("Error de Contraseña", "Error");
+                        status_conection = false;
                     }
                 }
                 ChangePriority();
@@ -251,19 +255,20 @@ namespace MissionPlanner.Utilities
             signal();
         }
 
+        public void removeWifi(string red) {
+
+            this.ExecuteComand("netsh wlan delete profile name=»"+red+"");
+        }
 
         public void Conecctionstatus()
         {
-            FlightData fd = new FlightData();
-            if (fd.manual_status)
-            {
+       
                 try
                 {
                     if (GetDefaultGateway() == null)
                     {
                         conectwifi();
                         status_conection = false;
-                        FlightData.instance.LBLSignal.Text = "signal lost";
 
                     }
                     else
@@ -277,12 +282,11 @@ namespace MissionPlanner.Utilities
                         if (reply.Status == IPStatus.Success)
                         {
                             status_conection = true;
-                        }
+                    }
                         else
                         {
                             conectwifi();
                             status_conection = false;
-                            FlightData.instance.LBLSignal.Text = "signal lost";
                         }
                     }
                 }
@@ -291,7 +295,7 @@ namespace MissionPlanner.Utilities
                     status_conection = false;
                     conectwifi();
                 }
-            }
+            
         }
    
 

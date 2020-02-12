@@ -1546,6 +1546,8 @@ namespace MissionPlanner.Grid
 
         private void BUT_Accept_Click(object sender, EventArgs e)
         {
+        FlightPlanner.instance.ButInsertPol.Enabled = true;
+            FlightPlanner.instance.ButClearPol.Enabled = true;
             if (grid != null && grid.Count > 0)
             {
                FlightPlanner.instance.BUT_insertWP.Enabled = true;
@@ -1705,13 +1707,12 @@ namespace MissionPlanner.Grid
 
         public void myButton1_Click(object sender, EventArgs e)
         {
-            FlightPlanner.instance.cierra_sinEliminar_poly();
-            FlightPlanner.instance.ButClearPol_Click(sender, e);
-            FlightPlanner.instance.Estado_btn_insert_poly = false;
+            clear_routes_poly();
+            FlightPlanner.instance.Estado_btn_insert_poly = true;
             CustomColor.instance.Normalcolor(FlightPlanner.instance.ButInsertPol);
-            FlightPlanner.instance.But_SurveyGrid.Visible = false;
             FlightPlanner.instance.BUT_insertWP.Enabled = true;
-
+            FlightPlanner.instance.ButInsertPol.Enabled = true;
+            FlightPlanner.instance.ButClearPol.Enabled = true;
         }
 
         public void clear_routes_poly() {
@@ -1720,6 +1721,8 @@ namespace MissionPlanner.Grid
             routesOverlay.Polygons.Clear();
             routesOverlay.Markers.Clear();
             FlightPlannerBase.instance._flightPlanner.PaneMenu.Visible = false;
+            FlightPlanner.instance.estadomenu = false;
+            CustomColor.instance.Normalcolor(FlightPlanner.instance.But_SurveyGrid);
         }
 
         private void groupBox6_Enter(object sender, EventArgs e)

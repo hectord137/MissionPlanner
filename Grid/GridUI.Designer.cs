@@ -1010,6 +1010,11 @@
             // 
             this.NUM_Distance.DecimalPlaces = 2;
             resources.ApplyResources(this.NUM_Distance, "NUM_Distance");
+            this.NUM_Distance.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
             this.NUM_Distance.Minimum = new decimal(new int[] {
             3,
             0,
