@@ -804,6 +804,7 @@ namespace MissionPlanner.GCSViews
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        public Locationwp home;
         public void BUT_write_Click(object sender, EventArgs e)
         {
             if ((altmode)_flightPlanner.CMB_altmode.SelectedValue == altmode.Absolute)
@@ -816,7 +817,7 @@ namespace MissionPlanner.GCSViews
             }
 
             // check home
-            Locationwp home = new Locationwp();
+             home = new Locationwp();
             try
             {
                 home.frame = (byte)MAVLink.MAV_FRAME.GLOBAL;
@@ -5684,22 +5685,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     throw new Exception("Please connect first!");
                 }
 
-                int a = 0;
 
-                // define the home point
-                Locationwp home = new Locationwp();
-                try
-                {
-                    home.frame = (byte)MAVLink.MAV_FRAME.GLOBAL;
-                    home.id = (ushort)MAVLink.MAV_CMD.WAYPOINT;
-                    home.lat = (double.Parse(_flightPlanner.TXT_homelat.Text));
-                    home.lng = (double.Parse(_flightPlanner.TXT_homelng.Text));
-                    home.alt = (float.Parse(_flightPlanner.TXT_homealt.Text) / CurrentState.multiplieralt); // use saved home
-                }
-                catch
-                {
-                    throw new Exception("Your home location is invalid");
-                }
+        
 
                 // log
                 log.Info("wps values " + MainV2.comPort.MAV.wps.Values.Count);
@@ -5712,7 +5699,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                 // get the command list from the datagrid
                 var commandlist = GetCommandList();
-
+               
                 if (type == MAVLink.MAV_MISSION_TYPE.MISSION && MainV2.comPort.MAV.apname == MAVLink.MAV_AUTOPILOT.ARDUPILOTMEGA)
                     commandlist.Insert(0, home);
 
@@ -5743,7 +5730,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                 // m
                 port.setParam("WP_RADIUS", float.Parse(_flightPlanner.TXT_WPRad.Text) / CurrentState.multiplierdist);
-
+                
                 // cm's
                 port.setParam("WPNAV_RADIUS", float.Parse(_flightPlanner.TXT_WPRad.Text) / CurrentState.multiplierdist * 100.0);
 
@@ -5755,6 +5742,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 catch
                 {
                 }
+                //establece Home Manual
+                port.doCommand(MAVLink.MAV_CMD.DO_SET_HOME, 0, 0, 0, 0, (float)home.lat, (float)home.lng, home.alt);
 
                 ((ProgressReporterDialogue)sender).UpdateProgressAndStatus(100, "Done.");
             }

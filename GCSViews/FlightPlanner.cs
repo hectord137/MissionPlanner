@@ -211,6 +211,7 @@ namespace MissionPlanner.GCSViews
                 FlightPlannerBase.instance.clearPolygonToolStripMenuItem_Click(sender, e);
                 GridUI.instance.clear_routes_poly();
                 ButInsertPol_Click(sender, e);
+                cont_wps = 0;
             }
             catch { }
        }
