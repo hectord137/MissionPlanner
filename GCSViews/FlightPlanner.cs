@@ -188,6 +188,7 @@ namespace MissionPlanner.GCSViews
                 _flightPlannerBase.addmarkerpoly = false;
                 _flightPlannerBase.polygongridmode = false;
                 ButClearPol.Enabled = true;
+                BUT_insertWP.Enabled = true;
 
             }
             else
