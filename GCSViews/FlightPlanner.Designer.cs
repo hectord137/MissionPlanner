@@ -220,6 +220,13 @@ namespace MissionPlanner.GCSViews
             this.panelBASE = new System.Windows.Forms.Panel();
             this.panelWaypoints = new System.Windows.Forms.Panel();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.contextMenuStripPoly = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.fenceInclusionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fenceExclusionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.drawAPolygonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.Commands = new MissionPlanner.Controls.MyDataGridView();
             this.Command = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Param1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -242,13 +249,6 @@ namespace MissionPlanner.GCSViews
             this.Dist = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AZ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TagData = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.contextMenuStripPoly = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.fenceInclusionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fenceExclusionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.drawAPolygonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.tableLayoutPanel11.SuspendLayout();
             this.tableLayoutPanel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -273,8 +273,8 @@ namespace MissionPlanner.GCSViews
             this.panelBASE.SuspendLayout();
             this.panelWaypoints.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Commands)).BeginInit();
             this.contextMenuStripPoly.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Commands)).BeginInit();
             this.SuspendLayout();
             // 
             // CHK_verifyheight
@@ -1586,6 +1586,43 @@ namespace MissionPlanner.GCSViews
             this.tableLayoutPanel8.Controls.Add(this.tableLayoutPanel14, 3, 0);
             this.tableLayoutPanel8.Name = "tableLayoutPanel8";
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 1200;
+            // 
+            // contextMenuStripPoly
+            // 
+            this.contextMenuStripPoly.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addPolygonPointToolStripMenuItem,
+            this.clearPolygonToolStripMenuItem,
+            this.savePolygonToolStripMenuItem,
+            this.loadPolygonToolStripMenuItem,
+            this.fromSHPToolStripMenuItem,
+            this.areaToolStripMenuItem,
+            this.fenceInclusionToolStripMenuItem,
+            this.fenceExclusionToolStripMenuItem});
+            this.contextMenuStripPoly.Name = "contextMenuStripPoly";
+            resources.ApplyResources(this.contextMenuStripPoly, "contextMenuStripPoly");
+            // 
+            // fenceInclusionToolStripMenuItem
+            // 
+            this.fenceInclusionToolStripMenuItem.Name = "fenceInclusionToolStripMenuItem";
+            resources.ApplyResources(this.fenceInclusionToolStripMenuItem, "fenceInclusionToolStripMenuItem");
+            // 
+            // fenceExclusionToolStripMenuItem
+            // 
+            this.fenceExclusionToolStripMenuItem.Name = "fenceExclusionToolStripMenuItem";
+            resources.ApplyResources(this.fenceExclusionToolStripMenuItem, "fenceExclusionToolStripMenuItem");
+            // 
+            // drawAPolygonToolStripMenuItem
+            // 
+            this.drawAPolygonToolStripMenuItem.Name = "drawAPolygonToolStripMenuItem";
+            resources.ApplyResources(this.drawAPolygonToolStripMenuItem, "drawAPolygonToolStripMenuItem");
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
             // Commands
             // 
             this.Commands.AllowUserToAddRows = false;
@@ -1775,43 +1812,6 @@ namespace MissionPlanner.GCSViews
             this.TagData.Name = "TagData";
             this.TagData.ReadOnly = true;
             // 
-            // timer1
-            // 
-            this.timer1.Interval = 1200;
-            // 
-            // contextMenuStripPoly
-            // 
-            this.contextMenuStripPoly.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addPolygonPointToolStripMenuItem,
-            this.clearPolygonToolStripMenuItem,
-            this.savePolygonToolStripMenuItem,
-            this.loadPolygonToolStripMenuItem,
-            this.fromSHPToolStripMenuItem,
-            this.areaToolStripMenuItem,
-            this.fenceInclusionToolStripMenuItem,
-            this.fenceExclusionToolStripMenuItem});
-            this.contextMenuStripPoly.Name = "contextMenuStripPoly";
-            resources.ApplyResources(this.contextMenuStripPoly, "contextMenuStripPoly");
-            // 
-            // fenceInclusionToolStripMenuItem
-            // 
-            this.fenceInclusionToolStripMenuItem.Name = "fenceInclusionToolStripMenuItem";
-            resources.ApplyResources(this.fenceInclusionToolStripMenuItem, "fenceInclusionToolStripMenuItem");
-            // 
-            // fenceExclusionToolStripMenuItem
-            // 
-            this.fenceExclusionToolStripMenuItem.Name = "fenceExclusionToolStripMenuItem";
-            resources.ApplyResources(this.fenceExclusionToolStripMenuItem, "fenceExclusionToolStripMenuItem");
-            // 
-            // drawAPolygonToolStripMenuItem
-            // 
-            this.drawAPolygonToolStripMenuItem.Name = "drawAPolygonToolStripMenuItem";
-            resources.ApplyResources(this.drawAPolygonToolStripMenuItem, "drawAPolygonToolStripMenuItem");
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            // 
             // FlightPlanner
             // 
             this.BackColor = System.Drawing.SystemColors.Control;
@@ -1854,8 +1854,8 @@ namespace MissionPlanner.GCSViews
             this.panelWaypoints.PerformLayout();
             this.tableLayoutPanel8.ResumeLayout(false);
             this.tableLayoutPanel8.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Commands)).EndInit();
             this.contextMenuStripPoly.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.Commands)).EndInit();
             this.ResumeLayout(false);
 
         }

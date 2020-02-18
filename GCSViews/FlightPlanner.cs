@@ -97,7 +97,18 @@ namespace MissionPlanner.GCSViews
 
         private void cmb_missiontype_SelectedIndexChanged(object sender, System.EventArgs e)
         {
+            if (cmb_missiontype.Text == "RALLY")
+            {
+                tableLayoutPanel7.Visible = true;
+                BUT_insertWP.Enabled = false;
+            }
+            else {
+                tableLayoutPanel7.Visible = false;
 
+            }
+            if (bloqWP) {
+                BUT_insertWP_Click(sender, e);
+            }
         }
 
 
@@ -264,20 +275,27 @@ namespace MissionPlanner.GCSViews
         public bool bloqRallyPoint = false;
         private void myButton1_Click(object sender, System.EventArgs e)
         {
+            if (Estado_btn_insert_poly) {
 
-            if (bloqRallyPoint)
-            {
-                bloqRallyPoint = false;
-                CustomColor.instance.Normalcolor(myButton1);
-
+                ButInsertPol_Click(sender, e);
             }
-            else
+          
+            string get_cmb_miss_type = cmb_missiontype.Text;
+            if (get_cmb_miss_type == "RALLY")
             {
-                bloqRallyPoint = true;
-
-                CustomColor.instance.activecolor(myButton1);
+                bloqWP = true;
+                if (bloqRallyPoint)
+                {
+                    bloqRallyPoint = false;
+                    CustomColor.instance.Normalcolor(myButton1);
+                    bloqWP = false;
+                }
+                else
+                {
+                    bloqRallyPoint = true;
+                    CustomColor.instance.activecolor(myButton1);
+                }
             }
-
         }
 
         private void myButton6_Click(object sender, System.EventArgs e)
@@ -293,6 +311,7 @@ namespace MissionPlanner.GCSViews
         private void myButton5_Click(object sender, System.EventArgs e)
         {
             _flightPlannerBase.clearRallyPointsToolStripMenuItem_Click(sender, e);
+            ButDelwp_Click(sender, e);
         }
 
         private void myButton4_Click(object sender, System.EventArgs e)

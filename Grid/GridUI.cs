@@ -1260,7 +1260,7 @@ namespace MissionPlanner.Grid
             {
                 try
                 {
-                    // TRK_zoom.Value = (float)FlightPlannerBase.instance.MainMap.Zoom;
+                    //trackBar1.Value = (float)FlightPlannerBase.instance.MainMap.Zoom;
                 }
                 catch { }
             }

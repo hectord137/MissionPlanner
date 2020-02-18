@@ -6725,8 +6725,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             {
                 try
                 {
-                    PointLatLngAlt rallypt = new PointLatLngAlt(MouseDownStart.Lat, MouseDownStart.Lng,
-                        100 / CurrentState.multiplieralt, "Rally Point");
+                    PointLatLngAlt rallypt = new PointLatLngAlt(MouseDownStart.Lat, MouseDownStart.Lng,100 / CurrentState.multiplieralt, "Rally Point");
                     rallypointoverlay.Markers.Add(
                         new GMapMarkerRallyPt(rallypt)
                         {

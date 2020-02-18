@@ -64,11 +64,12 @@ namespace MissionPlanner.Grid
         public bool haypoly = false;
         public void but_Click(object sender, EventArgs e)
         {
-           
 
-            GridUI = new GridUI(this);
-            
-               
+
+            using (GridUI = new GridUI(this))
+            {
+
+
                 MissionPlanner.Utilities.ThemeManager.ApplyThemeTo(GridUI);
 
                 if (Host.FPDrawnPolygon != null && Host.FPDrawnPolygon.Points.Count > 2)
@@ -106,6 +107,7 @@ namespace MissionPlanner.Grid
 
                     }
                 }
+            }
         }
 
         public void mousedown(object sender, MouseEventArgs e)

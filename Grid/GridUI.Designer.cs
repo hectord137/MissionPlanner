@@ -76,6 +76,7 @@
             this.rad_digicam = new System.Windows.Forms.RadioButton();
             this.rad_repeatservo = new System.Windows.Forms.RadioButton();
             this.rad_trigdist = new System.Windows.Forms.RadioButton();
+            this.BUT_samplephoto = new MissionPlanner.Controls.MyButton();
             this.label21 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
@@ -93,6 +94,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.BUT_save = new MissionPlanner.Controls.MyButton();
             this.tabGrid = new System.Windows.Forms.TabPage();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.LBL_Alternating_lanes = new System.Windows.Forms.Label();
@@ -131,6 +133,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.NUM_spacing = new System.Windows.Forms.NumericUpDown();
             this.tabSimple = new System.Windows.Forms.TabPage();
+            this.myButton1 = new MissionPlanner.Controls.MyButton();
             this.label38 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label37 = new System.Windows.Forms.Label();
@@ -140,6 +143,8 @@
             this.CHK_toandland = new System.Windows.Forms.CheckBox();
             this.label24 = new System.Windows.Forms.Label();
             this.NUM_UpDownFlySpeed = new System.Windows.Forms.NumericUpDown();
+            this.NUM_angle = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.CHK_advanced = new System.Windows.Forms.CheckBox();
             this.CHK_footprints = new System.Windows.Forms.CheckBox();
@@ -147,18 +152,13 @@
             this.CHK_grid = new System.Windows.Forms.CheckBox();
             this.CHK_markers = new System.Windows.Forms.CheckBox();
             this.CHK_boundary = new System.Windows.Forms.CheckBox();
+            this.BUT_Accept = new MissionPlanner.Controls.MyButton();
             this.CMB_camera = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.NUM_altitude = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
             this.CHK_camdirection = new System.Windows.Forms.CheckBox();
-            this.NUM_angle = new System.Windows.Forms.NumericUpDown();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.myButton1 = new MissionPlanner.Controls.MyButton();
-            this.BUT_Accept = new MissionPlanner.Controls.MyButton();
-            this.BUT_samplephoto = new MissionPlanner.Controls.MyButton();
-            this.BUT_save = new MissionPlanner.Controls.MyButton();
             this.groupBox5.SuspendLayout();
             this.tabCamera.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -188,9 +188,9 @@
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_split)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_UpDownFlySpeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NUM_angle)).BeginInit();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_altitude)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NUM_angle)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -585,6 +585,14 @@
             this.rad_trigdist.Tag = "";
             this.rad_trigdist.UseVisualStyleBackColor = true;
             // 
+            // BUT_samplephoto
+            // 
+            resources.ApplyResources(this.BUT_samplephoto, "BUT_samplephoto");
+            this.BUT_samplephoto.Name = "BUT_samplephoto";
+            this.BUT_samplephoto.TextColor = System.Drawing.Color.White;
+            this.BUT_samplephoto.UseVisualStyleBackColor = true;
+            this.BUT_samplephoto.Click += new System.EventHandler(this.BUT_samplephoto_Click);
+            // 
             // label21
             // 
             resources.ApplyResources(this.label21, "label21");
@@ -695,6 +703,14 @@
             // 
             resources.ApplyResources(this.label11, "label11");
             this.label11.Name = "label11";
+            // 
+            // BUT_save
+            // 
+            resources.ApplyResources(this.BUT_save, "BUT_save");
+            this.BUT_save.Name = "BUT_save";
+            this.BUT_save.TextColor = System.Drawing.Color.White;
+            this.BUT_save.UseVisualStyleBackColor = true;
+            this.BUT_save.Click += new System.EventHandler(this.BUT_save_Click);
             // 
             // tabGrid
             // 
@@ -1044,6 +1060,19 @@
             this.tabSimple.Name = "tabSimple";
             this.tabSimple.UseVisualStyleBackColor = true;
             // 
+            // myButton1
+            // 
+            resources.ApplyResources(this.myButton1, "myButton1");
+            this.myButton1.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
+            this.myButton1.ColorMouseDown = System.Drawing.Color.Transparent;
+            this.myButton1.ColorMouseOver = System.Drawing.Color.Transparent;
+            this.myButton1.ColorNotEnabled = System.Drawing.Color.Transparent;
+            this.myButton1.Name = "myButton1";
+            this.myButton1.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
+            this.myButton1.TextColor = System.Drawing.Color.White;
+            this.myButton1.UseVisualStyleBackColor = true;
+            this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
+            // 
             // label38
             // 
             resources.ApplyResources(this.label38, "label38");
@@ -1134,6 +1163,22 @@
             0});
             this.NUM_UpDownFlySpeed.ValueChanged += new System.EventHandler(this.domainUpDown1_ValueChanged);
             // 
+            // NUM_angle
+            // 
+            resources.ApplyResources(this.NUM_angle, "NUM_angle");
+            this.NUM_angle.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.NUM_angle.Name = "NUM_angle";
+            this.NUM_angle.ValueChanged += new System.EventHandler(this.domainUpDown1_ValueChanged);
+            // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.Name = "label4";
+            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.CHK_advanced);
@@ -1192,6 +1237,19 @@
             this.CHK_boundary.UseVisualStyleBackColor = true;
             this.CHK_boundary.CheckedChanged += new System.EventHandler(this.domainUpDown1_ValueChanged);
             // 
+            // BUT_Accept
+            // 
+            resources.ApplyResources(this.BUT_Accept, "BUT_Accept");
+            this.BUT_Accept.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
+            this.BUT_Accept.ColorMouseDown = System.Drawing.Color.Transparent;
+            this.BUT_Accept.ColorMouseOver = System.Drawing.Color.Transparent;
+            this.BUT_Accept.ColorNotEnabled = System.Drawing.Color.Transparent;
+            this.BUT_Accept.Name = "BUT_Accept";
+            this.BUT_Accept.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(50)))));
+            this.BUT_Accept.TextColor = System.Drawing.Color.White;
+            this.BUT_Accept.UseVisualStyleBackColor = true;
+            this.BUT_Accept.Click += new System.EventHandler(this.BUT_Accept_Click);
+            // 
             // CMB_camera
             // 
             this.CMB_camera.FormattingEnabled = true;
@@ -1235,11 +1293,6 @@
             0});
             this.NUM_altitude.ValueChanged += new System.EventHandler(this.domainUpDown1_ValueChanged);
             // 
-            // label4
-            // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.Name = "label4";
-            // 
             // CHK_camdirection
             // 
             resources.ApplyResources(this.CHK_camdirection, "CHK_camdirection");
@@ -1248,17 +1301,6 @@
             this.CHK_camdirection.Name = "CHK_camdirection";
             this.CHK_camdirection.UseVisualStyleBackColor = true;
             this.CHK_camdirection.CheckedChanged += new System.EventHandler(this.CHK_camdirection_CheckedChanged);
-            // 
-            // NUM_angle
-            // 
-            resources.ApplyResources(this.NUM_angle, "NUM_angle");
-            this.NUM_angle.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
-            this.NUM_angle.Name = "NUM_angle";
-            this.NUM_angle.ValueChanged += new System.EventHandler(this.domainUpDown1_ValueChanged);
             // 
             // tabControl1
             // 
@@ -1269,48 +1311,6 @@
             resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            // 
-            // myButton1
-            // 
-            resources.ApplyResources(this.myButton1, "myButton1");
-            this.myButton1.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
-            this.myButton1.ColorMouseDown = System.Drawing.Color.Transparent;
-            this.myButton1.ColorMouseOver = System.Drawing.Color.Transparent;
-            this.myButton1.ColorNotEnabled = System.Drawing.Color.Transparent;
-            this.myButton1.Name = "myButton1";
-            this.myButton1.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
-            this.myButton1.TextColor = System.Drawing.Color.White;
-            this.myButton1.UseVisualStyleBackColor = true;
-            this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
-            // 
-            // BUT_Accept
-            // 
-            resources.ApplyResources(this.BUT_Accept, "BUT_Accept");
-            this.BUT_Accept.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
-            this.BUT_Accept.ColorMouseDown = System.Drawing.Color.Transparent;
-            this.BUT_Accept.ColorMouseOver = System.Drawing.Color.Transparent;
-            this.BUT_Accept.ColorNotEnabled = System.Drawing.Color.Transparent;
-            this.BUT_Accept.Name = "BUT_Accept";
-            this.BUT_Accept.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(50)))));
-            this.BUT_Accept.TextColor = System.Drawing.Color.White;
-            this.BUT_Accept.UseVisualStyleBackColor = true;
-            this.BUT_Accept.Click += new System.EventHandler(this.BUT_Accept_Click);
-            // 
-            // BUT_samplephoto
-            // 
-            resources.ApplyResources(this.BUT_samplephoto, "BUT_samplephoto");
-            this.BUT_samplephoto.Name = "BUT_samplephoto";
-            this.BUT_samplephoto.TextColor = System.Drawing.Color.White;
-            this.BUT_samplephoto.UseVisualStyleBackColor = true;
-            this.BUT_samplephoto.Click += new System.EventHandler(this.BUT_samplephoto_Click);
-            // 
-            // BUT_save
-            // 
-            resources.ApplyResources(this.BUT_save, "BUT_save");
-            this.BUT_save.Name = "BUT_save";
-            this.BUT_save.TextColor = System.Drawing.Color.White;
-            this.BUT_save.UseVisualStyleBackColor = true;
-            this.BUT_save.Click += new System.EventHandler(this.BUT_save_Click);
             // 
             // GridUI
             // 
@@ -1366,10 +1366,10 @@
             this.groupBox6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_split)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_UpDownFlySpeed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NUM_angle)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_altitude)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NUM_angle)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
 
