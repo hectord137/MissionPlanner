@@ -57,12 +57,7 @@ namespace MissionPlanner.GCSViews
 
         public object Points { get; private set; }
 
-        private GridPlugin plugin;
-        public void test(object sender, System.EventArgs e)
-        {
-            GridUI grid = new GridUI(plugin);
-            grid.domainUpDown1_ValueChanged(sender, e);
-        }
+    
 
         public void Activate()
         {
@@ -695,7 +690,7 @@ namespace MissionPlanner.GCSViews
             CustomColor.instance.Normalcolor(But_SurveyGrid);  
             PaneMenu.Visible = false;
         }
-
+        public bool statusSurveyGrid = false;
         private void myButton9_Click(object sender, EventArgs e)
         {
             ButClearPol.Enabled = false;
@@ -712,6 +707,8 @@ namespace MissionPlanner.GCSViews
                     ButInsertPol_Click(sender, e);
                     GridUI.instance.clear_routes_poly();
                     ButInsertPol_Click(sender, e);
+                    statusSurveyGrid = false;
+                    ButInsertPol.Enabled = true;
                 }
             }
             else
@@ -722,6 +719,8 @@ namespace MissionPlanner.GCSViews
                     cierra_sinEliminar_poly();
                    GridUI.instance.clear_routes_poly();
                     ButInsertPol_Click(sender, e);
+                    statusSurveyGrid = false;
+                    ButInsertPol.Enabled = true;
                 }
                 else
                 {
@@ -729,6 +728,9 @@ namespace MissionPlanner.GCSViews
                     FlightPlannerBase.surveyGridToolStripMenuItem_Click(sender, e);
                     bloqWP = false;
                     estadomenu = true;
+                    statusSurveyGrid = true;
+                    ButInsertPol.Enabled = false;
+
                 }
             }
 
@@ -747,10 +749,26 @@ namespace MissionPlanner.GCSViews
         {
 
         }
-
+       
         private void myButton9_Click_1(object sender, EventArgs e)
         {
   
+        }
+        private void MainMap_MouseMove(object sender, MouseEventArgs e)
+        {
+            GridPlugin gridplugin = new GridPlugin();
+            gridplugin.mousemove(sender, e);
+        }
+
+        private void MainMap_MouseDown(object sender, MouseEventArgs e)
+        {
+            GridPlugin gridplugin = new GridPlugin();
+            gridplugin.mousedown(sender, e);
+        
+        }
+
+        private void MainMap_Load(object sender, EventArgs e)
+        {
         }
     }
 

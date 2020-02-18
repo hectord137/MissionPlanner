@@ -58,19 +58,24 @@ namespace MissionPlanner.Grid
             return true;
 
         }
+        public static GridUI GridUI;
+
 
         public bool haypoly = false;
         public void but_Click(object sender, EventArgs e)
         {
-            using (var gridui = new GridUI(this))
-            {
-                MissionPlanner.Utilities.ThemeManager.ApplyThemeTo(gridui);
+           
+
+            GridUI = new GridUI(this);
+            
+               
+                MissionPlanner.Utilities.ThemeManager.ApplyThemeTo(GridUI);
 
                 if (Host.FPDrawnPolygon != null && Host.FPDrawnPolygon.Points.Count > 2)
                 {
                     FlightPlannerBase.instance._flightPlanner.tableLayoutPanel12.Controls.Clear();
-                    FlightPlannerBase.instance._flightPlanner.tableLayoutPanel12.Controls.Add(gridui.tabControl1);  //Agrego la instancia al panel y listo.
-                    gridui.GridUI_Load(sender, e);
+                    FlightPlannerBase.instance._flightPlanner.tableLayoutPanel12.Controls.Add(GridUI.tabControl1);  //Agrega la instancia al panel 
+                    GridUI.GridUI_Load(sender, e);
                     haypoly = true;
                     FlightPlanner.instance.PaneMenu.Visible = true;
                 }
@@ -79,12 +84,12 @@ namespace MissionPlanner.Grid
                     if (
                         CustomMessageBox.Show("No polygon defined. Load a file?", "Load File", MessageBoxButtons.YesNo) ==
                         (int)DialogResult.Yes)
-                        
+
                     {
 
-                        gridui.LoadGrid();
+                        GridUI.LoadGrid();
                         FlightPlannerBase.instance._flightPlanner.tableLayoutPanel12.Controls.Clear();
-                        FlightPlannerBase.instance._flightPlanner.tableLayoutPanel12.Controls.Add(gridui.tabControl1);
+                        FlightPlannerBase.instance._flightPlanner.tableLayoutPanel12.Controls.Add(GridUI.tabControl1);
                         haypoly = true;
                         FlightPlanner.instance.PaneMenu.Visible = true;
                     }
@@ -101,9 +106,22 @@ namespace MissionPlanner.Grid
 
                     }
                 }
-            }
         }
 
+        public void mousedown(object sender, MouseEventArgs e)
+        {
+          if(FlightPlanner.instance.statusSurveyGrid)
+                GridUI.map_MouseDown(sender, e);
+            
+        }
+
+        public void mousemove(object sender, MouseEventArgs e)
+        {
+
+            if (FlightPlanner.instance.statusSurveyGrid)
+                GridUI.map_MouseMove(sender, e);
+            
+        }
 
         public override bool Exit()
         {

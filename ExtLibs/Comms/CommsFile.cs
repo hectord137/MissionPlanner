@@ -47,60 +47,66 @@ namespace MissionPlanner.Comms
 
         public int Read(byte[] buffer, int offset, int count)
         {
-            if (!IsOpen)
-                throw new EndOfStreamException("File not open");
-
-            while (true)
+            try
             {
-                // check if we have credit and continue
-                if (count < bytecredit)
+                if (!IsOpen)
+                    throw new EndOfStreamException("File not open");
+
+                while (true)
                 {
-                    bytecredit -= count;
-                    break;
+                    // check if we have credit and continue
+                    if (count < bytecredit)
+                    {
+                        bytecredit -= count;
+                        break;
+                    }
+
+                    // get the time taken since last read in seconds
+                    var LapsedSinceLastRead = (DateTime.Now - lastread).TotalSeconds;
+
+                    // escape if we are out of range
+                    if (LapsedSinceLastRead < 0 || LapsedSinceLastRead > 2)
+                        break;
+
+                    // get our target bps for this time slice.
+                    var targetbps = (int)(bps * LapsedSinceLastRead) + bytecredit;
+
+                    // check if out target+count is less than our required bps
+                    if (count < targetbps)
+                    {
+                        bytecredit = targetbps - count;
+                        break;
+                    }
+
+                    Thread.Sleep(1);
                 }
 
-                // get the time taken since last read in seconds
-                var LapsedSinceLastRead = (DateTime.Now - lastread).TotalSeconds;
+                lastread = DateTime.Now;
 
-                // escape if we are out of range
-                if (LapsedSinceLastRead < 0 || LapsedSinceLastRead > 2)
-                    break;
-
-                // get our target bps for this time slice.
-                var targetbps = (int) (bps * LapsedSinceLastRead) + bytecredit;
-
-                // check if out target+count is less than our required bps
-                if (count < targetbps)
+                if (lastsecond != DateTime.Now.Second)
                 {
-                    bytecredit = targetbps - count;
-                    break;
+                    //Console.WriteLine("CommsFile Read bps {0}", currentbps);
+                    currentbps = 0;
+                    lastsecond = DateTime.Now.Second;
                 }
 
-                Thread.Sleep(1);
+                currentbps += count;
+                var ret = BaseStream.Read(buffer, offset, count);
+
+                if (buffer[0] == 254 && offset == 1)
+                    step = buffer[1] + 5 + 2; // + header + checksum
+
+                step -= ret;
+
+                // read the timestamp
+                //if (step == 0)
+                //BaseStream.Read(new byte[8], 0, 8);
+
+                return ret;
             }
-
-            lastread = DateTime.Now;
-
-            if (lastsecond != DateTime.Now.Second)
-            {
-                //Console.WriteLine("CommsFile Read bps {0}", currentbps);
-                currentbps = 0;
-                lastsecond = DateTime.Now.Second;
+            catch {
+                return 0;
             }
-
-            currentbps += count;
-            var ret = BaseStream.Read(buffer, offset, count);
-
-            if (buffer[0] == 254 && offset == 1)
-                step = buffer[1] + 5 + 2; // + header + checksum
-
-            step -= ret;
-
-            // read the timestamp
-            //if (step == 0)
-            //BaseStream.Read(new byte[8], 0, 8);
-
-            return ret;
         }
 
         //int Read(char[] buffer, int offset, int count);

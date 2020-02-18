@@ -6126,6 +6126,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 log.Error(ex);
             }
         }
+     
 
         public void surveyGridToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -6133,7 +6134,6 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             GridPlugin grid = new GridPlugin();
             grid.Host = new PluginHost();
             grid.but_Click(sender, e);
-        
         }
 
         public bool reload_parameters(bool estado_poly)

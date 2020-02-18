@@ -810,6 +810,7 @@ namespace MissionPlanner
                 log.Info("Create FD");
                 FlightData = new GCSViews.FlightData();
                 CustomColor customcolor = new CustomColor();
+
                 log.Info("Create FP");
                 FlightPlanner = new GCSViews.FlightPlanner();
                 //Configuration = new GCSViews.ConfigurationView.Setup();

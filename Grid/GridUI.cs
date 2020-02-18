@@ -62,16 +62,17 @@ namespace MissionPlanner.Grid
         bool isMouseDown = false;
         bool isMouseDraging = false;
 
+   
         // GridUI
-        public GridUI(GridPlugin plugin)
+        public  GridUI(GridPlugin plugin)
         {
 
-
+            instance = this;
+          
             this.plugin = plugin;
             CustomColor.instance.Normalcolor(BUT_Accept);
             CustomColor.instance.Normalcolor(myButton1);
             InitializeComponent();
-            instance = this;
             loading = true;
 
             FlightPlannerBase.instance.MainMap.MapProvider = plugin.Host.FDMapType;
@@ -591,7 +592,7 @@ namespace MissionPlanner.Grid
                     (float)NUM_Lane_Dist.Value, (float)NUM_leadin.Value, MainV2.comPort.MAV.cs.HomeLocation);
             }
            
-            FlightPlannerBase.instance.MainMap.HoldInvalidation = true;
+            FlightPlannerBase.instance.MainMap.HoldInvalidation = false;
 
             routesOverlay.Routes.Clear();
             routesOverlay.Polygons.Clear();
@@ -716,11 +717,11 @@ namespace MissionPlanner.Grid
                     if (item.Tag != "SM" && item.Tag != "ME")
                         strips++;
 
-                    //if (CHK_markers.Checked)
-                    //{
-                    //    var marker = new GMapMarkerWP(item, a.ToString()) { ToolTipText = a.ToString(), ToolTipMode = MarkerTooltipMode.OnMouseOver };
-                    //    routesOverlay.Markers.Add(marker);
-                    //}
+                    if (CHK_markers.Checked)
+                    {
+                        var marker = new GMapMarkerWP(item, a.ToString()) { ToolTipText = a.ToString(), ToolTipMode = MarkerTooltipMode.OnMouseOver };
+                        routesOverlay.Markers.Add(marker);
+                    }
 
                     segment.Add(prevpoint);
                     segment.Add(item);
@@ -899,7 +900,7 @@ namespace MissionPlanner.Grid
             }
         }
 
-        void AddDrawPolygon()
+       public void AddDrawPolygon()
         {
             List<PointLatLng> list2 = new List<PointLatLng>();
 
@@ -1188,7 +1189,7 @@ namespace MissionPlanner.Grid
             CurrentGMapMarkerStartPos = null;
         }
 
-        private void map_MouseDown(object sender, MouseEventArgs e)
+        public void map_MouseDown(object sender, MouseEventArgs e)
         {
             MouseDownStart = FlightPlannerBase.instance.MainMap.FromLocalToLatLng(e.X, e.Y);
 
@@ -1202,7 +1203,7 @@ namespace MissionPlanner.Grid
             }
         }
 
-        private void map_MouseMove(object sender, MouseEventArgs e)
+        public void map_MouseMove(object sender, MouseEventArgs e)
         {
             PointLatLng point = FlightPlannerBase.instance.MainMap.FromLocalToLatLng(e.X, e.Y);
             currentMousePosition = point;
@@ -1713,6 +1714,7 @@ namespace MissionPlanner.Grid
             FlightPlanner.instance.BUT_insertWP.Enabled = true;
             FlightPlanner.instance.ButInsertPol.Enabled = true;
             FlightPlanner.instance.ButClearPol.Enabled = true;
+           FlightPlanner.instance.statusSurveyGrid = false;
         }
 
         public void clear_routes_poly() {
