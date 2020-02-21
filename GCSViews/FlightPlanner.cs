@@ -101,10 +101,15 @@ namespace MissionPlanner.GCSViews
             {
                 tableLayoutPanel7.Visible = true;
                 BUT_insertWP.Enabled = false;
+                Commands.Rows.Clear();
+                //_flightPlannerBase.insertrelay = true;
+                ButDelwp_Click(sender, e);
+                ///al crear waypoint y posterior crear rallypoint, los waypoint se siguen insertando en la continuidad de el ultimo rallypoint sin mostrarse
             }
             else {
                 tableLayoutPanel7.Visible = false;
-
+                BUT_insertWP.Enabled = true;
+                
             }
             if (bloqWP) {
                 BUT_insertWP_Click(sender, e);
@@ -154,7 +159,7 @@ namespace MissionPlanner.GCSViews
                 CustomColor.instance.activecolor(BUT_insertWP);
                 Commands.Columns["Delete"].Visible = true;
                 ButDelwp.Enabled = false;
-                if (Del_relay_home_last)
+                if (Del_relay_home_last && bloqRallyPoint)
                 {
                     this.Commands.Rows.RemoveAt(contador_delete);
                     this.Commands.Rows.RemoveAt(contador_delete++);
