@@ -29,6 +29,19 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigPlanner));
+            this.myButton1 = new MissionPlanner.Controls.MyButton();
+            this.LBLTittleConfig = new System.Windows.Forms.Label();
+            this.myUserControl1 = new System.Windows.Forms.MyUserControl();
+            this.CMB_language = new System.Windows.Forms.ComboBox();
+            this.CMB_distunits = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label97 = new System.Windows.Forms.Label();
+            this.num_gcsid = new System.Windows.Forms.NumericUpDown();
+            this.CMB_speedunits = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label98 = new System.Windows.Forms.Label();
+            this.CMB_altunits = new System.Windows.Forms.ComboBox();
+            this.CMB_rateposition = new System.Windows.Forms.ComboBox();
             this.label26 = new System.Windows.Forms.Label();
             this.CMB_videoresolutions = new System.Windows.Forms.ComboBox();
             this.CHK_speechaltwarning = new System.Windows.Forms.CheckBox();
@@ -72,11 +85,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.CHK_AutoParamCommit = new System.Windows.Forms.CheckBox();
             this.chk_shownofly = new System.Windows.Forms.CheckBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.CMB_altunits = new System.Windows.Forms.ComboBox();
-            this.num_gcsid = new System.Windows.Forms.NumericUpDown();
-            this.label7 = new System.Windows.Forms.Label();
-            this.myUserControl1 = new System.Windows.Forms.MyUserControl();
             this.txt_log_dir = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.BUT_logdirbrowse = new MissionPlanner.Controls.MyButton();
@@ -97,18 +105,161 @@
             this.label102 = new System.Windows.Forms.Label();
             this.label101 = new System.Windows.Forms.Label();
             this.CMB_rateattitude = new System.Windows.Forms.ComboBox();
-            this.CMB_rateposition = new System.Windows.Forms.ComboBox();
-            this.label98 = new System.Windows.Forms.Label();
-            this.CMB_speedunits = new System.Windows.Forms.ComboBox();
-            this.label97 = new System.Windows.Forms.Label();
-            this.CMB_distunits = new System.Windows.Forms.ComboBox();
-            this.CMB_language = new System.Windows.Forms.ComboBox();
             this.label93 = new System.Windows.Forms.Label();
-            this.LBLTittleConfig = new System.Windows.Forms.Label();
-            this.myButton1 = new MissionPlanner.Controls.MyButton();
+            this.label3 = new System.Windows.Forms.Label();
+            this.myButton2 = new MissionPlanner.Controls.MyButton();
+            this.myButton3 = new MissionPlanner.Controls.MyButton();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.myButton4 = new MissionPlanner.Controls.MyButton();
+            this.myButton5 = new MissionPlanner.Controls.MyButton();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.txtIp = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.BTNSaveRemote = new MissionPlanner.Controls.MyButton();
+            this.txtRange = new System.Windows.Forms.MaskedTextBox();
+            this.TxtInterval = new System.Windows.Forms.MaskedTextBox();
+            this.TxtThreshold = new System.Windows.Forms.MaskedTextBox();
+            this.TxtOffset = new System.Windows.Forms.MaskedTextBox();
+            this.TxtDeadzone = new System.Windows.Forms.MaskedTextBox();
+            this.TxtSound = new System.Windows.Forms.MaskedTextBox();
+            this.TxtGain = new System.Windows.Forms.MaskedTextBox();
+            this.txtProtocol = new System.Windows.Forms.MaskedTextBox();
+            this.txtFrecuency = new System.Windows.Forms.MaskedTextBox();
+            this.TXTremoteIp = new System.Windows.Forms.MaskedTextBox();
+            this.TXTPortTX = new System.Windows.Forms.MaskedTextBox();
+            this.TXTPortRX = new System.Windows.Forms.MaskedTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.num_gcsid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_tracklength)).BeginInit();
             this.SuspendLayout();
+            // 
+            // myButton1
+            // 
+            resources.ApplyResources(this.myButton1, "myButton1");
+            this.myButton1.Name = "myButton1";
+            this.myButton1.TextColor = System.Drawing.Color.White;
+            this.myButton1.UseVisualStyleBackColor = true;
+            this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
+            // 
+            // LBLTittleConfig
+            // 
+            resources.ApplyResources(this.LBLTittleConfig, "LBLTittleConfig");
+            this.LBLTittleConfig.BackColor = System.Drawing.Color.Transparent;
+            this.LBLTittleConfig.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(172)))), ((int)(((byte)(24)))));
+            this.LBLTittleConfig.Name = "LBLTittleConfig";
+            // 
+            // myUserControl1
+            // 
+            resources.ApplyResources(this.myUserControl1, "myUserControl1");
+            this.myUserControl1.Name = "myUserControl1";
+            // 
+            // CMB_language
+            // 
+            this.CMB_language.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CMB_language.FormattingEnabled = true;
+            resources.ApplyResources(this.CMB_language, "CMB_language");
+            this.CMB_language.Name = "CMB_language";
+            this.CMB_language.SelectedIndexChanged += new System.EventHandler(this.CMB_language_SelectedIndexChanged);
+            // 
+            // CMB_distunits
+            // 
+            this.CMB_distunits.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CMB_distunits.FormattingEnabled = true;
+            resources.ApplyResources(this.CMB_distunits, "CMB_distunits");
+            this.CMB_distunits.Name = "CMB_distunits";
+            this.CMB_distunits.SelectedIndexChanged += new System.EventHandler(this.CMB_distunits_SelectedIndexChanged);
+            // 
+            // label7
+            // 
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.Name = "label7";
+            // 
+            // label97
+            // 
+            resources.ApplyResources(this.label97, "label97");
+            this.label97.Name = "label97";
+            // 
+            // num_gcsid
+            // 
+            resources.ApplyResources(this.num_gcsid, "num_gcsid");
+            this.num_gcsid.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.num_gcsid.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.num_gcsid.Name = "num_gcsid";
+            this.num_gcsid.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.num_gcsid.ValueChanged += new System.EventHandler(this.num_gcsid_ValueChanged);
+            // 
+            // CMB_speedunits
+            // 
+            this.CMB_speedunits.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CMB_speedunits.FormattingEnabled = true;
+            resources.ApplyResources(this.CMB_speedunits, "CMB_speedunits");
+            this.CMB_speedunits.Name = "CMB_speedunits";
+            this.CMB_speedunits.SelectedIndexChanged += new System.EventHandler(this.CMB_speedunits_SelectedIndexChanged);
+            // 
+            // label6
+            // 
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.Name = "label6";
+            // 
+            // label98
+            // 
+            resources.ApplyResources(this.label98, "label98");
+            this.label98.Name = "label98";
+            this.label98.Click += new System.EventHandler(this.label98_Click);
+            // 
+            // CMB_altunits
+            // 
+            this.CMB_altunits.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CMB_altunits.FormattingEnabled = true;
+            resources.ApplyResources(this.CMB_altunits, "CMB_altunits");
+            this.CMB_altunits.Name = "CMB_altunits";
+            this.CMB_altunits.SelectedIndexChanged += new System.EventHandler(this.CMB_altunits_SelectedIndexChanged);
+            // 
+            // CMB_rateposition
+            // 
+            this.CMB_rateposition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CMB_rateposition.FormattingEnabled = true;
+            this.CMB_rateposition.Items.AddRange(new object[] {
+            resources.GetString("CMB_rateposition.Items"),
+            resources.GetString("CMB_rateposition.Items1"),
+            resources.GetString("CMB_rateposition.Items2"),
+            resources.GetString("CMB_rateposition.Items3"),
+            resources.GetString("CMB_rateposition.Items4"),
+            resources.GetString("CMB_rateposition.Items5"),
+            resources.GetString("CMB_rateposition.Items6"),
+            resources.GetString("CMB_rateposition.Items7"),
+            resources.GetString("CMB_rateposition.Items8"),
+            resources.GetString("CMB_rateposition.Items9"),
+            resources.GetString("CMB_rateposition.Items10"),
+            resources.GetString("CMB_rateposition.Items11"),
+            resources.GetString("CMB_rateposition.Items12"),
+            resources.GetString("CMB_rateposition.Items13"),
+            resources.GetString("CMB_rateposition.Items14")});
+            resources.ApplyResources(this.CMB_rateposition, "CMB_rateposition");
+            this.CMB_rateposition.Name = "CMB_rateposition";
+            this.CMB_rateposition.SelectedIndexChanged += new System.EventHandler(this.CMB_rateposition_SelectedIndexChanged);
             // 
             // label26
             // 
@@ -416,50 +567,6 @@
             this.chk_shownofly.UseVisualStyleBackColor = true;
             this.chk_shownofly.CheckedChanged += new System.EventHandler(this.chk_shownofly_CheckedChanged);
             // 
-            // label6
-            // 
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.Name = "label6";
-            // 
-            // CMB_altunits
-            // 
-            this.CMB_altunits.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CMB_altunits.FormattingEnabled = true;
-            resources.ApplyResources(this.CMB_altunits, "CMB_altunits");
-            this.CMB_altunits.Name = "CMB_altunits";
-            this.CMB_altunits.SelectedIndexChanged += new System.EventHandler(this.CMB_altunits_SelectedIndexChanged);
-            // 
-            // num_gcsid
-            // 
-            resources.ApplyResources(this.num_gcsid, "num_gcsid");
-            this.num_gcsid.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.num_gcsid.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.num_gcsid.Name = "num_gcsid";
-            this.num_gcsid.Value = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.num_gcsid.ValueChanged += new System.EventHandler(this.num_gcsid_ValueChanged);
-            // 
-            // label7
-            // 
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.Name = "label7";
-            // 
-            // myUserControl1
-            // 
-            resources.ApplyResources(this.myUserControl1, "myUserControl1");
-            this.myUserControl1.Name = "myUserControl1";
-            // 
             // txt_log_dir
             // 
             resources.ApplyResources(this.txt_log_dir, "txt_log_dir");
@@ -669,88 +776,228 @@
             this.CMB_rateattitude.Name = "CMB_rateattitude";
             this.CMB_rateattitude.SelectedIndexChanged += new System.EventHandler(this.CMB_rateattitude_SelectedIndexChanged);
             // 
-            // CMB_rateposition
-            // 
-            this.CMB_rateposition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CMB_rateposition.FormattingEnabled = true;
-            this.CMB_rateposition.Items.AddRange(new object[] {
-            resources.GetString("CMB_rateposition.Items"),
-            resources.GetString("CMB_rateposition.Items1"),
-            resources.GetString("CMB_rateposition.Items2"),
-            resources.GetString("CMB_rateposition.Items3"),
-            resources.GetString("CMB_rateposition.Items4"),
-            resources.GetString("CMB_rateposition.Items5"),
-            resources.GetString("CMB_rateposition.Items6"),
-            resources.GetString("CMB_rateposition.Items7"),
-            resources.GetString("CMB_rateposition.Items8"),
-            resources.GetString("CMB_rateposition.Items9"),
-            resources.GetString("CMB_rateposition.Items10"),
-            resources.GetString("CMB_rateposition.Items11"),
-            resources.GetString("CMB_rateposition.Items12"),
-            resources.GetString("CMB_rateposition.Items13"),
-            resources.GetString("CMB_rateposition.Items14")});
-            resources.ApplyResources(this.CMB_rateposition, "CMB_rateposition");
-            this.CMB_rateposition.Name = "CMB_rateposition";
-            this.CMB_rateposition.SelectedIndexChanged += new System.EventHandler(this.CMB_rateposition_SelectedIndexChanged);
-            // 
-            // label98
-            // 
-            resources.ApplyResources(this.label98, "label98");
-            this.label98.Name = "label98";
-            this.label98.Click += new System.EventHandler(this.label98_Click);
-            // 
-            // CMB_speedunits
-            // 
-            this.CMB_speedunits.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CMB_speedunits.FormattingEnabled = true;
-            resources.ApplyResources(this.CMB_speedunits, "CMB_speedunits");
-            this.CMB_speedunits.Name = "CMB_speedunits";
-            this.CMB_speedunits.SelectedIndexChanged += new System.EventHandler(this.CMB_speedunits_SelectedIndexChanged);
-            // 
-            // label97
-            // 
-            resources.ApplyResources(this.label97, "label97");
-            this.label97.Name = "label97";
-            // 
-            // CMB_distunits
-            // 
-            this.CMB_distunits.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CMB_distunits.FormattingEnabled = true;
-            resources.ApplyResources(this.CMB_distunits, "CMB_distunits");
-            this.CMB_distunits.Name = "CMB_distunits";
-            this.CMB_distunits.SelectedIndexChanged += new System.EventHandler(this.CMB_distunits_SelectedIndexChanged);
-            // 
-            // CMB_language
-            // 
-            this.CMB_language.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CMB_language.FormattingEnabled = true;
-            resources.ApplyResources(this.CMB_language, "CMB_language");
-            this.CMB_language.Name = "CMB_language";
-            this.CMB_language.SelectedIndexChanged += new System.EventHandler(this.CMB_language_SelectedIndexChanged);
-            // 
             // label93
             // 
             resources.ApplyResources(this.label93, "label93");
             this.label93.Name = "label93";
             // 
-            // LBLTittleConfig
+            // label3
             // 
-            resources.ApplyResources(this.LBLTittleConfig, "LBLTittleConfig");
-            this.LBLTittleConfig.BackColor = System.Drawing.Color.Transparent;
-            this.LBLTittleConfig.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(172)))), ((int)(((byte)(24)))));
-            this.LBLTittleConfig.Name = "LBLTittleConfig";
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(172)))), ((int)(((byte)(24)))));
+            this.label3.Name = "label3";
             // 
-            // myButton1
+            // myButton2
             // 
-            resources.ApplyResources(this.myButton1, "myButton1");
-            this.myButton1.Name = "myButton1";
-            this.myButton1.TextColor = System.Drawing.Color.White;
-            this.myButton1.UseVisualStyleBackColor = true;
-            this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
+            resources.ApplyResources(this.myButton2, "myButton2");
+            this.myButton2.Name = "myButton2";
+            this.myButton2.TextColor = System.Drawing.Color.White;
+            this.myButton2.UseVisualStyleBackColor = true;
+            this.myButton2.Click += new System.EventHandler(this.myButton2_Click);
+            // 
+            // myButton3
+            // 
+            resources.ApplyResources(this.myButton3, "myButton3");
+            this.myButton3.Name = "myButton3";
+            this.myButton3.TextColor = System.Drawing.Color.White;
+            this.myButton3.UseVisualStyleBackColor = true;
+            // 
+            // label8
+            // 
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.Name = "label8";
+            // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
+            // 
+            // label11
+            // 
+            resources.ApplyResources(this.label11, "label11");
+            this.label11.Name = "label11";
+            // 
+            // label13
+            // 
+            resources.ApplyResources(this.label13, "label13");
+            this.label13.Name = "label13";
+            // 
+            // label14
+            // 
+            resources.ApplyResources(this.label14, "label14");
+            this.label14.Name = "label14";
+            // 
+            // label15
+            // 
+            resources.ApplyResources(this.label15, "label15");
+            this.label15.Name = "label15";
+            // 
+            // label16
+            // 
+            resources.ApplyResources(this.label16, "label16");
+            this.label16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(172)))), ((int)(((byte)(24)))));
+            this.label16.Name = "label16";
+            // 
+            // label17
+            // 
+            resources.ApplyResources(this.label17, "label17");
+            this.label17.Name = "label17";
+            // 
+            // myButton4
+            // 
+            resources.ApplyResources(this.myButton4, "myButton4");
+            this.myButton4.Name = "myButton4";
+            this.myButton4.TextColor = System.Drawing.Color.White;
+            this.myButton4.UseVisualStyleBackColor = true;
+            // 
+            // myButton5
+            // 
+            resources.ApplyResources(this.myButton5, "myButton5");
+            this.myButton5.Name = "myButton5";
+            this.myButton5.TextColor = System.Drawing.Color.White;
+            this.myButton5.UseVisualStyleBackColor = true;
+            // 
+            // label18
+            // 
+            resources.ApplyResources(this.label18, "label18");
+            this.label18.Name = "label18";
+            // 
+            // label19
+            // 
+            resources.ApplyResources(this.label19, "label19");
+            this.label19.Name = "label19";
+            // 
+            // label20
+            // 
+            resources.ApplyResources(this.label20, "label20");
+            this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(172)))), ((int)(((byte)(24)))));
+            this.label20.Name = "label20";
+            // 
+            // txtIp
+            // 
+            resources.ApplyResources(this.txtIp, "txtIp");
+            this.txtIp.Name = "txtIp";
+            // 
+            // label22
+            // 
+            resources.ApplyResources(this.label22, "label22");
+            this.label22.Name = "label22";
+            // 
+            // label21
+            // 
+            resources.ApplyResources(this.label21, "label21");
+            this.label21.Name = "label21";
+            // 
+            // BTNSaveRemote
+            // 
+            resources.ApplyResources(this.BTNSaveRemote, "BTNSaveRemote");
+            this.BTNSaveRemote.Name = "BTNSaveRemote";
+            this.BTNSaveRemote.TextColor = System.Drawing.Color.White;
+            this.BTNSaveRemote.UseVisualStyleBackColor = true;
+            this.BTNSaveRemote.Click += new System.EventHandler(this.BTNSaveRemote_Click);
+            // 
+            // txtRange
+            // 
+            resources.ApplyResources(this.txtRange, "txtRange");
+            this.txtRange.Name = "txtRange";
+            // 
+            // TxtInterval
+            // 
+            resources.ApplyResources(this.TxtInterval, "TxtInterval");
+            this.TxtInterval.Name = "TxtInterval";
+            // 
+            // TxtThreshold
+            // 
+            resources.ApplyResources(this.TxtThreshold, "TxtThreshold");
+            this.TxtThreshold.Name = "TxtThreshold";
+            // 
+            // TxtOffset
+            // 
+            resources.ApplyResources(this.TxtOffset, "TxtOffset");
+            this.TxtOffset.Name = "TxtOffset";
+            // 
+            // TxtDeadzone
+            // 
+            resources.ApplyResources(this.TxtDeadzone, "TxtDeadzone");
+            this.TxtDeadzone.Name = "TxtDeadzone";
+            // 
+            // TxtSound
+            // 
+            resources.ApplyResources(this.TxtSound, "TxtSound");
+            this.TxtSound.Name = "TxtSound";
+            // 
+            // TxtGain
+            // 
+            resources.ApplyResources(this.TxtGain, "TxtGain");
+            this.TxtGain.Name = "TxtGain";
+            // 
+            // txtProtocol
+            // 
+            resources.ApplyResources(this.txtProtocol, "txtProtocol");
+            this.txtProtocol.Name = "txtProtocol";
+            this.txtProtocol.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.maskedTextBox8_MaskInputRejected);
+            // 
+            // txtFrecuency
+            // 
+            resources.ApplyResources(this.txtFrecuency, "txtFrecuency");
+            this.txtFrecuency.Name = "txtFrecuency";
+            // 
+            // TXTremoteIp
+            // 
+            resources.ApplyResources(this.TXTremoteIp, "TXTremoteIp");
+            this.TXTremoteIp.Name = "TXTremoteIp";
+            // 
+            // TXTPortTX
+            // 
+            resources.ApplyResources(this.TXTPortTX, "TXTPortTX");
+            this.TXTPortTX.Name = "TXTPortTX";
+            // 
+            // TXTPortRX
+            // 
+            resources.ApplyResources(this.TXTPortRX, "TXTPortRX");
+            this.TXTPortRX.Name = "TXTPortRX";
             // 
             // ConfigPlanner
             // 
             resources.ApplyResources(this, "$this");
+            this.Controls.Add(this.TXTPortRX);
+            this.Controls.Add(this.TXTPortTX);
+            this.Controls.Add(this.TXTremoteIp);
+            this.Controls.Add(this.txtFrecuency);
+            this.Controls.Add(this.txtProtocol);
+            this.Controls.Add(this.TxtGain);
+            this.Controls.Add(this.TxtSound);
+            this.Controls.Add(this.TxtDeadzone);
+            this.Controls.Add(this.TxtOffset);
+            this.Controls.Add(this.TxtThreshold);
+            this.Controls.Add(this.TxtInterval);
+            this.Controls.Add(this.txtRange);
+            this.Controls.Add(this.BTNSaveRemote);
+            this.Controls.Add(this.label21);
+            this.Controls.Add(this.label22);
+            this.Controls.Add(this.txtIp);
+            this.Controls.Add(this.label20);
+            this.Controls.Add(this.label19);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.myButton4);
+            this.Controls.Add(this.myButton5);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.myButton3);
+            this.Controls.Add(this.myButton2);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.myButton1);
             this.Controls.Add(this.LBLTittleConfig);
             this.Controls.Add(this.myUserControl1);
@@ -915,5 +1162,38 @@
         private System.Windows.Forms.Label label93;
         private System.Windows.Forms.Label LBLTittleConfig;
         public Controls.MyButton myButton1;
+        private System.Windows.Forms.Label label3;
+        private Controls.MyButton myButton2;
+        private Controls.MyButton myButton3;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
+        private Controls.MyButton myButton4;
+        private Controls.MyButton myButton5;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label txtIp;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label21;
+        private Controls.MyButton BTNSaveRemote;
+        private System.Windows.Forms.MaskedTextBox txtRange;
+        private System.Windows.Forms.MaskedTextBox TxtInterval;
+        private System.Windows.Forms.MaskedTextBox TxtThreshold;
+        private System.Windows.Forms.MaskedTextBox TxtOffset;
+        private System.Windows.Forms.MaskedTextBox TxtDeadzone;
+        private System.Windows.Forms.MaskedTextBox TxtSound;
+        private System.Windows.Forms.MaskedTextBox TxtGain;
+        private System.Windows.Forms.MaskedTextBox txtProtocol;
+        private System.Windows.Forms.MaskedTextBox txtFrecuency;
+        private System.Windows.Forms.MaskedTextBox TXTremoteIp;
+        private System.Windows.Forms.MaskedTextBox TXTPortTX;
+        private System.Windows.Forms.MaskedTextBox TXTPortRX;
     }
 }

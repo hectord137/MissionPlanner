@@ -478,7 +478,9 @@
       <DependentUpon>temp.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities\AltitudeAngel\MissionPlannerStateAdapter.cs" />
+    <Compile Include="Utilities\UDPSocket.cs" />
     <Compile Include="Utilities\ConexWifi.cs" />
+    <Compile Include="Utilities\JsonConfig.cs" />
     <Compile Include="Utilities\NativeLibrary.cs" />
     <Compile Include="Utilities\ReadGeotiff.cs" />
     <Compile Include="Utilities\Speech.cs" />

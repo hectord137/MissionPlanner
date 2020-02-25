@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
@@ -21,9 +22,11 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         private List<CultureInfo> _languages;
         private bool startup;
         static temp temp;
-
+        private JsonConfig _JsonConfig;
         public ConfigPlanner()
         {
+            _JsonConfig = new JsonConfig();
+
             InitializeComponent();
             CMB_Layout.Items.Add(DisplayNames.Basic);
             CMB_Layout.Items.Add(DisplayNames.Advanced);
@@ -31,9 +34,40 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             txt_log_dir.TextChanged += OnLogDirTextChanged;
             this.txt_log_dir.AutoSize = false;
             this.txt_log_dir.Size = new System.Drawing.Size(366, 25);
-         
             LBLTittleConfig.ForeColor = Color.FromArgb(217, 172, 24);
 
+
+            _JsonConfig.VerifyConfigFile("remoteSystemConfig.json");
+
+            //Add local Config at initialize
+            var remoteSystem = _JsonConfig.ReadRemoteSystem();
+            foreach (var item in remoteSystem) {
+                TXTremoteIp.Text = item.Ip;
+                TXTPortRX.Text = Convert.ToString(item.PortRx);
+                TXTPortTX.Text = Convert.ToString(item.PortTx);
+            }
+
+            //Add local echosounderconfig at initialize
+            _JsonConfig.VerifyConfigFile(@"echosounderconfig.json");
+            var echosounder = _JsonConfig.ReadJsonEchosounder();
+            foreach (var itemsechosounder in echosounder)
+            {
+                txtRange.Text = Convert.ToString(itemsechosounder.Range);
+                TxtInterval.Text = Convert.ToString(itemsechosounder.Interval);
+                TxtThreshold.Text = Convert.ToString(itemsechosounder.Threshold);
+                TxtOffset.Text = Convert.ToString(itemsechosounder.Offset);
+                TxtDeadzone.Text = Convert.ToString(itemsechosounder.Deadzone);
+                TxtSound.Text = Convert.ToString(itemsechosounder.Sound);
+                TxtGain.Text = Convert.ToString(itemsechosounder.Gain);
+            }
+            //Add local GPSConfig at initialize
+            _JsonConfig.VerifyConfigFile(@"GPSConfig.json");
+            var GPSConfig = _JsonConfig.ReadGPSConfig();
+            foreach (var itemsGPSConfig in GPSConfig)
+            {
+                txtFrecuency.Text = Convert.ToString(itemsGPSConfig.Frecuency);
+                txtProtocol.Text = itemsGPSConfig.Protocol;
+            }
 
 
         }
@@ -992,25 +1026,42 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         {
             Config_wifi Conex = new Config_wifi();
             Conex.Show();
-           
-            //    string PathDoc = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Mission Planner\config.txt";
-            //if (!File.Exists(PathDoc))
-            //{
-            //    ConexWifi wifi = new ConexWifi();
-            //    wifi.TxtParameters();
-            //    var p = new Process();
-            //    p.StartInfo.FileName = PathDoc;
-            //    p.Start();
-            //}
-            //else
-            //{
-            //    var p = new Process();
-            //    p.StartInfo.FileName = PathDoc;
-            //    p.Start();
-            //}
+
+         
         }
 
         private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+     
+        private void myButton2_Click(object sender, EventArgs e)
+        {
+            IPEndPoint point = null;
+                  var RemoteSystem = _JsonConfig.ReadRemoteSystem();
+            foreach (var items in RemoteSystem)
+            {
+                 point = new IPEndPoint(IPAddress.Parse(items.Ip) , items.PortRx);
+            }
+
+            UDPSocket conexUDP = new UDPSocket(point);
+
+        }
+
+
+
+        private void BTNSaveRemote_Click(object sender, EventArgs e)
+        {
+
+            var RemoteIP = TXTremoteIp.Text;
+            int RemotePortTX = Convert.ToInt32(TXTPortTX.Text);
+            int RemotePortRX = Convert.ToInt32(TXTPortRX.Text);
+            _JsonConfig.CreateConfigFileRemoteSystem(RemoteIP, RemotePortTX, RemotePortRX);
+            CustomMessageBox.Show("Config saved", "Success");
+
+        }
+
+        private void maskedTextBox8_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
         {
 
         }
