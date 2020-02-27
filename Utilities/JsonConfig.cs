@@ -1,8 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using MissionPlanner.GCSViews.ConfigurationView;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,13 +22,13 @@ namespace MissionPlanner.Utilities
 
                 switch (FileJson) {
                     case "echosounderconfig.json":
-                        CreateConfigFileEchoSounder();
+                        CreateConfigFileEchoSounder(0,0,0,0,0,0,0);
                         break;
                     case "remoteSystemConfig.json":
                         CreateConfigFileRemoteSystem("192.168.0.120", 6000, 6001);
                         break;
                     case "GPSConfig.json":
-                        CreateGpsConfig();
+                        CreateGpsConfig(0 ,"");
                         break;
                     default:
                         CustomMessageBox.Show("File Json", "Error");
@@ -35,21 +37,26 @@ namespace MissionPlanner.Utilities
             }
         }
 
-        public void CreateConfigFileEchoSounder()
+    
+
+        public void CreateConfigFileEchoSounder(int _Range, double _Interval, int _Threshold, int _Offset,
+         int _Deadzone, int _Sound, double _Gain )
         {
             List<JsonEchosounder> _data = new List<JsonEchosounder>();
             _data.Add(new JsonEchosounder()
             {
-                Range = 0,
-                Interval = 0,
-                Threshold = 0,
-                Offset = 0,
-                Deadzone = 0,
-                Sound = 0,
-                Gain = 0
+                Range = _Range,
+                Interval = _Interval,
+                Threshold = _Threshold,
+                Offset = _Offset,
+                Deadzone = _Deadzone,
+                Sound = _Sound,
+                Gain = _Gain
             });
             string json = JsonConvert.SerializeObject(_data.ToArray());
             System.IO.File.WriteAllText(PathDoc + @"echosounderconfig.json", json);
+
+           
         }
 
         public void CreateConfigFileRemoteSystem(string IP, int PortTx, int PortRx)
@@ -63,15 +70,16 @@ namespace MissionPlanner.Utilities
             });
             string json = JsonConvert.SerializeObject(_data.ToArray());
             System.IO.File.WriteAllText(PathDoc + @"remoteSystemConfig.json", json);
+          
         }
 
-        public void CreateGpsConfig()
+        public void CreateGpsConfig(int Frecuency, string Protocol)
         {
             List<GPSConfig> _data = new List<GPSConfig>();
             _data.Add(new GPSConfig()
             {
-                Frecuency = 0,
-                Protocol = ""
+                Frecuency = Frecuency,
+                Protocol = Protocol
             }) ;
             string json = JsonConvert.SerializeObject(_data.ToArray());
             System.IO.File.WriteAllText(PathDoc + @"GPSConfig.json", json);

@@ -1,40 +1,47 @@
-﻿using System;
+﻿using MissionPlanner.GCSViews.ConfigurationView;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace MissionPlanner.Utilities
 {
-        public class UDPSocket
-        {
-
+    public class UDPSocket
+    {
+      
         private static Socket socket = null;
-        public static bool runing = false;
-        private static IPEndPoint puntoLocal = null;
+        public  bool runing = false;
+        public IPEndPoint puntoLocal = null;
+        public Thread thread;
+        public UDPSocket(){
 
-        public  UDPSocket(IPEndPoint point)
-        {
-            puntoLocal = point;
-            new Thread(Listen).Start();
+        socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+        }
+
+        public void Run() {
+            thread = new Thread(Listen);
+            thread.Start();
+
         }
 
         //servidor de escucha UDP
-        public static void Listen()
+        public  void Listen()
         {
+           
+
             //instanciamos el socket 
-            socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             try
             {
                 socket.Bind(puntoLocal);
             }
             catch {
-                CustomMessageBox.Show("Invalid port number ", "Error");
             }
-                CustomMessageBox.Show("reading information", "Wait");
+            CustomMessageBox.Show("reading information", "Wait");
             byte[] buffer = new byte[1024];
             EndPoint RemoteIP = new IPEndPoint(IPAddress.Any, 0);
             runing = true;
@@ -45,25 +52,74 @@ namespace MissionPlanner.Utilities
                     Thread.Sleep(200);
                     continue;
                 }
+
                 int Byteread = socket.ReceiveFrom(buffer, ref RemoteIP);
                 string DataReceiving = Encoding.Default.GetString(buffer, 0, Byteread);
-                Console.WriteLine("Recibí: " + DataReceiving);
-                DecodeMessage(DataReceiving);
+                Console.WriteLine(DataReceiving);
+                
+                List<string> result = Regex.Split(DataReceiving, @"/r/n").Select(s => s.Replace("#", "")).ToList();
+                if (result[0].Substring(0, 5) == "Range")
+                {
+                    DecodeEchoSounder(DataReceiving);
+                    
+                }
+                else if(result[0].Substring(0, 9) == "Frecuency") {
+                    DecodeGps(DataReceiving);
+                }
+
+                runing = false;
+                CustomColor.instance.Normalcolor(ConfigPlanner.instance.myButton2);
+                thread.Abort();
+
             }
         }
 
-        public static string DecodeMessage(string Mensaje) {
-           var xxx =  Mensaje.Substring(Mensaje.IndexOf("#")+1, Mensaje.IndexOf("/r/n"));
-            return xxx;
+        public  void DecodeEchoSounder(string Mensaje) {
+            List<string> result = Regex.Split(Mensaje, @"/r/n").Select(s => s.Replace("#", "")).ToList();
+
+            int range       = Convert.ToInt32(result[0].Substring(5));
+            double interval    = Convert.ToDouble(result[1].Substring(8));
+            int threshold   = Convert.ToInt32(result[2].Substring(9));
+            int offset      = Convert.ToInt32(result[3].Substring(6));
+            int deadzone    = Convert.ToInt32(result[4].Substring(8));
+            int sound       = Convert.ToInt32(result[5].Substring(5));
+            double gain        = Convert.ToDouble(result[6].Substring(4));
+
+            if (range != 0 || interval != 0.0 || threshold != 0 || offset != 0 || deadzone != 0 || sound != 0 || gain != 0.0)
+            {
+                var Json = new JsonConfig();
+                Json.CreateConfigFileEchoSounder(range, interval, threshold, offset, deadzone, sound, gain);
+            }
+            else {
+                CustomMessageBox.Show("Incorrect format", "Error");
+            }
+            
         }
-      
-        public static void EnviaUDP(string Mensaje, string Ipdestino, int Port)
+        public void DecodeGps(string Mensaje)
         {
-            String datosAEnviar = "#" + Mensaje + "/r/n";
-            string ipDestino = Ipdestino;
-            int puertoDestino = Port;
-            byte[] datosEnBytes = Encoding.Default.GetBytes(datosAEnviar);
-            EndPoint ipPuertoRemoto = new IPEndPoint(IPAddress.Parse(ipDestino), puertoDestino);
+            List<string> result = Regex.Split(Mensaje, @"/r/n").Select(s => s.Replace("#", "")).ToList();
+
+            int Frecuency = Convert.ToInt32(result[0].Substring(9));
+            string Protocol = result[1].Substring(8);
+           
+
+            if (Frecuency != 0 || Protocol != null)
+            {
+                var Json = new JsonConfig();
+                Json.CreateGpsConfig(Frecuency,  Protocol);
+            }
+            else
+            {
+                CustomMessageBox.Show("Incorrect format", "Error");
+            }
+
+        }
+
+
+        public  void EnviaUDP(string Mensaje, string Ipdestino, int Port)
+        {
+            byte[] datosEnBytes = Encoding.Default.GetBytes(Mensaje);
+            EndPoint ipPuertoRemoto = new IPEndPoint(IPAddress.Parse(Ipdestino), Port);
             socket.SendTo(datosEnBytes, ipPuertoRemoto);
         }
 

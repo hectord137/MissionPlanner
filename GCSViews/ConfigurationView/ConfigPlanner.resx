@@ -607,7 +607,7 @@
     <value>NoControl</value>
   </data>
   <data name="CHK_mavdebug.Location" type="System.Drawing.Point, System.Drawing">
-    <value>146, 11710</value>
+    <value>146, 18901</value>
   </data>
   <data name="CHK_mavdebug.Size" type="System.Drawing.Size, System.Drawing">
     <value>144, 17</value>
@@ -1640,7 +1640,7 @@
     <value>NoControl</value>
   </data>
   <data name="chk_temp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>380, 11710</value>
+    <value>380, 18901</value>
   </data>
   <data name="chk_temp.Size" type="System.Drawing.Size, System.Drawing">
     <value>144, 17</value>
@@ -2993,58 +2993,58 @@
   <data name="&gt;&gt;label17.ZOrder" xml:space="preserve">
     <value>21</value>
   </data>
-  <data name="myButton4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="BtnWriteGps.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="myButton4.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="BtnWriteGps.Location" type="System.Drawing.Point, System.Drawing">
     <value>337, 624</value>
   </data>
-  <data name="myButton4.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="BtnWriteGps.Size" type="System.Drawing.Size, System.Drawing">
     <value>107, 23</value>
   </data>
-  <data name="myButton4.TabIndex" type="System.Int32, mscorlib">
+  <data name="BtnWriteGps.TabIndex" type="System.Int32, mscorlib">
     <value>145</value>
   </data>
-  <data name="myButton4.Text" xml:space="preserve">
+  <data name="BtnWriteGps.Text" xml:space="preserve">
     <value>Escribir</value>
   </data>
-  <data name="&gt;&gt;myButton4.Name" xml:space="preserve">
-    <value>myButton4</value>
+  <data name="&gt;&gt;BtnWriteGps.Name" xml:space="preserve">
+    <value>BtnWriteGps</value>
   </data>
-  <data name="&gt;&gt;myButton4.Type" xml:space="preserve">
+  <data name="&gt;&gt;BtnWriteGps.Type" xml:space="preserve">
     <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;myButton4.Parent" xml:space="preserve">
+  <data name="&gt;&gt;BtnWriteGps.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;myButton4.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;BtnWriteGps.ZOrder" xml:space="preserve">
     <value>19</value>
   </data>
-  <data name="myButton5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="BtnReadGps.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="myButton5.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="BtnReadGps.Location" type="System.Drawing.Point, System.Drawing">
     <value>337, 576</value>
   </data>
-  <data name="myButton5.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="BtnReadGps.Size" type="System.Drawing.Size, System.Drawing">
     <value>107, 23</value>
   </data>
-  <data name="myButton5.TabIndex" type="System.Int32, mscorlib">
+  <data name="BtnReadGps.TabIndex" type="System.Int32, mscorlib">
     <value>144</value>
   </data>
-  <data name="myButton5.Text" xml:space="preserve">
+  <data name="BtnReadGps.Text" xml:space="preserve">
     <value>Leer</value>
   </data>
-  <data name="&gt;&gt;myButton5.Name" xml:space="preserve">
-    <value>myButton5</value>
+  <data name="&gt;&gt;BtnReadGps.Name" xml:space="preserve">
+    <value>BtnReadGps</value>
   </data>
-  <data name="&gt;&gt;myButton5.Type" xml:space="preserve">
+  <data name="&gt;&gt;BtnReadGps.Type" xml:space="preserve">
     <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;myButton5.Parent" xml:space="preserve">
+  <data name="&gt;&gt;BtnReadGps.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;myButton5.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;BtnReadGps.ZOrder" xml:space="preserve">
     <value>20</value>
   </data>
   <data name="label18.AutoSize" type="System.Boolean, mscorlib">
@@ -3222,7 +3222,7 @@
     <value>NoControl</value>
   </data>
   <data name="label21.Location" type="System.Drawing.Point, System.Drawing">
-    <value>315, 722</value>
+    <value>333, 722</value>
   </data>
   <data name="label21.Size" type="System.Drawing.Size, System.Drawing">
     <value>71, 24</value>
@@ -3249,7 +3249,7 @@
     <value>NoControl</value>
   </data>
   <data name="BTNSaveRemote.Location" type="System.Drawing.Point, System.Drawing">
-    <value>446, 747</value>
+    <value>470, 747</value>
   </data>
   <data name="BTNSaveRemote.Size" type="System.Drawing.Size, System.Drawing">
     <value>107, 23</value>
@@ -3272,158 +3272,11 @@
   <data name="&gt;&gt;BTNSaveRemote.ZOrder" xml:space="preserve">
     <value>12</value>
   </data>
-  <data name="txtRange.Location" type="System.Drawing.Point, System.Drawing">
-    <value>150, 344</value>
-  </data>
-  <data name="txtRange.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 21</value>
-  </data>
-  <data name="txtRange.TabIndex" type="System.Int32, mscorlib">
-    <value>160</value>
-  </data>
-  <data name="&gt;&gt;txtRange.Name" xml:space="preserve">
-    <value>txtRange</value>
-  </data>
-  <data name="&gt;&gt;txtRange.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MaskedTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;txtRange.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;txtRange.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="TxtInterval.Location" type="System.Drawing.Point, System.Drawing">
-    <value>150, 389</value>
-  </data>
-  <data name="TxtInterval.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 21</value>
-  </data>
-  <data name="TxtInterval.TabIndex" type="System.Int32, mscorlib">
-    <value>161</value>
-  </data>
-  <data name="&gt;&gt;TxtInterval.Name" xml:space="preserve">
-    <value>TxtInterval</value>
-  </data>
-  <data name="&gt;&gt;TxtInterval.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MaskedTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TxtInterval.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;TxtInterval.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="TxtThreshold.Location" type="System.Drawing.Point, System.Drawing">
-    <value>150, 434</value>
-  </data>
-  <data name="TxtThreshold.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 21</value>
-  </data>
-  <data name="TxtThreshold.TabIndex" type="System.Int32, mscorlib">
-    <value>162</value>
-  </data>
-  <data name="&gt;&gt;TxtThreshold.Name" xml:space="preserve">
-    <value>TxtThreshold</value>
-  </data>
-  <data name="&gt;&gt;TxtThreshold.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MaskedTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TxtThreshold.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;TxtThreshold.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="TxtOffset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>150, 474</value>
-  </data>
-  <data name="TxtOffset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 21</value>
-  </data>
-  <data name="TxtOffset.TabIndex" type="System.Int32, mscorlib">
-    <value>163</value>
-  </data>
-  <data name="&gt;&gt;TxtOffset.Name" xml:space="preserve">
-    <value>TxtOffset</value>
-  </data>
-  <data name="&gt;&gt;TxtOffset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MaskedTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TxtOffset.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;TxtOffset.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="TxtDeadzone.Location" type="System.Drawing.Point, System.Drawing">
-    <value>446, 344</value>
-  </data>
-  <data name="TxtDeadzone.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 21</value>
-  </data>
-  <data name="TxtDeadzone.TabIndex" type="System.Int32, mscorlib">
-    <value>164</value>
-  </data>
-  <data name="&gt;&gt;TxtDeadzone.Name" xml:space="preserve">
-    <value>TxtDeadzone</value>
-  </data>
-  <data name="&gt;&gt;TxtDeadzone.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MaskedTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TxtDeadzone.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;TxtDeadzone.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="TxtSound.Location" type="System.Drawing.Point, System.Drawing">
-    <value>446, 390</value>
-  </data>
-  <data name="TxtSound.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 21</value>
-  </data>
-  <data name="TxtSound.TabIndex" type="System.Int32, mscorlib">
-    <value>165</value>
-  </data>
-  <data name="&gt;&gt;TxtSound.Name" xml:space="preserve">
-    <value>TxtSound</value>
-  </data>
-  <data name="&gt;&gt;TxtSound.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MaskedTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TxtSound.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;TxtSound.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="TxtGain.Location" type="System.Drawing.Point, System.Drawing">
-    <value>446, 436</value>
-  </data>
-  <data name="TxtGain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 21</value>
-  </data>
-  <data name="TxtGain.TabIndex" type="System.Int32, mscorlib">
-    <value>166</value>
-  </data>
-  <data name="&gt;&gt;TxtGain.Name" xml:space="preserve">
-    <value>TxtGain</value>
-  </data>
-  <data name="&gt;&gt;TxtGain.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MaskedTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TxtGain.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;TxtGain.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
   <data name="txtProtocol.Location" type="System.Drawing.Point, System.Drawing">
-    <value>150, 624</value>
+    <value>150, 626</value>
   </data>
   <data name="txtProtocol.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 21</value>
+    <value>147, 21</value>
   </data>
   <data name="txtProtocol.TabIndex" type="System.Int32, mscorlib">
     <value>167</value>
@@ -3438,34 +3291,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;txtProtocol.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="txtFrecuency.Location" type="System.Drawing.Point, System.Drawing">
-    <value>150, 578</value>
-  </data>
-  <data name="txtFrecuency.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 21</value>
-  </data>
-  <data name="txtFrecuency.TabIndex" type="System.Int32, mscorlib">
-    <value>168</value>
-  </data>
-  <data name="&gt;&gt;txtFrecuency.Name" xml:space="preserve">
-    <value>txtFrecuency</value>
-  </data>
-  <data name="&gt;&gt;txtFrecuency.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MaskedTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;txtFrecuency.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;txtFrecuency.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>11</value>
   </data>
   <data name="TXTremoteIp.Location" type="System.Drawing.Point, System.Drawing">
     <value>51, 747</value>
   </data>
   <data name="TXTremoteIp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 21</value>
+    <value>97, 21</value>
   </data>
   <data name="TXTremoteIp.TabIndex" type="System.Int32, mscorlib">
     <value>169</value>
@@ -3480,22 +3312,193 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;TXTremoteIp.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="txtRange.Location" type="System.Drawing.Point, System.Drawing">
+    <value>150, 345</value>
+  </data>
+  <data name="txtRange.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 21</value>
+  </data>
+  <data name="txtRange.TabIndex" type="System.Int32, mscorlib">
+    <value>172</value>
+  </data>
+  <data name="&gt;&gt;txtRange.Name" xml:space="preserve">
+    <value>txtRange</value>
+  </data>
+  <data name="&gt;&gt;txtRange.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtRange.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;txtRange.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="TxtOffset.Location" type="System.Drawing.Point, System.Drawing">
+    <value>150, 479</value>
+  </data>
+  <data name="TxtOffset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 21</value>
+  </data>
+  <data name="TxtOffset.TabIndex" type="System.Int32, mscorlib">
+    <value>175</value>
+  </data>
+  <data name="&gt;&gt;TxtOffset.Name" xml:space="preserve">
+    <value>TxtOffset</value>
+  </data>
+  <data name="&gt;&gt;TxtOffset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TxtOffset.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;TxtOffset.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="TxtThreshold.Location" type="System.Drawing.Point, System.Drawing">
+    <value>150, 437</value>
+  </data>
+  <data name="TxtThreshold.Size" type="System.Drawing.Size, System.Drawing">
+    <value>145, 21</value>
+  </data>
+  <data name="TxtThreshold.TabIndex" type="System.Int32, mscorlib">
+    <value>174</value>
+  </data>
+  <data name="&gt;&gt;TxtThreshold.Name" xml:space="preserve">
+    <value>TxtThreshold</value>
+  </data>
+  <data name="&gt;&gt;TxtThreshold.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TxtThreshold.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;TxtThreshold.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="TxtDeadzone.Location" type="System.Drawing.Point, System.Drawing">
+    <value>446, 345</value>
+  </data>
+  <data name="TxtDeadzone.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 21</value>
+  </data>
+  <data name="TxtDeadzone.TabIndex" type="System.Int32, mscorlib">
+    <value>176</value>
+  </data>
+  <data name="&gt;&gt;TxtDeadzone.Name" xml:space="preserve">
+    <value>TxtDeadzone</value>
+  </data>
+  <data name="&gt;&gt;TxtDeadzone.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TxtDeadzone.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;TxtDeadzone.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="TxtSound.Location" type="System.Drawing.Point, System.Drawing">
+    <value>446, 392</value>
+  </data>
+  <data name="TxtSound.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 21</value>
+  </data>
+  <data name="TxtSound.TabIndex" type="System.Int32, mscorlib">
+    <value>177</value>
+  </data>
+  <data name="&gt;&gt;TxtSound.Name" xml:space="preserve">
+    <value>TxtSound</value>
+  </data>
+  <data name="&gt;&gt;TxtSound.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TxtSound.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;TxtSound.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="TxtInterval.Location" type="System.Drawing.Point, System.Drawing">
+    <value>150, 393</value>
+  </data>
+  <data name="TxtInterval.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 21</value>
+  </data>
+  <data name="TxtInterval.TabIndex" type="System.Int32, mscorlib">
+    <value>179</value>
+  </data>
+  <data name="&gt;&gt;TxtInterval.Name" xml:space="preserve">
+    <value>TxtInterval</value>
+  </data>
+  <data name="&gt;&gt;TxtInterval.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TxtInterval.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;TxtInterval.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="TxtGain.Location" type="System.Drawing.Point, System.Drawing">
+    <value>446, 437</value>
+  </data>
+  <data name="TxtGain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 21</value>
+  </data>
+  <data name="TxtGain.TabIndex" type="System.Int32, mscorlib">
+    <value>180</value>
+  </data>
+  <data name="&gt;&gt;TxtGain.Name" xml:space="preserve">
+    <value>TxtGain</value>
+  </data>
+  <data name="&gt;&gt;TxtGain.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TxtGain.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;TxtGain.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="txtFrecuency.Location" type="System.Drawing.Point, System.Drawing">
+    <value>150, 577</value>
+  </data>
+  <data name="txtFrecuency.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 21</value>
+  </data>
+  <data name="txtFrecuency.TabIndex" type="System.Int32, mscorlib">
+    <value>181</value>
+  </data>
+  <data name="&gt;&gt;txtFrecuency.Name" xml:space="preserve">
+    <value>txtFrecuency</value>
+  </data>
+  <data name="&gt;&gt;txtFrecuency.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtFrecuency.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;txtFrecuency.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
   <data name="TXTPortTX.Location" type="System.Drawing.Point, System.Drawing">
-    <value>184, 747</value>
+    <value>185, 747</value>
   </data>
   <data name="TXTPortTX.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 21</value>
+    <value>112, 21</value>
   </data>
   <data name="TXTPortTX.TabIndex" type="System.Int32, mscorlib">
-    <value>170</value>
+    <value>182</value>
   </data>
   <data name="&gt;&gt;TXTPortTX.Name" xml:space="preserve">
     <value>TXTPortTX</value>
   </data>
   <data name="&gt;&gt;TXTPortTX.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MaskedTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;TXTPortTX.Parent" xml:space="preserve">
     <value>$this</value>
@@ -3504,19 +3507,19 @@
     <value>1</value>
   </data>
   <data name="TXTPortRX.Location" type="System.Drawing.Point, System.Drawing">
-    <value>319, 748</value>
+    <value>337, 747</value>
   </data>
   <data name="TXTPortRX.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 21</value>
+    <value>107, 21</value>
   </data>
   <data name="TXTPortRX.TabIndex" type="System.Int32, mscorlib">
-    <value>171</value>
+    <value>183</value>
   </data>
   <data name="&gt;&gt;TXTPortRX.Name" xml:space="preserve">
     <value>TXTPortRX</value>
   </data>
   <data name="&gt;&gt;TXTPortRX.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MaskedTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;TXTPortRX.Parent" xml:space="preserve">
     <value>$this</value>
@@ -3534,7 +3537,13 @@
     <value>Microsoft Sans Serif, 9pt</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>858, 638</value>
+    <value>705, 485</value>
+  </data>
+  <data name="&gt;&gt;timer1.Name" xml:space="preserve">
+    <value>timer1</value>
+  </data>
+  <data name="&gt;&gt;timer1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>ConfigPlanner</value>

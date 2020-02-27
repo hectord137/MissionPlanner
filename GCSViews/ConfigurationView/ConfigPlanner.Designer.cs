@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigPlanner));
             this.myButton1 = new MissionPlanner.Controls.MyButton();
             this.LBLTittleConfig = new System.Windows.Forms.Label();
@@ -118,8 +119,8 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
-            this.myButton4 = new MissionPlanner.Controls.MyButton();
-            this.myButton5 = new MissionPlanner.Controls.MyButton();
+            this.BtnWriteGps = new MissionPlanner.Controls.MyButton();
+            this.BtnReadGps = new MissionPlanner.Controls.MyButton();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
@@ -127,20 +128,31 @@
             this.label22 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.BTNSaveRemote = new MissionPlanner.Controls.MyButton();
-            this.txtRange = new System.Windows.Forms.MaskedTextBox();
-            this.TxtInterval = new System.Windows.Forms.MaskedTextBox();
-            this.TxtThreshold = new System.Windows.Forms.MaskedTextBox();
-            this.TxtOffset = new System.Windows.Forms.MaskedTextBox();
-            this.TxtDeadzone = new System.Windows.Forms.MaskedTextBox();
-            this.TxtSound = new System.Windows.Forms.MaskedTextBox();
-            this.TxtGain = new System.Windows.Forms.MaskedTextBox();
             this.txtProtocol = new System.Windows.Forms.MaskedTextBox();
-            this.txtFrecuency = new System.Windows.Forms.MaskedTextBox();
             this.TXTremoteIp = new System.Windows.Forms.MaskedTextBox();
-            this.TXTPortTX = new System.Windows.Forms.MaskedTextBox();
-            this.TXTPortRX = new System.Windows.Forms.MaskedTextBox();
+            this.txtRange = new System.Windows.Forms.NumericUpDown();
+            this.TxtOffset = new System.Windows.Forms.NumericUpDown();
+            this.TxtThreshold = new System.Windows.Forms.NumericUpDown();
+            this.TxtDeadzone = new System.Windows.Forms.NumericUpDown();
+            this.TxtSound = new System.Windows.Forms.NumericUpDown();
+            this.TxtInterval = new System.Windows.Forms.NumericUpDown();
+            this.TxtGain = new System.Windows.Forms.NumericUpDown();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.txtFrecuency = new System.Windows.Forms.NumericUpDown();
+            this.TXTPortTX = new System.Windows.Forms.NumericUpDown();
+            this.TXTPortRX = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.num_gcsid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_tracklength)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtRange)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TxtOffset)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TxtThreshold)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TxtDeadzone)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TxtSound)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TxtInterval)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TxtGain)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtFrecuency)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TXTPortTX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TXTPortRX)).BeginInit();
             this.SuspendLayout();
             // 
             // myButton1
@@ -801,6 +813,7 @@
             this.myButton3.Name = "myButton3";
             this.myButton3.TextColor = System.Drawing.Color.White;
             this.myButton3.UseVisualStyleBackColor = true;
+            this.myButton3.Click += new System.EventHandler(this.myButton3_Click);
             // 
             // label8
             // 
@@ -848,19 +861,21 @@
             resources.ApplyResources(this.label17, "label17");
             this.label17.Name = "label17";
             // 
-            // myButton4
+            // BtnWriteGps
             // 
-            resources.ApplyResources(this.myButton4, "myButton4");
-            this.myButton4.Name = "myButton4";
-            this.myButton4.TextColor = System.Drawing.Color.White;
-            this.myButton4.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.BtnWriteGps, "BtnWriteGps");
+            this.BtnWriteGps.Name = "BtnWriteGps";
+            this.BtnWriteGps.TextColor = System.Drawing.Color.White;
+            this.BtnWriteGps.UseVisualStyleBackColor = true;
+            this.BtnWriteGps.Click += new System.EventHandler(this.BtnWriteGps_Click);
             // 
-            // myButton5
+            // BtnReadGps
             // 
-            resources.ApplyResources(this.myButton5, "myButton5");
-            this.myButton5.Name = "myButton5";
-            this.myButton5.TextColor = System.Drawing.Color.White;
-            this.myButton5.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.BtnReadGps, "BtnReadGps");
+            this.BtnReadGps.Name = "BtnReadGps";
+            this.BtnReadGps.TextColor = System.Drawing.Color.White;
+            this.BtnReadGps.UseVisualStyleBackColor = true;
+            this.BtnReadGps.Click += new System.EventHandler(this.BtnReadGps_Click);
             // 
             // label18
             // 
@@ -901,65 +916,120 @@
             this.BTNSaveRemote.UseVisualStyleBackColor = true;
             this.BTNSaveRemote.Click += new System.EventHandler(this.BTNSaveRemote_Click);
             // 
-            // txtRange
-            // 
-            resources.ApplyResources(this.txtRange, "txtRange");
-            this.txtRange.Name = "txtRange";
-            // 
-            // TxtInterval
-            // 
-            resources.ApplyResources(this.TxtInterval, "TxtInterval");
-            this.TxtInterval.Name = "TxtInterval";
-            // 
-            // TxtThreshold
-            // 
-            resources.ApplyResources(this.TxtThreshold, "TxtThreshold");
-            this.TxtThreshold.Name = "TxtThreshold";
-            // 
-            // TxtOffset
-            // 
-            resources.ApplyResources(this.TxtOffset, "TxtOffset");
-            this.TxtOffset.Name = "TxtOffset";
-            // 
-            // TxtDeadzone
-            // 
-            resources.ApplyResources(this.TxtDeadzone, "TxtDeadzone");
-            this.TxtDeadzone.Name = "TxtDeadzone";
-            // 
-            // TxtSound
-            // 
-            resources.ApplyResources(this.TxtSound, "TxtSound");
-            this.TxtSound.Name = "TxtSound";
-            // 
-            // TxtGain
-            // 
-            resources.ApplyResources(this.TxtGain, "TxtGain");
-            this.TxtGain.Name = "TxtGain";
-            // 
             // txtProtocol
             // 
             resources.ApplyResources(this.txtProtocol, "txtProtocol");
             this.txtProtocol.Name = "txtProtocol";
             this.txtProtocol.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.maskedTextBox8_MaskInputRejected);
             // 
-            // txtFrecuency
-            // 
-            resources.ApplyResources(this.txtFrecuency, "txtFrecuency");
-            this.txtFrecuency.Name = "txtFrecuency";
-            // 
             // TXTremoteIp
             // 
             resources.ApplyResources(this.TXTremoteIp, "TXTremoteIp");
             this.TXTremoteIp.Name = "TXTremoteIp";
             // 
+            // txtRange
+            // 
+            resources.ApplyResources(this.txtRange, "txtRange");
+            this.txtRange.Maximum = new decimal(new int[] {
+            20000,
+            0,
+            0,
+            0});
+            this.txtRange.Name = "txtRange";
+            // 
+            // TxtOffset
+            // 
+            resources.ApplyResources(this.TxtOffset, "TxtOffset");
+            this.TxtOffset.Maximum = new decimal(new int[] {
+            20000,
+            0,
+            0,
+            0});
+            this.TxtOffset.Name = "TxtOffset";
+            // 
+            // TxtThreshold
+            // 
+            resources.ApplyResources(this.TxtThreshold, "TxtThreshold");
+            this.TxtThreshold.Maximum = new decimal(new int[] {
+            20000,
+            0,
+            0,
+            0});
+            this.TxtThreshold.Name = "TxtThreshold";
+            // 
+            // TxtDeadzone
+            // 
+            resources.ApplyResources(this.TxtDeadzone, "TxtDeadzone");
+            this.TxtDeadzone.Maximum = new decimal(new int[] {
+            20000,
+            0,
+            0,
+            0});
+            this.TxtDeadzone.Name = "TxtDeadzone";
+            // 
+            // TxtSound
+            // 
+            resources.ApplyResources(this.TxtSound, "TxtSound");
+            this.TxtSound.Maximum = new decimal(new int[] {
+            20000,
+            0,
+            0,
+            0});
+            this.TxtSound.Name = "TxtSound";
+            // 
+            // TxtInterval
+            // 
+            resources.ApplyResources(this.TxtInterval, "TxtInterval");
+            this.TxtInterval.Maximum = new decimal(new int[] {
+            20000,
+            0,
+            0,
+            0});
+            this.TxtInterval.Name = "TxtInterval";
+            // 
+            // TxtGain
+            // 
+            resources.ApplyResources(this.TxtGain, "TxtGain");
+            this.TxtGain.Maximum = new decimal(new int[] {
+            20000,
+            0,
+            0,
+            0});
+            this.TxtGain.Name = "TxtGain";
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 10000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_tick);
+            // 
+            // txtFrecuency
+            // 
+            resources.ApplyResources(this.txtFrecuency, "txtFrecuency");
+            this.txtFrecuency.Maximum = new decimal(new int[] {
+            20000,
+            0,
+            0,
+            0});
+            this.txtFrecuency.Name = "txtFrecuency";
+            // 
             // TXTPortTX
             // 
             resources.ApplyResources(this.TXTPortTX, "TXTPortTX");
+            this.TXTPortTX.Maximum = new decimal(new int[] {
+            20000,
+            0,
+            0,
+            0});
             this.TXTPortTX.Name = "TXTPortTX";
             // 
             // TXTPortRX
             // 
             resources.ApplyResources(this.TXTPortRX, "TXTPortRX");
+            this.TXTPortRX.Maximum = new decimal(new int[] {
+            20000,
+            0,
+            0,
+            0});
             this.TXTPortRX.Name = "TXTPortRX";
             // 
             // ConfigPlanner
@@ -967,16 +1037,16 @@
             resources.ApplyResources(this, "$this");
             this.Controls.Add(this.TXTPortRX);
             this.Controls.Add(this.TXTPortTX);
-            this.Controls.Add(this.TXTremoteIp);
             this.Controls.Add(this.txtFrecuency);
-            this.Controls.Add(this.txtProtocol);
             this.Controls.Add(this.TxtGain);
+            this.Controls.Add(this.TxtInterval);
             this.Controls.Add(this.TxtSound);
             this.Controls.Add(this.TxtDeadzone);
             this.Controls.Add(this.TxtOffset);
             this.Controls.Add(this.TxtThreshold);
-            this.Controls.Add(this.TxtInterval);
             this.Controls.Add(this.txtRange);
+            this.Controls.Add(this.TXTremoteIp);
+            this.Controls.Add(this.txtProtocol);
             this.Controls.Add(this.BTNSaveRemote);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.label22);
@@ -984,8 +1054,8 @@
             this.Controls.Add(this.label20);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.label18);
-            this.Controls.Add(this.myButton4);
-            this.Controls.Add(this.myButton5);
+            this.Controls.Add(this.BtnWriteGps);
+            this.Controls.Add(this.BtnReadGps);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.label15);
@@ -1079,6 +1149,16 @@
             this.Load += new System.EventHandler(this.ConfigPlanner_Load);
             ((System.ComponentModel.ISupportInitialize)(this.num_gcsid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_tracklength)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtRange)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TxtOffset)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TxtThreshold)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TxtDeadzone)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TxtSound)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TxtInterval)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TxtGain)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtFrecuency)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TXTPortTX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TXTPortRX)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1163,7 +1243,7 @@
         private System.Windows.Forms.Label LBLTittleConfig;
         public Controls.MyButton myButton1;
         private System.Windows.Forms.Label label3;
-        private Controls.MyButton myButton2;
+        public Controls.MyButton myButton2;
         private Controls.MyButton myButton3;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
@@ -1174,8 +1254,8 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
-        private Controls.MyButton myButton4;
-        private Controls.MyButton myButton5;
+        private Controls.MyButton BtnWriteGps;
+        private Controls.MyButton BtnReadGps;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label20;
@@ -1183,17 +1263,18 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label21;
         private Controls.MyButton BTNSaveRemote;
-        private System.Windows.Forms.MaskedTextBox txtRange;
-        private System.Windows.Forms.MaskedTextBox TxtInterval;
-        private System.Windows.Forms.MaskedTextBox TxtThreshold;
-        private System.Windows.Forms.MaskedTextBox TxtOffset;
-        private System.Windows.Forms.MaskedTextBox TxtDeadzone;
-        private System.Windows.Forms.MaskedTextBox TxtSound;
-        private System.Windows.Forms.MaskedTextBox TxtGain;
         private System.Windows.Forms.MaskedTextBox txtProtocol;
-        private System.Windows.Forms.MaskedTextBox txtFrecuency;
         private System.Windows.Forms.MaskedTextBox TXTremoteIp;
-        private System.Windows.Forms.MaskedTextBox TXTPortTX;
-        private System.Windows.Forms.MaskedTextBox TXTPortRX;
+        private System.Windows.Forms.NumericUpDown txtRange;
+        private System.Windows.Forms.NumericUpDown TxtOffset;
+        private System.Windows.Forms.NumericUpDown TxtThreshold;
+        private System.Windows.Forms.NumericUpDown TxtDeadzone;
+        private System.Windows.Forms.NumericUpDown TxtSound;
+        private System.Windows.Forms.NumericUpDown TxtInterval;
+        private System.Windows.Forms.NumericUpDown TxtGain;
+        private System.Windows.Forms.NumericUpDown txtFrecuency;
+        private System.Windows.Forms.NumericUpDown TXTPortTX;
+        private System.Windows.Forms.NumericUpDown TXTPortRX;
+        public System.Windows.Forms.Timer timer1;
     }
 }
