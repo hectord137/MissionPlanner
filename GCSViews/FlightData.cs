@@ -20,6 +20,7 @@ using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Net;
 using System.Reflection;
 using System.Text;
@@ -129,15 +130,15 @@ namespace MissionPlanner.GCSViews
             Console.WriteLine(this);
         }
 
-     
+
 
         public FlightData()
         {
-          
+
             log.Info("Ctor Start");
 
             InitializeComponent();
-
+            GetFromConfig();
             // get map type
             this.comboBoxMapTypeData.ValueMember = "Name";
             this.comboBoxMapTypeData.DataSource = GMapProviders.List.ToArray();
@@ -308,8 +309,35 @@ namespace MissionPlanner.GCSViews
 
 
         }
+        int Limit = 0;
 
-     
+        private void GetFromConfig() {
+            var Json = new JsonConfig();
+            Json.VerifyConfigFile("Config.json");
+            var values = Json.ReadConfig();
+            foreach (var x in values) {
+                Limit = x.LimitEchosounder;
+            }
+            TimerAlertEchosounder.Start();
+        }
+        private void alertLimit(){
+            SoundPlayer simpleSound = new SoundPlayer(Properties.Resources.Industrial_Alarm_SoundBible_com_1012301296);
+            simpleSound.Play();
+            LBLrangefinder1.BackColor = Color.Red;
+        }
+        private void DetectLimit() {
+            Thread a = new Thread(alertLimit);
+            if (Convert.ToInt32(LBLDistToHome.Text) >= Limit)
+            {
+                a.Start();
+            }
+            else
+            {
+                a.Abort();
+                LBLrangefinder1.BackColor = Color.FromArgb(38, 39, 40) ;
+
+            }
+        }
         public void rechargelabel()
         {
             try
@@ -5195,6 +5223,11 @@ namespace MissionPlanner.GCSViews
         private void tableLayoutPanel1_Paint_2(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void TimerAlertEchosounder_Tick(object sender, EventArgs e)
+        {
+            DetectLimit();
         }
     }
     }

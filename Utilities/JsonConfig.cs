@@ -12,6 +12,7 @@ namespace MissionPlanner.Utilities
 {
     class JsonConfig
     {
+    
         private string PathDoc = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Mission Planner\";
 
         public void VerifyConfigFile(string FileJson)
@@ -29,6 +30,9 @@ namespace MissionPlanner.Utilities
                         break;
                     case "GPSConfig.json":
                         CreateGpsConfig(0 ,"");
+                        break;
+                    case "Config.json":
+                        CreateConfig(30);
                         break;
                     default:
                         CustomMessageBox.Show("File Json", "Error");
@@ -55,7 +59,6 @@ namespace MissionPlanner.Utilities
             });
             string json = JsonConvert.SerializeObject(_data.ToArray());
             System.IO.File.WriteAllText(PathDoc + @"echosounderconfig.json", json);
-
            
         }
 
@@ -70,19 +73,31 @@ namespace MissionPlanner.Utilities
             });
             string json = JsonConvert.SerializeObject(_data.ToArray());
             System.IO.File.WriteAllText(PathDoc + @"remoteSystemConfig.json", json);
-          
+
         }
 
-        public void CreateGpsConfig(int Frecuency, string Protocol)
+        public void CreateGpsConfig(int Frequency, string Protocol)
         {
             List<GPSConfig> _data = new List<GPSConfig>();
             _data.Add(new GPSConfig()
             {
-                Frecuency = Frecuency,
+                Frequency = Frequency,
                 Protocol = Protocol
             }) ;
             string json = JsonConvert.SerializeObject(_data.ToArray());
             System.IO.File.WriteAllText(PathDoc + @"GPSConfig.json", json);
+
+        }
+
+        public void CreateConfig(int limit)
+        {
+            List<GeneralConfig> _data = new List<GeneralConfig>();
+            _data.Add(new GeneralConfig()
+            {
+                LimitEchosounder = limit
+            });
+            string json = JsonConvert.SerializeObject(_data.ToArray());
+            System.IO.File.WriteAllText(PathDoc + @"Config.json", json);
         }
 
         public List<JsonEchosounder> ReadJsonEchosounder()
@@ -113,6 +128,15 @@ namespace MissionPlanner.Utilities
                 return items;
             }
         }
+        public List<GeneralConfig> ReadConfig()
+        {
+            using (StreamReader r = new StreamReader(PathDoc + @"Config.json"))
+            {
+                string json = r.ReadToEnd();
+                List<GeneralConfig> items = JsonConvert.DeserializeObject<List<GeneralConfig>>(json);
+                return items;
+            }
+        }
     }
 
     public class JsonEchosounder
@@ -127,6 +151,11 @@ namespace MissionPlanner.Utilities
         public double Gain { get; set; }
     }
 
+    public class GeneralConfig
+    {//limit in meters
+        public int LimitEchosounder { get; set; }
+    }
+
     public class JsonRemoteSystem {
 
         public string Ip { get; set; }
@@ -137,7 +166,7 @@ namespace MissionPlanner.Utilities
 
     public class GPSConfig
     {
-       public int Frecuency { get; set; }
+       public int Frequency { get; set; }
         public string Protocol { get; set; }
     }
 }

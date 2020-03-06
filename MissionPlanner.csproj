@@ -4180,6 +4180,7 @@
     <Content Include="aircraft.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\Industrial Alarm-SoundBible.com-1012301296.wav" />
     <None Include="Resources\ZKZg.gif" />
     <None Include="Resources\cargando1.gif" />
     <None Include="Resources\load.gif" />

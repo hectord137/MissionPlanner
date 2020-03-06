@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigPlanner));
             this.myButton1 = new MissionPlanner.Controls.MyButton();
             this.LBLTittleConfig = new System.Windows.Forms.Label();
@@ -137,10 +136,12 @@
             this.TxtSound = new System.Windows.Forms.NumericUpDown();
             this.TxtInterval = new System.Windows.Forms.NumericUpDown();
             this.TxtGain = new System.Windows.Forms.NumericUpDown();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.txtFrecuency = new System.Windows.Forms.NumericUpDown();
             this.TXTPortTX = new System.Windows.Forms.NumericUpDown();
             this.TXTPortRX = new System.Windows.Forms.NumericUpDown();
+            this.ValEchosounder = new System.Windows.Forms.Label();
+            this.BtnLimitEchosounder = new MissionPlanner.Controls.MyButton();
+            this.NumLimitEchosounder = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.num_gcsid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_tracklength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtRange)).BeginInit();
@@ -153,6 +154,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtFrecuency)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TXTPortTX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TXTPortRX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumLimitEchosounder)).BeginInit();
             this.SuspendLayout();
             // 
             // myButton1
@@ -997,11 +999,6 @@
             0});
             this.TxtGain.Name = "TxtGain";
             // 
-            // timer1
-            // 
-            this.timer1.Interval = 10000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_tick);
-            // 
             // txtFrecuency
             // 
             resources.ApplyResources(this.txtFrecuency, "txtFrecuency");
@@ -1032,9 +1029,35 @@
             0});
             this.TXTPortRX.Name = "TXTPortRX";
             // 
+            // ValEchosounder
+            // 
+            resources.ApplyResources(this.ValEchosounder, "ValEchosounder");
+            this.ValEchosounder.Name = "ValEchosounder";
+            // 
+            // BtnLimitEchosounder
+            // 
+            resources.ApplyResources(this.BtnLimitEchosounder, "BtnLimitEchosounder");
+            this.BtnLimitEchosounder.Name = "BtnLimitEchosounder";
+            this.BtnLimitEchosounder.TextColor = System.Drawing.Color.White;
+            this.BtnLimitEchosounder.UseVisualStyleBackColor = true;
+            this.BtnLimitEchosounder.Click += new System.EventHandler(this.BtnLimitEchosounder_Click);
+            // 
+            // NumLimitEchosounder
+            // 
+            resources.ApplyResources(this.NumLimitEchosounder, "NumLimitEchosounder");
+            this.NumLimitEchosounder.Maximum = new decimal(new int[] {
+            2000,
+            0,
+            0,
+            0});
+            this.NumLimitEchosounder.Name = "NumLimitEchosounder";
+            // 
             // ConfigPlanner
             // 
             resources.ApplyResources(this, "$this");
+            this.Controls.Add(this.NumLimitEchosounder);
+            this.Controls.Add(this.BtnLimitEchosounder);
+            this.Controls.Add(this.ValEchosounder);
             this.Controls.Add(this.TXTPortRX);
             this.Controls.Add(this.TXTPortTX);
             this.Controls.Add(this.txtFrecuency);
@@ -1159,6 +1182,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtFrecuency)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TXTPortTX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TXTPortRX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumLimitEchosounder)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1255,7 +1279,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
         private Controls.MyButton BtnWriteGps;
-        private Controls.MyButton BtnReadGps;
+        public Controls.MyButton BtnReadGps;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label20;
@@ -1275,6 +1299,8 @@
         private System.Windows.Forms.NumericUpDown txtFrecuency;
         private System.Windows.Forms.NumericUpDown TXTPortTX;
         private System.Windows.Forms.NumericUpDown TXTPortRX;
-        public System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label ValEchosounder;
+        private Controls.MyButton BtnLimitEchosounder;
+        private System.Windows.Forms.NumericUpDown NumLimitEchosounder;
     }
 }

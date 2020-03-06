@@ -915,6 +915,15 @@ namespace MissionPlanner.Properties {
         }
         
         /// <summary>
+        ///   Busca un recurso adaptado de tipo System.IO.UnmanagedMemoryStream similar a System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream Industrial_Alarm_SoundBible_com_1012301296 {
+            get {
+                return ResourceManager.GetStream("Industrial_Alarm_SoundBible_com_1012301296", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap light_01 {

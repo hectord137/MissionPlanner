@@ -24,16 +24,13 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         static temp temp;
         private JsonConfig _JsonConfig;
         public UDPSocket _conexUDP;
-        private IPEndPoint point = null;
+    
         public static ConfigPlanner instance;
         public ConfigPlanner()
         {
+            _conexUDP = new UDPSocket();
             instance = this;
             _JsonConfig = new JsonConfig();
-
-
-
-
             InitializeComponent();
             CMB_Layout.Items.Add(DisplayNames.Basic);
             CMB_Layout.Items.Add(DisplayNames.Advanced);
@@ -44,44 +41,38 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             LBLTittleConfig.ForeColor = Color.FromArgb(217, 172, 24);
 
 
+            //Add local config at initialize
+            SetValuesEchosounder();
+            SetValuesGPS();
+            SetRemoteSystem();
+            SetConfig();
+        }
+        public void SetRemoteSystem()
+        {
             _JsonConfig.VerifyConfigFile("remoteSystemConfig.json");
             //Add local Config at initialize
             var remoteSystem = _JsonConfig.ReadRemoteSystem();
-            foreach (var item in remoteSystem) {
+            foreach (var item in remoteSystem)
+            {
                 TXTremoteIp.Text = item.Ip;
                 TXTPortRX.Text = Convert.ToString(item.PortRx);
                 TXTPortTX.Text = Convert.ToString(item.PortTx);
             }
-            //Add local echosounderconfig at initialize
-            SetValuesEchosounder();
-
-            Getconfiginitial();
-
-            //Add local GPSConfig at initialize
-            _JsonConfig.VerifyConfigFile(@"GPSConfig.json");
-            var GPSConfig = _JsonConfig.ReadGPSConfig();
-            foreach (var itemsGPSConfig in GPSConfig)
+        }
+        public void SetConfig()
+        {
+            _JsonConfig.VerifyConfigFile("Config.json");
+            //Add local Config at initialize
+            var remoteSystem = _JsonConfig.ReadConfig();
+            foreach (var item in remoteSystem)
             {
-                txtFrecuency.Text = Convert.ToString(itemsGPSConfig.Frecuency);
-                txtProtocol.Text = itemsGPSConfig.Protocol;
+                NumLimitEchosounder.Value = item.LimitEchosounder;
             }
-
-
         }
 
-        public void Getconfiginitial() {
-            //Get Ip and Port from Local Json
-            var RemoteSystem = _JsonConfig.ReadRemoteSystem();
-            foreach (var items in RemoteSystem)
-            {
-                point = new IPEndPoint(IPAddress.Parse(items.Ip), items.PortRx);
-            }
-            _conexUDP = new UDPSocket();
-            _conexUDP.puntoLocal = point;
-        }
+     
 
         public void SetValuesEchosounder() {
-
             _JsonConfig.VerifyConfigFile(@"echosounderconfig.json");
             var echosounder = _JsonConfig.ReadJsonEchosounder();
             foreach (var itemsechosounder in echosounder)
@@ -95,6 +86,18 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 TxtGain.Value = new decimal((double)itemsechosounder.Gain);
             }
         }
+
+        public void SetValuesGPS() {
+            //Add local GPSConfig at initialize
+            _JsonConfig.VerifyConfigFile(@"GPSConfig.json");
+            var GPSConfig = _JsonConfig.ReadGPSConfig();
+            foreach (var itemsGPSConfig in GPSConfig)
+            {
+                txtFrecuency.Text = Convert.ToString(itemsGPSConfig.Frequency);
+                txtProtocol.Text = itemsGPSConfig.Protocol;
+            }
+        }
+
         // Called every time that this control is made current in the backstage view
         public void Activate()
         {
@@ -1061,19 +1064,17 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         {
             _conexUDP.Run();
             CustomColor.instance.activecolor(myButton2);
-            timer1.Start();
         }
 
 
               private void BTNSaveRemote_Click(object sender, EventArgs e)
         {
-
             var RemoteIP = TXTremoteIp.Text;
             int RemotePortTX = Convert.ToInt32(TXTPortTX.Text);
             int RemotePortRX = Convert.ToInt32(TXTPortRX.Text);
             _JsonConfig.CreateConfigFileRemoteSystem(RemoteIP, RemotePortTX, RemotePortRX);
             CustomMessageBox.Show("Config saved", "Success");
-            Getconfiginitial();
+            _conexUDP.Getconfiginitial();
         }
 
         private void maskedTextBox8_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
@@ -1089,78 +1090,25 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 Offset = Convert.ToInt32(TxtOffset.Text), Deadzone = Convert.ToInt32(TxtDeadzone.Text),
                 Sound = Convert.ToInt32(TxtSound.Text), Gain = Convert.ToDouble(TxtGain.Text)
             });     
-            var string_to_send = CreateMessaje(messaje);
-            _conexUDP.EnviaUDP(string_to_send, Convert.ToString(point.Address), point.Port);
+            var string_to_send = _conexUDP.CreateMessaje(messaje);
+            _conexUDP.EnviaUDP(string_to_send);
         } 
 
-        private string CreateMessaje(List<JsonEchosounder> data) 
-        {
-            string StringToSend = null;
-            foreach (var Messaje in data)
-            {
-                 StringToSend = "#Range" + Messaje.Range + "/r/n" + "#Interval" + Messaje.Interval +
-                    "/r/n" + "#Threshold" + Messaje.Threshold + "/r/n" + "#Offset" + Messaje.Offset + "/r/n" + "#Deadzone"
-                    + Messaje.Deadzone + "/r/n" + "#Sound" + Messaje.Sound + "/r/n" + "#Gain" + Messaje.Gain + "/r/n";
-            
-            }
-            //save data in local Json
-            _conexUDP.DecodeEchoSounder(StringToSend);
-            return StringToSend;
-        }
+     
 
        
 
-        private string CreateMessajeGps(List<GPSConfig> data)
-        {
-            string StringToSend = null;
-
-            foreach (var Messaje in data)
-            {
-                StringToSend = "#Frecuency" + Messaje.Frecuency + "/r/n" + "#Protocol" + Messaje.Protocol + "/r/n";
-            }
-            //save data in local Json
-            _conexUDP.DecodeGps(StringToSend);
-            return StringToSend;
-        }
-
+      
         private void txtRange_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
         {
 
         }
         
-        public void GetAndSetDataEchosounder()
-        {
-           var echosounder = _JsonConfig.ReadJsonEchosounder();
-            foreach (var itemsechosounder in echosounder)
-            {
-                txtRange.Text = Convert.ToString(itemsechosounder.Range);
-                TxtInterval.Value = new decimal((double)itemsechosounder.Interval);
-                TxtThreshold.Text = Convert.ToString(itemsechosounder.Threshold);
-                TxtOffset.Text = Convert.ToString(itemsechosounder.Offset);
-                TxtDeadzone.Text = Convert.ToString(itemsechosounder.Deadzone);
-                TxtSound.Text = Convert.ToString(itemsechosounder.Sound);
-                TxtGain.Value = new decimal((double)itemsechosounder.Gain);
-            }
-            
-        }
-
-
-
-        public void GetAndSetDataGps()
-        {
-            var gps = _JsonConfig.ReadGPSConfig();
-            foreach (var itemsGps in gps)
-            {
-                txtFrecuency.Value = itemsGps.Frecuency;
-                txtProtocol.Text = itemsGps.Protocol;  
-            }
-
-        }
-
         private void BtnReadGps_Click(object sender, EventArgs e)
         {
             _conexUDP.Run();
-            timer1.Start();
+            CustomColor.instance.activecolor(BtnReadGps);
+
         }
 
         private void BtnWriteGps_Click(object sender, EventArgs e)
@@ -1168,18 +1116,17 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             List<GPSConfig> messaje = new List<GPSConfig>();
             messaje.Add(new GPSConfig
             {
-                Frecuency = Convert.ToInt32(txtFrecuency.Text),
+                Frequency = Convert.ToInt32(txtFrecuency.Text),
                 Protocol = txtProtocol.Text
-               
             });
-            var string_to_send = CreateMessajeGps(messaje);
-            _conexUDP.EnviaUDP(string_to_send, Convert.ToString(point.Address), point.Port);
+            var string_to_send = _conexUDP.CreateMessajeGps(messaje);
+            _conexUDP.EnviaUDP(string_to_send);
         }
 
-        private void timer1_tick(object sender, EventArgs e)
+        private void BtnLimitEchosounder_Click(object sender, EventArgs e)
         {
-            GetAndSetDataGps();
-            GetAndSetDataEchosounder();
+            _JsonConfig.CreateConfig((int)NumLimitEchosounder.Value);
+
         }
     }
 }
