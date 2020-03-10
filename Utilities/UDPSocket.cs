@@ -113,10 +113,8 @@ namespace MissionPlanner.Utilities
                 int deadzone = Convert.ToInt32(result[4].Substring(8));
                 int sound = Convert.ToInt32(result[5].Substring(5));
                 double gain = Convert.ToDouble(result[6].Substring(4));
-           
             if (range != 0 || interval != 0.0 || threshold != 0 || offset != 0 || deadzone != 0 || sound != 0 || gain != 0.0)
             {
-                
                 _Json.CreateConfigFileEchoSounder(range, interval, threshold, offset, deadzone, sound, gain);
             }
             else {
@@ -149,6 +147,8 @@ namespace MissionPlanner.Utilities
         }
 
 
+
+
    
         public string CreateMessaje(List<JsonEchosounder> data)
         {
@@ -156,9 +156,9 @@ namespace MissionPlanner.Utilities
             string StringToSend = null;
             foreach (var Messaje in data)
             {
-                StringToSend = "#Range " + Messaje.Range + "/r/n" + "#Interval " + Messaje.Interval +
-                   "/r/n" + "#Threshold " + Messaje.Threshold + "/r/n" + "#Offset " + Messaje.Offset + "/r/n" + "#Deadzone "
-                   + Messaje.Deadzone + "/r/n" + "#Sound " + Messaje.Sound + "/r/n" + "#Gain " + Messaje.Gain + "/r/n";
+                StringToSend = "#range " + Messaje.Range + "/r/n" + "#interval " + Messaje.Interval +
+                   "/r/n" + "#threshold " + Messaje.Threshold + "/r/n" + "#offset " + Messaje.Offset + "/r/n" + "#deadzone "
+                   + Messaje.Deadzone + "/r/n" + "#sound " + Messaje.Sound + "/r/n" + "#gain " + Messaje.Gain + "/r/n";
 
             }
             //save data in local Json
@@ -166,13 +166,26 @@ namespace MissionPlanner.Utilities
             return StringToSend;
         }
 
-        public string CreateMessajeGps(List<GPSConfig> data)
+        public string CreateMessageGps(List<GPSConfig> data)
         {
             string StringToSend = null;
 
             foreach (var Messaje in data)
             {
-                StringToSend = "#Frequency " + Messaje.Frequency + "/r/n" + "#Protocol " + Messaje.Protocol + "/r/n";
+                StringToSend = "#frequency " + Messaje.Frequency + "/r/n" + "#protocol " + Messaje.Protocol + "/r/n";
+            }
+            //save data in local Json
+            DecodeGps(StringToSend);
+            return StringToSend;
+        }
+
+        public string CreateMessageAutoStop(List<ConfigToSendEchosounder> data)
+        {
+            string StringToSend = null;
+
+            foreach (var Messaje in data)
+            {
+                StringToSend = "autostop " + Messaje.Autostop + "/r/n" + "#status " + Messaje.Enabled + "/r/n";
             }
             //save data in local Json
             DecodeGps(StringToSend);

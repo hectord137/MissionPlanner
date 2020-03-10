@@ -34,6 +34,9 @@ namespace MissionPlanner.Utilities
                     case "Config.json":
                         CreateConfig(30);
                         break;
+                    case "AutoStop.json":
+                        CreateAutoStop(0, false);
+                        break;
                     default:
                         CustomMessageBox.Show("File Json", "Error");
                         break;
@@ -100,6 +103,19 @@ namespace MissionPlanner.Utilities
             System.IO.File.WriteAllText(PathDoc + @"Config.json", json);
         }
 
+        public void CreateAutoStop(int AutoStop, bool Enabled)
+        {
+            List<ConfigToSendEchosounder> _data = new List<ConfigToSendEchosounder>();
+            _data.Add(new ConfigToSendEchosounder()
+            {
+                Autostop = AutoStop,
+                Enabled = Enabled
+            }) ;
+            string json = JsonConvert.SerializeObject(_data.ToArray());
+            System.IO.File.WriteAllText(PathDoc + @"AutoStop.json", json);
+
+        }
+
         public List<JsonEchosounder> ReadJsonEchosounder()
         {
             using (StreamReader r = new StreamReader(PathDoc + @"echosounderconfig.json"))
@@ -137,6 +153,16 @@ namespace MissionPlanner.Utilities
                 return items;
             }
         }
+
+        public List<ConfigToSendEchosounder> ReadAutoStop()
+        {
+            using (StreamReader r = new StreamReader(PathDoc + @"AutoStop.json"))
+            {
+                string json = r.ReadToEnd();
+                List<ConfigToSendEchosounder> items = JsonConvert.DeserializeObject<List<ConfigToSendEchosounder>>(json);
+                return items;
+            }
+        }
     }
 
     public class JsonEchosounder
@@ -154,6 +180,11 @@ namespace MissionPlanner.Utilities
     public class GeneralConfig
     {//limit in meters
         public int LimitEchosounder { get; set; }
+
+    }
+    public class ConfigToSendEchosounder { 
+    public int Autostop { get; set; }
+    public bool Enabled { get; set; }
     }
 
     public class JsonRemoteSystem {

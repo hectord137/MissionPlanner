@@ -1,4 +1,5 @@
 ﻿using DirectShowLib;
+using Microsoft.Scripting.Utils;
 using MissionPlanner.Controls;
 using MissionPlanner.Joystick;
 using MissionPlanner.Utilities;
@@ -46,6 +47,9 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             SetValuesGPS();
             SetRemoteSystem();
             SetConfig();
+            SetConfigAutoStop();
+            ReadUdp readUdp = new ReadUdp();
+            readUdp.Main();
         }
         public void SetRemoteSystem()
         {
@@ -69,8 +73,19 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 NumLimitEchosounder.Value = item.LimitEchosounder;
             }
         }
+        public void SetConfigAutoStop()
+        {
+            _JsonConfig.VerifyConfigFile("AutoStop.json");
+            //Add local Config at initialize
+            var remoteSystem = _JsonConfig.ReadAutoStop();
+            foreach (var item in remoteSystem)
+            {
+                numericUpDown1.Value = item.Autostop;
+                ChkAutoStop.Checked = item.Enabled;
+            }
+        }
 
-     
+
 
         public void SetValuesEchosounder() {
             _JsonConfig.VerifyConfigFile(@"echosounderconfig.json");
@@ -1119,13 +1134,36 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 Frequency = Convert.ToInt32(txtFrecuency.Text),
                 Protocol = txtProtocol.Text
             });
-            var string_to_send = _conexUDP.CreateMessajeGps(messaje);
+            var string_to_send = _conexUDP.CreateMessageGps(messaje);
             _conexUDP.EnviaUDP(string_to_send);
         }
 
         private void BtnLimitEchosounder_Click(object sender, EventArgs e)
         {
             _JsonConfig.CreateConfig((int)NumLimitEchosounder.Value);
+
+        }
+
+        private void myButton4_Click(object sender, EventArgs e)
+        { bool estatus = false;
+            if (ChkAutoStop.Checked){
+                estatus = true; 
+            }
+               
+            _JsonConfig.CreateAutoStop((int)numericUpDown1.Value, estatus);
+            List<ConfigToSendEchosounder> autostop = new List<ConfigToSendEchosounder>();
+            autostop.Add(new ConfigToSendEchosounder
+            {
+                Autostop = (int)NumLimitEchosounder.Value,
+                Enabled = estatus
+            });
+
+            var string_to_send = _conexUDP.CreateMessageAutoStop(autostop);
+            _conexUDP.EnviaUDP(string_to_send);
+        }
+
+        private void ValEchosounder_Click(object sender, EventArgs e)
+        {
 
         }
     }

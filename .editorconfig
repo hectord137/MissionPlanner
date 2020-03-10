@@ -1,0 +1,7 @@
+﻿[*.cs]
+
+# IDE0017: Simplificar la inicialización de objetos
+dotnet_style_object_initializer = true:none
+
+# IDE0005: El uso de la directiva no es necesario.
+dotnet_diagnostic.IDE0005.severity = none

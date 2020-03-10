@@ -142,6 +142,14 @@
             this.ValEchosounder = new System.Windows.Forms.Label();
             this.BtnLimitEchosounder = new MissionPlanner.Controls.MyButton();
             this.NumLimitEchosounder = new System.Windows.Forms.NumericUpDown();
+            this.label25 = new System.Windows.Forms.Label();
+            this.ChkAutoStop = new System.Windows.Forms.CheckBox();
+            this.myButton4 = new MissionPlanner.Controls.MyButton();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.lblTemp = new System.Windows.Forms.Label();
+            this.lblHum = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.num_gcsid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_tracklength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtRange)).BeginInit();
@@ -155,6 +163,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.TXTPortTX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TXTPortRX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumLimitEchosounder)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // myButton1
@@ -1033,6 +1042,7 @@
             // 
             resources.ApplyResources(this.ValEchosounder, "ValEchosounder");
             this.ValEchosounder.Name = "ValEchosounder";
+            this.ValEchosounder.Click += new System.EventHandler(this.ValEchosounder_Click);
             // 
             // BtnLimitEchosounder
             // 
@@ -1052,9 +1062,66 @@
             0});
             this.NumLimitEchosounder.Name = "NumLimitEchosounder";
             // 
+            // label25
+            // 
+            resources.ApplyResources(this.label25, "label25");
+            this.label25.Name = "label25";
+            // 
+            // ChkAutoStop
+            // 
+            resources.ApplyResources(this.ChkAutoStop, "ChkAutoStop");
+            this.ChkAutoStop.Name = "ChkAutoStop";
+            this.ChkAutoStop.UseVisualStyleBackColor = true;
+            // 
+            // myButton4
+            // 
+            resources.ApplyResources(this.myButton4, "myButton4");
+            this.myButton4.Name = "myButton4";
+            this.myButton4.TextColor = System.Drawing.Color.White;
+            this.myButton4.UseVisualStyleBackColor = true;
+            this.myButton4.Click += new System.EventHandler(this.myButton4_Click);
+            // 
+            // numericUpDown1
+            // 
+            resources.ApplyResources(this.numericUpDown1, "numericUpDown1");
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            // 
+            // lblTemp
+            // 
+            resources.ApplyResources(this.lblTemp, "lblTemp");
+            this.lblTemp.Name = "lblTemp";
+            // 
+            // lblHum
+            // 
+            resources.ApplyResources(this.lblHum, "lblHum");
+            this.lblHum.Name = "lblHum";
+            // 
+            // label27
+            // 
+            resources.ApplyResources(this.label27, "label27");
+            this.label27.Name = "label27";
+            // 
+            // label28
+            // 
+            resources.ApplyResources(this.label28, "label28");
+            this.label28.Name = "label28";
+            // 
             // ConfigPlanner
             // 
             resources.ApplyResources(this, "$this");
+            this.Controls.Add(this.label28);
+            this.Controls.Add(this.label27);
+            this.Controls.Add(this.lblHum);
+            this.Controls.Add(this.lblTemp);
+            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.myButton4);
+            this.Controls.Add(this.ChkAutoStop);
+            this.Controls.Add(this.label25);
             this.Controls.Add(this.NumLimitEchosounder);
             this.Controls.Add(this.BtnLimitEchosounder);
             this.Controls.Add(this.ValEchosounder);
@@ -1183,6 +1250,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.TXTPortTX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TXTPortRX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumLimitEchosounder)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1302,5 +1370,13 @@
         private System.Windows.Forms.Label ValEchosounder;
         private Controls.MyButton BtnLimitEchosounder;
         private System.Windows.Forms.NumericUpDown NumLimitEchosounder;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.CheckBox ChkAutoStop;
+        private Controls.MyButton myButton4;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        public System.Windows.Forms.Label lblTemp;
+        public System.Windows.Forms.Label lblHum;
+        public System.Windows.Forms.Label label27;
+        public System.Windows.Forms.Label label28;
     }
 }
