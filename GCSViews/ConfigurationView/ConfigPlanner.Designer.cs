@@ -127,7 +127,6 @@
             this.label22 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.BTNSaveRemote = new MissionPlanner.Controls.MyButton();
-            this.txtProtocol = new System.Windows.Forms.MaskedTextBox();
             this.TXTremoteIp = new System.Windows.Forms.MaskedTextBox();
             this.txtRange = new System.Windows.Forms.NumericUpDown();
             this.TxtOffset = new System.Windows.Forms.NumericUpDown();
@@ -150,6 +149,7 @@
             this.lblHum = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
+            this.txtProtocol = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.num_gcsid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_tracklength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtRange)).BeginInit();
@@ -927,12 +927,6 @@
             this.BTNSaveRemote.UseVisualStyleBackColor = true;
             this.BTNSaveRemote.Click += new System.EventHandler(this.BTNSaveRemote_Click);
             // 
-            // txtProtocol
-            // 
-            resources.ApplyResources(this.txtProtocol, "txtProtocol");
-            this.txtProtocol.Name = "txtProtocol";
-            this.txtProtocol.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.maskedTextBox8_MaskInputRejected);
-            // 
             // TXTremoteIp
             // 
             resources.ApplyResources(this.TXTremoteIp, "TXTremoteIp");
@@ -1111,9 +1105,19 @@
             resources.ApplyResources(this.label28, "label28");
             this.label28.Name = "label28";
             // 
+            // txtProtocol
+            // 
+            this.txtProtocol.FormattingEnabled = true;
+            this.txtProtocol.Items.AddRange(new object[] {
+            resources.GetString("txtProtocol.Items"),
+            resources.GetString("txtProtocol.Items1")});
+            resources.ApplyResources(this.txtProtocol, "txtProtocol");
+            this.txtProtocol.Name = "txtProtocol";
+            // 
             // ConfigPlanner
             // 
             resources.ApplyResources(this, "$this");
+            this.Controls.Add(this.txtProtocol);
             this.Controls.Add(this.label28);
             this.Controls.Add(this.label27);
             this.Controls.Add(this.lblHum);
@@ -1136,7 +1140,6 @@
             this.Controls.Add(this.TxtThreshold);
             this.Controls.Add(this.txtRange);
             this.Controls.Add(this.TXTremoteIp);
-            this.Controls.Add(this.txtProtocol);
             this.Controls.Add(this.BTNSaveRemote);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.label22);
@@ -1355,7 +1358,6 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label21;
         private Controls.MyButton BTNSaveRemote;
-        private System.Windows.Forms.MaskedTextBox txtProtocol;
         private System.Windows.Forms.MaskedTextBox TXTremoteIp;
         private System.Windows.Forms.NumericUpDown txtRange;
         private System.Windows.Forms.NumericUpDown TxtOffset;
@@ -1378,5 +1380,6 @@
         public System.Windows.Forms.Label lblHum;
         public System.Windows.Forms.Label label27;
         public System.Windows.Forms.Label label28;
+        private System.Windows.Forms.ComboBox txtProtocol;
     }
 }

@@ -13,7 +13,6 @@ namespace MissionPlanner.Utilities
 {
     class ReadUdp
     {
-        public static ReadUdp instance;
 
         private static Socket socket = null;
         private static bool corriendo = false;

@@ -49,7 +49,8 @@ namespace MissionPlanner.Utilities
             byte[] datosEnBytes = Encoding.Default.GetBytes(Mensaje);
             socket.SendTo(datosEnBytes, pointTx);
         }
-        //servidor de escucha UDP
+      
+
         public  void Listen()
         {
             try
@@ -58,7 +59,6 @@ namespace MissionPlanner.Utilities
             }
             catch {
             }
-            CustomMessageBox.Show("Reading information", "Wait");
             byte[] buffer = new byte[1024];
             EndPoint RemoteIP = new IPEndPoint(IPAddress.Any, 0);
             runing = true;
@@ -75,7 +75,7 @@ namespace MissionPlanner.Utilities
                     string DataReceiving = Encoding.Default.GetString(buffer, 0, Byteread);
                
                 List<string> result = Regex.Split(DataReceiving, "/r/n").Select(s => s.Replace("#", "")).ToList();
-                if (result[0].Substring(0, 5) == "Range")
+                if (result[0].Substring(0, 5) == "range")
                 {
                     DecodeEchoSounder(DataReceiving);
                     Control.CheckForIllegalCrossThreadCalls = false;
@@ -84,7 +84,7 @@ namespace MissionPlanner.Utilities
                     Control.CheckForIllegalCrossThreadCalls = true;
 
                 }
-                else if(result[0].Substring(0, 9) == "Frequency") {
+                else if(result[0].Substring(0, 9) == "frequency") {
                     DecodeGps(DataReceiving);
                     Control.CheckForIllegalCrossThreadCalls = false;
                     ConfigPlanner.instance.SetValuesGPS();
@@ -92,10 +92,12 @@ namespace MissionPlanner.Utilities
                     Control.CheckForIllegalCrossThreadCalls = true;
 
                 }
+                else if (result[0].Substring(0, 11) == "temperature")
+                {
+                        DecodeSensores(DataReceiving);
+                }
 
-                runing = false;
-                CustomColor.instance.Normalcolor(ConfigPlanner.instance.myButton2);
-                thread.Abort();
+                    runing = true;
                 }
                 catch {  }
             }
@@ -146,10 +148,19 @@ namespace MissionPlanner.Utilities
 
         }
 
+        public void DecodeSensores(string Mensaje)
+        {
+            List<string> result = Regex.Split(Mensaje, @"/r/n").Select(s => s.Replace("#", "")).ToList();
+            Control.CheckForIllegalCrossThreadCalls = false;
+            GCSViews.ConfigurationView.ConfigPlanner.instance.lblTemp.Text = Convert.ToInt32(result[0].Substring(11)).ToString() + "°";
+            GCSViews.ConfigurationView.ConfigPlanner.instance.lblHum.Text = Convert.ToInt64(result[1].Substring(8)).ToString() + "%";
+            Control.CheckForIllegalCrossThreadCalls = true;
+        }
 
 
 
-   
+
+
         public string CreateMessaje(List<JsonEchosounder> data)
         {
             //gpsConfig
@@ -185,7 +196,7 @@ namespace MissionPlanner.Utilities
 
             foreach (var Messaje in data)
             {
-                StringToSend = "autostop " + Messaje.Autostop + "/r/n" + "#status " + Messaje.Enabled + "/r/n";
+                StringToSend = "#autostop " + Messaje.Autostop + "/r/n" + "#status " + Messaje.Enabled + "/r/n";
             }
             //save data in local Json
             DecodeGps(StringToSend);
@@ -195,6 +206,7 @@ namespace MissionPlanner.Utilities
 
 
     }
+
 }
     
 

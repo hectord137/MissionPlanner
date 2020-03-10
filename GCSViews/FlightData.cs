@@ -327,7 +327,7 @@ namespace MissionPlanner.GCSViews
         }
         private void DetectLimit() {
             Thread a = new Thread(alertLimit);
-            if (Convert.ToInt32(LBLDistToHome.Text) >= Limit)
+            if (Convert.ToInt32(LBLrangefinder1.Text) >= Limit)
             {
                 a.Start();
             }

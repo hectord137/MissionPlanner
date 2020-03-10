@@ -48,8 +48,8 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             SetRemoteSystem();
             SetConfig();
             SetConfigAutoStop();
-            ReadUdp readUdp = new ReadUdp();
-            readUdp.Main();
+         
+            _conexUDP.Run();
         }
         public void SetRemoteSystem()
         {
@@ -1077,8 +1077,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         private void myButton2_Click(object sender, EventArgs e)
         {
-            _conexUDP.Run();
-            CustomColor.instance.activecolor(myButton2);
+            _conexUDP.EnviaUDP("#getdataechosounder/r/n");
         }
 
 
@@ -1121,8 +1120,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         
         private void BtnReadGps_Click(object sender, EventArgs e)
         {
-            _conexUDP.Run();
-            CustomColor.instance.activecolor(BtnReadGps);
+            _conexUDP.EnviaUDP("#getgpsconfig/r/n");
 
         }
 
@@ -1154,7 +1152,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             List<ConfigToSendEchosounder> autostop = new List<ConfigToSendEchosounder>();
             autostop.Add(new ConfigToSendEchosounder
             {
-                Autostop = (int)NumLimitEchosounder.Value,
+                Autostop = Convert.ToInt32(numericUpDown1.Value),
                 Enabled = estatus
             });
 
