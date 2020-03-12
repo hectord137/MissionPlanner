@@ -1,8 +1,8 @@
-﻿using System;
+﻿using log4net;
+using MissionPlanner.Comms;
+using System;
 using System.Reflection;
 using System.Threading;
-using log4net;
-using MissionPlanner.Comms;
 
 // Written by Michael Oborne
 
@@ -48,7 +48,7 @@ namespace MissionPlanner.Arduino
             var a = 0;
             while (a < 5)
             {
-                byte[] temp = {0x6, 0, 0, 0, 0};
+                byte[] temp = { 0x6, 0, 0, 0, 0 };
                 temp = genstkv2packet(temp);
                 a++;
                 Thread.Sleep(50);
@@ -102,7 +102,7 @@ namespace MissionPlanner.Arduino
             }
             var data = new byte[length];
 
-            byte[] temp = {0x16, (byte) ((length >> 8) & 0xff), (byte) ((length >> 0) & 0xff)};
+            byte[] temp = { 0x16, (byte)((length >> 8) & 0xff), (byte)((length >> 0) & 0xff) };
             temp = genstkv2packet(temp);
 
             Array.Copy(temp, 2, data, 0, length);
@@ -118,7 +118,7 @@ namespace MissionPlanner.Arduino
             }
             var data = new byte[length];
 
-            byte[] temp = {0x14, (byte) ((length >> 8) & 0xff), (byte) ((length >> 0) & 0xff)};
+            byte[] temp = { 0x14, (byte)((length >> 8) & 0xff), (byte)((length >> 0) & 0xff) };
             temp = genstkv2packet(temp);
 
             Array.Copy(temp, 2, data, 0, length);
@@ -132,7 +132,7 @@ namespace MissionPlanner.Arduino
             {
                 return false;
             }
-            var loops = length/0x100;
+            var loops = length / 0x100;
             var totalleft = length;
             var sending = 0;
 
@@ -156,7 +156,7 @@ namespace MissionPlanner.Arduino
 
                 // 0x13          
 
-                byte[] command = {0x13, (byte) (sending >> 8), (byte) (sending & 0xff)};
+                byte[] command = { 0x13, (byte)(sending >> 8), (byte)(sending & 0xff) };
 
                 log.InfoFormat(startfrom + (length - totalleft) + " - " + sending);
 
@@ -170,7 +170,7 @@ namespace MissionPlanner.Arduino
 
 
                 if (Progress != null)
-                    Progress((int) (startaddress/(float) length*100), "Uploading Firmware");
+                    Progress((int)(startaddress / (float)length * 100), "Uploading Firmware");
 
                 if (command[1] != 0)
                 {
@@ -193,14 +193,14 @@ namespace MissionPlanner.Arduino
                 return false;
             }
 
-            if (address%2 == 1)
+            if (address % 2 == 1)
             {
                 throw new Exception("Address must be an even number");
             }
 
-            log.InfoFormat("Sending address   " + address/2);
+            log.InfoFormat("Sending address   " + address / 2);
 
-            var tempstart = address/2; // words
+            var tempstart = address / 2; // words
             byte[] temp =
             {
                 0x6, (byte) ((tempstart >> 24) & 0xff), (byte) ((tempstart >> 16) & 0xff),
@@ -230,7 +230,7 @@ namespace MissionPlanner.Arduino
             {
                 return false;
             }
-            var loops = length/0x100;
+            var loops = length / 0x100;
             int totalleft = length;
             var sending = 0;
 
@@ -250,11 +250,11 @@ namespace MissionPlanner.Arduino
                     return true;
 
                 setaddress(startaddress);
-                startaddress += (short) sending;
+                startaddress += (short)sending;
 
                 // 0x13          
 
-                byte[] command = {0x15, (byte) (sending >> 8), (byte) (sending & 0xff)};
+                byte[] command = { 0x15, (byte)(sending >> 8), (byte)(sending & 0xff) };
 
                 log.InfoFormat(startfrom + (length - totalleft) + " - " + sending);
 
@@ -268,7 +268,7 @@ namespace MissionPlanner.Arduino
 
 
                 if (Progress != null)
-                    Progress((int) (startaddress/(float) length*100), "");
+                    Progress((int)(startaddress / (float)length * 100), "");
 
                 if (command[1] != 0)
                 {
@@ -285,17 +285,17 @@ namespace MissionPlanner.Arduino
             byte sig2 = 0x00;
             byte sig3 = 0x00;
 
-            byte[] command = {0x1b, 0, 0, 0, 0};
+            byte[] command = { 0x1b, 0, 0, 0, 0 };
             command = genstkv2packet(command);
 
             sig1 = command[2];
 
-            command = new byte[] {0x1b, 0, 0, 0, 1};
+            command = new byte[] { 0x1b, 0, 0, 0, 1 };
             command = genstkv2packet(command);
 
             sig2 = command[2];
 
-            command = new byte[] {0x1b, 0, 0, 0, 2};
+            command = new byte[] { 0x1b, 0, 0, 0, 2 };
             command = genstkv2packet(command);
 
             sig3 = command[2];
@@ -321,9 +321,9 @@ namespace MissionPlanner.Arduino
             ck ^= data[0];
             data[1] = 0x1;
             ck ^= data[1];
-            data[2] = (byte) ((message.Length >> 8) & 0xff);
+            data[2] = (byte)((message.Length >> 8) & 0xff);
             ck ^= data[2];
-            data[3] = (byte) (message.Length & 0xff);
+            data[3] = (byte)(message.Length & 0xff);
             ck ^= data[3];
             data[4] = 0xe;
             ck ^= data[4];
@@ -354,7 +354,7 @@ namespace MissionPlanner.Arduino
         private byte[] readpacket()
         {
             var temp = new byte[4000];
-            var mes = new byte[2] {0x0, 0xC0}; // fail
+            var mes = new byte[2] { 0x0, 0xC0 }; // fail
             var a = 7;
             var count = 0;
 
@@ -365,7 +365,7 @@ namespace MissionPlanner.Arduino
                 //Console.WriteLine("count {0} a {1} mes leng {2}",count,a,mes.Length);
                 try
                 {
-                    temp[count] = (byte) ReadByte();
+                    temp[count] = (byte)ReadByte();
                 }
                 catch
                 {
@@ -399,7 +399,7 @@ namespace MissionPlanner.Arduino
             //Console.WriteLine("read ck");
             try
             {
-                temp[count] = (byte) ReadByte();
+                temp[count] = (byte)ReadByte();
             }
             catch
             {
@@ -418,7 +418,7 @@ namespace MissionPlanner.Arduino
         {
             try
             {
-                byte[] command = {0x11};
+                byte[] command = { 0x11 };
                 genstkv2packet(command);
             }
             catch

@@ -35,12 +35,16 @@ namespace MissionPlanner.Utilities
         }
         public void Getconfiginitial()
         {
-            var RemoteSystem = _Json.ReadRemoteSystem();
-            foreach (var items in RemoteSystem)
+            try
             {
-                pointRx = new IPEndPoint(IPAddress.Parse(items.Ip), items.PortRx);
-                pointTx = new IPEndPoint(IPAddress.Parse(items.Ip), items.PortTx);
+                var RemoteSystem = _Json.ReadRemoteSystem();
+                foreach (var items in RemoteSystem)
+                {
+                    pointRx = new IPEndPoint(IPAddress.Parse(items.Ip), items.PortRx);
+                    pointTx = new IPEndPoint(IPAddress.Parse(items.Ip), items.PortTx);
+                }
             }
+            catch { }
          
         }
 

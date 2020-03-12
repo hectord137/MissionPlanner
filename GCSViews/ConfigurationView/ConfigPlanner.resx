@@ -607,7 +607,7 @@
     <value>NoControl</value>
   </data>
   <data name="CHK_mavdebug.Location" type="System.Drawing.Point, System.Drawing">
-    <value>146, 26975</value>
+    <value>146, 27518</value>
   </data>
   <data name="CHK_mavdebug.Size" type="System.Drawing.Size, System.Drawing">
     <value>144, 17</value>
@@ -1640,7 +1640,7 @@
     <value>NoControl</value>
   </data>
   <data name="chk_temp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>380, 26975</value>
+    <value>380, 27518</value>
   </data>
   <data name="chk_temp.Size" type="System.Drawing.Size, System.Drawing">
     <value>144, 17</value>
@@ -3846,7 +3846,7 @@
     <value>Microsoft Sans Serif, 9pt</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1252, 826</value>
+    <value>1235, 809</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>ConfigPlanner</value>

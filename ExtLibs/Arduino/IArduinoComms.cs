@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using System.IO.Ports;
-using MissionPlanner.Comms;
+﻿using MissionPlanner.Comms;
+using System.Collections.Generic;
 
 namespace MissionPlanner.Arduino
 {
@@ -9,7 +8,7 @@ namespace MissionPlanner.Arduino
     /// <summary>
     ///     Arduino STK interface
     /// </summary>
-    public interface IArduinoComms: ICommsSerial
+    public interface IArduinoComms : ICommsSerial
     {
         // from serialport class
         bool connectAP();

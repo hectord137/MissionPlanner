@@ -1975,7 +1975,6 @@ namespace MissionPlanner.GCSViews
         public ToolStripMenuItem saveToFileToolStripMenuItem1;
         public ToolStripMenuItem loadFromFileToolStripMenuItem1;
         private TableLayoutPanel tableLayoutPanel1;
-        private TableLayoutPanel tableLayoutPanel2;
         private TableLayoutPanel tableLayoutPanel3;
         private TableLayoutPanel tableLayoutPanel4;
         private TableLayoutPanel tableLayoutPanel5;
@@ -2059,5 +2058,6 @@ namespace MissionPlanner.GCSViews
         private DataGridViewTextBoxColumn Dist;
         private DataGridViewTextBoxColumn AZ;
         private DataGridViewTextBoxColumn TagData;
+        public TableLayoutPanel tableLayoutPanel2;
     }
 }

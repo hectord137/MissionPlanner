@@ -128,7 +128,6 @@ namespace MissionPlanner.GCSViews
             if (bloqWP)
             {
                 _flightPlannerBase.polygongridmode = false;
-
                 CustomColor.instance.Normalcolor(BUT_insertWP);
                 Commands.Columns["Delete"].Visible = false;
                 bloqWP = false;
@@ -136,6 +135,7 @@ namespace MissionPlanner.GCSViews
                 ButDelwp.Enabled = true;
                 BUT_write.Enabled = true;
                 myButton7.Enabled = true;
+                tableLayoutPanel5.Enabled = true;
 
                 if (_flightPlannerBase.pointers != 0)
                 {
@@ -153,12 +153,12 @@ namespace MissionPlanner.GCSViews
             }
             else
             {
+                tableLayoutPanel5.Enabled = false;
 
                 bloqWP = true;
                 ButInsertPol.Enabled = false;
                 CustomColor.instance.activecolor(BUT_insertWP);
                 Commands.Columns["Delete"].Visible = true;
-                ButDelwp.Enabled = false;
                 if (Del_relay_home_last && bloqRallyPoint)
                 {
                     this.Commands.Rows.RemoveAt(contador_delete);
@@ -181,7 +181,6 @@ namespace MissionPlanner.GCSViews
             ButClearPol.Enabled = false;
             BtSavePol.Enabled = false;
             contextMenuStripPoly.Visible = false;
-            ButClearPol.Enabled = true;
             But_SurveyGrid.Visible = false;
             CustomColor.instance.Normalcolor(But_SurveyGrid);
         }
@@ -192,37 +191,38 @@ namespace MissionPlanner.GCSViews
         public void ButInsertPol_Click(object sender, System.EventArgs e)
         {
             if (Estado_btn_insert_poly)
-            {          
+            {
                 CustomColor.instance.Normalcolor(ButInsertPol);
                 bloqWP = false;
                 Estado_btn_insert_poly = false;
                 _flightPlannerBase.addmarkerpoly = false;
                 _flightPlannerBase.polygongridmode = false;
-                ButClearPol.Enabled = true;
-                BUT_insertWP.Enabled = true;
-
+                tableLayoutPanel2.Enabled = true;
             }
             else
             {
-                Estado_btn_insert_poly = true;
-                BUT_insertWP.Enabled = false;
-                BtSavePol.Enabled = true;
                 But_SurveyGrid.Visible = true;
+                ButClearPol.Enabled = true;
+                BtSavePol.Enabled = true;
+                tableLayoutPanel2.Enabled = false;
+
+                Estado_btn_insert_poly = true;
                 CustomColor.instance.activecolor(ButInsertPol);
-                _flightPlannerBase.addPolygonPointToolStripMenuItem_Click(sender, e);               
-             }
+                _flightPlannerBase.addPolygonPointToolStripMenuItem_Click(sender, e);
+            }
         }
 
 
 
-        public void ButClearPol_Click(object sender, System.EventArgs e)
+        public void ButClearPol_Click(object sender, System.EventArgs e)   
         {
 
             try
             {
                 FlightPlannerBase.instance.clearPolygonToolStripMenuItem_Click(sender, e);
                 GridUI.instance.clear_routes_poly();
-                ButInsertPol_Click(sender, e);
+                ButDelwp_Click(sender, e);
+                But_SurveyGrid.Visible = false;
                 cont_wps = 0;
             }
             catch { }
@@ -717,7 +717,6 @@ namespace MissionPlanner.GCSViews
         public bool statusSurveyGrid = false;
         private void myButton9_Click(object sender, EventArgs e)
         {
-            ButClearPol.Enabled = false;
             if (cont_wps > 0)
             {
                 if (CustomMessageBox.Show("¿Crear nuevos WP?", "Mission created", MessageBoxButtons.YesNo) == (int)DialogResult.Yes)
@@ -744,7 +743,6 @@ namespace MissionPlanner.GCSViews
                    GridUI.instance.clear_routes_poly();
                     ButInsertPol_Click(sender, e);
                     statusSurveyGrid = false;
-                    ButInsertPol.Enabled = true;
                 }
                 else
                 {
@@ -753,7 +751,6 @@ namespace MissionPlanner.GCSViews
                     bloqWP = false;
                     estadomenu = true;
                     statusSurveyGrid = true;
-                    ButInsertPol.Enabled = false;
 
                 }
             }

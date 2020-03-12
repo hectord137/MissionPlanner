@@ -1,9 +1,7 @@
-﻿using System;
-using System.IO.Ports;
+﻿using log4net;
+using System;
 using System.Reflection;
 using System.Threading;
-using log4net;
-using MissionPlanner.Comms;
 
 // Written by Michael Oborne
 
@@ -46,15 +44,15 @@ namespace MissionPlanner.Arduino
             while (a < 50) // 50 tries at 50 ms = 2.5sec
             {
                 DiscardInBuffer();
-                Write(new[] {(byte) '0', (byte) ' '}, 0, 2);
+                Write(new[] { (byte)'0', (byte)' ' }, 0, 2);
                 a++;
                 Thread.Sleep(50);
 
                 log.InfoFormat("connectap btr {0}", BytesToRead);
                 if (BytesToRead >= 2)
                 {
-                    var b1 = (byte) ReadByte();
-                    var b2 = (byte) ReadByte();
+                    var b1 = (byte)ReadByte();
+                    var b2 = (byte)ReadByte();
                     if (b1 == 0x14 && b2 == 0x10)
                     {
                         return true;
@@ -97,8 +95,8 @@ namespace MissionPlanner.Arduino
             {
                 if (BytesToRead >= 2)
                 {
-                    var b1 = (byte) ReadByte();
-                    var b2 = (byte) ReadByte();
+                    var b1 = (byte)ReadByte();
+                    var b2 = (byte)ReadByte();
                     log.DebugFormat("bytes {0:X} {1:X}", b1, b2);
 
                     if (b1 == 0x14 && b2 == 0x10)
@@ -126,7 +124,7 @@ namespace MissionPlanner.Arduino
             }
             var data = new byte[length];
 
-            byte[] command = {(byte) 't', (byte) (length >> 8), (byte) (length & 0xff), (byte) 'E', (byte) ' '};
+            byte[] command = { (byte)'t', (byte)(length >> 8), (byte)(length & 0xff), (byte)'E', (byte)' ' };
             Write(command, 0, command.Length);
 
             if (ReadByte() == 0x14)
@@ -136,7 +134,7 @@ namespace MissionPlanner.Arduino
                 var step = 0;
                 while (step < length)
                 {
-                    var chr = (byte) ReadByte();
+                    var chr = (byte)ReadByte();
                     data[step] = chr;
                     step++;
                 }
@@ -161,7 +159,7 @@ namespace MissionPlanner.Arduino
 
             ReadTimeout = 1000;
 
-            byte[] command = {(byte) 't', (byte) (length >> 8), (byte) (length & 0xff), (byte) 'F', (byte) ' '};
+            byte[] command = { (byte)'t', (byte)(length >> 8), (byte)(length & 0xff), (byte)'F', (byte)' ' };
             Write(command, 0, command.Length);
 
             if (ReadByte() == 0x14)
@@ -192,7 +190,7 @@ namespace MissionPlanner.Arduino
             {
                 return false;
             }
-            var loops = length/0x100;
+            var loops = length / 0x100;
             var totalleft = length;
             var sending = 0;
 
@@ -214,18 +212,18 @@ namespace MissionPlanner.Arduino
                 setaddress(startaddress);
                 startaddress += sending;
 
-                byte[] command = {(byte) 'd', (byte) (sending >> 8), (byte) (sending & 0xff), (byte) 'F'};
+                byte[] command = { (byte)'d', (byte)(sending >> 8), (byte)(sending & 0xff), (byte)'F' };
                 Write(command, 0, command.Length);
                 log.Info(startfrom + (length - totalleft) + " - " + sending);
                 Write(data, startfrom + (length - totalleft), sending);
-                command = new[] {(byte) ' '};
+                command = new[] { (byte)' ' };
                 Write(command, 0, command.Length);
 
                 totalleft -= sending;
 
 
                 if (Progress != null)
-                    Progress((int) (startaddress/(float) length*100), "");
+                    Progress((int)(startaddress / (float)length * 100), "");
 
                 if (!sync())
                 {
@@ -248,17 +246,17 @@ namespace MissionPlanner.Arduino
                 return false;
             }
 
-            if (address%2 == 1)
+            if (address % 2 == 1)
             {
                 throw new Exception("Address must be an even number");
             }
 
-            log.Info("Sending address   " + (ushort) (address/2));
+            log.Info("Sending address   " + (ushort)(address / 2));
 
             address /= 2;
-            address = (ushort) address;
+            address = (ushort)address;
 
-            byte[] command = {(byte) 'U', (byte) (address & 0xff), (byte) (address >> 8), (byte) ' '};
+            byte[] command = { (byte)'U', (byte)(address & 0xff), (byte)(address >> 8), (byte)' ' };
             Write(command, 0, command.Length);
 
             return sync();
@@ -278,7 +276,7 @@ namespace MissionPlanner.Arduino
             {
                 return false;
             }
-            var loops = length/0x100;
+            var loops = length / 0x100;
             int totalleft = length;
             var sending = 0;
 
@@ -297,13 +295,13 @@ namespace MissionPlanner.Arduino
                     return true;
 
                 setaddress(startaddress);
-                startaddress += (short) sending;
+                startaddress += (short)sending;
 
-                byte[] command = {(byte) 'd', (byte) (sending >> 8), (byte) (sending & 0xff), (byte) 'E'};
+                byte[] command = { (byte)'d', (byte)(sending >> 8), (byte)(sending & 0xff), (byte)'E' };
                 Write(command, 0, command.Length);
                 log.Info(startfrom + (length - totalleft) + " - " + sending);
                 Write(data, startfrom + (length - totalleft), sending);
-                command = new[] {(byte) ' '};
+                command = new[] { (byte)' ' };
                 Write(command, 0, command.Length);
 
                 totalleft -= sending;
@@ -323,7 +321,7 @@ namespace MissionPlanner.Arduino
             byte sig2 = 0x00;
             byte sig3 = 0x00;
 
-            byte[] command = {(byte) 'u', (byte) ' '};
+            byte[] command = { (byte)'u', (byte)' ' };
             Write(command, 0, command.Length);
 
             Thread.Sleep(20);
@@ -356,7 +354,7 @@ namespace MissionPlanner.Arduino
         {
             try
             {
-                byte[] command = {(byte) 'Q', (byte) ' '};
+                byte[] command = { (byte)'Q', (byte)' ' };
                 Write(command, 0, command.Length);
             }
             catch

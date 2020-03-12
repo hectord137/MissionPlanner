@@ -1553,7 +1553,6 @@ namespace MissionPlanner.Grid
             {
                FlightPlanner.instance.BUT_insertWP.Enabled = true;
 
-                CustomColor.instance.Normalcolor(FlightPlanner.instance.ButInsertPol);
                 MainV2.instance.FlightPlanner.FlightPlannerBase.quickadd = true;
 
                 if (NUM_split.Value > 1 && CHK_toandland.Checked != true)
@@ -1563,8 +1562,9 @@ namespace MissionPlanner.Grid
                 }
 
                 FlightPlanner.instance.PaneMenu.Visible = false;
-                CustomColor.instance.Normalcolor(FlightPlanner.instance.But_SurveyGrid);
-                
+                FlightPlanner.instance.But_SurveyGrid.Visible = false;
+                FlightPlanner.instance.tableLayoutPanel2.Enabled = true;
+
 
                 var gridobject = savegriddata();
 

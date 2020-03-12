@@ -1,4 +1,5 @@
 ﻿using DirectShowLib;
+using DotSpatial.Data.Forms;
 using Microsoft.Scripting.Utils;
 using MissionPlanner.Controls;
 using MissionPlanner.Joystick;
@@ -15,6 +16,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using WebCamService;
+using InputBox = MissionPlanner.Controls.InputBox;
 
 namespace MissionPlanner.GCSViews.ConfigurationView
 {
@@ -40,15 +42,17 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             this.txt_log_dir.AutoSize = false;
             this.txt_log_dir.Size = new System.Drawing.Size(366, 25);
             LBLTittleConfig.ForeColor = Color.FromArgb(217, 172, 24);
+            try
+            {
 
-
-            //Add local config at initialize
-            SetValuesEchosounder();
-            SetValuesGPS();
-            SetRemoteSystem();
-            SetConfig();
-            SetConfigAutoStop();
-         
+                //Add local config at initialize
+                SetValuesEchosounder();
+                SetValuesGPS();
+                SetRemoteSystem();
+                SetConfig();
+                SetConfigAutoStop();
+            }
+            catch { }
             _conexUDP.Run();
         }
         public void SetRemoteSystem()

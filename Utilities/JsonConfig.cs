@@ -128,12 +128,16 @@ namespace MissionPlanner.Utilities
 
         public List<JsonRemoteSystem> ReadRemoteSystem()
         {
-            using (StreamReader r = new StreamReader(PathDoc + @"remoteSystemConfig.json"))
+            try
             {
-                string json = r.ReadToEnd();
-                List<JsonRemoteSystem> items = JsonConvert.DeserializeObject<List<JsonRemoteSystem>>(json);
-                return items;
+                using (StreamReader r = new StreamReader(PathDoc + @"remoteSystemConfig.json"))
+                {
+                    string json = r.ReadToEnd();
+                    List<JsonRemoteSystem> items = JsonConvert.DeserializeObject<List<JsonRemoteSystem>>(json);
+                    return items;
+                }
             }
+            catch { return null; }
         }
         public List<GPSConfig> ReadGPSConfig()
         {
