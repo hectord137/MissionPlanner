@@ -120,16 +120,17 @@ namespace MissionPlanner.GCSViews
 
 
         //bloqWP <- variable que activa o desactiva el evento click en el mapa -- FlightPlannerBase
-        public bool bloqWP = false;
+        public bool bloqWP;
         int contador_delete = 0;
         public bool Del_relay_home_last = false;
         public void BUT_insertWP_Click(object sender, System.EventArgs e)
         {
             if (bloqWP)
             {
+                Commands.Columns["Delete"].Visible = false;
+
                 _flightPlannerBase.polygongridmode = false;
                 CustomColor.instance.Normalcolor(BUT_insertWP);
-                Commands.Columns["Delete"].Visible = false;
                 bloqWP = false;
                 ButInsertPol.Enabled = true;
                 ButDelwp.Enabled = true;
@@ -137,14 +138,12 @@ namespace MissionPlanner.GCSViews
                 myButton7.Enabled = true;
                 tableLayoutPanel5.Enabled = true;
 
-                if (_flightPlannerBase.pointers != 0)
+                if (_flightPlannerBase.ContadorWps != 0)
                 {
                     contador_delete = _flightPlannerBase.AddCommand(MAVLink.MAV_CMD.DO_SET_RELAY, 1, 0, 0, 0, 0, 0, 0);
                     _flightPlannerBase.AddCommand(MAVLink.MAV_CMD.RETURN_TO_LAUNCH, 0, 0, 0, 0, 0, 0, 0);
-
-                    _flightPlannerBase.pointers = 0;
+                    _flightPlannerBase.ContadorWps = 0;
                     Del_relay_home_last = true;
-
                 }
                 else {
                     Del_relay_home_last = false;
@@ -190,14 +189,14 @@ namespace MissionPlanner.GCSViews
         public bool Estado_btn_insert_poly = false;
         public void ButInsertPol_Click(object sender, System.EventArgs e)
         {
+
             if (Estado_btn_insert_poly)
             {
                 CustomColor.instance.Normalcolor(ButInsertPol);
-                bloqWP = false;
                 Estado_btn_insert_poly = false;
                 _flightPlannerBase.addmarkerpoly = false;
                 _flightPlannerBase.polygongridmode = false;
-                tableLayoutPanel2.Enabled = true;
+                bloqWP = false;
             }
             else
             {
@@ -205,7 +204,7 @@ namespace MissionPlanner.GCSViews
                 ButClearPol.Enabled = true;
                 BtSavePol.Enabled = true;
                 tableLayoutPanel2.Enabled = false;
-
+                bloqWP = false;
                 Estado_btn_insert_poly = true;
                 CustomColor.instance.activecolor(ButInsertPol);
                 _flightPlannerBase.addPolygonPointToolStripMenuItem_Click(sender, e);
@@ -216,17 +215,29 @@ namespace MissionPlanner.GCSViews
 
         public void ButClearPol_Click(object sender, System.EventArgs e)   
         {
-
             try
             {
+                //    FlightPlannerBase.instance.clearPolygonToolStripMenuItem_Click(sender, e);
+                //    CustomColor.instance.Normalcolor(ButInsertPol);
+                //    ButDelwp_Click(sender, e);
+                //    But_SurveyGrid.Visible = false;
+                //    cont_wps = 0;
+                //    bloqWP = false;
+                //tableLayoutPanel2.Enabled = true;
+                //Estado_btn_insert_poly = false;
+                //BUt_sethome.Enabled = true;
+                //ButDelwp_Click(sender, e);
                 FlightPlannerBase.instance.clearPolygonToolStripMenuItem_Click(sender, e);
                 GridUI.instance.clear_routes_poly();
+                ButInsertPol_Click(sender, e);
                 ButDelwp_Click(sender, e);
                 But_SurveyGrid.Visible = false;
                 cont_wps = 0;
+                tableLayoutPanel2.Enabled = true;
+
             }
             catch { }
-       }
+        }
 
         private void BtSavePol_Click(object sender, System.EventArgs e)
         {
@@ -503,23 +514,11 @@ namespace MissionPlanner.GCSViews
         }
 
 
-        public bool btnsethome = false;
+        public bool btnsethome;
         private void BUt_sethome_Click(object sender, System.EventArgs e)
         {
             CustomColor.instance.activecolor(BUt_sethome);
             btnsethome = true;
-            //if (btnsethome)
-            //{
-            //    btnsethome = false;
-            //    BUt_sethome.BGGradTop = SystemColors.ActiveBorder;
-            //}
-            //else
-            //{
-
-            //    BUt_sethome.BGGradTop = Color.GreenYellow;
-            //}
-
-
         }
 
         private void comboBoxMapType_SelectedIndexChanged(object sender, System.EventArgs e)
@@ -649,7 +648,7 @@ namespace MissionPlanner.GCSViews
                 return;
             }
         }
-        public bool distancia = false;
+        public bool distancia;
         private void myButton8_Click(object sender, EventArgs e)
         {
 
