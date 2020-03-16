@@ -208,6 +208,12 @@ namespace MissionPlanner.GCSViews
                 Estado_btn_insert_poly = true;
                 CustomColor.instance.activecolor(ButInsertPol);
                 _flightPlannerBase.addPolygonPointToolStripMenuItem_Click(sender, e);
+                if (cont_wps > 0)
+                {
+                    cierra_sinEliminar_poly();
+                }
+                   
+
             }
         }
 
@@ -215,28 +221,38 @@ namespace MissionPlanner.GCSViews
 
         public void ButClearPol_Click(object sender, System.EventArgs e)   
         {
-            try
+            if (_flightPlannerBase.drawnpolygonsoverlay.Polygons.Count > 0)
             {
-                //    FlightPlannerBase.instance.clearPolygonToolStripMenuItem_Click(sender, e);
-                //    CustomColor.instance.Normalcolor(ButInsertPol);
-                //    ButDelwp_Click(sender, e);
-                //    But_SurveyGrid.Visible = false;
-                //    cont_wps = 0;
-                //    bloqWP = false;
-                //tableLayoutPanel2.Enabled = true;
-                //Estado_btn_insert_poly = false;
-                //BUt_sethome.Enabled = true;
-                //ButDelwp_Click(sender, e);
-                FlightPlannerBase.instance.clearPolygonToolStripMenuItem_Click(sender, e);
-                GridUI.instance.clear_routes_poly();
-                ButInsertPol_Click(sender, e);
-                ButDelwp_Click(sender, e);
-                But_SurveyGrid.Visible = false;
-                cont_wps = 0;
-                tableLayoutPanel2.Enabled = true;
+                if (cont_wps > 0)
+                {
+                    try
+                    {
+                        //    FlightPlannerBase.instance.clearPolygonToolStripMenuItem_Click(sender, e);
+                        //    CustomColor.instance.Normalcolor(ButInsertPol);
+                        //    ButDelwp_Click(sender, e);
+                        //    But_SurveyGrid.Visible = false;
+                        //    cont_wps = 0;
+                        //    bloqWP = false;
+                        //tableLayoutPanel2.Enabled = true;
+                        //Estado_btn_insert_poly = false;
+                        //BUt_sethome.Enabled = true;
+                        //ButDelwp_Click(sender, e);
+                        FlightPlannerBase.instance.clearPolygonToolStripMenuItem_Click(sender, e);
+                        GridUI.instance.clear_routes_poly();
+                        ButInsertPol_Click(sender, e);
+                        ButDelwp_Click(sender, e);
+                        But_SurveyGrid.Visible = false;
+                        cont_wps = 0;
+                        tableLayoutPanel2.Enabled = true;
 
+                    }
+                    catch { }
+                }
+                else {
+
+                    FlightPlannerBase.instance.clearPolygonToolStripMenuItem_Click(sender, e);
+                }
             }
-            catch { }
         }
 
         private void BtSavePol_Click(object sender, System.EventArgs e)
