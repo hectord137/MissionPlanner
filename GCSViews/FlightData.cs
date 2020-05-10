@@ -125,20 +125,17 @@ namespace MissionPlanner.GCSViews
 
         string updateBindingSourceThreadName = "";
 
-        private void comboBoxMapTypeData_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Console.WriteLine(this);
-        }
+        RollingPointPairList depthRollingList = new RollingPointPairList(50);
 
-
+        MathNet.Filtering.OnlineFilter depthChartFilter = MathNet.Filtering.OnlineFilter.CreateDenoise(10);
 
         public FlightData()
         {
-
+            CustomColor.SetDisarmColor(BUT_ARM);
+            
             log.Info("Ctor Start");
 
             InitializeComponent();
-            GetFromConfig();
             // get map type
             this.comboBoxMapTypeData.ValueMember = "Name";
             this.comboBoxMapTypeData.DataSource = GMapProviders.List.ToArray();
@@ -165,9 +162,6 @@ namespace MissionPlanner.GCSViews
 
             // populate the unmodified base list
             tabControlactions.TabPages.ForEach(i => { TabListOriginal.Add((TabPage)i); });
-
-            // update tabs displayed
-            loadTabControlActions();
 
             //  mymap.Manager.UseMemoryCache = false;
 
@@ -241,16 +235,6 @@ namespace MissionPlanner.GCSViews
                 //DO_REPEAT_SERVO
             }
 
-
-            CMB_action.DataSource = list;
-
-            CMB_modes.DataSource = Common.getModesList(MainV2.comPort.MAV.cs.firmware);
-            CMB_modes.ValueMember = "Key";
-            CMB_modes.DisplayMember = "Value";
-
-            //default to auto
-            CMB_modes.Text = "Auto";
-
             CMB_setwp.SelectedIndex = 0;
 
             log.Info("Graph Setup");
@@ -297,35 +281,33 @@ namespace MissionPlanner.GCSViews
 
             gMapControl1.Overlays.Add(poioverlay);
 
-            float gspeedMax = Settings.Instance.GetFloat("GspeedMAX");
-            if (gspeedMax != 0)
-            {
-                Gspeed.MaxValue = gspeedMax;
-            }
+
 
             MainV2.comPort.ParamListChanged += FlightData_ParentChanged;
             /* contextMenuStripHud.Visible = false;
              contextMenuStripHud.Items.RemoveByKey("1"); */
 
+            //Para mostrar la curva de produndidad en el grafico bajo el HUD
+            zedGraphControl1.GraphPane.AddCurve("Depth", depthRollingList, Color.Red, SymbolType.None);
+            CreateDepthChart(zedGraphControl1);
+
+
 
         }
+
+        private void Bind_Parse(object sender, ConvertEventArgs e)
+        {
+            UpdateButColorMode();
+        }
+
         int Limit = 0;
 
-        private void GetFromConfig() {
-            var Json = new JsonConfig();
-            Json.VerifyConfigFile("Config.json");
-            var values = Json.ReadConfig();
-            foreach (var x in values) {
-                Limit = x.LimitEchosounder;
-            }
-            TimerAlertEchosounder.Start();
-        }
         private void alertLimit(){
             SoundPlayer simpleSound = new SoundPlayer(Properties.Resources.Industrial_Alarm_SoundBible_com_1012301296);
             simpleSound.Play();
-            LBLrangefinder1.BackColor = Color.Red;
+//            LBLrangefinder1.BackColor = Color.Red;
         }
-        private void DetectLimit() {
+ /*       private void DetectLimit() {
             Thread a = new Thread(alertLimit);
             if (Convert.ToInt32(LBLrangefinder1.Text) >= Limit)
             {
@@ -338,24 +320,7 @@ namespace MissionPlanner.GCSViews
 
             }
         }
-        public void rechargelabel()
-        {
-            try
-            {
-                //groundspeed
-                LBLgroundspeed.Text = Math.Round(Convert.ToDouble(dataGridView1.CurrentRow.Cells[0].Value)).ToString();
-                //wp_dist
-                LBLwp_dist.Text = Math.Round(Convert.ToDouble(dataGridView1.CurrentRow.Cells[1].Value)).ToString();
-                //DistToHome
-                LBLDistToHome.Text = Math.Round(Convert.ToDouble(dataGridView1.CurrentRow.Cells[2].Value)).ToString();
-                //rangefinder1
-                LBLrangefinder1.Text = Math.Round(Convert.ToDouble(dataGridView1.CurrentRow.Cells[3].Value)).ToString();
-
-            }
-            catch { }
-        }
-
-
+*/
         public void comboBoxMapTypeData_SelectedValueChanged(object sender, EventArgs e)
         {
             FlightPlannerBase.instance.SetMapOrigin(sender, e, comboBoxMapTypeData.SelectedItem);
@@ -389,11 +354,6 @@ namespace MissionPlanner.GCSViews
                     hud1.Enabled = true;
 
                 hud1.Dock = DockStyle.Fill;
-            }
-
-            if (Settings.Instance.ContainsKey("quickViewRows"))
-            {
-                setQuickViewRowsCols(Settings.Instance["quickViewCols"], Settings.Instance["quickViewRows"]);
             }
 
             for (int f = 1; f < 30; f++)
@@ -447,7 +407,7 @@ namespace MissionPlanner.GCSViews
                 }
             }
 
-            CheckBatteryShow();
+            //CheckBatteryShow();
 
             // make sure the hud user items/warnings/checklist are using the current state
             HUD.Custom.src = MainV2.comPort.MAV.cs;
@@ -481,22 +441,6 @@ namespace MissionPlanner.GCSViews
             }
 
             hud1.doResize();
-            this.hidetabs();
-
-        }
-
-        private void hidetabs()
-        {
-            //remove tabsss
-            tabControlactions.Controls.Remove(tabGauges);
-            tabControlactions.Controls.Remove(tabScripts);
-            tabControlactions.Controls.Remove(tabServo);
-            tabControlactions.Controls.Remove(tabPagePreFlight);
-            tabControlactions.Controls.Remove(tabPagemessages);
-            tabControlactions.Controls.Remove(tablogbrowse);
-            tabControlactions.Controls.Remove(tabQuick);
-            tabControlactions.Controls.Remove(tabStatus);
-            tabControlactions.Controls.Remove(tabPayload);
 
         }
 
@@ -536,6 +480,8 @@ namespace MissionPlanner.GCSViews
             myhud.bgimage = (Image)sender;
         }
 
+        
+        /*
         public void CheckBatteryShow()
         {
             // ensure battery display is on - also set in hud if current is updated
@@ -549,6 +495,7 @@ namespace MissionPlanner.GCSViews
                 hud1.batteryon = false;
             }
         }
+        */
 
         public void CreateChart(ZedGraphControl zgc)
         {
@@ -592,6 +539,44 @@ namespace MissionPlanner.GCSViews
             //zgc.AxisChange();
 
             tickStart = Environment.TickCount;
+        }
+
+        public void CreateDepthChart(ZedGraphControl zgc)
+        {
+            GraphPane myPane = zgc.GraphPane;
+
+            myPane.Legend.IsVisible = false;
+
+            // Set the titles and axis labels
+            myPane.Title.Text = "Depth (m)";
+            myPane.XAxis.Title.Text = "Time (s)";
+            myPane.YAxis.Title.IsVisible = false;
+
+            // Show the x axis grid
+            myPane.XAxis.MajorGrid.IsVisible = true;
+            myPane.XAxis.MinorTic.IsAllTics = false;
+            myPane.XAxis.Scale.Min = 0;
+            myPane.XAxis.Scale.Max = 5;
+
+            // Make the Y axis scale red
+            myPane.YAxis.Scale.FontSpec.FontColor = Color.White;
+            myPane.YAxis.Title.FontSpec.FontColor = Color.White;
+            // turn off the opposite tics so the Y tics don't show up on the Y2 axis
+            myPane.YAxis.MajorTic.IsOpposite = false;
+            myPane.YAxis.MinorTic.IsOpposite = false;
+
+            myPane.YAxis.MinorTic.IsAllTics = false;
+
+            // Don't display the Y zero line
+            myPane.YAxis.MajorGrid.IsZeroLine = false;
+            // Align the Y axis labels so they are flush to the axis
+            myPane.YAxis.Scale.Align = AlignP.Inside;
+            // Manually set the axis range
+            //myPane.YAxis.Scale.Min = 0;
+            //myPane.YAxis.Scale.Max = 100;
+
+            // Calculate the Axis Scale Ranges
+            zgc.AxisChange();
         }
 
         public void Deactivate()
@@ -641,37 +626,6 @@ namespace MissionPlanner.GCSViews
             }
         }
 
-        public void loadTabControlActions()
-        {
-            string tabs = Settings.Instance["tabcontrolactions"];
-
-            if (String.IsNullOrEmpty(tabs) || TabListOriginal == null || TabListOriginal.Count == 0)
-                return;
-
-            string[] tabarray = tabs.Split(';');
-
-            if (tabarray.Length == 0)
-                return;
-
-            tabControlactions.TabPages.Clear();
-
-            foreach (var tabname in tabarray)
-            {
-                int a = 0;
-                foreach (TabPage tabPage in TabListOriginal)
-                {
-                    if (tabPage.Name == tabname)
-                    {
-                        tabControlactions.TabPages.Add(tabPage);
-                        break;
-                    }
-                    a++;
-                }
-            }
-
-            ThemeManager.ApplyThemeTo(tabControlactions);
-        }
-
         //Updates the visibility of the payload control tab based on whether the payload target is available or not
         public void updatePayloadTabVisible()
         {
@@ -690,53 +644,6 @@ namespace MissionPlanner.GCSViews
                 }
             }
 
-            if (tabControlactions.TabPages.Contains(tabPayload) == true && gimbalPresent == false)
-            {
-                tabControlactions.TabPages.Remove(tabPayload);
-            }
-            else if (tabControlactions.TabPages.Contains(tabPayload) == false && gimbalPresent == true)
-            {
-                tabControlactions.TabPages.Add(tabPayload);
-            }
-        }
-
-        internal void BUT_run_script_Click(object sender, EventArgs e)
-        {
-            if (File.Exists(selectedscript))
-            {
-                scriptthread = new Thread(run_selected_script)
-                {
-                    IsBackground = true,
-                    Name = "Script Thread (new)"
-                };
-                labelScriptStatus.Text = "Script Status: Running";
-
-                script = null;
-                outputwindowstarted = false;
-
-                scriptthread.Start();
-                scriptrunning = true;
-                BUT_run_script.Enabled = false;
-                BUT_select_script.Enabled = false;
-                BUT_abort_script.Visible = true;
-                BUT_edit_selected.Enabled = false;
-                scriptChecker.Enabled = true;
-                checkBoxRedirectOutput.Enabled = false;
-
-                while (script == null)
-                {
-                }
-
-                scriptChecker_Tick(null, null);
-
-                MissionPlanner.Utilities.Tracking.AddPage(
-                    System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.ToString(),
-                    System.Reflection.MethodBase.GetCurrentMethod().Name);
-            }
-            else
-            {
-                CustomMessageBox.Show("Please select a valid script", "Bad Script");
-            }
         }
 
         protected override void Dispose(bool disposing)
@@ -961,13 +868,6 @@ namespace MissionPlanner.GCSViews
         private void altitudeAngelSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new Utilities.AltitudeAngel.AASettings().Show(this);
-        }
-
-        private void BUT_abort_script_Click(object sender, EventArgs e)
-        {
-            scriptthread.Abort();
-            scriptrunning = false;
-            BUT_abort_script.Visible = false;
         }
 
         private void BUT_abortland_Click(object sender, EventArgs e)
@@ -1204,15 +1104,15 @@ namespace MissionPlanner.GCSViews
                 Thread.Sleep(100);
                 if (JoystickSetup.hay_joystick == false)
                 {
-                    CustomColor.instance.Normalcolor(ButJoyOn);
+                    CustomColor.RestoreColor(ButJoyOn);
                 }
                 else {
-                    CustomColor.instance.activecolor(ButJoyOn);
+                    CustomColor.SetActiveMode(ButJoyOn);
                 }
             }
             else
             {
-               CustomColor.instance.Normalcolor(ButJoyOn);
+               CustomColor.RestoreColor(ButJoyOn);
                 stateJoys = !stateJoys;
                 but_disablejoystick_Click(sender, e);
             }
@@ -1221,7 +1121,7 @@ namespace MissionPlanner.GCSViews
         private void BUT_joystick_Click(object sender, EventArgs e)
         {
             Form joy = new JoystickSetup();
-            ThemeManager.ApplyThemeTo(joy);
+//            ThemeManager.ApplyThemeTo(joy);
             joy.Show();
         }
 
@@ -1256,7 +1156,7 @@ namespace MissionPlanner.GCSViews
         private void BUT_log2kml_Click(object sender, EventArgs e)
         {
             Form frm = new MavlinkLog();
-            ThemeManager.ApplyThemeTo(frm);
+//            ThemeManager.ApplyThemeTo(frm);
             frm.Show();
         }
 
@@ -1300,7 +1200,7 @@ namespace MissionPlanner.GCSViews
 
                             Controls.LogAnalyzer frm = new Controls.LogAnalyzer(out1);
 
-                            ThemeManager.ApplyThemeTo(frm);
+//                            ThemeManager.ApplyThemeTo(frm);
 
                             frm.Show();
                         }
@@ -1331,7 +1231,7 @@ namespace MissionPlanner.GCSViews
         private void BUT_logbrowse_Click(object sender, EventArgs e)
         {
             Form logbrowse = new LogBrowse();
-            ThemeManager.ApplyThemeTo(logbrowse);
+//            ThemeManager.ApplyThemeTo(logbrowse);
             logbrowse.Show();
         }
 
@@ -1340,92 +1240,12 @@ namespace MissionPlanner.GCSViews
             MatLabForms.ProcessLog();
         }
 
-        private void BUT_mountmode_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (MainV2.comPort.MAV.param.ContainsKey("MNT_MODE"))
-                {
-                    MainV2.comPort.setParam("MNT_MODE", (int)CMB_mountmode.SelectedValue);
-                }
-                else
-                {
-                    // copter 3.3 acks with an error, but is ok
-                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_MOUNT_CONTROL, 0, 0, 0, 0, 0, 0,
-                        (int)CMB_mountmode.SelectedValue);
-                }
-            }
-            catch
-            {
-                CustomMessageBox.Show(Strings.ErrorNoResponce, Strings.ERROR);
-            }
-        }
-
-
-
-        private void ChangeColorBtns()
-        {
-            object myObject = bindingSourceHud.Current;
-            string mode = Convert.ToString(myObject.GetPropertyOrField("mode"));
-
-            if (mode == "Auto")
-            {
-                CustomColor.instance.activecolor(BUT_quickauto);
-                CustomColor.instance.Normalcolor(BUT_quickmanual);
-                CustomColor.instance.Normalcolor(BUT_quickrtl);
-                MainV2.instance.MenuFlightPlanner.Enabled = false;
-            }
-            else if (mode == "unknow")
-            {
-
-                CustomColor.instance.Normalcolor(BUT_quickmanual);
-                CustomColor.instance.Normalcolor(BUT_quickauto);
-                CustomColor.instance.activecolor(BUT_quickrtl);
-                MainV2.instance.MenuFlightPlanner.Enabled = true;
-
-            }
-            else if (mode == "Loiter")
-            {
-                CustomColor.instance.activecolor(BUT_quickmanual);
-                CustomColor.instance.Normalcolor(BUT_quickauto);
-                CustomColor.instance.Normalcolor(BUT_quickrtl);
-                MainV2.instance.MenuFlightPlanner.Enabled = true;
-            }
-            else if (mode == "RTL")
-            {
-                CustomColor.instance.activecolor(BUT_quickrtl);
-                CustomColor.instance.Normalcolor(BUT_quickauto);
-                CustomColor.instance.Normalcolor(BUT_quickmanual);
-                MainV2.instance.MenuFlightPlanner.Enabled = true;
-            }
-            else {
-                CustomColor.instance.Normalcolor(BUT_quickauto);
-                CustomColor.instance.Normalcolor(BUT_quickmanual);
-                CustomColor.instance.Normalcolor(BUT_quickrtl);
-                MainV2.instance.MenuFlightPlanner.Enabled = true;
-            }
-
-
-            bool armed = Convert.ToBoolean(myObject.GetPropertyOrField("armed"));
-
-            if (armed) {
-                CustomColor.instance.activecolor(BUT_ARM);
-            }
-            else {
-                CustomColor.instance.Normalcolor(BUT_ARM);
-            }
-
-        }
-
-
         private void BUT_quickauto_Click(object sender, EventArgs e)
         {
-           
             try
             {
                 ((Control)sender).Enabled = false;
                 MainV2.comPort.setMode("Auto");
-          
             }
             catch
             {
@@ -1434,24 +1254,17 @@ namespace MissionPlanner.GCSViews
             ((Control)sender).Enabled = true;
         }
 
- 
-
-        private void BUT_quickmanual_Click(object sender, EventArgs e)
+        private void BUT_loiter_Click(object sender, EventArgs e)
         {
-            
             try
             {
-                
-
                 ((Control)sender).Enabled = false;
                 if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduPlane ||
                     MainV2.comPort.MAV.cs.firmware == Firmwares.Ateryx ||
                     MainV2.comPort.MAV.cs.firmware == Firmwares.ArduRover)
                     MainV2.comPort.setMode("Loiter");
                 if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
-                    MainV2.comPort.setMode("Loiter");
-
-                   
+                    MainV2.comPort.setMode("Loiter"); 
             }
             catch
             {
@@ -1477,17 +1290,8 @@ namespace MissionPlanner.GCSViews
         private void BUT_RAWSensor_Click(object sender, EventArgs e)
         {
             Form temp = new RAW_Sensor();
-            ThemeManager.ApplyThemeTo(temp);
+//            ThemeManager.ApplyThemeTo(temp);
             temp.Show();
-        }
-
-        private void BUT_resetGimbalPos_Click(object sender, EventArgs e)
-        {
-            trackBarPitch.Value = 0;
-            trackBarRoll.Value = 0;
-            trackBarYaw.Value = 0;
-            MainV2.comPort.setMountConfigure(MAVLink.MAV_MOUNT_MODE.MAVLINK_TARGETING, false, false, false);
-            MainV2.comPort.setMountControl((float)trackBarPitch.Value * 100.0f, (float)trackBarRoll.Value * 100.0f, (float)trackBarYaw.Value * 100.0f, false);
         }
 
         private void BUT_resumemis_Click(object sender, EventArgs e)
@@ -1633,32 +1437,6 @@ namespace MissionPlanner.GCSViews
             }
         }
 
-        private void BUT_select_script_Click(object sender, EventArgs e)
-        {
-            if (openScriptDialog.ShowDialog() == DialogResult.OK)
-            {
-                selectedscript = openScriptDialog.FileName;
-                BUT_run_script.Visible = BUT_edit_selected.Visible = true;
-                labelSelectedScript.Text = "Selected Script: " + selectedscript;
-            }
-            else
-            {
-                selectedscript = "";
-            }
-        }
-
-        private void BUT_setmode_Click(object sender, EventArgs e)
-        {
-            if (MainV2.comPort.MAV.cs.failsafe)
-            {
-                if (CustomMessageBox.Show("You are in failsafe, are you sure?", "Failsafe", MessageBoxButtons.YesNo) != (int)DialogResult.Yes)
-                {
-                    return;
-                }
-            }
-            MainV2.comPort.setMode(CMB_modes.Text);
-        }
-
         private void BUT_setwp_Click(object sender, EventArgs e)
         {
             try
@@ -1677,72 +1455,6 @@ namespace MissionPlanner.GCSViews
         {
             LogPlayBackSpeed = double.Parse(((MyButton)sender).Tag.ToString(), CultureInfo.InvariantCulture);
             lbl_playbackspeed.Text = "x " + LogPlayBackSpeed;
-        }
-
-        private void BUTactiondo_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (CMB_action.Text == "Trigger Camera NOW")
-                {
-                    MainV2.comPort.setDigicamControl(true);
-                    return;
-                }
-            }
-            catch
-            {
-                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
-                return;
-            }
-
-            if (CMB_action.Text == "SYSTEM_TIME")
-            {
-                var now = DateTime.UtcNow;
-                var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-                ulong time_unix_us = Convert.ToUInt64((now - epoch).TotalMilliseconds * 1000);
-                try
-                {
-                    MainV2.comPort.sendPacket(new MAVLink.mavlink_system_time_t() { time_unix_usec = time_unix_us, time_boot_ms = 0 }, MainV2.comPort.sysidcurrent, MainV2.comPort.compidcurrent);
-                }
-                catch
-                {
-                    CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
-                }
-                return;
-            }
-
-            if (
-                CustomMessageBox.Show("Are you sure you want to do " + CMB_action.Text + " ?", "Action",
-                    MessageBoxButtons.YesNo) == (int)DialogResult.Yes)
-            {
-                try
-                {
-                    ((Control)sender).Enabled = false;
-
-                    int param1 = 0;
-                    int param3 = 1;
-
-                    // request gyro
-                    if (CMB_action.Text == "PREFLIGHT_CALIBRATION")
-                    {
-                        if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
-                            param1 = 1; // gyro
-                        param3 = 1; // baro / airspeed
-                    }
-                    if (CMB_action.Text == "PREFLIGHT_REBOOT_SHUTDOWN")
-                    {
-                        param1 = 1; // reboot
-                    }
-
-                    MainV2.comPort.doCommand((MAVLink.MAV_CMD)Enum.Parse(typeof(MAVLink.MAV_CMD), CMB_action.Text),
-                        param1, 0, param3, 0, 0, 0, 0);
-                }
-                catch
-                {
-                    CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
-                }
-                ((Control)sender).Enabled = true;
-            }
         }
 
         private void BUTrestartmission_Click(object sender, EventArgs e)
@@ -1798,7 +1510,7 @@ namespace MissionPlanner.GCSViews
 
         void chk_box_CheckedChanged(object sender, EventArgs e)
         {
-            ThemeManager.ApplyThemeTo((Control)sender);
+//            ThemeManager.ApplyThemeTo((Control)sender);
 
             if (((CheckBox)sender).Checked)
             {
@@ -2046,13 +1758,6 @@ namespace MissionPlanner.GCSViews
             }
         }
 
-        private void CMB_modes_Click(object sender, EventArgs e)
-        {
-            CMB_modes.DataSource = Common.getModesList(MainV2.comPort.MAV.cs.firmware);
-            CMB_modes.ValueMember = "Key";
-            CMB_modes.DisplayMember = "Value";
-        }
-
         private void CMB_setwp_Click(object sender, EventArgs e)
         {
             CMB_setwp.Items.Clear();
@@ -2097,51 +1802,6 @@ namespace MissionPlanner.GCSViews
                     CMB_setwp.Items.Add(z.ToString());
                 }
                 return;
-            }
-        }
-
-        private void customizeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (Form customForm = new Form())
-            {
-                CheckedListBox left = new CheckedListBox();
-                left.Dock = DockStyle.Fill;
-                left.CheckOnClick = true;
-
-                customForm.Controls.Add(left);
-
-                string tabs = Settings.Instance["tabcontrolactions"];
-
-                // setup default if doesnt exist
-                if (tabs == null)
-                {
-                    saveTabControlActions();
-                    tabs = Settings.Instance["tabcontrolactions"];
-                }
-
-                string[] tabarray = tabs.Split(';');
-
-                foreach (TabPage tabPage in TabListOriginal)
-                {
-                    if (tabarray.Contains(tabPage.Name))
-                        left.Items.Add(tabPage.Name, true);
-                    else
-                        left.Items.Add(tabPage.Name, false);
-                }
-
-                ThemeManager.ApplyThemeTo(customForm);
-
-                customForm.ShowDialog();
-
-                string answer = "";
-                foreach (var tabPage in left.CheckedItems)
-                {
-                    answer += tabPage + ";";
-                }
-
-                Settings.Instance["tabcontrolactions"] = answer;
-
-                loadTabControlActions();
             }
         }
 
@@ -2191,7 +1851,6 @@ namespace MissionPlanner.GCSViews
 
         private void FlightData_FormClosing(object sender, FormClosingEventArgs e)
         {
-            RecargaLbl.Stop();
             threadrun = false;
 
             DateTime end = DateTime.Now.AddSeconds(5);
@@ -2224,19 +1883,6 @@ namespace MissionPlanner.GCSViews
             Zoomlevel.Minimum = gMapControl1.MapProvider.MinZoom;
             Zoomlevel.Maximum = 24;
             Zoomlevel.Value = Convert.ToDecimal(gMapControl1.Zoom);
-
-            var item1 = ParameterMetaDataRepository.GetParameterOptionsInt("MNT_MODE",
-                MainV2.comPort.MAV.cs.firmware.ToString());
-            var item2 = ParameterMetaDataRepository.GetParameterOptionsInt("MNT_DEFLT_MODE",
-                MainV2.comPort.MAV.cs.firmware.ToString());
-            if (item1.Count > 0)
-                CMB_mountmode.DataSource = item1;
-
-            if (item2.Count > 0)
-                CMB_mountmode.DataSource = item2;
-
-            CMB_mountmode.DisplayMember = "Value";
-            CMB_mountmode.ValueMember = "Key";
 
             if (Settings.Instance["CHK_autopan"] != null)
                 CHK_autopan.Checked = Settings.Instance.GetBoolean("CHK_autopan");
@@ -2277,78 +1923,7 @@ namespace MissionPlanner.GCSViews
                 MainV2.cam.camimage += cam_camimage;
             }
 
-            // QUAD
-            if (MainV2.comPort.MAV.param.ContainsKey("WP_SPEED_MAX"))
-            {
-                try
-                {
-                    modifyandSetSpeed.Value = (decimal)((float)MainV2.comPort.MAV.param["WP_SPEED_MAX"] / 100.0);
-                }
-                catch
-                {
-                    modifyandSetSpeed.Enabled = false;
-                }
-            }
-            // plane 3.7 and below with airspeed, uses ARSPD_ENABLE:
-            else if ((MainV2.comPort.MAV.param.ContainsKey("TRIM_ARSPD_CM") &&
-                     MainV2.comPort.MAV.param.ContainsKey("ARSPD_ENABLE")
-                     && MainV2.comPort.MAV.param.ContainsKey("ARSPD_USE") &&
-                     (float)MainV2.comPort.MAV.param["ARSPD_ENABLE"] == 1
-                     && (float)MainV2.comPort.MAV.param["ARSPD_USE"] == 1) ||
-                     // plane 3.8 and above with airspeed as per plane 3.7 to plane 3.8 migration wiki page, no longer uses ARSPD_ENABLE, uses ARSPD_TYPE instead:
-                     (MainV2.comPort.MAV.param.ContainsKey("TRIM_ARSPD_CM") &&
-                     MainV2.comPort.MAV.param.ContainsKey("ARSPD_TYPE")
-                     && MainV2.comPort.MAV.param.ContainsKey("ARSPD_USE") &&
-                     (float)MainV2.comPort.MAV.param["ARSPD_TYPE"] > 0
-                     && (float)MainV2.comPort.MAV.param["ARSPD_USE"] == 1))
-            {
-                try
-                {
-                    modifyandSetSpeed.Value = (decimal)((float)MainV2.comPort.MAV.param["TRIM_ARSPD_CM"] / 100.0);
-                }
-                catch
-                {
-                    modifyandSetSpeed.Enabled = false;
-                }
-            } // plane without airspeed
-            else if (MainV2.comPort.MAV.param.ContainsKey("TRIM_THROTTLE") &&
-                     MainV2.comPort.MAV.param.ContainsKey("ARSPD_USE")
-                     && (float)MainV2.comPort.MAV.param["ARSPD_USE"] == 0)
-            {
-                try
-                {
-                    modifyandSetSpeed.Value = (decimal)(float)MainV2.comPort.MAV.param["TRIM_THROTTLE"];
-                }
-                catch
-                {
-                    modifyandSetSpeed.Enabled = false;
-                }
-                // percent
-                modifyandSetSpeed.ButtonText = Strings.ChangeThrottle;
-            }
-
-            try
-            {
-                if (MainV2.comPort.MAV.param.ContainsKey("LOITER_RAD"))
-                    modifyandSetLoiterRad.Value =
-                        (decimal)((float)MainV2.comPort.MAV.param["LOITER_RAD"] * CurrentState.multiplierdist);
-            }
-            catch
-            {
-                modifyandSetLoiterRad.Enabled = false;
-            }
-            try
-            {
-                if (MainV2.comPort.MAV.param.ContainsKey("WP_LOITER_RAD"))
-                {
-                    modifyandSetLoiterRad.Value =
-                        (decimal)((float)MainV2.comPort.MAV.param["WP_LOITER_RAD"] * CurrentState.multiplierdist);
-                }
-            }
-            catch
-            {
-                modifyandSetLoiterRad.Enabled = false;
-            }
+            
         }
 
         private void FlightData_Resize(object sender, EventArgs e)
@@ -2379,8 +1954,8 @@ namespace MissionPlanner.GCSViews
 
                     splitContainer1.Panel2.Controls.Add(but);
                     splitContainer1.Panel2.Controls.Add(sc.Control);
-                    ThemeManager.ApplyThemeTo(sc.Control);
-                    ThemeManager.ApplyThemeTo(this);
+//                    ThemeManager.ApplyThemeTo(sc.Control);
+//                    ThemeManager.ApplyThemeTo(this);
 
                     sc.Control.Dock = DockStyle.Fill;
                     sc.Control.Visible = true;
@@ -2459,11 +2034,6 @@ namespace MissionPlanner.GCSViews
             this.LogInfo("GetColor() " + col);
 
             return col;
-        }
-
-        private void gimbalTrackbar_Scroll(object sender, EventArgs e)
-        {
-            MainV2.comPort.setMountControl((float)trackBarPitch.Value * 100.0f, (float)trackBarRoll.Value * 100.0f, (float)trackBarYaw.Value * 100.0f, false);
         }
 
         private void gMapControl1_Click(object sender, EventArgs e)
@@ -2640,16 +2210,6 @@ namespace MissionPlanner.GCSViews
             Settings.config["groundColorToolStripMenuItem"] = groundColorToolStripMenuItem.Checked.ToString();
         }
 
-        private void Gspeed_DoubleClick(object sender, EventArgs e)
-        {
-            string max = "60";
-            if (DialogResult.OK == InputBox.Show("Enter Max", "Enter Max Speed", ref max))
-            {
-                Gspeed.MaxValue = float.Parse(max);
-                Settings.Instance["GspeedMAX"] = Gspeed.MaxValue.ToString();
-            }
-        }
-
         private void GStreamerStopToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GStreamer.StopAll();
@@ -2692,7 +2252,7 @@ namespace MissionPlanner.GCSViews
                 AutoScroll = true
 
             };
-            ThemeManager.ApplyThemeTo(selectform);
+//            ThemeManager.ApplyThemeTo(selectform);
 
             object thisBoxed = MainV2.comPort.MAV.cs;
             Type test = thisBoxed.GetType();
@@ -2805,6 +2365,8 @@ namespace MissionPlanner.GCSViews
             DateTime tracklast = DateTime.Now.AddSeconds(0);
 
             DateTime tunning = DateTime.Now.AddSeconds(0);
+
+            DateTime depthTime = DateTime.Now.AddSeconds(0);
 
             DateTime mapupdate = DateTime.Now.AddSeconds(0);
 
@@ -3007,21 +2569,21 @@ namespace MissionPlanner.GCSViews
                     // Console.WriteLine(DateTime.Now.Millisecond + " done ");
 
                     // battery warning.
-                    float warnvolt = Settings.Instance.GetFloat("speechbatteryvolt");
-                    float warnpercent = Settings.Instance.GetFloat("speechbatterypercent");
+                    //float warnvolt = Settings.Instance.GetFloat("speechbatteryvolt");
+                    //float warnpercent = Settings.Instance.GetFloat("speechbatterypercent");
 
-                    if (MainV2.comPort.MAV.cs.battery_voltage <= warnvolt)
-                    {
-                        hud1.lowvoltagealert = true;
-                    }
-                    else if ((MainV2.comPort.MAV.cs.battery_remaining) < warnpercent)
-                    {
-                        hud1.lowvoltagealert = true;
-                    }
-                    else
-                    {
-                        hud1.lowvoltagealert = false;
-                    }
+                    //if (MainV2.comPort.MAV.cs.battery_voltage <= warnvolt)
+                    //{
+                    //    hud1.lowvoltagealert = true;
+                    //}
+                    //else if ((MainV2.comPort.MAV.cs.battery_remaining) < warnpercent)
+                    //{
+                    //    hud1.lowvoltagealert = true;
+                    //}
+                    //else
+                    //{
+                    //    hud1.lowvoltagealert = false;
+                    //}
 
                     // update opengltest
                     if (OpenGLtest.instance != null)
@@ -3069,6 +2631,24 @@ namespace MissionPlanner.GCSViews
                             list9.Add(time, (list9item.GetValue(MainV2.comPort.MAV.cs, null).ConvertToDouble()));
                         if (list10item != null)
                             list10.Add(time, (list10item.GetValue(MainV2.comPort.MAV.cs, null).ConvertToDouble()));
+                    }
+
+                    //Actualizar el Grafico de profundidad
+                    if (depthTime.AddMilliseconds(250) < DateTime.Now)
+                    {
+                        if (MainV2.comPort.MAVlist.Contains(200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL))
+                        {
+                            double time = (Environment.TickCount - tickStart) / 1000.0;
+                            double depth = -(double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.rangefinder1 / 100.0;
+                            depth = depthChartFilter.ProcessSample(depth);
+
+                            //For test only
+                            //double depth = -(double)MainV2.comPort.MAV.cs.lat;
+
+                            depthRollingList.Add(time, depth);
+                        }
+
+                        depthTime = DateTime.Now.AddMilliseconds(250);
                     }
 
                     // update map
@@ -3491,110 +3071,6 @@ namespace MissionPlanner.GCSViews
             Console.WriteLine("FD Main loop exit");
         }
 
-        private void Messagetabtimer_Tick(object sender, EventArgs e)
-        {
-            var newmsgcount = MainV2.comPort.MAV.cs.messages.Count;
-            if (messagecount != newmsgcount)
-            {
-                try
-                {
-                    StringBuilder message = new StringBuilder();
-                    MainV2.comPort.MAV.cs.messages.ForEach(x => { message.Insert(0, x + "\r\n"); });
-                    txt_messagebox.Text = message.ToString();
-
-                    messagecount = newmsgcount;
-                }
-                catch
-                {
-                }
-            }
-
-            coords1.AltUnit = CurrentState.AltUnit;
-        }
-
-        private void modifyandSetAlt_Click(object sender, EventArgs e)
-        {
-            int newalt = (int)modifyandSetAlt.Value;
-            try
-            {
-                MainV2.comPort.setNewWPAlt(new Locationwp { alt = newalt / CurrentState.multiplieralt });
-            }
-            catch
-            {
-                CustomMessageBox.Show(Strings.ErrorCommunicating, Strings.ERROR);
-            }
-        }
-
-        private void modifyandSetLoiterRad_Click(object sender, EventArgs e)
-        {
-            int newrad = (int)modifyandSetLoiterRad.Value;
-
-            try
-            {
-                MainV2.comPort.setParam(new[] { "LOITER_RAD", "WP_LOITER_RAD" }, newrad / CurrentState.multiplierdist);
-            }
-            catch
-            {
-                CustomMessageBox.Show(Strings.ErrorCommunicating, Strings.ERROR);
-            }
-        }
-
-
-        private void modifyandSetSpeed_Click(object sender, EventArgs e)
-        {
-            // QUAD
-            if (MainV2.comPort.MAV.param.ContainsKey("WP_SPEED_MAX"))
-            {
-                try
-                {
-                    MainV2.comPort.setParam("WP_SPEED_MAX", ((float)modifyandSetSpeed.Value * 100.0f));
-                }
-                catch
-                {
-                    CustomMessageBox.Show(String.Format(Strings.ErrorSetValueFailed, "WP_SPEED_MAX"), Strings.ERROR);
-                }
-            } // plane 3.7 and below with airspeed, uses ARSPD_ENABLE:
-            else if ((MainV2.comPort.MAV.param.ContainsKey("TRIM_ARSPD_CM") &&
-                     MainV2.comPort.MAV.param.ContainsKey("ARSPD_ENABLE")
-                     && MainV2.comPort.MAV.param.ContainsKey("ARSPD_USE") &&
-                     (float)MainV2.comPort.MAV.param["ARSPD_ENABLE"] == 1
-                     && (float)MainV2.comPort.MAV.param["ARSPD_USE"] == 1) ||
-                     // plane 3.8 and above with airspeed as per plane 3.7 to plane 3.8 migration wiki page, no longer uses ARSPD_ENABLE, uses ARSPD_TYPE instead:
-                     (MainV2.comPort.MAV.param.ContainsKey("TRIM_ARSPD_CM") &&
-                     MainV2.comPort.MAV.param.ContainsKey("ARSPD_TYPE")
-                     && MainV2.comPort.MAV.param.ContainsKey("ARSPD_USE") &&
-                     (float)MainV2.comPort.MAV.param["ARSPD_TYPE"] > 0
-                     && (float)MainV2.comPort.MAV.param["ARSPD_USE"] == 1))
-            {
-                try
-                {
-                    MainV2.comPort.setParam("TRIM_ARSPD_CM", ((float)modifyandSetSpeed.Value * 100.0f));
-                }
-                catch
-                {
-                    CustomMessageBox.Show(String.Format(Strings.ErrorSetValueFailed, "TRIM_ARSPD_CM"), Strings.ERROR);
-                }
-            } // plane without airspeed
-            else if (MainV2.comPort.MAV.param.ContainsKey("TRIM_THROTTLE") &&
-                     MainV2.comPort.MAV.param.ContainsKey("ARSPD_USE")
-                     && (float)MainV2.comPort.MAV.param["ARSPD_USE"] == 0)
-            {
-                try
-                {
-                    MainV2.comPort.setParam("TRIM_THROTTLE", (float)modifyandSetSpeed.Value);
-                }
-                catch
-                {
-                    CustomMessageBox.Show(String.Format(Strings.ErrorSetValueFailed, "TRIM_THROTTLE"),
-                        Strings.ERROR);
-                }
-            }
-        }
-
-        private void modifyandSetSpeed_ParentChanged(object sender, EventArgs e)
-        {
-        }
-
         void mymap_Paint(object sender, PaintEventArgs e)
         {
             distanceBar1.DoPaintRemote(e);
@@ -3689,84 +3165,6 @@ namespace MissionPlanner.GCSViews
             }
         }
 
-        private void quickView_DoubleClick(object sender, EventArgs e)
-        {
-            QuickView qv = (QuickView)sender;
-
-            Form selectform = new Form
-            {
-                Name = "select",
-                Width = 50,
-                Height = 50,
-                Text = "Display This",
-                AutoSize = true,
-                StartPosition = FormStartPosition.CenterParent,
-                MaximizeBox = false,
-                MinimizeBox = false,
-                AutoScroll = true
-
-            };
-            ThemeManager.ApplyThemeTo(selectform);
-
-            object thisBoxed = MainV2.comPort.MAV.cs;
-            Type test = thisBoxed.GetType();
-
-            int max_length = 0;
-            List<string> fields = new List<string>();
-
-            foreach (var field in test.GetProperties())
-            {
-                // field.Name has the field's name.
-                object fieldValue = field.GetValue(thisBoxed, null); // Get value
-                if (fieldValue == null)
-                    continue;
-
-                if (!fieldValue.IsNumber())
-                    continue;
-
-                max_length = Math.Max(max_length, TextRenderer.MeasureText(field.Name, selectform.Font).Width);
-                fields.Add(field.Name);
-            }
-            max_length += 25;
-            fields.Sort();
-
-            int col_count = (int)(Screen.FromControl(this).Bounds.Width * 0.8f) / max_length;
-            int row_count = fields.Count / col_count + ((fields.Count % col_count == 0) ? 0 : 1);
-            int row_height = 20;
-            //selectform.MinimumSize = new Size(col_count * max_length, row_count * row_height);
-            selectform.SuspendLayout();
-            for (int i = 0; i < fields.Count; i++)
-            {
-                CheckBox chk_box = new CheckBox
-                {
-                    // dont change to ToString() = null exception
-                    Checked = qv.Tag != null && qv.Tag.ToString() == fields[i],
-                    Text = fields[i],
-                    Name = fields[i],
-                    Tag = qv,
-                    Location = new Point(5 + (i / row_count) * (max_length + 5), 2 + (i % row_count) * row_height),
-                    Size = new Size(max_length, row_height),
-                    AutoSize = true
-                };
-                chk_box.CheckedChanged += chk_box_quickview_CheckedChanged;
-                if (chk_box.Checked)
-                    chk_box.BackColor = Color.Green;
-                selectform.Controls.Add(chk_box);
-            }
-            selectform.ResumeLayout();
-
-            selectform.Shown += (o, args) =>
-            {
-                selectform.Controls.ForEach(a =>
-{
-    if (a is CheckBox && ((CheckBox)a).Checked)
-        ((CheckBox)a).BackColor = Color.Green;
-});
-            };
-
-            selectform.ShowDialog(this);
-        }
-
         private void recordHudToAVIToolStripMenuItem_Click(object sender, EventArgs e)
         {
             stopRecordToolStripMenuItem_Click(sender, e);
@@ -3834,13 +3232,6 @@ namespace MissionPlanner.GCSViews
             Refresh();
         }
 
-        void run_selected_script()
-        {
-            script = new Script(checkBoxRedirectOutput.Checked);
-            script.runScript(selectedscript);
-            scriptrunning = false;
-        }
-
         private void russianHudToolStripMenuItem_Click(object sender, EventArgs e)
         {
             hud1.Russian = !hud1.Russian;
@@ -3861,31 +3252,6 @@ namespace MissionPlanner.GCSViews
             }
 
             Settings.Instance["tabcontrolactions"] = answer;
-        }
-
-        private void scriptChecker_Tick(object sender, EventArgs e)
-        {
-            if (!scriptrunning)
-            {
-                labelScriptStatus.Text = "Script Status: Finished (or aborted)";
-                scriptChecker.Enabled = false;
-                BUT_select_script.Enabled = true;
-                BUT_run_script.Enabled = true;
-                BUT_abort_script.Visible = false;
-                BUT_edit_selected.Enabled = true;
-                checkBoxRedirectOutput.Enabled = true;
-            }
-            else if ((script != null) && (checkBoxRedirectOutput.Checked) && (!outputwindowstarted))
-            {
-                outputwindowstarted = true;
-
-                ScriptConsole console = new ScriptConsole();
-                console.SetScript(script);
-                ThemeManager.ApplyThemeTo(console);
-                console.Show();
-                console.BringToFront();
-                components.Add(console);
-            }
         }
 
         private void setAspectRatioToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3984,53 +3350,6 @@ namespace MissionPlanner.GCSViews
             }
         }
 
-        private void setQuickViewRowsCols(string cols, string rows)
-        {
-            tableLayoutPanelQuick.ColumnCount = Math.Max(1, int.Parse(cols));
-            tableLayoutPanelQuick.RowCount = Math.Max(1, int.Parse(rows));
-
-            Settings.Instance["quickViewRows"] = tableLayoutPanelQuick.RowCount.ToString();
-            Settings.Instance["quickViewCols"] = tableLayoutPanelQuick.ColumnCount.ToString();
-
-            int total = tableLayoutPanelQuick.ColumnCount * tableLayoutPanelQuick.RowCount;
-
-            // clean up extra
-            while (tableLayoutPanelQuick.Controls.Count > total)
-                tableLayoutPanelQuick.Controls.RemoveAt(tableLayoutPanelQuick.Controls.Count - 1);
-
-            // add extra
-            while (total != tableLayoutPanelQuick.Controls.Count)
-            {
-                var QV = new QuickView()
-                {
-                    Name = "quickView" + (tableLayoutPanelQuick.Controls.Count + 1)
-                };
-                QV.DoubleClick += quickView_DoubleClick;
-                QV.ContextMenuStrip = contextMenuStripQuickView;
-                QV.Dock = DockStyle.Fill;
-                QV.numberColor = GetColor();
-                QV.number = 0;
-
-                tableLayoutPanelQuick.Controls.Add(QV);
-                QV.Invalidate();
-            }
-
-            for (int i = 0; i < tableLayoutPanelQuick.ColumnCount; i++)
-            {
-                if (tableLayoutPanelQuick.ColumnStyles.Count <= i)
-                    tableLayoutPanelQuick.ColumnStyles.Add(new ColumnStyle());
-                tableLayoutPanelQuick.ColumnStyles[i].SizeType = SizeType.Percent;
-                tableLayoutPanelQuick.ColumnStyles[i].Width = 100.0f / tableLayoutPanelQuick.ColumnCount;
-            }
-            for (int j = 0; j < tableLayoutPanelQuick.RowCount; j++)
-            {
-                if (tableLayoutPanelQuick.RowStyles.Count <= j)
-                    tableLayoutPanelQuick.RowStyles.Add(new RowStyle());
-                tableLayoutPanelQuick.RowStyles[j].SizeType = SizeType.Percent;
-                tableLayoutPanelQuick.RowStyles[j].Height = 100.0f / tableLayoutPanelQuick.RowCount;
-            }
-        }
-
         bool setupPropertyInfo(ref PropertyInfo input, string name, object source)
         {
             Type test = source.GetType();
@@ -4045,27 +3364,6 @@ namespace MissionPlanner.GCSViews
             }
 
             return false;
-        }
-
-        private void setViewCountToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string cols = "2", rows = "3";
-
-            if (Settings.Instance["quickViewRows"] != null)
-            {
-                rows = Settings.Instance["quickViewRows"];
-                cols = Settings.Instance["quickViewCols"];
-            }
-
-            if (InputBox.Show("Columns", "Enter number of columns to have.", ref cols) == DialogResult.OK)
-            {
-                if (InputBox.Show("Rows", "Enter number of rows to have.", ref rows) == DialogResult.OK)
-                {
-                    setQuickViewRowsCols(cols, rows);
-
-                    Activate();
-                }
-            }
         }
 
         private void startCameraToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4154,202 +3452,6 @@ namespace MissionPlanner.GCSViews
             e.DrawFocusRectangle();
         }
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Messagetabtimer.Stop();
-
-            if (tabControlactions.SelectedTab == tabStatus)
-            {
-                tabControlactions.Visible = false;
-                tabStatus.Visible = false;
-                tabStatus_Resize(sender, e);
-                tabStatus.Visible = true;
-                tabControlactions.Visible = true;
-            }
-            else if (tabControlactions.SelectedTab == tabPagemessages)
-            {
-                Messagetabtimer.Start();
-            }
-            else
-            {
-                // foreach (Control temp in tabStatus.Controls)
-                // {
-                //   temp.DataBindings.Clear();
-                //  temp.Dispose();
-                //  tabStatus.Controls.Remove(temp);
-                // }
-
-                if (tabControlactions.SelectedTab == tabQuick)
-                {
-                }
-            }
-        }
-
-        private void tabPage1_Resize(object sender, EventArgs e)
-        {
-            int mywidth, myheight;
-
-            // localize it
-            Control tabGauges = sender as Control;
-
-            float scale = tabGauges.Width / (float)tabGauges.Height;
-
-            if (scale > 0.5 && scale < 1.9)
-            {
-                // square
-                Gvspeed.Visible = true;
-
-                if (tabGauges.Height < tabGauges.Width)
-                    myheight = tabGauges.Height / 2;
-                else
-                    myheight = tabGauges.Width / 2;
-
-                Gvspeed.Height = myheight;
-                Gspeed.Height = myheight;
-                Galt.Height = myheight;
-                Gheading.Height = myheight;
-
-                Gvspeed.Location = new Point(0, 0);
-                Gspeed.Location = new Point(Gvspeed.Right, 0);
-
-
-                Galt.Location = new Point(0, Gspeed.Bottom);
-                Gheading.Location = new Point(Galt.Right, Gspeed.Bottom);
-
-                return;
-            }
-
-            if (tabGauges.Width < 500)
-            {
-                Gvspeed.Visible = false;
-                mywidth = tabGauges.Width / 3;
-
-                Gspeed.Height = mywidth;
-                Galt.Height = mywidth;
-                Gheading.Height = mywidth;
-
-                Gspeed.Location = new Point(0, 0);
-            }
-            else
-            {
-                Gvspeed.Visible = true;
-                mywidth = tabGauges.Width / 4;
-
-                Gvspeed.Height = mywidth;
-                Gspeed.Height = mywidth;
-                Galt.Height = mywidth;
-                Gheading.Height = mywidth;
-
-                Gvspeed.Location = new Point(0, 0);
-                Gspeed.Location = new Point(Gvspeed.Right, 0);
-            }
-
-            Galt.Location = new Point(Gspeed.Right, 0);
-            Gheading.Location = new Point(Galt.Right, 0);
-        }
-
-        private void tabQuick_Resize(object sender, EventArgs e)
-        {
-            tableLayoutPanelQuick.Width = tabQuick.Width;
-            tableLayoutPanelQuick.AutoScroll = false;
-        }
-
-        void tabStatus_Resize(object sender, EventArgs e)
-        {
-            // localise it
-            //Control tabStatus = sender as Control;
-
-            //  tabStatus.SuspendLayout();
-
-            //foreach (Control temp in tabStatus.Controls)
-            {
-                //  temp.DataBindings.Clear();
-                //temp.Dispose();
-            }
-            //tabStatus.Controls.Clear();
-
-            int x = 10;
-            int y = 10;
-
-            var list = MainV2.comPort.MAV.cs.GetItemList();
-
-            tabStatus.SuspendLayout();
-
-            foreach (var field in list)
-            {
-                MyLabel lbl1 = null;
-                MyLabel lbl2 = null;
-                try
-                {
-                    var temp = tabStatus.Controls.Find(field, false);
-
-                    if (temp.Length > 0)
-                        lbl1 = (MyLabel)temp[0];
-
-                    var temp2 = tabStatus.Controls.Find(field + "value", false);
-
-                    if (temp2.Length > 0)
-                        lbl2 = (MyLabel)temp2[0];
-                }
-                catch
-                {
-                }
-
-
-                if (lbl1 == null)
-                {
-                    lbl1 = new MyLabel();
-                    lbl1.Location = new Point(x, y);
-                    lbl1.Size = new Size(90, 13);
-                    lbl1.Text = field;
-                    lbl1.Name = field;
-                    lbl1.Visible = true;
-                }
-
-                if (lbl2 == null)
-                {
-                    lbl2 = new MyLabel();
-
-                    lbl2.AutoSize = false;
-
-                    lbl2.Location = new Point(lbl1.Right + 5, y);
-                    lbl2.Size = new Size(50, 13);
-
-                    lbl2.Name = field + "value";
-                    lbl2.Visible = true;
-                }
-
-                if (lbl2.DataBindings.Count == 0)
-                {
-                    lbl2.DataBindings.Add(new Binding("Text", bindingSourceStatusTab, field, false,
-                        DataSourceUpdateMode.Never, "0"));
-                }
-                //lbl2.Text = fieldValue.ToString();
-
-                if (!tabStatus.Controls.Contains(lbl1))
-                {
-                    tabStatus.Controls.Add(lbl1);
-                }
-                if (!tabStatus.Controls.Contains(lbl2))
-                {
-                    tabStatus.Controls.Add(lbl2);
-                }
-
-                x += 0;
-                y += 15;
-
-                if (y > tabStatus.Height - 30)
-                {
-                    x = lbl2.Right + 10; //+= 165;
-                    y = 10;
-                }
-            }
-
-            tabStatus.ResumeLayout();
-            tabStatus.Width = x;
-
-            ThemeManager.ApplyThemeTo(tabStatus);
-        }
         private void takeOffToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MainV2.comPort.BaseStream.IsOpen)
@@ -4492,12 +3594,6 @@ namespace MissionPlanner.GCSViews
             }
         }
 
-        private void txt_messagebox_TextChanged(object sender, EventArgs e)
-        {
-            txt_messagebox.Select(txt_messagebox.Text.Length, 0);
-            txt_messagebox.ScrollToCaret();
-        }
-
         private void updateBindingSource()
         {
             //  run at 25 hz.
@@ -4544,26 +3640,6 @@ namespace MissionPlanner.GCSViews
                     MainV2.comPort.MAV.cs.UpdateCurrentSettings(bindingSourceHud.UpdateDataSource(MainV2.comPort.MAV.cs));
                     //Console.WriteLine("DONE ");
 
-                    if (tabControlactions.SelectedTab == tabStatus)
-                    {
-                        MainV2.comPort.MAV.cs.UpdateCurrentSettings(bindingSourceStatusTab.UpdateDataSource(MainV2.comPort.MAV.cs));
-                    }
-                    else if (tabControlactions.SelectedTab == tabQuick)
-                    {
-                        MainV2.comPort.MAV.cs.UpdateCurrentSettings(bindingSourceQuickTab.UpdateDataSource(MainV2.comPort.MAV.cs));
-                    }
-                    else if (tabControlactions.SelectedTab == tabGauges)
-                    {
-                        MainV2.comPort.MAV.cs.UpdateCurrentSettings(bindingSourceGaugesTab.UpdateDataSource(MainV2.comPort.MAV.cs));
-                    }
-                    else if (tabControlactions.SelectedTab == tabPagePreFlight)
-                    {
-                        MainV2.comPort.MAV.cs.UpdateCurrentSettings(bindingSourceGaugesTab.UpdateDataSource(MainV2.comPort.MAV.cs));
-                    }
-                    else if (tabControlactions.SelectedTab == tabPayload)
-                    {
-                        MainV2.comPort.MAV.cs.UpdateCurrentSettings(bindingSourcePayloadTab.UpdateDataSource(MainV2.comPort.MAV.cs));
-                    }
                 }
                 else
                 {
@@ -4766,7 +3842,7 @@ namespace MissionPlanner.GCSViews
                 selectform.Controls.Add(chk_box);
             }
 
-            ThemeManager.ApplyThemeTo(selectform);
+//            ThemeManager.ApplyThemeTo(selectform);
 
             y += 20;
 
@@ -4803,7 +3879,7 @@ namespace MissionPlanner.GCSViews
             {
                 CheckBox chk_box = new CheckBox();
 
-                ThemeManager.ApplyThemeTo(chk_box);
+//                ThemeManager.ApplyThemeTo(chk_box);
 
                 if (list1item != null && list1item.Name == field)
                 {
@@ -4915,47 +3991,15 @@ namespace MissionPlanner.GCSViews
         {
             MainV2.comPort.doARM(true, true);
             MainV2.comPort.doCommand(MAVLink.MAV_CMD.GUIDED_ENABLE, 0, 0, 0, 0, 0, 0, 0);
-
-
-        }
-
-        private void CMB_setwp_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void modifyandSetSpeed_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tableLayoutPanel1_Paint_1(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void setHomeHereToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-
-
             object homealt = (srtm.getAltitude(MouseDownStart.Lat, MouseDownStart.Lng).alt * CurrentState.multiplieralt).ToString("0");
             object homelat = MouseDownStart.Lat.ToString();
             object homelng = MouseDownStart.Lng.ToString();
 
             FlightPlannerBase.instance.sethomeh(homealt, homelat, homelng);
-
-
-
         }
 
         public void modifybutton()
@@ -5082,79 +4126,9 @@ namespace MissionPlanner.GCSViews
             return temp;
         }
 
-        private void tableLayoutPanel5_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void openScriptDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-
-        }
-
-        private void tableLayoutPanelQuick_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             this.hud_UserItem(sender, e);
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            quickView_DoubleClick(sender, e);
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-
-
-
-
-        private void timer1_Tick_2(object sender, EventArgs e)
-        {
-            try
-            {
-                rechargelabel();
-                ChangeColorBtns();
-            }
-            catch { 
-            }
-        }
-
-        private void toolTip1_Popup(object sender, PopupEventArgs e)
-        {
-
-        }
-
-        private void LBLrangefinder1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void BtnSpeed_Click(object sender, EventArgs e)
-        {
-            modifyandSetSpeed_Click(sender, e);
-        }
-
-        private void CMB_modes_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tableLayoutPanel3_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void tableLayoutPanel4_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void ButJoyOn_Click_1(object sender, EventArgs e)
@@ -5162,26 +4136,7 @@ namespace MissionPlanner.GCSViews
             activatedjoy(sender, e);
         }
 
-        private void lblindicadores_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tableLayoutPanel11_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void SubMainLeft_SplitterMoved(object sender, SplitterEventArgs e)
-        {
-
-        }
-
-        private void SubMainLeft_Panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-       public bool status_btn = false;
+        public bool status_btn = false;
         public bool manual_status = false;
         private void BUT_Wifi_Click(object sender, EventArgs e)
         {
@@ -5220,14 +4175,170 @@ namespace MissionPlanner.GCSViews
             return wifi.status_conection;
         }
 
-        private void tableLayoutPanel1_Paint_2(object sender, PaintEventArgs e)
+        private void BUT_manual_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                ((Control)sender).Enabled = false;
+                MainV2.comPort.setMode("Manual");
+            }
+            catch
+            {
+                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+            }
+            ((Control)sender).Enabled = true;
         }
 
-        private void TimerAlertEchosounder_Tick(object sender, EventArgs e)
+        private void UpdateButColorMode()
         {
-            DetectLimit();
+
+            string mode = MainV2.comPort.MAV.cs.mode;
+
+            if (mode == "Auto")
+            {
+                CustomColor.SetActiveMode(BUT_quickauto);
+                CustomColor.RestoreColor(BUT_loiter);
+                CustomColor.RestoreColor(BUT_quickrtl);
+                CustomColor.RestoreColor(BUT_manual);
+                MainV2.instance.MenuFlightPlanner.Enabled = false;
+            }
+            else if (mode == "unknow")
+            {
+
+                CustomColor.RestoreColor(BUT_loiter);
+                CustomColor.RestoreColor(BUT_quickauto);
+                CustomColor.RestoreColor(BUT_quickrtl);
+                CustomColor.RestoreColor(BUT_manual);
+                MainV2.instance.MenuFlightPlanner.Enabled = true;
+
+            }
+            else if (mode == "Loiter")
+            {
+                CustomColor.SetActiveMode(BUT_loiter);
+                CustomColor.RestoreColor(BUT_quickauto);
+                CustomColor.RestoreColor(BUT_quickrtl);
+                CustomColor.RestoreColor(BUT_manual);
+                MainV2.instance.MenuFlightPlanner.Enabled = true;
+            }
+            else if (mode == "RTL")
+            {
+                CustomColor.SetActiveMode(BUT_quickrtl);
+                CustomColor.RestoreColor(BUT_quickauto);
+                CustomColor.RestoreColor(BUT_loiter);
+                CustomColor.RestoreColor(BUT_manual);
+                MainV2.instance.MenuFlightPlanner.Enabled = true;
+            }
+            else if (mode == "Manual")
+            {
+                CustomColor.SetActiveMode(BUT_manual);
+                CustomColor.RestoreColor(BUT_quickauto);
+                CustomColor.RestoreColor(BUT_loiter);
+                CustomColor.RestoreColor(BUT_quickrtl);
+                MainV2.instance.MenuFlightPlanner.Enabled = true;
+            }
+            else
+            {
+                CustomColor.RestoreColor(BUT_quickauto);
+                CustomColor.RestoreColor(BUT_loiter);
+                CustomColor.RestoreColor(BUT_quickrtl);
+                CustomColor.RestoreColor(BUT_manual);
+                MainV2.instance.MenuFlightPlanner.Enabled = true;
+            }
+        }
+
+        private void UpdateButArmingColor()
+        {
+            bool armed = MainV2.comPort.MAV.cs.armed;
+
+            label19.Text = armed ? "Armed" : "Disarmed";
+
+            if (armed)
+            {
+                CustomColor.SetActiveMode(BUT_ARM);
+            }
+            else
+            {
+                CustomColor.SetDisarmColor(BUT_ARM);
+            }
+        }
+
+        private void label18_TextChanged(object sender, EventArgs e)
+        {
+            UpdateButColorMode();
+        }
+
+        private void label19_TextChanged(object sender, EventArgs e)
+        {
+            UpdateButArmingColor();
+        }
+
+        private void TimerUpdateSecondMAV_Tick(object sender, EventArgs e)
+        {
+            if(MainV2.comPort.MAVlist.Contains(200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL))
+            {
+                LBL_Depth.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.rangefinder1 / 100).ToString("N2");
+
+                LBL_Temp.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.rangefinder2 / 100).ToString("N2");
+
+                LBL_Humidity.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.rangefinder3 / 100).ToString("N2");
+            }
+            else
+            {
+                LBL_Depth.Text = "0";
+                LBL_Temp.Text = "0";
+                LBL_Humidity.Text = "0";
+            }
+
+            //Visualizar el % de bateria en base al voltaje. (Aprox lineal en lase al 10% - 100% para 6S)
+            //No es la mejor solucion, es solo para una referencia. 
+            myhud.batteryremaining = (int)(29.0 * MainV2.comPort.MAV.cs.battery_voltage - 630.8);
+            if (myhud.batteryremaining > 100)
+                myhud.batteryremaining = 100;
+            if (myhud.batteryremaining < 0)
+                myhud.batteryremaining = 0;
+        }
+
+        private void depthChartTimer_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                // Make sure that the curvelist has at least one curve
+                if (zedGraphControl1.GraphPane.CurveList.Count <= 0)
+                    return;
+
+                // Get the first CurveItem in the graph
+                LineItem curve = zedGraphControl1.GraphPane.CurveList[0] as LineItem;
+                if (curve == null)
+                    return;
+
+                // Get the PointPairList
+                IPointListEdit list = curve.Points as IPointListEdit;
+                // If this is null, it means the reference at curve.Points does not
+                // support IPointListEdit, so we won't be able to modify it
+                if (list == null)
+                    return;
+
+                // Time is measured in seconds
+                double time = (Environment.TickCount - tickStart) / 1000.0;
+
+                // Keep the X scale at a rolling 30 second interval, with one
+                // major step between the max X value and the end of the axis
+                Scale xScale = zedGraphControl1.GraphPane.XAxis.Scale;
+                if (time > xScale.Max - xScale.MajorStep)
+                {
+                    xScale.Max = time + xScale.MajorStep;
+                    xScale.Min = xScale.Max - 30.0;
+                }
+
+                // Make sure the Y axis is rescaled to accommodate actual data
+                zedGraphControl1.AxisChange();
+
+                // Force a redraw
+                zedGraphControl1.Invalidate();
+            }
+            catch
+            {
+            }
         }
     }
     }

@@ -38,7 +38,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 wifi.conectwifi();
                 this.Hide();
 
-                CustomColor.instance.activecolor(configplanner.myButton1);
+                CustomColor.SetActiveMode(configplanner.myButton1);
             }
             else {
                 CustomMessageBox.Show("Contraseña vacia", "Error");

@@ -10,26 +10,27 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 {
     class CustomColor
     {
-        public static CustomColor instance;
-
-        public CustomColor() {
-
-            instance = this;
-        }
-        
-
-        public void activecolor(MyButton butname)
+        public static void SetActiveMode(MyButton btn)
         {
-            if (butname != null)
+            if (btn != null)
             {
-                butname.BGGradBot = Color.FromArgb(207, 185, 23);
-                butname.BGGradTop = Color.FromArgb(207, 185, 23);
-                butname.Outline = Color.FromArgb(207, 150, 18);
+                btn.BGGradBot = Color.FromArgb(207, 185, 23);
+                btn.BGGradTop = Color.FromArgb(207, 185, 23);
+                btn.Outline = Color.FromArgb(207, 150, 18);
             }
         }
 
+        public static void SetDisarmColor(MyButton btn)
+        {
+            if (btn != null)
+            {
+                btn.BGGradBot = Color.FromArgb(255, 128, 128);
+                btn.BGGradTop = Color.FromArgb(255, 192, 192);
+                btn.Outline = Color.FromArgb(0, 0, 0);
+            }
+        }
 
-        public void Normalcolor(MyButton btn)
+        public static void RestoreColor(MyButton btn)
         {
             if (btn != null)
             {

@@ -1284,9 +1284,38 @@ Mission Planner waits for 2 valid heartbeat packets before connecting");
             }
         }
 
+        //Invento Mio
+        public void getParamListWithProggress(byte sysid, MAVLink.MAV_COMPONENT compid)
+        {
+            _sID = sysid;
+            _cID = compid;
+
+            frmProgressReporter = CreateIProgressReporterDialogue(Strings.GettingParams + " " + sysid);
+
+            frmProgressReporter.DoWork += FrmProgressReporterGetParamsV2;
+            frmProgressReporter.UpdateProgressAndStatus(-1, Strings.GettingParamsD);
+
+            frmProgressReporter.RunBackgroundOperationAsync();
+
+            frmProgressReporter.Dispose();
+
+            if (ParamListChanged != null)
+            {
+                ParamListChanged(this, null);
+            }
+        }
+
         void FrmProgressReporterGetParams(IProgressReporterDialogue sender)
         {
             getParamList(MAV.sysid, MAV.compid);
+        }
+
+        //Invento Mio
+        MAVLink.MAV_COMPONENT _cID = 0;
+        byte _sID = 0;
+        void FrmProgressReporterGetParamsV2(IProgressReporterDialogue sender)
+        {
+            getParamList(_sID, (byte)_cID);
         }
 
         /// <summary>

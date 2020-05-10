@@ -443,6 +443,7 @@ namespace MissionPlanner
 
             autoHideToolStripMenuItem.Visible = !DisplayConfiguration.autoHideMenuForce;
 
+            /*
             //Flight data page
             if (MainV2.instance.FlightData != null)
             {
@@ -539,6 +540,7 @@ namespace MissionPlanner
 
                 MainV2.instance.FlightData.loadTabControlActions();
             }
+            */
 
             if (MainV2.instance.FlightPlanner != null)
             {
@@ -1384,6 +1386,11 @@ namespace MissionPlanner
             }
         }
 
+        private void MenuEchosounder_Click(object sender, EventArgs e)
+        {
+            MyView.ShowScreen("Echosounder");
+        }
+
         private void MenuTerminal_Click(object sender, EventArgs e)
         {
             MyView.ShowScreen("Terminal");
@@ -1679,7 +1686,8 @@ namespace MissionPlanner
                     }
                 }
 
-                FlightData.CheckBatteryShow();
+                //FlightData.CheckBatteryShow();
+                
                 /*
                 MissionPlanner.Utilities.Tracking.AddEvent("Connect", "Connect", comPort.MAV.cs.firmware.ToString(),
                     comPort.MAV.param.Count.ToString());
@@ -2971,6 +2979,7 @@ namespace MissionPlanner
             MyView.AddScreen(new MainSwitcher.Screen("Simulation", Simulation, true));
             MyView.AddScreen(new MainSwitcher.Screen("Terminal", typeof(GCSViews.Terminal), false));
             MyView.AddScreen(new MainSwitcher.Screen("Help", typeof(GCSViews.Help), false));
+            MyView.AddScreen(new MainSwitcher.Screen("Echosounder", typeof(GCSViews.EchosounderProccess), true));
 
             try
             {
@@ -3308,23 +3317,7 @@ namespace MissionPlanner
                     logbrowse.BringToFront();
                 }
 
-                if (cmds.ContainsKey("script") && File.Exists(cmds["script"]))
-                {
-                    // invoke for after onload finished
-                    this.BeginInvoke((Action)delegate ()
-                   {
-                       try
-                       {
-                           FlightData.selectedscript = cmds["script"];
-
-                           FlightData.BUT_run_script_Click(null, null);
-                       }
-                       catch (Exception ex)
-                       {
-                           CustomMessageBox.Show("Start script failed: " + ex.ToString(), Strings.ERROR);
-                       }
-                   });
-                }
+                
 
                 if (cmds.ContainsKey("joy") && cmds.ContainsKey("type"))
                 {

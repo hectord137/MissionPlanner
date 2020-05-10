@@ -327,6 +327,9 @@
     <PackageReference Include="Magick.NET-Q16-AnyCPU">
       <Version>7.15.0</Version>
     </PackageReference>
+    <PackageReference Include="MathNet.Filtering">
+      <Version>0.6.0</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Win32.Registry" Version="4.5.0" />
     <PackageReference Include="MP.GDAL.Native" Version="2.2.3" />
     <PackageReference Include="NETStandard.Library">
@@ -359,6 +362,9 @@
     <PackageReference Include="System.Reactive.Core" Version="4.0.0" />
     <PackageReference Include="System.Reactive.Linq" Version="4.0.0" />
     <PackageReference Include="Unofficial.ObjectListView" version="2.6.0" targetFramework="net40" />
+    <PackageReference Include="WindowsAPICodePack-Shell">
+      <Version>1.1.1</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms.Platform.WinForms">
       <Version>3.4.0-alpha</Version>
     </PackageReference>
@@ -410,6 +416,12 @@
     </Compile>
     <Compile Include="Controls\FollowMe.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GCSViews\EchosounderProccess.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GCSViews\EchosounderProccess.Designer.cs">
+      <DependentUpon>EchosounderProccess.cs</DependentUpon>
     </Compile>
     <Compile Include="GCSViews\ConfigurationView\ConfigADSB.cs">
       <SubType>UserControl</SubType>
@@ -478,10 +490,7 @@
       <DependentUpon>temp.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities\AltitudeAngel\MissionPlannerStateAdapter.cs" />
-    <Compile Include="Utilities\ReadUdp.cs" />
-    <Compile Include="Utilities\UDPSocket.cs" />
     <Compile Include="Utilities\ConexWifi.cs" />
-    <Compile Include="Utilities\JsonConfig.cs" />
     <Compile Include="Utilities\NativeLibrary.cs" />
     <Compile Include="Utilities\ReadGeotiff.cs" />
     <Compile Include="Utilities\Speech.cs" />
@@ -692,6 +701,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\ConfigurationView\Config_wifi.resx">
       <DependentUpon>Config_wifi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\EchosounderProccess.resx">
+      <DependentUpon>EchosounderProccess.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Joystick\JoystickAxis.resx" />
     <EmbeddedResource Include="Log\LogStrings.resx">
@@ -1400,39 +1412,51 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainV2.resx">
       <DependentUpon>MainV2.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MainV2.ar.resx">
       <DependentUpon>MainV2.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MainV2.az-Latn-AZ.resx">
       <DependentUpon>MainV2.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MainV2.id-ID.resx">
       <DependentUpon>MainV2.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MainV2.ja-JP.resx">
       <DependentUpon>MainV2.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MainV2.ko-KR.resx">
       <DependentUpon>MainV2.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MainV2.pt.resx">
       <DependentUpon>MainV2.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MainV2.ru-KZ.resx">
       <DependentUpon>MainV2.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MainV2.tr.resx">
       <DependentUpon>MainV2.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MainV2.zh-Hans.resx">
       <DependentUpon>MainV2.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MainV2.zh-Hant.resx">
       <DependentUpon>MainV2.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MainV2.zh-TW.resx">
       <DependentUpon>MainV2.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\MovingBase.resx">
       <DependentUpon>MovingBase.cs</DependentUpon>
@@ -1980,55 +2004,7 @@
     <EmbeddedResource Include="GCSViews\FlightData.resx">
       <DependentUpon>FlightData.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\FlightData.ar.resx">
-      <DependentUpon>FlightData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\FlightData.az-Latn-AZ.resx">
-      <DependentUpon>FlightData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\FlightData.de-DE.resx">
-      <DependentUpon>FlightData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\FlightData.es-ES.resx">
-      <DependentUpon>FlightData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\FlightData.fr.resx">
-      <DependentUpon>FlightData.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\FlightData.id-ID.resx">
-      <DependentUpon>FlightData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\FlightData.it-IT.resx">
-      <DependentUpon>FlightData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\FlightData.ja-JP.resx">
-      <DependentUpon>FlightData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\FlightData.ko-KR.resx">
-      <DependentUpon>FlightData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\FlightData.pl.resx">
-      <DependentUpon>FlightData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\FlightData.pt.resx">
-      <DependentUpon>FlightData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\FlightData.ru-KZ.resx">
-      <DependentUpon>FlightData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\FlightData.ru-RU.resx">
-      <DependentUpon>FlightData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\FlightData.tr.resx">
-      <DependentUpon>FlightData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\FlightData.zh-Hans.resx">
-      <DependentUpon>FlightData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\FlightData.zh-Hant.resx">
-      <DependentUpon>FlightData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\FlightData.zh-TW.resx">
       <DependentUpon>FlightData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\FlightPlanner.resx">
@@ -4181,6 +4157,8 @@
     <Content Include="aircraft.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\echosounder1.png" />
+    <None Include="FollowMe.datasource" />
     <None Include="Resources\Industrial Alarm-SoundBible.com-1012301296.wav" />
     <None Include="Resources\ZKZg.gif" />
     <None Include="Resources\cargando1.gif" />

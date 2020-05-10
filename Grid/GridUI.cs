@@ -70,8 +70,8 @@ namespace MissionPlanner.Grid
             instance = this;
           
             this.plugin = plugin;
-            CustomColor.instance.Normalcolor(BUT_Accept);
-            CustomColor.instance.Normalcolor(myButton1);
+            CustomColor.RestoreColor(BUT_Accept);
+            CustomColor.RestoreColor(myButton1);
             InitializeComponent();
             loading = true;
 
@@ -1710,7 +1710,7 @@ namespace MissionPlanner.Grid
         {
             clear_routes_poly();
             FlightPlanner.instance.Estado_btn_insert_poly = true;
-            CustomColor.instance.Normalcolor(FlightPlanner.instance.ButInsertPol);
+            CustomColor.RestoreColor(FlightPlanner.instance.ButInsertPol);
             FlightPlanner.instance.BUT_insertWP.Enabled = true;
             FlightPlanner.instance.ButInsertPol.Enabled = true;
             FlightPlanner.instance.ButClearPol.Enabled = true;
@@ -1724,7 +1724,7 @@ namespace MissionPlanner.Grid
             routesOverlay.Markers.Clear();
             FlightPlannerBase.instance._flightPlanner.PaneMenu.Visible = false;
             FlightPlanner.instance.estadomenu = false;
-            CustomColor.instance.Normalcolor(FlightPlanner.instance.But_SurveyGrid);
+            CustomColor.RestoreColor(FlightPlanner.instance.But_SurveyGrid);
         }
 
         private void groupBox6_Enter(object sender, EventArgs e)

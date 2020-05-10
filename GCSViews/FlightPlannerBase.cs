@@ -1605,7 +1605,7 @@ namespace MissionPlanner.GCSViews
 
                     _flightPlanner.MainMap.Refresh();
                 }
-                CustomColor.instance.Normalcolor(_flightPlanner.BUT_saveWPFile);
+                CustomColor.RestoreColor(_flightPlanner.BUT_saveWPFile);
             }
             catch (FormatException ex)
             {
@@ -1781,7 +1781,7 @@ namespace MissionPlanner.GCSViews
 
         public void BUT_loadwpfile_Click(object sender, EventArgs e)
         {
-            CustomColor.instance.activecolor(_flightPlanner.BUT_loadwpfile);
+            CustomColor.SetActiveMode(_flightPlanner.BUT_loadwpfile);
             using (OpenFileDialog fd = new OpenFileDialog())
             {
                 fd.Filter = "All Supported Types|*.txt;*.waypoints;*.shp;*.plan";
@@ -1822,11 +1822,11 @@ namespace MissionPlanner.GCSViews
                     }
 
                     _flightPlanner.lbl_wpfile.Text = "Loaded " + Path.GetFileName(file);
-                    CustomColor.instance.Normalcolor(_flightPlanner.BUT_loadwpfile);
+                    CustomColor.RestoreColor(_flightPlanner.BUT_loadwpfile);
 
                 }
                 else {
-                    CustomColor.instance.Normalcolor(_flightPlanner.BUT_loadwpfile);
+                    CustomColor.RestoreColor(_flightPlanner.BUT_loadwpfile);
                 }
             }
         }
@@ -1837,7 +1837,7 @@ namespace MissionPlanner.GCSViews
 
         public void BUT_saveWPFile_Click(object sender, EventArgs e)
         {
-            CustomColor.instance.activecolor(_flightPlanner.BUT_saveWPFile);
+            CustomColor.SetActiveMode(_flightPlanner.BUT_saveWPFile);
             SaveFile_Click(null, null);
         }
 
@@ -6141,7 +6141,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             FlightPlannerBase.instance._flightPlanner.estadomenu = false;
             FlightPlanner.instance.PaneMenu.Visible = false;
             FlightPlanner.instance.Estado_btn_insert_poly = true;
-            CustomColor.instance.Normalcolor(FlightPlanner.instance.But_SurveyGrid);
+            CustomColor.RestoreColor(FlightPlanner.instance.But_SurveyGrid);
             return estado_poly;
         }
 
@@ -6781,7 +6781,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 PointLatLngAlt home = new PointLatLngAlt(MouseDownStart.Lat, MouseDownStart.Lng,
                       100 / CurrentState.multiplieralt, "Rally Point");
                 this.setHomeHeres(home);
-                CustomColor.instance.Normalcolor(_flightPlanner.BUt_sethome);
+                CustomColor.RestoreColor(_flightPlanner.BUt_sethome);
                 _flightPlanner.btnsethome = false;
 
             }

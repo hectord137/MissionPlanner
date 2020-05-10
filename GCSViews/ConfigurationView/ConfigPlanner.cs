@@ -25,15 +25,11 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         private List<CultureInfo> _languages;
         private bool startup;
         static temp temp;
-        private JsonConfig _JsonConfig;
-        public UDPSocket _conexUDP;
     
         public static ConfigPlanner instance;
         public ConfigPlanner()
         {
-            _conexUDP = new UDPSocket();
             instance = this;
-            _JsonConfig = new JsonConfig();
             InitializeComponent();
             CMB_Layout.Items.Add(DisplayNames.Basic);
             CMB_Layout.Items.Add(DisplayNames.Advanced);
@@ -42,79 +38,6 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             this.txt_log_dir.AutoSize = false;
             this.txt_log_dir.Size = new System.Drawing.Size(366, 25);
             LBLTittleConfig.ForeColor = Color.FromArgb(217, 172, 24);
-            try
-            {
-
-                //Add local config at initialize
-                SetValuesEchosounder();
-                SetValuesGPS();
-                SetRemoteSystem();
-                SetConfig();
-                SetConfigAutoStop();
-            }
-            catch { }
-            _conexUDP.Run();
-        }
-        public void SetRemoteSystem()
-        {
-            _JsonConfig.VerifyConfigFile("remoteSystemConfig.json");
-            //Add local Config at initialize
-            var remoteSystem = _JsonConfig.ReadRemoteSystem();
-            foreach (var item in remoteSystem)
-            {
-                TXTremoteIp.Text = item.Ip;
-                TXTPortRX.Text = Convert.ToString(item.PortRx);
-                TXTPortTX.Text = Convert.ToString(item.PortTx);
-            }
-        }
-        public void SetConfig()
-        {
-            _JsonConfig.VerifyConfigFile("Config.json");
-            //Add local Config at initialize
-            var remoteSystem = _JsonConfig.ReadConfig();
-            foreach (var item in remoteSystem)
-            {
-                NumLimitEchosounder.Value = item.LimitEchosounder;
-            }
-        }
-        public void SetConfigAutoStop()
-        {
-            _JsonConfig.VerifyConfigFile("AutoStop.json");
-            //Add local Config at initialize
-            var remoteSystem = _JsonConfig.ReadAutoStop();
-            foreach (var item in remoteSystem)
-            {
-                numericUpDown1.Value = item.Autostop;
-                ChkAutoStop.Checked = item.Enabled;
-            }
-        }
-
-
-
-        public void SetValuesEchosounder() {
-            _JsonConfig.VerifyConfigFile(@"echosounderconfig.json");
-            var echosounder = _JsonConfig.ReadJsonEchosounder();
-            foreach (var itemsechosounder in echosounder)
-            {
-                txtRange.Text = Convert.ToString(itemsechosounder.Range);
-                TxtInterval.Value = new decimal((double)itemsechosounder.Interval);
-                TxtThreshold.Text = Convert.ToString(itemsechosounder.Threshold);
-                TxtOffset.Text = Convert.ToString(itemsechosounder.Offset);
-                TxtDeadzone.Text = Convert.ToString(itemsechosounder.Deadzone);
-                TxtSound.Text = Convert.ToString(itemsechosounder.Sound);
-                TxtGain.Value = new decimal((double)itemsechosounder.Gain);
-            }
-        }
-
-        public void SetValuesGPS() {
-            //Add local GPSConfig at initialize
-            _JsonConfig.VerifyConfigFile(@"GPSConfig.json");
-            var GPSConfig = _JsonConfig.ReadGPSConfig();
-            foreach (var itemsGPSConfig in GPSConfig)
-            {
-                txtFrecuency.Text = Convert.ToString(itemsGPSConfig.Frequency);
-                txtProtocol.Text = itemsGPSConfig.Protocol;
-            }
         }
 
         // Called every time that this control is made current in the backstage view
@@ -1081,18 +1004,11 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         private void myButton2_Click(object sender, EventArgs e)
         {
-            _conexUDP.EnviaUDP("#getdataechosounder/r/n");
         }
 
 
-              private void BTNSaveRemote_Click(object sender, EventArgs e)
+        private void BTNSaveRemote_Click(object sender, EventArgs e)
         {
-            var RemoteIP = TXTremoteIp.Text;
-            int RemotePortTX = Convert.ToInt32(TXTPortTX.Text);
-            int RemotePortRX = Convert.ToInt32(TXTPortRX.Text);
-            _JsonConfig.CreateConfigFileRemoteSystem(RemoteIP, RemotePortTX, RemotePortRX);
-            CustomMessageBox.Show("Config saved", "Success");
-            _conexUDP.Getconfiginitial();
         }
 
         private void maskedTextBox8_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
@@ -1102,14 +1018,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         private void myButton3_Click(object sender, EventArgs e)
         {
-            List<JsonEchosounder> messaje = new List<JsonEchosounder>();
-            messaje.Add(new JsonEchosounder { Range = Convert.ToInt32(txtRange.Text),
-                Interval = Convert.ToDouble(TxtInterval.Text), Threshold = Convert.ToInt32(TxtThreshold.Text),
-                Offset = Convert.ToInt32(TxtOffset.Text), Deadzone = Convert.ToInt32(TxtDeadzone.Text),
-                Sound = Convert.ToInt32(TxtSound.Text), Gain = Convert.ToDouble(TxtGain.Text)
-            });     
-            var string_to_send = _conexUDP.CreateMessaje(messaje);
-            _conexUDP.EnviaUDP(string_to_send);
+
         } 
 
      
@@ -1124,49 +1033,138 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         
         private void BtnReadGps_Click(object sender, EventArgs e)
         {
-            _conexUDP.EnviaUDP("#getgpsconfig/r/n");
-
+            try
+            {
+                TXT_GPS_UHF_Frec.Clear();
+                float frec = MainV2.comPort.GetParam(200, (byte)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL, "GPS_UHF_FREC");
+                TXT_GPS_UHF_Frec.Text = frec.ToString("N3");
+            }
+            catch(Exception ex)
+            {
+                CustomMessageBox.Show(ex.Message);
+            }
         }
 
         private void BtnWriteGps_Click(object sender, EventArgs e)
         {
-            List<GPSConfig> messaje = new List<GPSConfig>();
-            messaje.Add(new GPSConfig
+            try
             {
-                Frequency = Convert.ToInt32(txtFrecuency.Text),
-                Protocol = txtProtocol.Text
-            });
-            var string_to_send = _conexUDP.CreateMessageGps(messaje);
-            _conexUDP.EnviaUDP(string_to_send);
+                MainV2.comPort.setParam(200, (byte)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL, "GPS_UHF_FREC", TXT_GPS_UHF_Frec.Text.ConvertToDouble());
+            }
+            catch(Exception ex)
+            {
+                CustomMessageBox.Show(ex.Message);
+            }
         }
 
         private void BtnLimitEchosounder_Click(object sender, EventArgs e)
         {
-            _JsonConfig.CreateConfig((int)NumLimitEchosounder.Value);
-
         }
 
         private void myButton4_Click(object sender, EventArgs e)
-        { bool estatus = false;
-            if (ChkAutoStop.Checked){
-                estatus = true; 
-            }
-               
-            _JsonConfig.CreateAutoStop((int)numericUpDown1.Value, estatus);
-            List<ConfigToSendEchosounder> autostop = new List<ConfigToSendEchosounder>();
-            autostop.Add(new ConfigToSendEchosounder
-            {
-                Autostop = Convert.ToInt32(numericUpDown1.Value),
-                Enabled = estatus
-            });
-
-            var string_to_send = _conexUDP.CreateMessageAutoStop(autostop);
-            _conexUDP.EnviaUDP(string_to_send);
+        {
         }
 
         private void ValEchosounder_Click(object sender, EventArgs e)
         {
 
         }
+
+        private void myButton5_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //Mandar a la Ecosonda a leer sus parametros.
+                bool res = MainV2.comPort.doCommand(200, (byte)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL,
+                                                    MAVLink.MAV_CMD.USER_5, 0, 0, 0, 0, 0, 0, 0);
+                //Si el comando retorna ACCEPTED, se encuesta cada parametro individual.
+                if (res)
+                {
+                    float range     =    MainV2.comPort.GetParam(200, (byte)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL, "ECHO_RANGE");
+                    float interval  =    MainV2.comPort.GetParam(200, (byte)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL, "ECHO_INTERVAL");
+                    float threshold =    MainV2.comPort.GetParam(200, (byte)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL, "ECHO_THRESHOLD");
+                    float offset    =    MainV2.comPort.GetParam(200, (byte)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL, "ECHO_OFFSET");
+                    float deadzone  =    MainV2.comPort.GetParam(200, (byte)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL, "ECHO_DEADZONE");
+                    float sound     =    MainV2.comPort.GetParam(200, (byte)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL, "ECHO_SOUND");
+                    float gain      =    MainV2.comPort.GetParam(200, (byte)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL, "ECHO_GAIN");
+
+                    TXT_EchoRange.Text      =   range.ToString("N0");
+                    TXT_EchoInterval.Text   =   interval.ToString("N2");
+                    TXT_EchoThreshold.Text  =   threshold.ToString("N0");
+                    TXT_EchoOffset.Text     =   offset.ToString("N0");
+                    TXT_EchoDeadzone.Text   =   deadzone.ToString("N0");
+                    TXT_EchoSoundSpeed.Text =   sound.ToString("N0");
+                    TXT_EchoGain.Text       =   gain.ToString("N2");
+                }
+                else
+                {
+                    CustomMessageBox.Show("Error executing command for read Echosounder parameters");
+                    TXT_EchoRange.Clear();
+                    TXT_EchoInterval.Clear();
+                    TXT_EchoThreshold.Clear();
+                    TXT_EchoOffset.Clear();
+                    TXT_EchoDeadzone.Clear();
+                    TXT_EchoSoundSpeed.Clear();
+                    TXT_EchoGain.Clear();
+                }
+            }
+            catch(Exception ex)
+            {
+                CustomMessageBox.Show(ex.Message);
+                TXT_EchoRange.Clear();
+                TXT_EchoInterval.Clear();
+                TXT_EchoThreshold.Clear();
+                TXT_EchoOffset.Clear();
+                TXT_EchoDeadzone.Clear();
+                TXT_EchoSoundSpeed.Clear();
+                TXT_EchoGain.Clear();
+            }
+        }
+
+        private void myButton6_Click(object sender, EventArgs e)
+        {
+            /*
+             * En este orden se deben enviar los parametros de la ecosonda.
+             * MAV_CMD::MAV_CMD_USER_4
+            echoSounderDriver.Parameters.range_mm = cmd.param1;
+            echoSounderDriver.Parameters.interval_s = cmd.param2;
+            echoSounderDriver.Parameters.threshold_prc = cmd.param3;
+            echoSounderDriver.Parameters.offset_mm = cmd.param4;
+            echoSounderDriver.Parameters.deadzone_mm = cmd.param5;
+            echoSounderDriver.Parameters.sound_mps = cmd.param6;
+            echoSounderDriver.Parameters.gain_dB = cmd.param7;
+            */
+            try
+            {
+                bool res = MainV2.comPort.doCommand(200, (byte)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL,
+                    MAVLink.MAV_CMD.USER_4,
+                    float.Parse(TXT_EchoRange.Text),
+                    float.Parse(TXT_EchoInterval.Text),
+                    float.Parse(TXT_EchoThreshold.Text),
+                    float.Parse(TXT_EchoOffset.Text),
+                    float.Parse(TXT_EchoDeadzone.Text),
+                    float.Parse(TXT_EchoSoundSpeed.Text),
+                    float.Parse(TXT_EchoGain.Text));
+                
+                if(res)
+                {
+                    CustomMessageBox.Show("Parameters written successfully.");
+                }
+            }
+            catch(Exception ex)
+            {
+                CustomMessageBox.Show("Rrror writing parameters.: " + ex.Message);
+            }
+        }
+
+        private void myButton7_Click(object sender, EventArgs e)
+        {
+            //MainV2.comPort.getParamListWithProggress();
+        }
+
+
+
+
+
     }
 }

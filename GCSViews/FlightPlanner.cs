@@ -130,7 +130,7 @@ namespace MissionPlanner.GCSViews
                 Commands.Columns["Delete"].Visible = false;
 
                 _flightPlannerBase.polygongridmode = false;
-                CustomColor.instance.Normalcolor(BUT_insertWP);
+                CustomColor.RestoreColor(BUT_insertWP);
                 bloqWP = false;
                 ButInsertPol.Enabled = true;
                 ButDelwp.Enabled = true;
@@ -156,7 +156,7 @@ namespace MissionPlanner.GCSViews
 
                 bloqWP = true;
                 ButInsertPol.Enabled = false;
-                CustomColor.instance.activecolor(BUT_insertWP);
+                CustomColor.RestoreColor(BUT_insertWP);
                 Commands.Columns["Delete"].Visible = true;
                 if (Del_relay_home_last && bloqRallyPoint)
                 {
@@ -181,7 +181,7 @@ namespace MissionPlanner.GCSViews
             BtSavePol.Enabled = false;
             contextMenuStripPoly.Visible = false;
             But_SurveyGrid.Visible = false;
-            CustomColor.instance.Normalcolor(But_SurveyGrid);
+            CustomColor.RestoreColor(But_SurveyGrid);
         }
 
   
@@ -192,7 +192,7 @@ namespace MissionPlanner.GCSViews
 
             if (Estado_btn_insert_poly)
             {
-                CustomColor.instance.Normalcolor(ButInsertPol);
+                CustomColor.RestoreColor(ButInsertPol);
                 Estado_btn_insert_poly = false;
                 _flightPlannerBase.addmarkerpoly = false;
                 _flightPlannerBase.polygongridmode = false;
@@ -206,7 +206,7 @@ namespace MissionPlanner.GCSViews
                 tableLayoutPanel2.Enabled = false;
                 bloqWP = false;
                 Estado_btn_insert_poly = true;
-                CustomColor.instance.activecolor(ButInsertPol);
+                CustomColor.SetActiveMode(ButInsertPol);
                 _flightPlannerBase.addPolygonPointToolStripMenuItem_Click(sender, e);
                 if (cont_wps > 0)
                 {
@@ -319,13 +319,13 @@ namespace MissionPlanner.GCSViews
                 if (bloqRallyPoint)
                 {
                     bloqRallyPoint = false;
-                    CustomColor.instance.Normalcolor(myButton1);
+                    CustomColor.RestoreColor(myButton1);
                     bloqWP = false;
                 }
                 else
                 {
                     bloqRallyPoint = true;
-                    CustomColor.instance.activecolor(myButton1);
+                    CustomColor.SetActiveMode(myButton1);
                 }
             }
         }
@@ -533,7 +533,7 @@ namespace MissionPlanner.GCSViews
         public bool btnsethome;
         private void BUt_sethome_Click(object sender, System.EventArgs e)
         {
-            CustomColor.instance.activecolor(BUt_sethome);
+            CustomColor.SetActiveMode(BUt_sethome);
             btnsethome = true;
         }
 
@@ -643,7 +643,7 @@ namespace MissionPlanner.GCSViews
 
         private void BtnTiff_Click(object sender, EventArgs e)
         {
-            CustomColor.instance.activecolor(BtnTiff);
+            CustomColor.SetActiveMode(BtnTiff);
             FlightPlannerBase.instance.loadimgtiff(sender, e);
             BtnDelTiff.Visible = true;
         }
@@ -656,7 +656,7 @@ namespace MissionPlanner.GCSViews
                 System.IO.File.Delete(@"C:\IMGtmp.tiff");
                 BtnDelTiff.Visible = false;
                 _flightPlannerBase.Kill_Em_all();
-                CustomColor.instance.Normalcolor(BtnTiff);
+                CustomColor.RestoreColor(BtnTiff);
             }
             catch (System.IO.IOException ex)
             {
@@ -671,13 +671,13 @@ namespace MissionPlanner.GCSViews
 
             if (distancia)
             {
-                CustomColor.instance.Normalcolor(Buttmeasurecontext);
+                CustomColor.RestoreColor(Buttmeasurecontext);
                 distancia = false;
             }
             else
             {
 
-                CustomColor.instance.activecolor(Buttmeasurecontext);
+                CustomColor.RestoreColor(Buttmeasurecontext);
                 distancia = true;
             }
         }
@@ -726,7 +726,7 @@ namespace MissionPlanner.GCSViews
 
         public void cierra_sinEliminar_poly() {
             estadomenu = false;
-            CustomColor.instance.Normalcolor(But_SurveyGrid);  
+            CustomColor.RestoreColor(But_SurveyGrid);  
             PaneMenu.Visible = false;
         }
         public bool statusSurveyGrid = false;
@@ -736,7 +736,7 @@ namespace MissionPlanner.GCSViews
             {
                 if (CustomMessageBox.Show("¿Crear nuevos WP?", "Mission created", MessageBoxButtons.YesNo) == (int)DialogResult.Yes)
                 {
-                    CustomColor.instance.activecolor(ButInsertPol);
+                    CustomColor.SetActiveMode(ButInsertPol);
                     ButDelwp_Click(sender, e);
                     cierra_sinEliminar_poly();
                     cont_wps = 0;
@@ -761,7 +761,7 @@ namespace MissionPlanner.GCSViews
                 }
                 else
                 {
-                    CustomColor.instance.activecolor(But_SurveyGrid);
+                    CustomColor.SetActiveMode(But_SurveyGrid);
                     FlightPlannerBase.surveyGridToolStripMenuItem_Click(sender, e);
                     bloqWP = false;
                     estadomenu = true;

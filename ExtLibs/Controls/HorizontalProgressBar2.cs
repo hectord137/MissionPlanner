@@ -35,7 +35,7 @@ namespace MissionPlanner.Controls
         int _min = 0;
         int _max = 0;
         int _value = 0;
-        public bool reverse = false;
+        public bool reverse { set; get; }
         int displayvalue = 0;
         bool _drawlabel = true;
 
