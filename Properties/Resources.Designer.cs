@@ -121,6 +121,15 @@ namespace MissionPlanner.Properties {
         }
         
         /// <summary>
+        ///   Busca un recurso adaptado de tipo System.IO.UnmanagedMemoryStream similar a System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream alarma_depth {
+            get {
+                return ResourceManager.GetStream("alarma_depth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Antenna_Tracker_01 {
@@ -583,6 +592,16 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap edit_symbol {
+            get {
+                object obj = ResourceManager.GetObject("edit_symbol", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap frames_06 {
             get {
                 object obj = ResourceManager.GetObject("frames_06", resourceCulture);
@@ -925,15 +944,6 @@ namespace MissionPlanner.Properties {
         }
         
         /// <summary>
-        ///   Busca un recurso adaptado de tipo System.IO.UnmanagedMemoryStream similar a System.IO.MemoryStream.
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream Industrial_Alarm_SoundBible_com_1012301296 {
-            get {
-                return ResourceManager.GetStream("Industrial_Alarm_SoundBible_com_1012301296", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap light_01 {
@@ -1215,6 +1225,16 @@ namespace MissionPlanner.Properties {
             get {
                 object obj = ResourceManager.GetObject("mpdesktop", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mute3 {
+            get {
+                object obj = ResourceManager.GetObject("mute3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

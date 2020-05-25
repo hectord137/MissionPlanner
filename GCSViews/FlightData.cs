@@ -11,6 +11,8 @@ using MissionPlanner.Log;
 using MissionPlanner.Maps;
 using MissionPlanner.Utilities;
 using MissionPlanner.Warnings;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SharpDX.DirectInput;
 using System;
 using System.Collections.Generic;
@@ -128,6 +130,10 @@ namespace MissionPlanner.GCSViews
         RollingPointPairList depthRollingList = new RollingPointPairList(50);
 
         MathNet.Filtering.OnlineFilter depthChartFilter = MathNet.Filtering.OnlineFilter.CreateDenoise(10);
+
+        SoundPlayer simpleSound = new SoundPlayer(Properties.Resources.alarma_depth);
+        bool depthAlarmSound = true;
+        bool depthAlarmEnable = true;
 
         public FlightData()
         {
@@ -291,7 +297,15 @@ namespace MissionPlanner.GCSViews
             zedGraphControl1.GraphPane.AddCurve("Depth", depthRollingList, Color.Red, SymbolType.None);
             CreateDepthChart(zedGraphControl1);
 
+            NUM_DepthAlarmValue.Value = (decimal)Settings.Instance.GetDouble("DEPTH_ALARM", 0.30);
 
+            depthAlarmEnable = Settings.Instance.GetBoolean("depthAlarmEnable", true);
+            depthAlarmEnable = !depthAlarmEnable;
+            BUT_DisDepthAlarm_Click(null, null);
+
+            depthAlarmSound = Settings.Instance.GetBoolean("depthAlarmSound", true);
+            depthAlarmSound = !depthAlarmSound;
+            BUT_Mute_Click(null, null);
 
         }
 
@@ -300,27 +314,6 @@ namespace MissionPlanner.GCSViews
             UpdateButColorMode();
         }
 
-        int Limit = 0;
-
-        private void alertLimit(){
-            SoundPlayer simpleSound = new SoundPlayer(Properties.Resources.Industrial_Alarm_SoundBible_com_1012301296);
-            simpleSound.Play();
-//            LBLrangefinder1.BackColor = Color.Red;
-        }
- /*       private void DetectLimit() {
-            Thread a = new Thread(alertLimit);
-            if (Convert.ToInt32(LBLrangefinder1.Text) >= Limit)
-            {
-                a.Start();
-            }
-            else
-            {
-                a.Abort();
-                LBLrangefinder1.BackColor = Color.FromArgb(38, 39, 40) ;
-
-            }
-        }
-*/
         public void comboBoxMapTypeData_SelectedValueChanged(object sender, EventArgs e)
         {
             FlightPlannerBase.instance.SetMapOrigin(sender, e, comboBoxMapTypeData.SelectedItem);
@@ -549,7 +542,10 @@ namespace MissionPlanner.GCSViews
 
             // Set the titles and axis labels
             myPane.Title.Text = "Depth (m)";
+            myPane.Title.FontSpec.Size = 24;
             myPane.XAxis.Title.Text = "Time (s)";
+            myPane.XAxis.Title.FontSpec.Size = 22;
+            myPane.XAxis.Scale.FontSpec.Size = 22;
             myPane.YAxis.Title.IsVisible = false;
 
             // Show the x axis grid
@@ -561,6 +557,7 @@ namespace MissionPlanner.GCSViews
             // Make the Y axis scale red
             myPane.YAxis.Scale.FontSpec.FontColor = Color.White;
             myPane.YAxis.Title.FontSpec.FontColor = Color.White;
+            myPane.YAxis.Scale.FontSpec.Size = 28;
             // turn off the opposite tics so the Y tics don't show up on the Y2 axis
             myPane.YAxis.MajorTic.IsOpposite = false;
             myPane.YAxis.MinorTic.IsOpposite = false;
@@ -4274,9 +4271,11 @@ namespace MissionPlanner.GCSViews
 
         private void TimerUpdateSecondMAV_Tick(object sender, EventArgs e)
         {
+            double depth = 0;
             if(MainV2.comPort.MAVlist.Contains(200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL))
             {
-                LBL_Depth.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.rangefinder1 / 100).ToString("N2");
+                depth = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.rangefinder1 / 100);
+                LBL_Depth.Text = depth.ToString("N2");
 
                 LBL_Temp.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.rangefinder2 / 100).ToString("N2");
 
@@ -4289,13 +4288,24 @@ namespace MissionPlanner.GCSViews
                 LBL_Humidity.Text = "0";
             }
 
-            //Visualizar el % de bateria en base al voltaje. (Aprox lineal en lase al 10% - 100% para 6S)
+            //Visualizar el % de bateria en base al voltaje. (Aprox lineal en base al 10% - 100% para 6S)
             //No es la mejor solucion, es solo para una referencia. 
             myhud.batteryremaining = (int)(29.0 * MainV2.comPort.MAV.cs.battery_voltage - 630.8);
             if (myhud.batteryremaining > 100)
                 myhud.batteryremaining = 100;
             if (myhud.batteryremaining < 0)
                 myhud.batteryremaining = 0;
+
+            //Para activar o desactivar la alarma de profundidad.
+            if(depth > 0 && depth <= (double)NUM_DepthAlarmValue.Value && depthAlarmEnable)
+            {
+                depthAlertTimer.Enabled = true;
+            }
+            else
+            {
+                depthAlertTimer.Enabled = false;
+                if(_oldFill != null) zedGraphControl1.GraphPane.Chart.Fill = _oldFill;
+            }
         }
 
         private void depthChartTimer_Tick(object sender, EventArgs e)
@@ -4339,6 +4349,71 @@ namespace MissionPlanner.GCSViews
             catch
             {
             }
+        }
+
+        bool _colored = false;
+        Fill _oldFill;
+        private void depthAlertTimer_Tick_1(object sender, EventArgs e)
+        {
+            if (!_colored)
+            {
+                if(depthAlarmSound)
+                    simpleSound.Play();
+
+                _oldFill = zedGraphControl1.GraphPane.Chart.Fill;
+                zedGraphControl1.GraphPane.Chart.Fill = new Fill(Color.Red);
+                depthAlertTimer.Interval = 300;
+                _colored = true;
+            }
+            else
+            {
+                if (_oldFill != null)
+                    zedGraphControl1.GraphPane.Chart.Fill = _oldFill;
+                depthAlertTimer.Interval = 500;
+                _colored = false;
+            }
+
+        }
+
+        private void BUT_Mute_Click(object sender, EventArgs e)
+        {
+            depthAlarmSound = !depthAlarmSound;
+
+            if (depthAlarmSound)
+            {
+                BUT_MuteDepthAlarm.BackColor = Color.FromArgb(148, 193, 31);
+                BUT_MuteDepthAlarm.ImageIndex = 0;
+            }
+            else
+            {
+                BUT_MuteDepthAlarm.BackColor = Color.Red;
+                BUT_MuteDepthAlarm.ImageIndex = 1;
+            }
+
+            Settings.Instance["depthAlarmSound"] = depthAlarmSound.ToString();
+        }
+
+        private void BUT_DisDepthAlarm_Click(object sender, EventArgs e)
+        {
+            depthAlarmEnable = !depthAlarmEnable;
+
+            if (depthAlarmEnable)
+            {
+                BUT_DisDepthAlarm.BackColor = Color.FromArgb(148, 193, 31);
+                BUT_DisDepthAlarm.ImageIndex = 0;
+            }
+            else
+            {
+                BUT_DisDepthAlarm.BackColor = Color.Red;
+                BUT_DisDepthAlarm.ImageIndex = 1;
+            }
+
+            Settings.Instance["depthAlarmEnable"] = depthAlarmEnable.ToString();
+        }
+
+        private void NUM_DepthAlarmValue_ValueChanged(object sender, EventArgs e)
+        {
+            Settings.Instance["DEPTH_ALARM"] = NUM_DepthAlarmValue.Value.ToString();
         }
     }
     }

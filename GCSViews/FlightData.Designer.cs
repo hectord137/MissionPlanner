@@ -51,6 +51,9 @@
             this.BUT_joystick_settings = new MissionPlanner.Controls.MyButton();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
+            this.NUM_DepthAlarmValue = new System.Windows.Forms.NumericUpDown();
+            this.BUT_DisDepthAlarm = new System.Windows.Forms.Button();
+            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.verticalProgressBarR_DOWN = new MissionPlanner.Controls.VerticalProgressBar2();
             this.bindingSourceQuickTab = new System.Windows.Forms.BindingSource(this.components);
             this.label7 = new System.Windows.Forms.Label();
@@ -58,6 +61,8 @@
             this.label12 = new System.Windows.Forms.Label();
             this.verticalProgressBarL_DOWN = new MissionPlanner.Controls.VerticalProgressBar2();
             this.verticalProgressBarL_UP = new MissionPlanner.Controls.VerticalProgressBar2();
+            this.BUT_MuteDepthAlarm = new System.Windows.Forms.Button();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
             this.zedGraphControl1 = new ZedGraph.ZedGraphControl();
             this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
@@ -140,6 +145,7 @@
             this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.TimerUpdateSecondMAV = new System.Windows.Forms.Timer(this.components);
             this.depthChartTimer = new System.Windows.Forms.Timer(this.components);
+            this.depthAlertTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.MainH)).BeginInit();
             this.MainH.Panel1.SuspendLayout();
             this.MainH.Panel2.SuspendLayout();
@@ -161,6 +167,7 @@
             this.tableLayoutPanel6.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
             this.tableLayoutPanel9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NUM_DepthAlarmValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceQuickTab)).BeginInit();
             this.tableLayoutPanel12.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
@@ -651,13 +658,52 @@
             // tableLayoutPanel9
             // 
             resources.ApplyResources(this.tableLayoutPanel9, "tableLayoutPanel9");
+            this.tableLayoutPanel9.Controls.Add(this.NUM_DepthAlarmValue, 0, 5);
+            this.tableLayoutPanel9.Controls.Add(this.BUT_DisDepthAlarm, 0, 3);
             this.tableLayoutPanel9.Controls.Add(this.verticalProgressBarR_DOWN, 1, 2);
             this.tableLayoutPanel9.Controls.Add(this.label7, 0, 0);
             this.tableLayoutPanel9.Controls.Add(this.verticalProgressBarR_UP, 1, 1);
             this.tableLayoutPanel9.Controls.Add(this.label12, 1, 0);
             this.tableLayoutPanel9.Controls.Add(this.verticalProgressBarL_DOWN, 0, 2);
             this.tableLayoutPanel9.Controls.Add(this.verticalProgressBarL_UP, 0, 1);
+            this.tableLayoutPanel9.Controls.Add(this.BUT_MuteDepthAlarm, 0, 4);
             this.tableLayoutPanel9.Name = "tableLayoutPanel9";
+            // 
+            // NUM_DepthAlarmValue
+            // 
+            this.tableLayoutPanel9.SetColumnSpan(this.NUM_DepthAlarmValue, 2);
+            this.NUM_DepthAlarmValue.DecimalPlaces = 2;
+            resources.ApplyResources(this.NUM_DepthAlarmValue, "NUM_DepthAlarmValue");
+            this.NUM_DepthAlarmValue.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            131072});
+            this.NUM_DepthAlarmValue.Name = "NUM_DepthAlarmValue";
+            this.NUM_DepthAlarmValue.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            131072});
+            this.NUM_DepthAlarmValue.ValueChanged += new System.EventHandler(this.NUM_DepthAlarmValue_ValueChanged);
+            // 
+            // BUT_DisDepthAlarm
+            // 
+            this.BUT_DisDepthAlarm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
+            this.tableLayoutPanel9.SetColumnSpan(this.BUT_DisDepthAlarm, 2);
+            resources.ApplyResources(this.BUT_DisDepthAlarm, "BUT_DisDepthAlarm");
+            this.BUT_DisDepthAlarm.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
+            this.BUT_DisDepthAlarm.ImageList = this.imageList2;
+            this.BUT_DisDepthAlarm.Name = "BUT_DisDepthAlarm";
+            this.BUT_DisDepthAlarm.UseVisualStyleBackColor = false;
+            this.BUT_DisDepthAlarm.Click += new System.EventHandler(this.BUT_DisDepthAlarm_Click);
+            // 
+            // imageList2
+            // 
+            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
+            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList2.Images.SetKeyName(0, "siren.png");
+            this.imageList2.Images.SetKeyName(1, "siren2.png");
             // 
             // verticalProgressBarR_DOWN
             // 
@@ -675,7 +721,7 @@
             this.verticalProgressBarR_DOWN.minline = 0;
             this.verticalProgressBarR_DOWN.Name = "verticalProgressBarR_DOWN";
             this.verticalProgressBarR_DOWN.reverse = true;
-            this.verticalProgressBarR_DOWN.Value = 1400;
+            this.verticalProgressBarR_DOWN.Value = 1100;
             this.verticalProgressBarR_DOWN.ValueColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             // 
             // bindingSourceQuickTab
@@ -727,7 +773,7 @@
             this.verticalProgressBarL_DOWN.minline = 0;
             this.verticalProgressBarL_DOWN.Name = "verticalProgressBarL_DOWN";
             this.verticalProgressBarL_DOWN.reverse = true;
-            this.verticalProgressBarL_DOWN.Value = 1400;
+            this.verticalProgressBarL_DOWN.Value = 1100;
             this.verticalProgressBarL_DOWN.ValueColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             // 
             // verticalProgressBarL_UP
@@ -748,6 +794,24 @@
             this.verticalProgressBarL_UP.reverse = false;
             this.verticalProgressBarL_UP.Value = 1600;
             this.verticalProgressBarL_UP.ValueColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            // 
+            // BUT_MuteDepthAlarm
+            // 
+            this.BUT_MuteDepthAlarm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
+            this.tableLayoutPanel9.SetColumnSpan(this.BUT_MuteDepthAlarm, 2);
+            resources.ApplyResources(this.BUT_MuteDepthAlarm, "BUT_MuteDepthAlarm");
+            this.BUT_MuteDepthAlarm.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
+            this.BUT_MuteDepthAlarm.ImageList = this.imageList1;
+            this.BUT_MuteDepthAlarm.Name = "BUT_MuteDepthAlarm";
+            this.BUT_MuteDepthAlarm.UseVisualStyleBackColor = false;
+            this.BUT_MuteDepthAlarm.Click += new System.EventHandler(this.BUT_Mute_Click);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "mute6.png");
+            this.imageList1.Images.SetKeyName(1, "mute3.png");
             // 
             // tableLayoutPanel12
             // 
@@ -1273,7 +1337,7 @@
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSource1, "wind_dir", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSource1, "wind_vel", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.windDir1.Direction = 180D;
+            this.windDir1.Direction = 360D;
             resources.ApplyResources(this.windDir1, "windDir1");
             this.windDir1.Name = "windDir1";
             this.windDir1.Speed = 0D;
@@ -1484,6 +1548,11 @@
             this.depthChartTimer.Enabled = true;
             this.depthChartTimer.Tick += new System.EventHandler(this.depthChartTimer_Tick);
             // 
+            // depthAlertTimer
+            // 
+            this.depthAlertTimer.Interval = 500;
+            this.depthAlertTimer.Tick += new System.EventHandler(this.depthAlertTimer_Tick_1);
+            // 
             // FlightData
             // 
             this.Controls.Add(this.MainH);
@@ -1521,6 +1590,7 @@
             this.tableLayoutPanel8.PerformLayout();
             this.tableLayoutPanel9.ResumeLayout(false);
             this.tableLayoutPanel9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NUM_DepthAlarmValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceQuickTab)).EndInit();
             this.tableLayoutPanel12.ResumeLayout(false);
             this.tableLayoutPanel12.PerformLayout();
@@ -1694,5 +1764,11 @@
         private System.Windows.Forms.Label LBL_GSpeed;
         private ZedGraph.ZedGraphControl zedGraphControl1;
         private System.Windows.Forms.Timer depthChartTimer;
+        private System.Windows.Forms.Timer depthAlertTimer;
+        private System.Windows.Forms.Button BUT_MuteDepthAlarm;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.Button BUT_DisDepthAlarm;
+        private System.Windows.Forms.ImageList imageList2;
+        private System.Windows.Forms.NumericUpDown NUM_DepthAlarmValue;
     }
 }
