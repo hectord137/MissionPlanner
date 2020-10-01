@@ -1547,11 +1547,11 @@ namespace MissionPlanner.Grid
 
         private void BUT_Accept_Click(object sender, EventArgs e)
         {
-        FlightPlanner.instance.ButInsertPol.Enabled = true;
-            FlightPlanner.instance.ButClearPol.Enabled = true;
+            //FlightPlanner.instance.ButInsertPol.Enabled = true;
+            //FlightPlanner.instance.ButClearPol.Enabled = true;
             if (grid != null && grid.Count > 0)
             {
-               FlightPlanner.instance.BUT_insertWP.Enabled = true;
+               //FlightPlanner.instance.BUT_insertWP.Enabled = true;
 
                 MainV2.instance.FlightPlanner.FlightPlannerBase.quickadd = true;
 
@@ -1563,7 +1563,7 @@ namespace MissionPlanner.Grid
 
                 FlightPlanner.instance.PaneMenu.Visible = false;
                 FlightPlanner.instance.But_SurveyGrid.Visible = false;
-                FlightPlanner.instance.tableLayoutPanel2.Enabled = true;
+                //FlightPlanner.instance.tableLayoutPanel2.Enabled = true;
 
 
                 var gridobject = savegriddata();
@@ -1711,10 +1711,10 @@ namespace MissionPlanner.Grid
             clear_routes_poly();
             FlightPlanner.instance.Estado_btn_insert_poly = true;
             CustomColor.RestoreColor(FlightPlanner.instance.ButInsertPol);
-            FlightPlanner.instance.BUT_insertWP.Enabled = true;
-            FlightPlanner.instance.ButInsertPol.Enabled = true;
-            FlightPlanner.instance.ButClearPol.Enabled = true;
-           FlightPlanner.instance.statusSurveyGrid = false;
+            //FlightPlanner.instance.BUT_insertWP.Enabled = true;
+            //FlightPlanner.instance.ButInsertPol.Enabled = true;
+            //FlightPlanner.instance.ButClearPol.Enabled = true;
+            FlightPlanner.instance.statusSurveyGrid = false;
         }
 
         public void clear_routes_poly() {

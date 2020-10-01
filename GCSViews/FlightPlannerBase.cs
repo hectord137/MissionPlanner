@@ -4542,79 +4542,53 @@ namespace MissionPlanner.GCSViews
         }
 
 
-        public Bitmap image;
-        public double Latitud;
-        public double Longitud;
-        public double scalax;
-        public double scalay;
-        public void tiff(string ruta) 
-        {
-         //extrae latitud, longitud, scala x e y segun ruta
-         ReadGeotiff geotiff = new ReadGeotiff();
-         geotiff.getlonlatutm(ruta);
-         Latitud = geotiff.latitud;
-         Longitud = geotiff.longitud;
-         scalax = geotiff.scalex;
-         scalay = geotiff.scaley;
-         //Factor e escala segun zoom
-         GMap.NET.Internals.Core core = new GMap.NET.Internals.Core();
-         double  factor_escala = core.Get_scale(Convert.ToInt32(16), Latitud);
-          
-            image = resize(ruta, 2290, 2604);
-            string destino = @"C:\IMGtmp.tiff";
-            image.Save(destino);
+        public Bitmap imageTiff;
+        ReadGeotiff geoTiffMetaData = new ReadGeotiff();
 
-            if (factor_escala > scalax)
-            {
-                if (factor_escala > scalay)
-                {
-                    int widht = Convert.ToInt32(factor_escala / scalax);
-                    int height = Convert.ToInt32(scalay / factor_escala);
-                    image = resize(@"C:\IMGtmp.tiff", widht, height);
-                    imageToMap(Latitud, Longitud, image);
-                }
-                else
-                {
-                    int widht = Convert.ToInt32(factor_escala / scalax);
-                    int height = Convert.ToInt32(scalay / factor_escala);
-                    image = resize(@"C:\IMGtmp.tiff", widht, height);
-                    imageToMap(Latitud, Longitud, image);
-                }
-            }
-            else
-            {
-                if (factor_escala > scalay)
-                {
-                    int widht = Convert.ToInt32(factor_escala / scalax);
-                    int height = Convert.ToInt32(factor_escala / scalay);
-                    image = resize(@"C:\IMGtmp.tiff", widht, height);
-                    imageToMap(Latitud, Longitud, image);
-                }
-                else
-                {
-                    int widht = Convert.ToInt32(scalax / factor_escala);
-                    int height = Convert.ToInt32(scalay / factor_escala);
-                    image = resize(@"C:\IMGtmp.tiff", widht, height);
-                    imageToMap(Latitud, Longitud, image);
-                }
-            }
+        public void tiff(string ruta)
+        {
+            //extrae latitud, longitud, scala x e y segun ruta
+            geoTiffMetaData.LoadImageTiff(ruta);
+
+            //Factor e escala segun zoom
+            double res = MainMap.MapProvider.Projection.GetGroundResolution((int)_flightPlanner.MainMap.Zoom, geoTiffMetaData.Latitude);
+
+            imageTiff = new Bitmap(ruta);
+
+            int widht = Convert.ToInt32(geoTiffMetaData.Width_m / res);
+            int height = Convert.ToInt32(geoTiffMetaData.Height_m / res);
+
+            Bitmap image = resize(imageTiff, widht, height);
+            //Bitmap image = resize(imageTiff, 1200, 1200);
+            imageToMap(geoTiffMetaData.Latitude,
+                geoTiffMetaData.Longitude,
+                image);
+
+
         }
 
 
-        private void imageToMap(double Lat, double lng, Image Tiff)
+        private void imageToMap(double Lat, double Lng, Image Tiff)
         {
-            MainMap.Overlays.Clear();
-            GMapOverlay markers = new GMapOverlay("markers");
-            GMarkerGoogle imgtiff = new GMarkerGoogle(
-                new PointLatLng(Lat, lng),
-                new Bitmap(Tiff)
-                );
+            for (int i = 0; i < MainMap.Overlays.Count; i++)
+            {
+                if (MainMap.Overlays[i].Id == "Geotiff")
+                {
+                    MainMap.Overlays.RemoveAt(i);
+                    break;
+                }
+            }
+
+            GMapOverlay marker = new GMapOverlay("Geotiff");
+            GMarkerGoogle imgtiff = new GMarkerGoogle(new PointLatLng(Lat, Lng), new Bitmap(Tiff));
+            imgtiff.Offset = new Point(0, 0);
          
             //MainMap.Overlays.Add(markers);
-            MainMap.Overlays.Insert(0, markers);
-           
+            MainMap.Overlays.Insert(0, marker);
+
             //FlightData.instance.gMapControl1.Overlays.Insert(0, markers);
-            markers.Markers.Add(imgtiff);
+            marker.Markers.Add(imgtiff);
+
             if (sub.IsAlive)
             {
                 Control.CheckForIllegalCrossThreadCalls = false;
@@ -4643,45 +4617,18 @@ namespace MissionPlanner.GCSViews
 
         private void Resize_scroll(int zoom) {
 
-            if (image != null)
+            if (imageTiff != null)
             {
-                GMap.NET.Internals.Core core = new GMap.NET.Internals.Core();
-                double factor_escala_zoom = core.Get_scale(Convert.ToInt32(zoom), Latitud);
+                double res = MainMap.MapProvider.Projection.GetGroundResolution((int)_flightPlanner.MainMap.Zoom, geoTiffMetaData.Latitude);
 
-                if (factor_escala_zoom > scalax)
-                {
-                    if (factor_escala_zoom > scalay)
-                    {
-                        int widht = Convert.ToInt32(factor_escala_zoom / scalax);
-                        int height = Convert.ToInt32(scalay / factor_escala_zoom);
-                        image = resize(@"C:\IMGtmp.tiff", widht, height);
-                        imageToMap(Latitud, Longitud, image);
-                    }
-                    else
-                    {
-                        int widht = Convert.ToInt32(factor_escala_zoom / scalax);
-                        int height = Convert.ToInt32(scalay / factor_escala_zoom);
-                        image = resize(@"C:\IMGtmp.tiff", widht, height);
-                        imageToMap(Latitud, Longitud, image);
-                    }
-                }
-                else
-                {
-                    if (factor_escala_zoom > scalay)
-                    {
-                        int widht = Convert.ToInt32(factor_escala_zoom / scalax);
-                        int height = Convert.ToInt32(factor_escala_zoom / scalay);
-                        image = resize(@"C:\IMGtmp.tiff", widht, height);
-                        imageToMap(Latitud, Longitud, image);
-                    }
-                    else
-                    {
-                        int widht = Convert.ToInt32(scalax / factor_escala_zoom);
-                        int height = Convert.ToInt32(scalay / factor_escala_zoom);
-                        image = resize(@"C:\IMGtmp.tiff", widht, height);
-                        imageToMap(Latitud, Longitud, image);
-                    }
-                }
+                int widht = Convert.ToInt32(geoTiffMetaData.Width_m / res);
+                int height = Convert.ToInt32(geoTiffMetaData.Height_m / res);
+
+                Bitmap image = resize(imageTiff, widht, height);
+                //Bitmap image = resize(imageTiff, 1200, 1200);
+                imageToMap(geoTiffMetaData.Latitude,
+                geoTiffMetaData.Longitude,
+                image);
             }
         }
 
@@ -4703,10 +4650,11 @@ namespace MissionPlanner.GCSViews
             }
         }
 
-        public Bitmap resize(string imagen, int pAncho, int pAlto) {        
-                using (MagickImage image = new MagickImage(imagen))
-                {
-                    MagickGeometry size = new MagickGeometry(pAncho, pAlto);
+        public Bitmap resize(Bitmap imagen, int pAncho, int pAlto)
+        {
+            using (MagickImage image = new MagickImage(imagen))
+            {
+                MagickGeometry size = new MagickGeometry(pAncho, pAlto);
                 // This will resize the image to a fixed size without maintaining the aspect ratio.
                 // Normally an image will be resized to fit inside the specified size.
                 size.IgnoreAspectRatio = true;
@@ -4722,7 +4670,6 @@ namespace MissionPlanner.GCSViews
         {
             try
             {
-                System.IO.File.Delete(@"C:\IMGtmp.tiff");
                 Control.CheckForIllegalCrossThreadCalls = false;
                 sub.Interrupt();
                 _flightPlanner.pictureBox2.Visible = false;
