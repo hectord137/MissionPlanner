@@ -399,7 +399,7 @@ namespace MissionPlanner.GCSViews
             prop = new Propagation(_flightPlanner.MainMap);
 
             top = new GMapOverlay("top");
-            //MainMap.Overlays.Add(top);
+            MainMap.Overlays.Add(top);
 
             objectsoverlay.Markers.Clear();
 

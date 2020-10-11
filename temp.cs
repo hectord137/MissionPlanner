@@ -14,7 +14,7 @@ using MissionPlanner.GCSViews.ConfigurationView;
 using MissionPlanner.GeoRef;
 using MissionPlanner.Log;
 using MissionPlanner.Maps;
-using MissionPlanner.Swarm;
+//using MissionPlanner.Swarm;
 using MissionPlanner.Utilities;
 using MissionPlanner.Warnings;
 using resedit;
@@ -200,7 +200,7 @@ namespace MissionPlanner
 
         private void BUT_swarm_Click(object sender, EventArgs e)
         {
-            new FormationControl().Show();
+//            new FormationControl().Show();
         }
 
         private void BUT_outputMavlink_Click(object sender, EventArgs e)
@@ -215,7 +215,7 @@ namespace MissionPlanner
 
         private void BUT_followleader_Click(object sender, EventArgs e)
         {
-            new FollowPathControl().Show();
+//            new FollowPathControl().Show();
         }
 
         private void BUT_sorttlogs_Click(object sender, EventArgs e)
@@ -604,7 +604,7 @@ namespace MissionPlanner
 
         private void but_injectgps_Click(object sender, EventArgs e)
         {
-            new ConfigSerialInjectGPS().Show();
+//            new ConfigSerialInjectGPS().Show();
         }
 
         private void BUT_fft_Click(object sender, EventArgs e)
@@ -636,7 +636,7 @@ namespace MissionPlanner
 
         private void but_trimble_Click(object sender, EventArgs e)
         {
-            new Swarm.Sequence.LayoutEditor().Show();
+//            new Swarm.Sequence.LayoutEditor().Show();
         }
 
         private void myButton_vlc_Click(object sender, EventArgs e)
@@ -873,7 +873,7 @@ namespace MissionPlanner
 
         private void but_followswarm_Click(object sender, EventArgs e)
         {
-            new Swarm.WaypointLeader.WPControl().Show();
+//            new Swarm.WaypointLeader.WPControl().Show();
         }
 
         private void myButton3_Click(object sender, EventArgs e)

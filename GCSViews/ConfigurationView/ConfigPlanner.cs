@@ -991,8 +991,6 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         private void myButton1_Click(object sender, EventArgs e)
         {
-            Config_wifi Conex = new Config_wifi();
-            Conex.Show();
 
 
         }

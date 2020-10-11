@@ -1063,14 +1063,14 @@ namespace MissionPlanner
             MissionPlanner.Controls.PreFlight.CheckListItem.defaultsrc = MainV2.comPort.MAV.cs;
 
             // when uploading a firmware we dont want to reload this screen.
-            if (instance.MyView.current.Control != null && instance.MyView.current.Control.GetType() == typeof(GCSViews.InitialSetup))
-            {
-                var page = ((GCSViews.InitialSetup)instance.MyView.current.Control).backstageView.SelectedPage;
-                if (page != null && page.Text.Contains("Install Firmware"))
-                {
-                    return;
-                }
-            }
+            //if (instance.MyView.current.Control != null && instance.MyView.current.Control.GetType() == typeof(GCSViews.InitialSetup))
+            //{
+            //    var page = ((GCSViews.InitialSetup)instance.MyView.current.Control).backstageView.SelectedPage;
+            //    if (page != null && page.Text.Contains("Install Firmware"))
+            //    {
+            //        return;
+            //    }
+            //}
 
             if (this.InvokeRequired)
             {
@@ -2526,14 +2526,14 @@ namespace MissionPlanner
 
                     try
                     {
-                        if (GCSViews.Terminal.comPort is MAVLinkSerialPort)
-                        {
-                        }
-                        else
-                        {
-                            if (GCSViews.Terminal.comPort != null && GCSViews.Terminal.comPort.IsOpen)
-                                continue;
-                        }
+                        //if (GCSViews.Terminal.comPort is MAVLinkSerialPort)
+                        //{
+                        //}
+                        //else
+                        //{
+                        //    if (GCSViews.Terminal.comPort != null && GCSViews.Terminal.comPort.IsOpen)
+                        //        continue;
+                        //}
                     }
                     catch (Exception ex)
                     {
@@ -2974,11 +2974,11 @@ namespace MissionPlanner
 
             MyView.AddScreen(new MainSwitcher.Screen("FlightData", FlightData, true));
             MyView.AddScreen(new MainSwitcher.Screen("FlightPlanner", FlightPlanner, true));
-            MyView.AddScreen(new MainSwitcher.Screen("HWConfig", typeof(GCSViews.InitialSetup), false));
+            //MyView.AddScreen(new MainSwitcher.Screen("HWConfig", typeof(GCSViews.InitialSetup), false));
             MyView.AddScreen(new MainSwitcher.Screen("SWConfig", typeof(GCSViews.SoftwareConfig), false));
             MyView.AddScreen(new MainSwitcher.Screen("Simulation", Simulation, true));
-            MyView.AddScreen(new MainSwitcher.Screen("Terminal", typeof(GCSViews.Terminal), false));
-            MyView.AddScreen(new MainSwitcher.Screen("Help", typeof(GCSViews.Help), false));
+            //MyView.AddScreen(new MainSwitcher.Screen("Terminal", typeof(GCSViews.Terminal), false));
+            //MyView.AddScreen(new MainSwitcher.Screen("Help", typeof(GCSViews.Help), false));
             MyView.AddScreen(new MainSwitcher.Screen("Echosounder", typeof(GCSViews.EchosounderProccess), true));
 
             try
@@ -3629,7 +3629,7 @@ namespace MissionPlanner
         /// <returns></returns>
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (GCSViews.Terminal.SSHTerminal) { return false; }
+            //if (GCSViews.Terminal.SSHTerminal) { return false; }
             if (keyData == Keys.F12)
             {
                 MenuConnect_Click(null, null);
