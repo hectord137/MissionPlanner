@@ -1165,7 +1165,10 @@ namespace MissionPlanner.Utilities
 
             public bool DisplayICAO { get; set; }
 
-            public string CallSign { get; set; }
+            public string CallSign { get; set; } = "";
+
+            public ushort Squawk { get; set; }
+            
             public double Speed { get; set; }
             public object Raw { get; set; }
         }

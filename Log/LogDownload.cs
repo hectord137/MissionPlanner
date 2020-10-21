@@ -6,6 +6,7 @@ using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using MissionPlanner.GCSViews.ConfigurationView;
 
 namespace MissionPlanner.Log
 {
@@ -89,7 +90,7 @@ namespace MissionPlanner.Log
         {
             status = serialstatus.Connecting;
 
-            comPort = GCSViews.Terminal.comPort;
+            comPort = ConfigTerminal.comPort;
 
             try
             {
@@ -268,7 +269,7 @@ namespace MissionPlanner.Log
                         case serialstatus.Closefile:
                             sw.Close();
 
-                            DateTime logtime = new DFLog().GetFirstGpsTime(logfile);
+                            DateTime logtime = new DFLog(null).GetFirstGpsTime(logfile);
 
                             if (logtime != DateTime.MinValue)
                             {

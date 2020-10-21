@@ -41,7 +41,8 @@ namespace MissionPlanner.Controls
         {
             if (e.ColumnIndex == Use.Index)
             {
-                MainV2.comPort.setupSigning("", Convert.FromBase64String(dataGridView1[Key.Index, e.RowIndex].Value.ToString()));
+                MainV2.comPort.setupSigning(MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid, "",
+                    Convert.FromBase64String(dataGridView1[Key.Index, e.RowIndex].Value.ToString()));
             }
         }
 
@@ -57,7 +58,7 @@ namespace MissionPlanner.Controls
 
                 string pass = "";
 
-                if (InputBox.Show("Input Seed", "Please enter your pass prase", ref pass) == DialogResult.OK)
+                if (InputBox.Show("Input Seed", "Please enter your pass phrase", ref pass) == DialogResult.OK)
                 {
                     var input = InputBox.value;
 
@@ -84,7 +85,7 @@ namespace MissionPlanner.Controls
 
         private void but_disablesigning_Click(object sender, EventArgs e)
         {
-            MainV2.comPort.setupSigning("");
+            MainV2.comPort.setupSigning(MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid, "");
         }
     }
 }

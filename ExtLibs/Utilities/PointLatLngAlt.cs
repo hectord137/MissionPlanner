@@ -10,6 +10,7 @@ using ProjNet.CoordinateSystems;
 using ProjNet.CoordinateSystems.Transformations;
 using GeoUtility;
 using GeoUtility.GeoSystem;
+using System.Collections;
 
 namespace MissionPlanner.Utilities
 {
@@ -136,6 +137,24 @@ namespace MissionPlanner.Utilities
             return false;
         }
 
+        public static bool operator ==(PointLatLngAlt p1, PointLatLng p2)
+        {
+            if (p1 == null || p2 == null)
+                return false;
+
+            if (p1.Lat == p2.Lat &&
+                p1.Lng == p2.Lng)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static bool operator !=(PointLatLngAlt p1, PointLatLng p2)
+        {
+            return !(p1 == p2);
+        }
+
         public override int GetHashCode()
         {
             return (int) (BitConverter.DoubleToInt64Bits(Lat) ^
@@ -173,7 +192,7 @@ namespace MissionPlanner.Utilities
 
         public static PointLatLngAlt FromUTM(int zone,double x, double y)
         {
-            GeoUtility.GeoSystem.UTM utm = new GeoUtility.GeoSystem.UTM(Math.Abs(zone), x, y, GeoUtility.GeoSystem.Base.Geocentric.Hemisphere.South);
+            GeoUtility.GeoSystem.UTM utm = new GeoUtility.GeoSystem.UTM(Math.Abs(zone), x, y, zone < 0 ? GeoUtility.GeoSystem.Base.Geocentric.Hemisphere.South : GeoUtility.GeoSystem.Base.Geocentric.Hemisphere.North);
 
             PointLatLngAlt ans = ((GeoUtility.GeoSystem.Geographic)utm);
 
@@ -188,9 +207,7 @@ namespace MissionPlanner.Utilities
         // force a zone
         public double[] ToUTM(int utmzone)
         {
-            IProjectedCoordinateSystem utm = ProjectedCoordinateSystem.WGS84_UTM(Math.Abs(utmzone), Lat < 0 ? false : true);
-
-            ICoordinateTransformation trans = ctfac.CreateFromCoordinateSystems(wgs84, utm);
+            ICoordinateTransformation trans = TryGetTransform(utmzone, Lat);
 
             double[] pll = { Lng, Lat };
 
@@ -200,11 +217,30 @@ namespace MissionPlanner.Utilities
             return utmxy;
         }
 
+        private static Dictionary<int, ICoordinateTransformation> coordtrans = new Dictionary<int, ICoordinateTransformation>();
+
+        static ICoordinateTransformation TryGetTransform(int utmzone, double lat)
+        {
+            if (lat < 0 && utmzone > 0)
+                utmzone *= -1;
+
+            lock (coordtrans)
+                if (coordtrans.ContainsKey(utmzone))
+                    return coordtrans[utmzone];
+
+            IProjectedCoordinateSystem utm = ProjectedCoordinateSystem.WGS84_UTM(Math.Abs(utmzone), lat < 0 ? false : true);
+            ICoordinateTransformation trans = ctfac.CreateFromCoordinateSystems(wgs84, utm);
+
+            lock(coordtrans)
+                coordtrans[utmzone] = trans;
+
+            lock (coordtrans)
+                return coordtrans[utmzone];
+        }
+
         public static List<double[]> ToUTM(int utmzone, List<PointLatLngAlt> list)
         {
-            IProjectedCoordinateSystem utm = ProjectedCoordinateSystem.WGS84_UTM(Math.Abs(utmzone), list[0].Lat < 0 ? false : true);
-
-            ICoordinateTransformation trans = ctfac.CreateFromCoordinateSystems(wgs84, utm);
+            ICoordinateTransformation trans = TryGetTransform(utmzone, list[0].Lat);
 
             List<double[]> data = new List<double[]>();
 

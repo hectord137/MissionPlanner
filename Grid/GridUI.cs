@@ -1,15 +1,12 @@
 ﻿using com.drew.imaging.jpg;
 using com.drew.metadata;
 using com.drew.metadata.exif;
-using GeoAPI.CoordinateSystems;
-using GeoAPI.CoordinateSystems.Transformations;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
 using log4net;
 using MissionPlanner.ArduPilot;
 using MissionPlanner.GCSViews;
-using MissionPlanner.GCSViews.ConfigurationView;
 using MissionPlanner.Maps;
 using MissionPlanner.Utilities;
 using ProjNet.CoordinateSystems;
@@ -23,18 +20,20 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
+using GeoAPI.CoordinateSystems;
+using GeoAPI.CoordinateSystems.Transformations;
 
 namespace MissionPlanner.Grid
 {
     public partial class GridUI : Form
     {
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        public static GridUI instance;
+
         // Variables
         const double rad2deg = (180 / Math.PI);
         const double deg2rad = (1.0 / rad2deg);
 
-        public GridPlugin plugin;
+        private GridPlugin plugin;
         static public Object thisLock = new Object();
 
         GMapOverlay routesOverlay;
@@ -62,40 +61,33 @@ namespace MissionPlanner.Grid
         bool isMouseDown = false;
         bool isMouseDraging = false;
 
-   
         // GridUI
-        public  GridUI(GridPlugin plugin)
+        public GridUI(GridPlugin plugin)
         {
-
-            instance = this;
-          
             this.plugin = plugin;
-            CustomColor.RestoreColor(BUT_Accept);
-            CustomColor.RestoreColor(myButton1);
+
             InitializeComponent();
+
             loading = true;
 
-            FlightPlannerBase.instance.MainMap.MapProvider = plugin.Host.FDMapType;
-            FlightPlannerBase.instance.MainMap.MaxZoom = plugin.Host.FDGMapControl.MaxZoom;
-            //TRK_zoom.Maximum = FlightPlannerBase.instance.MainMap.MaxZoom;
+            map.MapProvider = plugin.Host.FDMapType;
+            map.MaxZoom = plugin.Host.FDGMapControl.MaxZoom;
+            TRK_zoom.Maximum = map.MaxZoom;
 
             kmlpolygonsoverlay = new GMapOverlay("kmlpolygons");
-            FlightPlannerBase.instance.MainMap.Overlays.Add(kmlpolygonsoverlay);
-
+            map.Overlays.Add(kmlpolygonsoverlay);
 
             routesOverlay = new GMapOverlay("routes");
-            FlightPlannerBase.instance.MainMap.Overlays.Add(routesOverlay);
-
-
+            map.Overlays.Add(routesOverlay);
 
             // Map Events
-            FlightPlannerBase.instance.MainMap.OnMapZoomChanged += new MapZoomChanged(map_OnMapZoomChanged);
-            FlightPlannerBase.instance.MainMap.OnMarkerEnter += new MarkerEnter(map_OnMarkerEnter);
-            FlightPlannerBase.instance.MainMap.OnMarkerLeave += new MarkerLeave(map_OnMarkerLeave);
-            FlightPlannerBase.instance.MainMap.MouseUp += new MouseEventHandler(map_MouseUp);
+            map.OnMapZoomChanged += new MapZoomChanged(map_OnMapZoomChanged);
+            map.OnMarkerEnter += new MarkerEnter(map_OnMarkerEnter);
+            map.OnMarkerLeave += new MarkerLeave(map_OnMarkerLeave);
+            map.MouseUp += new MouseEventHandler(map_MouseUp);
 
-            FlightPlannerBase.instance.MainMap.OnRouteEnter += new RouteEnter(map_OnRouteEnter);
-            FlightPlannerBase.instance.MainMap.OnRouteLeave += new RouteLeave(map_OnRouteLeave);
+            map.OnRouteEnter += new RouteEnter(map_OnRouteEnter);
+            map.OnRouteLeave += new RouteLeave(map_OnRouteLeave);
 
             var points = plugin.Host.FPDrawnPolygon;
             points.Points.ForEach(x => { list.Add(x); });
@@ -108,13 +100,12 @@ namespace MissionPlanner.Grid
 
             // set and angle that is good
             NUM_angle.Value = (decimal)((getAngleOfLongestSide(list) + 360) % 360);
-            TXT_headinghold.Text = (Math.Round(NUM_angle.Value)).ToString();
 
             if (plugin.Host.cs.firmware == Firmwares.ArduPlane)
                 NUM_UpDownFlySpeed.Value = (decimal)(12 * CurrentState.multiplierspeed);
 
-            FlightPlannerBase.instance.MainMap.MapScaleInfoEnabled = true;
-            FlightPlannerBase.instance.MainMap.ScalePen = new Pen(Color.Orange);
+            map.MapScaleInfoEnabled = true;
+            map.ScalePen = new Pen(Color.Orange);
 
             foreach (var temp in FlightData.kmlpolygons.Polygons)
             {
@@ -130,20 +121,15 @@ namespace MissionPlanner.Grid
             xmlcamera(false, Settings.GetUserDataDirectory() + "cameras.xml");
 
             loading = false;
-
-            tabControl1.Controls.Remove(tabCamera);
         }
 
-        public void GridUI_Load(object sender, EventArgs e)
+        private void GridUI_Load(object sender, EventArgs e)
         {
             loading = true;
             if (!loadedfromfile)
                 loadsettings();
 
-            // setup state before settings load
-            CHK_advanced_CheckedChanged(null, null);
-
-            //TRK_zoom.Value = (float)FlightPlannerBase.instance.MainMap.Zoom;
+            TRK_zoom.Value = (float)map.Zoom;
 
             label1.Text += " (" + CurrentState.DistanceUnit + ")";
             label24.Text += " (" + CurrentState.SpeedUnit + ")";
@@ -155,7 +141,7 @@ namespace MissionPlanner.Grid
 
         private void GridUI_Resize(object sender, EventArgs e)
         {
-            FlightPlannerBase.instance.MainMap.ZoomAndCenterMarkers("polygons");
+            map.ZoomAndCenterMarkers("polygons");
         }
 
         // Load/Save
@@ -207,15 +193,10 @@ namespace MissionPlanner.Grid
         {
             list = griddata.poly;
 
-            CMB_camera.Text = griddata.camera;
             NUM_altitude.Value = griddata.alt;
             NUM_angle.Value = griddata.angle;
-            CHK_camdirection.Checked = griddata.camdir;
-            CHK_usespeed.Checked = griddata.usespeed;
             NUM_UpDownFlySpeed.Value = griddata.speed;
-            CHK_toandland.Checked = griddata.autotakeoff;
             CHK_toandland_RTL.Checked = griddata.autotakeoff_RTL;
-            NUM_split.Value = griddata.splitmission;
 
 
             NUM_Distance.Value = griddata.dist;
@@ -223,30 +204,12 @@ namespace MissionPlanner.Grid
             NUM_overshoot2.Value = griddata.overshoot2;
             NUM_leadin.Value = griddata.leadin;
             CMB_startfrom.Text = griddata.startfrom;
-            num_overlap.Value = griddata.overlap;
-            num_sidelap.Value = griddata.sidelap;
-            NUM_spacing.Value = griddata.spacing;
             chk_crossgrid.Checked = griddata.crossgrid;
             chk_spiral.Checked = griddata.spiral;
 
-            rad_trigdist.Checked = griddata.trigdist;
-            rad_digicam.Checked = griddata.digicam;
-            rad_repeatservo.Checked = griddata.repeatservo;
-            chk_stopstart.Checked = griddata.breaktrigdist;
-
-            NUM_reptservo.Value = griddata.repeatservo_no;
-            num_reptpwm.Value = griddata.repeatservo_pwm;
-            NUM_repttime.Value = griddata.repeatservo_cycle;
-
-            num_setservono.Value = griddata.setservo_no;
-            num_setservolow.Value = griddata.setservo_low;
-            num_setservohigh.Value = griddata.setservo_high;
 
             // Copter Settings
-            NUM_copter_delay.Value = griddata.copter_delay;
-            CHK_copter_headinghold.Checked = griddata.copter_headinghold_chk;
-            chk_spline.Checked = griddata.copter_spline;
-            TXT_headinghold.Text = griddata.copter_headinghold.ToString();
+
 
             // Plane Settings
             NUM_Lane_Dist.Value = griddata.minlaneseparation;
@@ -254,7 +217,6 @@ namespace MissionPlanner.Grid
             // update display options last
             CHK_internals.Checked = griddata.internals;
             CHK_footprints.Checked = griddata.footprints;
-            CHK_advanced.Checked = griddata.advanced;
 
             loadedfromfile = true;
         }
@@ -265,52 +227,27 @@ namespace MissionPlanner.Grid
 
             griddata.poly = list;
 
-            griddata.camera = CMB_camera.Text;
             griddata.alt = NUM_altitude.Value;
             griddata.angle = NUM_angle.Value;
-            griddata.camdir = CHK_camdirection.Checked;
             griddata.speed = NUM_UpDownFlySpeed.Value;
-            griddata.usespeed = CHK_usespeed.Checked;
-            griddata.autotakeoff = CHK_toandland.Checked;
             griddata.autotakeoff_RTL = CHK_toandland_RTL.Checked;
-            griddata.splitmission = NUM_split.Value;
 
             griddata.internals = CHK_internals.Checked;
             griddata.footprints = CHK_footprints.Checked;
-            griddata.advanced = CHK_advanced.Checked;
 
             griddata.dist = NUM_Distance.Value;
             griddata.overshoot1 = NUM_overshoot.Value;
             griddata.overshoot2 = NUM_overshoot2.Value;
             griddata.leadin = NUM_leadin.Value;
             griddata.startfrom = CMB_startfrom.Text;
-            griddata.overlap = num_overlap.Value;
-            griddata.sidelap = num_sidelap.Value;
-            griddata.spacing = NUM_spacing.Value;
             griddata.crossgrid = chk_crossgrid.Checked;
             griddata.spiral = chk_spiral.Checked;
 
             // Copter Settings
-            griddata.copter_delay = NUM_copter_delay.Value;
-            griddata.copter_spline = chk_spline.Checked;
-            griddata.copter_headinghold_chk = CHK_copter_headinghold.Checked;
-            griddata.copter_headinghold = decimal.Parse(TXT_headinghold.Text);
+
 
             // Plane Settings
             griddata.minlaneseparation = NUM_Lane_Dist.Value;
-
-            griddata.trigdist = rad_trigdist.Checked;
-            griddata.digicam = rad_digicam.Checked;
-            griddata.repeatservo = rad_repeatservo.Checked;
-            griddata.breaktrigdist = chk_stopstart.Checked;
-
-            griddata.repeatservo_no = NUM_reptservo.Value;
-            griddata.repeatservo_pwm = num_reptpwm.Value;
-            griddata.repeatservo_cycle = NUM_repttime.Value;
-
-            griddata.setservo_no = num_setservono.Value;
-            griddata.setservo_low = num_setservolow.Value;
-            griddata.setservo_high = num_setservohigh.Value;
 
             return griddata;
         }
@@ -321,10 +258,7 @@ namespace MissionPlanner.Grid
             {
                 loadsetting("grid_alt", NUM_altitude);
                 //  loadsetting("grid_angle", NUM_angle);
-                loadsetting("grid_camdir", CHK_camdirection);
-                loadsetting("grid_usespeed", CHK_usespeed);
                 loadsetting("grid_speed", NUM_UpDownFlySpeed);
-                loadsetting("grid_autotakeoff", CHK_toandland);
                 loadsetting("grid_autotakeoff_RTL", CHK_toandland_RTL);
 
                 loadsetting("grid_dist", NUM_Distance);
@@ -332,27 +266,14 @@ namespace MissionPlanner.Grid
                 loadsetting("grid_overshoot2", NUM_overshoot2);
                 loadsetting("grid_leadin", NUM_leadin);
                 loadsetting("grid_startfrom", CMB_startfrom);
-                loadsetting("grid_overlap", num_overlap);
-                loadsetting("grid_sidelap", num_sidelap);
-                loadsetting("grid_spacing", NUM_spacing);
                 loadsetting("grid_crossgrid", chk_crossgrid);
                 loadsetting("grid_spiral", chk_spiral);
 
-                // Should probably be saved as one setting, and us logic
-                loadsetting("grid_trigdist", rad_trigdist);
-                loadsetting("grid_digicam", rad_digicam);
-                loadsetting("grid_repeatservo", rad_repeatservo);
-                loadsetting("grid_breakstopstart", chk_stopstart);
-
-                loadsetting("grid_repeatservo_no", NUM_reptservo);
-                loadsetting("grid_repeatservo_pwm", num_reptpwm);
-                loadsetting("grid_repeatservo_cycle", NUM_repttime);
-
                 // camera last to it invokes a reload
-                loadsetting("grid_camera", CMB_camera);
+
 
                 // Copter Settings
-                loadsetting("grid_copter_delay", NUM_copter_delay);
+
                 //loadsetting("grid_copter_headinghold_chk", CHK_copter_headinghold);
 
                 // Plane Settings
@@ -360,7 +281,6 @@ namespace MissionPlanner.Grid
 
                 loadsetting("grid_internals", CHK_internals);
                 loadsetting("grid_footprints", CHK_footprints);
-                loadsetting("grid_advanced", CHK_advanced);
             }
         }
 
@@ -394,41 +314,26 @@ namespace MissionPlanner.Grid
 
         void savesettings()
         {
-            plugin.Host.config["grid_camera"] = CMB_camera.Text;
             plugin.Host.config["grid_alt"] = NUM_altitude.Value.ToString();
             plugin.Host.config["grid_angle"] = NUM_angle.Value.ToString();
-            plugin.Host.config["grid_camdir"] = CHK_camdirection.Checked.ToString();
 
-            plugin.Host.config["grid_usespeed"] = CHK_usespeed.Checked.ToString();
 
             plugin.Host.config["grid_dist"] = NUM_Distance.Value.ToString();
             plugin.Host.config["grid_overshoot1"] = NUM_overshoot.Value.ToString();
             plugin.Host.config["grid_overshoot2"] = NUM_overshoot2.Value.ToString();
             plugin.Host.config["grid_leadin"] = NUM_leadin.Value.ToString();
-            plugin.Host.config["grid_overlap"] = num_overlap.Value.ToString();
-            plugin.Host.config["grid_sidelap"] = num_sidelap.Value.ToString();
-            plugin.Host.config["grid_spacing"] = NUM_spacing.Value.ToString();
             plugin.Host.config["grid_crossgrid"] = chk_crossgrid.Checked.ToString();
             plugin.Host.config["grid_spiral"] = chk_spiral.Checked.ToString();
 
             plugin.Host.config["grid_startfrom"] = CMB_startfrom.Text;
 
-            plugin.Host.config["grid_autotakeoff"] = CHK_toandland.Checked.ToString();
             plugin.Host.config["grid_autotakeoff_RTL"] = CHK_toandland_RTL.Checked.ToString();
 
             plugin.Host.config["grid_internals"] = CHK_internals.Checked.ToString();
             plugin.Host.config["grid_footprints"] = CHK_footprints.Checked.ToString();
-            plugin.Host.config["grid_advanced"] = CHK_advanced.Checked.ToString();
-
-            plugin.Host.config["grid_trigdist"] = rad_trigdist.Checked.ToString();
-            plugin.Host.config["grid_digicam"] = rad_digicam.Checked.ToString();
-            plugin.Host.config["grid_repeatservo"] = rad_repeatservo.Checked.ToString();
-            plugin.Host.config["grid_breakstopstart"] = chk_stopstart.Checked.ToString();
 
             // Copter Settings
-            plugin.Host.config["grid_copter_spline"] = chk_spline.Checked.ToString();
-            plugin.Host.config["grid_copter_delay"] = NUM_copter_delay.Value.ToString();
-            plugin.Host.config["grid_copter_headinghold_chk"] = CHK_copter_headinghold.Checked.ToString();
+
 
             // Plane Settings
             plugin.Host.config["grid_min_lane_separation"] = NUM_Lane_Dist.Value.ToString();
@@ -545,54 +450,53 @@ namespace MissionPlanner.Grid
                 catch (Exception ex) { Console.WriteLine("Bad Camera File: " + ex.ToString()); } // bad config file
 
                 // populate list
-                foreach (var camera in cameras.Values)
-                {
-                    if (!CMB_camera.Items.Contains(camera.name))
-                        CMB_camera.Items.Add(camera.name);
-                }
+                //foreach (var camera in cameras.Values)
+                //{
+                //    if (!CMB_camera.Items.Contains(camera.name))
+                //        CMB_camera.Items.Add(camera.name);
+                //}
             }
         }
 
         // Do Work
-
-        public async void domainUpDown1_ValueChanged(object sender, EventArgs e)
+        private async void domainUpDown1_ValueChanged(object sender, EventArgs e)
         {
             if (loading)
                 return;
 
-            if (CMB_camera.Text != "")
-            {
-                doCalc();
-            }
+            //if (CMB_camera.Text != "")
+            //{
+            //    doCalc();
+            //}
 
             // new grid system test
 
             if (chk_Corridor.Checked)
             {
-                grid = Utilities.Grid.CreateCorridor(list, CurrentState.fromDistDisplayUnit((double)NUM_altitude.Value),
-                    (double)NUM_Distance.Value, (double)NUM_spacing.Value, (double)NUM_angle.Value,
+                grid = await Utilities.Grid.CreateCorridorAsync(list, CurrentState.fromDistDisplayUnit((double)NUM_altitude.Value),
+                    (double)NUM_Distance.Value, /*(double)NUM_spacing.Value*/ 50, (double)NUM_angle.Value,
                     (double)NUM_overshoot.Value, (double)NUM_overshoot2.Value,
                     (Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), CMB_startfrom.Text), false,
-                    (float)NUM_Lane_Dist.Value, (float)num_corridorwidth.Value, (float)NUM_leadin.Value);
+                    (float)NUM_Lane_Dist.Value, (float)num_corridorwidth.Value, (float)NUM_leadin.Value).ConfigureAwait(true);
             }
             else if (chk_spiral.Checked)
             {
                 grid = await Utilities.Grid.CreateRotaryAsync(list, CurrentState.fromDistDisplayUnit((double)NUM_altitude.Value),
-                    (double)NUM_Distance.Value, (double)NUM_spacing.Value, (double)NUM_angle.Value,
+                    (double)NUM_Distance.Value, /*(double)NUM_spacing.Value*/ 50, (double)NUM_angle.Value,
                     (double)NUM_overshoot.Value, (double)NUM_overshoot2.Value,
                     (Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), CMB_startfrom.Text), false,
-                    (float)NUM_Lane_Dist.Value, (float)NUM_leadin.Value, MainV2.comPort.MAV.cs.HomeLocation);
+                    (float)NUM_Lane_Dist.Value, (float)NUM_leadin.Value, MainV2.comPort.MAV.cs.PlannedHomeLocation).ConfigureAwait(true);
             }
             else
             {
                 grid = await Utilities.Grid.CreateGridAsync(list, CurrentState.fromDistDisplayUnit((double)NUM_altitude.Value),
-                    (double)NUM_Distance.Value, (double)NUM_spacing.Value, (double)NUM_angle.Value,
+                    (double)NUM_Distance.Value, /*(double)NUM_spacing.Value*/ 50, (double)NUM_angle.Value,
                     (double)NUM_overshoot.Value, (double)NUM_overshoot2.Value,
                     (Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), CMB_startfrom.Text), false,
-                    (float)NUM_Lane_Dist.Value, (float)NUM_leadin.Value, MainV2.comPort.MAV.cs.HomeLocation);
+                    (float)NUM_Lane_Dist.Value, (float)NUM_leadin.Value, MainV2.comPort.MAV.cs.PlannedHomeLocation).ConfigureAwait(true);
             }
-           
-            FlightPlannerBase.instance.MainMap.HoldInvalidation = false;
+
+            map.HoldInvalidation = true;
 
             routesOverlay.Routes.Clear();
             routesOverlay.Polygons.Clear();
@@ -600,23 +504,30 @@ namespace MissionPlanner.Grid
 
             GMapMarkerOverlap.Clear();
 
+            if (grid.Count == 0)
+            {
+                map.ZoomAndCenterMarkers("routes");
+                return;
+            }
+
             if (chk_crossgrid.Checked)
             {
                 // add crossover
                 Utilities.Grid.StartPointLatLngAlt = grid[grid.Count - 1];
 
-                grid.AddRange(Utilities.Grid.CreateGrid(list, CurrentState.fromDistDisplayUnit((double)NUM_altitude.Value),
-                    (double)NUM_Distance.Value, (double)NUM_spacing.Value, (double)NUM_angle.Value + 90.0,
+                grid.AddRange(await Utilities.Grid.CreateGridAsync(list, CurrentState.fromDistDisplayUnit((double)NUM_altitude.Value),
+                    (double)NUM_Distance.Value, /*(double)NUM_spacing.Value*/ 50, (double)NUM_angle.Value + 90.0,
                     (double)NUM_overshoot.Value, (double)NUM_overshoot2.Value,
                     Utilities.Grid.StartPosition.Point, false,
-                    (float)NUM_Lane_Dist.Value, (float)NUM_leadin.Value, MainV2.comPort.MAV.cs.HomeLocation));
+                    (float)NUM_Lane_Dist.Value, (float)NUM_leadin.Value, MainV2.comPort.MAV.cs.PlannedHomeLocation).ConfigureAwait(true));
             }
 
             if (CHK_boundary.Checked)
                 AddDrawPolygon();
+
             if (grid.Count == 0)
             {
-                FlightPlannerBase.instance.MainMap.ZoomAndCenterMarkers("routes");
+                map.ZoomAndCenterMarkers("routes");
                 return;
             }
 
@@ -626,8 +537,8 @@ namespace MissionPlanner.Grid
             PointLatLngAlt prevprevpoint = grid[0];
             PointLatLngAlt prevpoint = grid[0];
             // distance to/from home
-            double routetotal = grid.First().GetDistance(MainV2.comPort.MAV.cs.HomeLocation) / 1000.0 +
-                               grid.Last().GetDistance(MainV2.comPort.MAV.cs.HomeLocation) / 1000.0;
+            double routetotal = grid.First().GetDistance(MainV2.comPort.MAV.cs.PlannedHomeLocation) / 1000.0 +
+                               grid.Last().GetDistance(MainV2.comPort.MAV.cs.PlannedHomeLocation) / 1000.0;
             List<PointLatLng> segment = new List<PointLatLng>();
             double maxgroundelevation = double.MinValue;
             double mingroundelevation = double.MaxValue;
@@ -643,74 +554,74 @@ namespace MissionPlanner.Grid
 
                 if (item.Tag == "M")
                 {
-                    //images++;
+                    images++;
 
-                    //if (CHK_internals.Checked)
-                    //{
-                    //    routesOverlay.Markers.Add(new GMarkerGoogle(item, GMarkerGoogleType.green) { ToolTipText = a.ToString(), ToolTipMode = MarkerTooltipMode.OnMouseOver });
-                    //    a++;
+                    if (CHK_internals.Checked)
+                    {
+                        routesOverlay.Markers.Add(new GMarkerGoogle(item, GMarkerGoogleType.green) { ToolTipText = a.ToString(), ToolTipMode = MarkerTooltipMode.OnMouseOver });
+                        a++;
 
-                    //    segment.Add(prevpoint);
-                    //    segment.Add(item);
-                    //    prevpoint = item;
-                    //}
-                    //try
-                    //{
-                    //    if (TXT_fovH.Text != "")
-                    //    {
-                    //        if (CHK_footprints.Checked)
-                    //        {
-                    //            double fovh = double.Parse(TXT_fovH.Text);
-                    //            double fovv = double.Parse(TXT_fovV.Text);
+                        segment.Add(prevpoint);
+                        segment.Add(item);
+                        prevpoint = item;
+                    }
+                    try
+                    {
+                        //if (TXT_fovH.Text != "")
+                        //{
+                        //    if (CHK_footprints.Checked)
+                        //    {
+                        //        double fovh = double.Parse(TXT_fovH.Text);
+                        //        double fovv = double.Parse(TXT_fovV.Text);
 
-                    //            getFOV(item.Alt + startalt - currentalt, ref fovh, ref fovv);
+                        //        getFOV(item.Alt + startalt - currentalt, ref fovh, ref fovv);
 
-                    //            double startangle = 0;
+                        //        double startangle = 0;
 
-                    //            if (!CHK_camdirection.Checked)
-                    //            {
-                    //                startangle += 90;
-                    //            }
+                        //        if (!CHK_camdirection.Checked)
+                        //        {
+                        //            startangle += 90;
+                        //        }
 
-                    //            double angle1 = startangle - (Math.Sin((fovh / 2.0) / (fovv / 2.0)) * rad2deg);
-                    //            double dist1 = Math.Sqrt(Math.Pow(fovh / 2.0, 2) + Math.Pow(fovv / 2.0, 2));
+                        //        double angle1 = startangle - (Math.Sin((fovh / 2.0) / (fovv / 2.0)) * rad2deg);
+                        //        double dist1 = Math.Sqrt(Math.Pow(fovh / 2.0, 2) + Math.Pow(fovv / 2.0, 2));
 
-                    //            double bearing = (double)NUM_angle.Value;
+                        //        double bearing = (double)NUM_angle.Value;
 
-                    //            if (CHK_copter_headinghold.Checked)
-                    //            {
-                    //                bearing = Convert.ToInt32(TXT_headinghold.Text);
-                    //            }
+                        //        if (CHK_copter_headinghold.Checked)
+                        //        {
+                        //            bearing = Convert.ToInt32(TXT_headinghold.Text);
+                        //        }
 
-                    //            if (chk_Corridor.Checked)
-                    //                bearing = prevprevpoint.GetBearing(item);
+                        //        if (chk_Corridor.Checked)
+                        //            bearing = prevprevpoint.GetBearing(item);
 
-                    //            double fovha = 0;
-                    //            double fovva = 0;
-                    //            getFOVangle(ref fovha, ref fovva);
-                    //            var itemcopy = new PointLatLngAlt(item);
-                    //            itemcopy.Alt += startalt;
-                    //            var temp = ImageProjection.calc(itemcopy, 0, 0, bearing + startangle, fovha, fovva);
+                        //        double fovha = 0;
+                        //        double fovva = 0;
+                        //        getFOVangle(ref fovha, ref fovva);
+                        //        var itemcopy = new PointLatLngAlt(item);
+                        //        itemcopy.Alt += startalt;
+                        //        var temp = ImageProjection.calc(itemcopy, 0, 0, bearing + startangle, fovha, fovva);
 
-                    //            List<PointLatLng> footprint = new List<PointLatLng>();
-                    //            footprint.Add(temp[0]);
-                    //            footprint.Add(temp[1]);
-                    //            footprint.Add(temp[2]);
-                    //            footprint.Add(temp[3]);
+                        //        List<PointLatLng> footprint = new List<PointLatLng>();
+                        //        footprint.Add(temp[0]);
+                        //        footprint.Add(temp[1]);
+                        //        footprint.Add(temp[2]);
+                        //        footprint.Add(temp[3]);
 
-                    //            GMapPolygon poly = new GMapPolygon(footprint, a.ToString());
-                    //            poly.Stroke =
-                    //                new Pen(Color.FromArgb(250 - ((a * 5) % 240), 250 - ((a * 3) % 240), 250 - ((a * 9) % 240)), 1);
-                    //            poly.Fill = new SolidBrush(Color.Transparent);
+                        //        GMapPolygon poly = new GMapPolygon(footprint, a.ToString());
+                        //        poly.Stroke =
+                        //            new Pen(Color.FromArgb(250 - ((a * 5) % 240), 250 - ((a * 3) % 240), 250 - ((a * 9) % 240)), 1);
+                        //        poly.Fill = new SolidBrush(Color.Transparent);
 
-                    //            GMapMarkerOverlap.Add(poly);
+                        //        GMapMarkerOverlap.Add(poly);
 
-                    //            routesOverlay.Polygons.Add(poly);
-                    //            a++;
-                    //        }
-                    //    }
-                    //}
-                    //catch { }
+                        //        routesOverlay.Polygons.Add(poly);
+                        //        a++;
+                        //    }
+                        //}
+                    }
+                    catch { }
                 }
                 else
                 {
@@ -763,23 +674,22 @@ namespace MissionPlanner.Grid
             {
                 // Area
                 float area = (float)calcpolygonarea(list) * 10.7639f; // Calculate the area in square feet
-                FlightPlannerBase.instance._flightPlanner.LBLarea.Text = area.ToString("#") + " ft^2";
+                lbl_area.Text = area.ToString("#") + " ft^2";
                 if (area < 21780f)
                 {
-                    FlightPlannerBase.instance._flightPlanner.LBLarea.Text = area.ToString("#") + " ft^2";
+                    lbl_area.Text = area.ToString("#") + " ft^2";
                 }
                 else
                 {
                     area = area / 43560f;
                     if (area < 640f)
                     {
-                        FlightPlannerBase.instance._flightPlanner.LBLarea.Text = area.ToString("0.##") + " acres";
+                        lbl_area.Text = area.ToString("0.##") + " acres";
                     }
                     else
                     {
                         area = area / 640f;
-
-                        FlightPlannerBase.instance._flightPlanner.LBLarea.Text = area.ToString("0.##") + " miles^2";
+                        lbl_area.Text = area.ToString("0.##") + " miles^2";
                     }
                 }
 
@@ -787,73 +697,63 @@ namespace MissionPlanner.Grid
                 double distance = routetotal * 3280.8399; // Calculate the distance in feet
                 if (distance < 5280f)
                 {
-                    FlightPlannerBase.instance._flightPlanner.lbldistancia.Text = distance.ToString("#") + " ft";
+                    lbl_distance.Text = distance.ToString("#") + " ft";
                 }
                 else
                 {
                     distance = distance / 5280f;
-                    FlightPlannerBase.instance._flightPlanner.lbldistancia.Text = distance.ToString("0.##") + " miles";
+                    lbl_distance.Text = distance.ToString("0.##") + " miles";
                 }
 
-                lbl_spacing.Text = (NUM_spacing.Value * 3.2808399m).ToString("#.#") + " ft";
-                lbl_grndres.Text = inchpixel;
-                FlightPlannerBase.instance._flightPlanner.lblbetween.Text = (NUM_Distance.Value * 3.2808399m).ToString("0.##") + " ft";
-                lbl_footprint.Text = feet_fovH + " x " + feet_fovV + " ft";
-                lbl_turnrad.Text = (turnrad * 2 * 3.2808399).ToString("0") + " ft";
-                lbl_gndelev.Text = (mingroundelevation * 3.2808399).ToString("0") + "-" + (maxgroundelevation * 3.2808399).ToString("0") + " ft";
+                lbl_distbetweenlines.Text = (NUM_Distance.Value * 3.2808399m).ToString("0.##") + " ft";
+                
             }
             else
             {
                 // Meters
-                FlightPlannerBase.instance._flightPlanner.LBLarea.Text = calcpolygonarea(list).ToString("#") + " m^2";
-                FlightPlannerBase.instance._flightPlanner.lbldistancia.Text = routetotal.ToString("0.##") + " km";
-                lbl_spacing.Text = NUM_spacing.Value.ToString("0.#") + " m";
-                lbl_grndres.Text = TXT_cmpixel.Text;
-                FlightPlannerBase.instance._flightPlanner.lblbetween.Text = NUM_Distance.Value.ToString("0.##") + " m";
-                lbl_footprint.Text = TXT_fovH.Text + " x " + TXT_fovV.Text + " m";
-                lbl_turnrad.Text = (turnrad * 2).ToString("0") + " m";
-                lbl_gndelev.Text = mingroundelevation.ToString("0") + "-" + maxgroundelevation.ToString("0") + " m";
+                lbl_area.Text = calcpolygonarea(list).ToString("#") + " m^2";
+                lbl_distance.Text = routetotal.ToString("0.##") + " km";
+                lbl_distbetweenlines.Text = NUM_Distance.Value.ToString("0.##") + " m";
 
             }
 
             try
             {
-                // speed m/s
-                var speed = ((float)NUM_UpDownFlySpeed.Value / CurrentState.multiplierspeed);
-                // cmpix cm/pixel
-                var cmpix = float.Parse(TXT_cmpixel.Text.TrimEnd(new[] { 'c', 'm', ' ' }));
-                // m pix = m/pixel
-                var mpix = cmpix * 0.01;
-                // gsd / 2.0
-                var minmpix = mpix / 2.0;
-                // min sutter speed
-                var minshutter = speed / minmpix;
-                lbl_minshutter.Text = "1/" + (minshutter - minshutter % 1).ToString();
+                //if (TXT_cmpixel.Text != "")
+                //{
+                //    // speed m/s
+                //    var speed = ((float) NUM_UpDownFlySpeed.Value / CurrentState.multiplierspeed);
+                //    // cmpix cm/pixel
+                //    var cmpix = float.Parse(TXT_cmpixel.Text.TrimEnd(new[] {'c', 'm', ' '}));
+                //    // m pix = m/pixel
+                //    var mpix = cmpix * 0.01;
+                //    // gsd / 2.0
+                //    var minmpix = mpix / 2.0;
+                //    // min sutter speed
+                //    var minshutter = speed / minmpix;
+                //    lbl_minshutter.Text = "1/" + (minshutter - minshutter % 1).ToString();
+                //}
             }
             catch { }
 
             double flyspeedms = CurrentState.fromSpeedDisplayUnit((double)NUM_UpDownFlySpeed.Value);
 
-            lbl_pictures.Text = images.ToString();
-            FlightPlannerBase.instance._flightPlanner.lblbetween.Text = ((int)(strips / 2)).ToString();
+            lbl_strips.Text = ((int)(strips / 2)).ToString();
             double seconds = ((routetotal * 1000.0) / ((flyspeedms) * 0.8));
             // reduce flying speed by 20 %
-            FlightPlannerBase.instance._flightPlanner.lblestm.Text = secondsToNice(seconds);
+            lbl_flighttime.Text = secondsToNice(seconds);
             seconds = ((routetotal * 1000.0) / (flyspeedms));
-            lbl_photoevery.Text = secondsToNice(((double)NUM_spacing.Value / flyspeedms));
-            FlightPlannerBase.instance.MainMap.HoldInvalidation = false;
+            map.HoldInvalidation = false;
             if (!isMouseDown && sender != NUM_angle)
-                FlightPlannerBase.instance.MainMap.ZoomAndCenterMarkers("routes");
+                map.ZoomAndCenterMarkers("routes");
 
-            CalcHeadingHold();
+            //CalcHeadingHold();
 
-            FlightPlannerBase.instance.MainMap.Invalidate();
-            FlightPlanner.instance.lblstrips.Text = strips.ToString();
+            map.Invalidate();
         }
 
-        public void AddWP(double Lng, double Lat, double Alt, string tag, object gridobject = null)
+        private void AddWP(double Lng, double Lat, double Alt, string tag, object gridobject = null)
         {
-
             //if (CHK_copter_headinghold.Checked)
             //{
             //    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.CONDITION_YAW, Convert.ToInt32(TXT_headinghold.Text), 0, 0, 0, 0, 0, 0, gridobject);
@@ -870,13 +770,12 @@ namespace MissionPlanner.Grid
             //        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.SPLINE_WAYPOINT, 0, 0, 0, 0, Lng, Lat, (int)(Alt * CurrentState.multiplierdist), gridobject);
             //    }
             //    else
-            //    {
-            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.WAYPOINT, 0, 0, 0, 0, Lng, Lat, (int)(Alt * CurrentState.multiplierdist), gridobject);
-            //    }
+                {
+                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.WAYPOINT, 0, 0, 0, 0, Lng, Lat, (int)(Alt * CurrentState.multiplierdist), gridobject);
+                }
             //}
         }
 
- 
         string secondsToNice(double seconds)
         {
             if (seconds < 0)
@@ -900,7 +799,7 @@ namespace MissionPlanner.Grid
             }
         }
 
-       public void AddDrawPolygon()
+        void AddDrawPolygon()
         {
             List<PointLatLng> list2 = new List<PointLatLng>();
 
@@ -987,110 +886,110 @@ namespace MissionPlanner.Grid
             return (angle + 360) % 360;
         }
 
-        void getFOV(double flyalt, ref double fovh, ref double fovv)
-        {
-            double focallen = (double)NUM_focallength.Value;
-            double sensorwidth = double.Parse(TXT_senswidth.Text);
-            double sensorheight = double.Parse(TXT_sensheight.Text);
+        //void getFOV(double flyalt, ref double fovh, ref double fovv)
+        //{
+        //    double focallen = (double)NUM_focallength.Value;
+        //    double sensorwidth = double.Parse(TXT_senswidth.Text);
+        //    double sensorheight = double.Parse(TXT_sensheight.Text);
 
-            // scale      mm / mm
-            double flscale = (1000 * flyalt) / focallen;
+        //    // scale      mm / mm
+        //    double flscale = (1000 * flyalt) / focallen;
 
-            //   mm * mm / 1000
-            double viewwidth = (sensorwidth * flscale / 1000);
-            double viewheight = (sensorheight * flscale / 1000);
+        //    //   mm * mm / 1000
+        //    double viewwidth = (sensorwidth * flscale / 1000);
+        //    double viewheight = (sensorheight * flscale / 1000);
 
-            float fovh1 = (float)(Math.Atan(sensorwidth / (2 * focallen)) * rad2deg * 2);
-            float fovv1 = (float)(Math.Atan(sensorheight / (2 * focallen)) * rad2deg * 2);
+        //    float fovh1 = (float)(Math.Atan(sensorwidth / (2 * focallen)) * rad2deg * 2);
+        //    float fovv1 = (float)(Math.Atan(sensorheight / (2 * focallen)) * rad2deg * 2);
 
-            fovh = viewwidth;
-            fovv = viewheight;
-        }
+        //    fovh = viewwidth;
+        //    fovv = viewheight;
+        //}
 
-        void getFOVangle(ref double fovh, ref double fovv)
-        {
-            double focallen = (double)NUM_focallength.Value;
-            double sensorwidth = double.Parse(TXT_senswidth.Text);
-            double sensorheight = double.Parse(TXT_sensheight.Text);
+        //void getFOVangle(ref double fovh, ref double fovv)
+        //{
+        //    double focallen = (double)NUM_focallength.Value;
+        //    double sensorwidth = double.Parse(TXT_senswidth.Text);
+        //    double sensorheight = double.Parse(TXT_sensheight.Text);
 
-            fovh = (float)(Math.Atan(sensorwidth / (2 * focallen)) * rad2deg * 2);
-            fovv = (float)(Math.Atan(sensorheight / (2 * focallen)) * rad2deg * 2);
-        }
+        //    fovh = (float)(Math.Atan(sensorwidth / (2 * focallen)) * rad2deg * 2);
+        //    fovv = (float)(Math.Atan(sensorheight / (2 * focallen)) * rad2deg * 2);
+        //}
 
-        void doCalc()
-        {
-            try
-            {
-                // entered values
-                float flyalt = (float)CurrentState.fromDistDisplayUnit((float)NUM_altitude.Value);
-                int imagewidth = int.Parse(TXT_imgwidth.Text);
-                int imageheight = int.Parse(TXT_imgheight.Text);
+        //void doCalc()
+        //{
+        //    try
+        //    {
+        //        // entered values
+        //        float flyalt = (float)CurrentState.fromDistDisplayUnit((float)NUM_altitude.Value);
+        //        int imagewidth = int.Parse(TXT_imgwidth.Text);
+        //        int imageheight = int.Parse(TXT_imgheight.Text);
 
-                int overlap = (int)num_overlap.Value;
-                int sidelap = (int)num_sidelap.Value;
+        //        int overlap = (int)num_overlap.Value;
+        //        int sidelap = (int)num_sidelap.Value;
 
-                double viewwidth = 0;
-                double viewheight = 0;
+        //        double viewwidth = 0;
+        //        double viewheight = 0;
 
-                getFOV(flyalt, ref viewwidth, ref viewheight);
+        //        getFOV(flyalt, ref viewwidth, ref viewheight);
 
-                TXT_fovH.Text = viewwidth.ToString("#.#");
-                TXT_fovV.Text = viewheight.ToString("#.#");
-                // Imperial
-                feet_fovH = (viewwidth * 3.2808399f).ToString("#.#");
-                feet_fovV = (viewheight * 3.2808399f).ToString("#.#");
+        //        TXT_fovH.Text = viewwidth.ToString("#.#");
+        //        TXT_fovV.Text = viewheight.ToString("#.#");
+        //        // Imperial
+        //        feet_fovH = (viewwidth * 3.2808399f).ToString("#.#");
+        //        feet_fovV = (viewheight * 3.2808399f).ToString("#.#");
 
-                //    mm  / pixels * 100
-                TXT_cmpixel.Text = ((viewheight / imageheight) * 100).ToString("0.00 cm");
-                // Imperial
-                inchpixel = (((viewheight / imageheight) * 100) * 0.393701).ToString("0.00 inches");
+        //        //    mm  / pixels * 100
+        //        TXT_cmpixel.Text = ((viewheight / imageheight) * 100).ToString("0.00 cm");
+        //        // Imperial
+        //        inchpixel = (((viewheight / imageheight) * 100) * 0.393701).ToString("0.00 inches");
 
-                NUM_spacing.ValueChanged -= domainUpDown1_ValueChanged;
-                NUM_Distance.ValueChanged -= domainUpDown1_ValueChanged;
+        //        NUM_spacing.ValueChanged -= domainUpDown1_ValueChanged;
+        //        NUM_Distance.ValueChanged -= domainUpDown1_ValueChanged;
 
-                if (CHK_camdirection.Checked)
-                {
-                    NUM_spacing.Value = (decimal)((1 - (overlap / 100.0f)) * viewheight);
-                    NUM_Distance.Value = (decimal)((1 - (sidelap / 100.0f)) * viewwidth);
-                }
-                else
-                {
-                    NUM_spacing.Value = (decimal)((1 - (overlap / 100.0f)) * viewwidth);
-                    NUM_Distance.Value = (decimal)((1 - (sidelap / 100.0f)) * viewheight);
-                }
-                NUM_spacing.ValueChanged += domainUpDown1_ValueChanged;
-                NUM_Distance.ValueChanged += domainUpDown1_ValueChanged;
-            }
-            catch { return; }
-        }
+        //        if (CHK_camdirection.Checked)
+        //        {
+        //            NUM_spacing.Value = (decimal)((1 - (overlap / 100.0f)) * viewheight);
+        //            NUM_Distance.Value = (decimal)((1 - (sidelap / 100.0f)) * viewwidth);
+        //        }
+        //        else
+        //        {
+        //            NUM_spacing.Value = (decimal)((1 - (overlap / 100.0f)) * viewwidth);
+        //            NUM_Distance.Value = (decimal)((1 - (sidelap / 100.0f)) * viewheight);
+        //        }
+        //        NUM_spacing.ValueChanged += domainUpDown1_ValueChanged;
+        //        NUM_Distance.ValueChanged += domainUpDown1_ValueChanged;
+        //    }
+        //    catch { return; }
+        //}
 
-        private void CalcHeadingHold()
-        {
-            int previous = (int)Math.Round(Convert.ToDecimal(((UpDownBase)NUM_angle).Text)); //((UpDownBase)sender).Text
-            int current = (int)Math.Round(NUM_angle.Value);
+        //private void CalcHeadingHold()
+        //{
+        //    int previous = (int)Math.Round(Convert.ToDecimal(((UpDownBase)NUM_angle).Text)); //((UpDownBase)sender).Text
+        //    int current = (int)Math.Round(NUM_angle.Value);
 
-            int change = current - previous;
+        //    int change = current - previous;
 
-            if (change > 0) // Positive change
-            {
-                int val = Convert.ToInt32(TXT_headinghold.Text) + change;
-                if (val > 359)
-                {
-                    val = val - 360;
-                }
-                TXT_headinghold.Text = val.ToString();
-            }
+        //    if (change > 0) // Positive change
+        //    {
+        //        int val = Convert.ToInt32(TXT_headinghold.Text) + change;
+        //        if (val > 359)
+        //        {
+        //            val = val - 360;
+        //        }
+        //        TXT_headinghold.Text = val.ToString();
+        //    }
 
-            if (change < 0) // Negative change
-            {
-                int val = Convert.ToInt32(TXT_headinghold.Text) + change;
-                if (val < 0)
-                {
-                    val = val + 360;
-                }
-                TXT_headinghold.Text = val.ToString();
-            }
-        }
+        //    if (change < 0) // Negative change
+        //    {
+        //        int val = Convert.ToInt32(TXT_headinghold.Text) + change;
+        //        if (val < 0)
+        //        {
+        //            val = val + 360;
+        //        }
+        //        TXT_headinghold.Text = val.ToString();
+        //    }
+        //}
 
         // Map Operators
         private void map_OnRouteEnter(GMapRoute item)
@@ -1159,7 +1058,7 @@ namespace MissionPlanner.Grid
 
         private void map_MouseUp(object sender, MouseEventArgs e)
         {
-            MouseDownEnd = FlightPlannerBase.instance.MainMap.FromLocalToLatLng(e.X, e.Y);
+            MouseDownEnd = map.FromLocalToLatLng(e.X, e.Y);
 
             // Console.WriteLine("MainMap MU");
 
@@ -1189,9 +1088,9 @@ namespace MissionPlanner.Grid
             CurrentGMapMarkerStartPos = null;
         }
 
-        public void map_MouseDown(object sender, MouseEventArgs e)
+        private void map_MouseDown(object sender, MouseEventArgs e)
         {
-            MouseDownStart = FlightPlannerBase.instance.MainMap.FromLocalToLatLng(e.X, e.Y);
+            MouseDownStart = map.FromLocalToLatLng(e.X, e.Y);
 
             if (e.Button == MouseButtons.Left && Control.ModifierKeys != Keys.Alt)
             {
@@ -1203,9 +1102,9 @@ namespace MissionPlanner.Grid
             }
         }
 
-        public void map_MouseMove(object sender, MouseEventArgs e)
+        private void map_MouseMove(object sender, MouseEventArgs e)
         {
-            PointLatLng point = FlightPlannerBase.instance.MainMap.FromLocalToLatLng(e.X, e.Y);
+            PointLatLng point = map.FromLocalToLatLng(e.X, e.Y);
             currentMousePosition = point;
 
             if (MouseDownStart == point)
@@ -1230,7 +1129,7 @@ namespace MissionPlanner.Grid
                         return;
                     }
 
-                    PointLatLng pnew = FlightPlannerBase.instance.MainMap.FromLocalToLatLng(e.X, e.Y);
+                    PointLatLng pnew = map.FromLocalToLatLng(e.X, e.Y);
 
                     CurrentGMapMarker.Position = pnew;
 
@@ -1246,7 +1145,7 @@ namespace MissionPlanner.Grid
                     {
                         lock (thisLock)
                         {
-                            FlightPlannerBase.instance.MainMap.Position = new PointLatLng(FlightPlannerBase.instance.MainMap.Position.Lat + latdif, FlightPlannerBase.instance.MainMap.Position.Lng + lngdif);
+                            map.Position = new PointLatLng(map.Position.Lat + latdif, map.Position.Lng + lngdif);
                         }
                     }
                     catch { }
@@ -1256,11 +1155,11 @@ namespace MissionPlanner.Grid
 
         private void map_OnMapZoomChanged()
         {
-            if (FlightPlannerBase.instance.MainMap.Zoom > 0)
+            if (map.Zoom > 0)
             {
                 try
                 {
-                    //trackBar1.Value = (float)FlightPlannerBase.instance.MainMap.Zoom;
+                    TRK_zoom.Value = (float)map.Zoom;
                 }
                 catch { }
             }
@@ -1273,7 +1172,7 @@ namespace MissionPlanner.Grid
             {
                 lock (thisLock)
                 {
-                    //  FlightPlannerBase.instance.MainMap.Zoom = TRK_zoom.Value;
+                    map.Zoom = TRK_zoom.Value;
                 }
             }
             catch { }
@@ -1285,7 +1184,7 @@ namespace MissionPlanner.Grid
             {
                 lock (thisLock)
                 {
-                    //   FlightPlannerBase.instance.MainMap.Zoom = TRK_zoom.Value;
+                    map.Zoom = TRK_zoom.Value;
                 }
             }
             catch { }
@@ -1298,22 +1197,22 @@ namespace MissionPlanner.Grid
 
         private void CMB_camera_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cameras.ContainsKey(CMB_camera.Text))
-            {
-                camerainfo camera = cameras[CMB_camera.Text];
+            //if (cameras.ContainsKey(CMB_camera.Text))
+            //{
+            //    camerainfo camera = cameras[CMB_camera.Text];
 
-                NUM_focallength.Value = (decimal)camera.focallen;
-                TXT_imgheight.Text = camera.imageheight.ToString();
-                TXT_imgwidth.Text = camera.imagewidth.ToString();
-                TXT_sensheight.Text = camera.sensorheight.ToString();
-                TXT_senswidth.Text = camera.sensorwidth.ToString();
+            //    NUM_focallength.Value = (decimal)camera.focallen;
+            //    TXT_imgheight.Text = camera.imageheight.ToString();
+            //    TXT_imgwidth.Text = camera.imagewidth.ToString();
+            //    TXT_sensheight.Text = camera.sensorheight.ToString();
+            //    TXT_senswidth.Text = camera.sensorwidth.ToString();
 
-                //NUM_Distance.Enabled = false;
-            }
+            //    //NUM_Distance.Enabled = false;
+            //}
 
-            GMapMarkerOverlap.Clear();
+            //GMapMarkerOverlap.Clear();
 
-            domainUpDown1_ValueChanged(null, null);
+            //domainUpDown1_ValueChanged(null, null);
         }
 
         private void TXT_TextChanged(object sender, EventArgs e)
@@ -1326,253 +1225,229 @@ namespace MissionPlanner.Grid
             domainUpDown1_ValueChanged(null, null);
         }
 
-        private void CHK_advanced_CheckedChanged(object sender, EventArgs e)
-        {
-            if (CHK_advanced.Checked)
-            {
-                if (!tabControl1.TabPages.Contains(tabGrid))
-                    tabControl1.TabPages.Add(tabGrid);
-                if (!tabControl1.TabPages.Contains(tabCamera))
-                    tabControl1.TabPages.Add(tabCamera);
-            }
-            else
-            {
-                tabControl1.TabPages.Remove(tabCamera);
-            }
-        }
+        //private void CHK_copter_headinghold_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    if (CHK_copter_headinghold.Checked)
+        //    {
+        //        TXT_headinghold.Enabled = true;
+        //        CHK_copter_headingholdlock.Enabled = true;
+        //        CHK_copter_headingholdlock.Checked = false;
+        //        BUT_headingholdplus.Enabled = true;
+        //        BUT_headingholdminus.Enabled = true;
+        //    }
+        //    else
+        //    {
+        //        TXT_headinghold.Enabled = false;
+        //        CHK_copter_headingholdlock.Enabled = false;
+        //        BUT_headingholdplus.Enabled = false;
+        //        BUT_headingholdminus.Enabled = false;
+        //    }
+        //}
 
-        private void CHK_copter_headinghold_CheckedChanged(object sender, EventArgs e)
-        {
-            if (CHK_copter_headinghold.Checked)
-            {
-                TXT_headinghold.Enabled = true;
-                CHK_copter_headingholdlock.Enabled = true;
-                CHK_copter_headingholdlock.Checked = false;
-                BUT_headingholdplus.Enabled = true;
-                BUT_headingholdminus.Enabled = true;
-            }
-            else
-            {
-                TXT_headinghold.Enabled = false;
-                CHK_copter_headingholdlock.Enabled = false;
-                BUT_headingholdplus.Enabled = false;
-                BUT_headingholdminus.Enabled = false;
-            }
-        }
+        //private void CHK_copter_headingholdlock_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    if (CHK_copter_headingholdlock.Checked)
+        //    {
+        //        TXT_headinghold.ReadOnly = false;
+        //    }
+        //    else
+        //    {
+        //        TXT_headinghold.ReadOnly = true;
+        //        TXT_headinghold.Text = Decimal.Round(NUM_angle.Value).ToString();
+        //    }
+        //}
 
-        private void CHK_copter_headingholdlock_CheckedChanged(object sender, EventArgs e)
-        {
-            if (CHK_copter_headingholdlock.Checked)
-            {
-                TXT_headinghold.ReadOnly = false;
-            }
-            else
-            {
-                TXT_headinghold.ReadOnly = true;
-                TXT_headinghold.Text = Decimal.Round(NUM_angle.Value).ToString();
-            }
-        }
+        //private void BUT_headingholdplus_Click(object sender, EventArgs e)
+        //{
+        //    int previous = Convert.ToInt32(TXT_headinghold.Text);
+        //    if (!CHK_copter_headingholdlock.Checked)
+        //    {
+        //        if (previous + 180 > 359)
+        //        {
+        //            TXT_headinghold.Text = (previous - 180).ToString();
+        //        }
+        //        else
+        //        {
+        //            TXT_headinghold.Text = (previous + 180).ToString();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if (previous + 1 > 359)
+        //        {
+        //            TXT_headinghold.Text = (previous - 359).ToString();
+        //        }
+        //        else
+        //        {
+        //            TXT_headinghold.Text = (previous + 1).ToString();
+        //        }
+        //    }
+        //}
 
-        private void BUT_headingholdplus_Click(object sender, EventArgs e)
-        {
-            int previous = Convert.ToInt32(TXT_headinghold.Text);
-            if (!CHK_copter_headingholdlock.Checked)
-            {
-                if (previous + 180 > 359)
-                {
-                    TXT_headinghold.Text = (previous - 180).ToString();
-                }
-                else
-                {
-                    TXT_headinghold.Text = (previous + 180).ToString();
-                }
-            }
-            else
-            {
-                if (previous + 1 > 359)
-                {
-                    TXT_headinghold.Text = (previous - 359).ToString();
-                }
-                else
-                {
-                    TXT_headinghold.Text = (previous + 1).ToString();
-                }
-            }
-        }
+        //private void BUT_headingholdminus_Click(object sender, EventArgs e)
+        //{
+        //    int previous = Convert.ToInt32(TXT_headinghold.Text);
 
-        private void BUT_headingholdminus_Click(object sender, EventArgs e)
-        {
-            int previous = Convert.ToInt32(TXT_headinghold.Text);
+        //    if (!CHK_copter_headingholdlock.Checked)
+        //    {
+        //        if (previous - 180 < 0)
+        //        {
+        //            TXT_headinghold.Text = (previous + 180).ToString();
+        //        }
+        //        else
+        //        {
+        //            TXT_headinghold.Text = (previous - 180).ToString();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if (previous - 1 < 0)
+        //        {
+        //            TXT_headinghold.Text = (previous + 359).ToString();
+        //        }
+        //        else
+        //        {
+        //            TXT_headinghold.Text = (previous - 1).ToString();
+        //        }
+        //    }
+        //}
 
-            if (!CHK_copter_headingholdlock.Checked)
-            {
-                if (previous - 180 < 0)
-                {
-                    TXT_headinghold.Text = (previous + 180).ToString();
-                }
-                else
-                {
-                    TXT_headinghold.Text = (previous - 180).ToString();
-                }
-            }
-            else
-            {
-                if (previous - 1 < 0)
-                {
-                    TXT_headinghold.Text = (previous + 359).ToString();
-                }
-                else
-                {
-                    TXT_headinghold.Text = (previous - 1).ToString();
-                }
-            }
-        }
+        //private void BUT_samplephoto_Click(object sender, EventArgs e)
+        //{
+        //    using (OpenFileDialog ofd = new OpenFileDialog())
+        //    {
+        //        ofd.Filter = "*.jpg|*.jpg";
 
-        private void BUT_samplephoto_Click(object sender, EventArgs e)
-        {
-            using (OpenFileDialog ofd = new OpenFileDialog())
-            {
-                ofd.Filter = "*.jpg|*.jpg";
+        //        ofd.ShowDialog();
 
-                ofd.ShowDialog();
+        //        if (File.Exists(ofd.FileName))
+        //        {
+        //            string fn = ofd.FileName;
 
-                if (File.Exists(ofd.FileName))
-                {
-                    string fn = ofd.FileName;
+        //            Metadata lcMetadata = null;
+        //            try
+        //            {
+        //                FileInfo lcImgFile = new FileInfo(fn);
+        //                // Loading all meta data
+        //                lcMetadata = JpegMetadataReader.ReadMetadata(lcImgFile);
 
-                    Metadata lcMetadata = null;
-                    try
-                    {
-                        FileInfo lcImgFile = new FileInfo(fn);
-                        // Loading all meta data
-                        lcMetadata = JpegMetadataReader.ReadMetadata(lcImgFile);
+        //                if (lcMetadata == null)
+        //                    return;
+        //            }
+        //            catch (JpegProcessingException ex)
+        //            {
+        //                log.InfoFormat(ex.Message);
+        //                return;
+        //            }
 
-                        if (lcMetadata == null)
-                            return;
-                    }
-                    catch (JpegProcessingException ex)
-                    {
-                        log.InfoFormat(ex.Message);
-                        return;
-                    }
+        //            foreach (AbstractDirectory lcDirectory in lcMetadata)
+        //            {
+        //                foreach (var tag in lcDirectory)
+        //                {
+        //                    Console.WriteLine(lcDirectory.GetName() + " - " + tag.GetTagName() + " " + tag.GetTagValue().ToString());
+        //                }
 
-                    foreach (AbstractDirectory lcDirectory in lcMetadata)
-                    {
-                        foreach (var tag in lcDirectory)
-                        {
-                            Console.WriteLine(lcDirectory.GetName() + " - " + tag.GetTagName() + " " + tag.GetTagValue().ToString());
-                        }
+        //                if (lcDirectory.ContainsTag(ExifDirectory.TAG_EXIF_IMAGE_HEIGHT))
+        //                {
+        //                    TXT_imgheight.Text = lcDirectory.GetInt(ExifDirectory.TAG_EXIF_IMAGE_HEIGHT).ToString();
+        //                }
 
-                        if (lcDirectory.ContainsTag(ExifDirectory.TAG_EXIF_IMAGE_HEIGHT))
-                        {
-                            TXT_imgheight.Text = lcDirectory.GetInt(ExifDirectory.TAG_EXIF_IMAGE_HEIGHT).ToString();
-                        }
+        //                if (lcDirectory.ContainsTag(ExifDirectory.TAG_EXIF_IMAGE_WIDTH))
+        //                {
+        //                    TXT_imgwidth.Text = lcDirectory.GetInt(ExifDirectory.TAG_EXIF_IMAGE_WIDTH).ToString();
+        //                }
 
-                        if (lcDirectory.ContainsTag(ExifDirectory.TAG_EXIF_IMAGE_WIDTH))
-                        {
-                            TXT_imgwidth.Text = lcDirectory.GetInt(ExifDirectory.TAG_EXIF_IMAGE_WIDTH).ToString();
-                        }
+        //                if (lcDirectory.ContainsTag(ExifDirectory.TAG_FOCAL_PLANE_X_RES))
+        //                {
+        //                    var unit = lcDirectory.GetFloat(ExifDirectory.TAG_FOCAL_PLANE_UNIT);
 
-                        if (lcDirectory.ContainsTag(ExifDirectory.TAG_FOCAL_PLANE_X_RES))
-                        {
-                            var unit = lcDirectory.GetFloat(ExifDirectory.TAG_FOCAL_PLANE_UNIT);
+        //                    // TXT_senswidth.Text = lcDirectory.GetDouble(ExifDirectory.TAG_FOCAL_PLANE_X_RES).ToString();
+        //                }
 
-                            // TXT_senswidth.Text = lcDirectory.GetDouble(ExifDirectory.TAG_FOCAL_PLANE_X_RES).ToString();
-                        }
+        //                if (lcDirectory.ContainsTag(ExifDirectory.TAG_FOCAL_PLANE_Y_RES))
+        //                {
+        //                    var unit = lcDirectory.GetFloat(ExifDirectory.TAG_FOCAL_PLANE_UNIT);
 
-                        if (lcDirectory.ContainsTag(ExifDirectory.TAG_FOCAL_PLANE_Y_RES))
-                        {
-                            var unit = lcDirectory.GetFloat(ExifDirectory.TAG_FOCAL_PLANE_UNIT);
+        //                    // TXT_sensheight.Text = lcDirectory.GetDouble(ExifDirectory.TAG_FOCAL_PLANE_Y_RES).ToString();
+        //                }
 
-                            // TXT_sensheight.Text = lcDirectory.GetDouble(ExifDirectory.TAG_FOCAL_PLANE_Y_RES).ToString();
-                        }
-
-                        if (lcDirectory.ContainsTag(ExifDirectory.TAG_FOCAL_LENGTH))
-                        {
-                            try
-                            {
-                                var item = lcDirectory.GetFloat(ExifDirectory.TAG_FOCAL_LENGTH);
-                                NUM_focallength.Value = (decimal)item;
-                            }
-                            catch { }
-                        }
+        //                if (lcDirectory.ContainsTag(ExifDirectory.TAG_FOCAL_LENGTH))
+        //                {
+        //                    try
+        //                    {
+        //                        var item = lcDirectory.GetFloat(ExifDirectory.TAG_FOCAL_LENGTH);
+        //                        NUM_focallength.Value = (decimal)item;
+        //                    }
+        //                    catch { }
+        //                }
 
 
-                        if (lcDirectory.ContainsTag(ExifDirectory.TAG_DATETIME_ORIGINAL))
-                        {
+        //                if (lcDirectory.ContainsTag(ExifDirectory.TAG_DATETIME_ORIGINAL))
+        //                {
 
-                        }
+        //                }
 
-                    }
-                }
-            }
-        }
+        //            }
+        //        }
+        //    }
+        //}
 
-        private void BUT_save_Click(object sender, EventArgs e)
-        {
-            camerainfo camera = new camerainfo();
+        //private void BUT_save_Click(object sender, EventArgs e)
+        //{
+        //    camerainfo camera = new camerainfo();
 
-            string camname = "Default";
+        //    string camname = "Default";
 
-            if (MissionPlanner.Controls.InputBox.Show("Camera Name", "Please and a camera name", ref camname) != System.Windows.Forms.DialogResult.OK)
-                return;
+        //    if (MissionPlanner.Controls.InputBox.Show("Camera Name", "Please and a camera name", ref camname) != System.Windows.Forms.DialogResult.OK)
+        //        return;
 
-            CMB_camera.Text = camname;
+        //    CMB_camera.Text = camname;
 
-            // check if camera exists alreay
-            if (cameras.ContainsKey(CMB_camera.Text))
-            {
-                camera = cameras[CMB_camera.Text];
-            }
-            else
-            {
-                cameras.Add(CMB_camera.Text, camera);
-            }
+        //    // check if camera exists alreay
+        //    if (cameras.ContainsKey(CMB_camera.Text))
+        //    {
+        //        camera = cameras[CMB_camera.Text];
+        //    }
+        //    else
+        //    {
+        //        cameras.Add(CMB_camera.Text, camera);
+        //    }
 
-            try
-            {
-                camera.name = CMB_camera.Text;
-                camera.focallen = (float)NUM_focallength.Value;
-                camera.imageheight = float.Parse(TXT_imgheight.Text);
-                camera.imagewidth = float.Parse(TXT_imgwidth.Text);
-                camera.sensorheight = float.Parse(TXT_sensheight.Text);
-                camera.sensorwidth = float.Parse(TXT_senswidth.Text);
-            }
-            catch { CustomMessageBox.Show("One of your entries is not a valid number"); return; }
+        //    try
+        //    {
+        //        camera.name = CMB_camera.Text;
+        //        camera.focallen = (float)NUM_focallength.Value;
+        //        camera.imageheight = float.Parse(TXT_imgheight.Text);
+        //        camera.imagewidth = float.Parse(TXT_imgwidth.Text);
+        //        camera.sensorheight = float.Parse(TXT_sensheight.Text);
+        //        camera.sensorwidth = float.Parse(TXT_senswidth.Text);
+        //    }
+        //    catch { CustomMessageBox.Show("One of your entries is not a valid number"); return; }
 
-            cameras[CMB_camera.Text] = camera;
+        //    cameras[CMB_camera.Text] = camera;
 
-            xmlcamera(true, Settings.GetUserDataDirectory() + "cameras.xml");
-        }
+        //    xmlcamera(true, Settings.GetUserDataDirectory() + "cameras.xml");
+        //}
 
         private void BUT_Accept_Click(object sender, EventArgs e)
         {
-            //FlightPlanner.instance.ButInsertPol.Enabled = true;
-            //FlightPlanner.instance.ButClearPol.Enabled = true;
             if (grid != null && grid.Count > 0)
             {
-               //FlightPlanner.instance.BUT_insertWP.Enabled = true;
+                MainV2.instance.FlightPlanner.quickadd = true;
 
-                MainV2.instance.FlightPlanner.FlightPlannerBase.quickadd = true;
-
-                if (NUM_split.Value > 1 && CHK_toandland.Checked != true)
-                {
-                    CustomMessageBox.Show("You must use Land/RTL to split a mission", Strings.ERROR);
-                    return;
-                }
-
-                FlightPlanner.instance.PaneMenu.Visible = false;
-                FlightPlanner.instance.But_SurveyGrid.Visible = false;
-                //FlightPlanner.instance.tableLayoutPanel2.Enabled = true;
-
+                //if (NUM_split.Value > 1 && CHK_toandland.Checked != true)
+                //{
+                //    CustomMessageBox.Show("You must use Land/RTL to split a mission", Strings.ERROR);
+                //    return;
+                //}
 
                 var gridobject = savegriddata();
 
-                int wpsplit = (int)Math.Round(grid.Count / NUM_split.Value, MidpointRounding.AwayFromZero);
+                int wpsplit = (int)Math.Round(grid.Count / /*NUM_split.Value*/ 1.0, MidpointRounding.AwayFromZero);
 
                 List<int> wpsplitstart = new List<int>();
 
-                for (int splitno = 0; splitno < NUM_split.Value; splitno++)
+                for (int splitno = 0; splitno < /*NUM_split.Value*/ 1; splitno++)
                 {
                     int wpstart = wpsplit * splitno;
                     int wpend = wpsplit * (splitno + 1);
@@ -1587,15 +1462,36 @@ namespace MissionPlanner.Grid
                         wpend--;
                     }
 
+                    //if (CHK_toandland.Checked)
+                    //{
+                    //    if (plugin.Host.cs.firmware == Firmwares.ArduCopter2)
+                    //    {
+                    //        var wpno = plugin.Host.AddWPtoList(MAVLink.MAV_CMD.TAKEOFF, 20, 0, 0, 0, 0, 0,
+                    //            (int)(30 * CurrentState.multiplierdist), gridobject);
+
+                    //        wpsplitstart.Add(wpno);
+                    //    }
+                    //    else
+                    //    {
+                    //        var wpno = plugin.Host.AddWPtoList(MAVLink.MAV_CMD.TAKEOFF, 20, 0, 0, 0, 0, 0,
+                    //            (int)(30 * CurrentState.multiplierdist), gridobject);
+
+                    //        wpsplitstart.Add(wpno);
+                    //    }
+                    //}
+
+                    //if (CHK_usespeed.Checked)
+                    //{
+                    //    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_CHANGE_SPEED, 0,
+                    //        (int)((float)NUM_UpDownFlySpeed.Value / CurrentState.multiplierspeed), 0, 0, 0, 0, 0,
+                    //        gridobject);
+                    //}
 
                     int i = 0;
-                    //bool startedtrigdist = false;
+                    bool startedtrigdist = false;
                     PointLatLngAlt lastplla = PointLatLngAlt.Zero;
-                    var end = grid.Where(iquery => iquery.Tag == "S" || iquery.Tag == "E").Count();
-
-                    foreach (var plla in grid.Where(iquery => iquery.Tag == "S" || iquery.Tag=="E"))
+                    foreach (var plla in grid)
                     {
-                        
                         // skip before start point
                         if (i < wpstart)
                         {
@@ -1605,29 +1501,168 @@ namespace MissionPlanner.Grid
                         // skip after endpoint
                         if (i >= wpend)
                             break;
-
-                        
-                        if (i == 1)
+                        if (i > wpstart)
                         {
-                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_RELAY, 1,
-                                    1, 0, 0, 0, 0, 0, gridobject);
-                        }
+                            // internal point check
+                            if (plla.Tag == "M")
+                            {
+                                //if (rad_repeatservo.Checked)
+                                //{
+                                //    if (!chk_stopstart.Checked)
+                                //    {
+                                //        AddWP(plla.Lng, plla.Lat, plla.Alt, plla.Tag);
+                                //        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_REPEAT_SERVO,
+                                //            (float)NUM_reptservo.Value,
+                                //            (float)num_reptpwm.Value, 1, (float)NUM_repttime.Value, 0, 0, 0,
+                                //            gridobject);
+                                //    }
+                                //}
+                                //if (rad_digicam.Checked)
+                                //{
+                                //    AddWP(plla.Lng, plla.Lat, plla.Alt, plla.Tag);
+                                //    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_DIGICAM_CONTROL, 1, 0, 0, 0, 0, 1, 0,
+                                //        gridobject);
+                                //}
+                            }
+                            else
+                            {
+                                // only add points that are ends
+                                if (plla.Tag == "S" || plla.Tag == "E")
+                                {
+                                    if (plla.Lat != lastplla.Lat || plla.Lng != lastplla.Lng ||
+                                        plla.Alt != lastplla.Alt)
+                                        AddWP(plla.Lng, plla.Lat, plla.Alt, plla.Tag);
+                                }
 
-                        AddWP(plla.Lng, plla.Lat, plla.Alt, plla.Tag);
+                                // check trigger method
+                                //if (rad_trigdist.Checked)
+                                {
+                                    // if stopstart enabled, add wp and trigger start/stop
+                                    //if (chk_stopstart.Checked)
+                                    //{
+                                    //    if (plla.Tag == "SM")
+                                    //    {
+                                    //        //  s > sm, need to dup check
+                                    //        if (plla.Lat != lastplla.Lat || plla.Lng != lastplla.Lng ||
+                                    //            plla.Alt != lastplla.Alt)
+                                    //            AddWP(plla.Lng, plla.Lat, plla.Alt, plla.Tag);
+
+                                    //        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_CAM_TRIGG_DIST,
+                                    //            (float)NUM_spacing.Value,
+                                    //            0, 1, 0, 0, 0, 0, gridobject);
+                                    //    }
+                                    //    else if (plla.Tag == "ME")
+                                    //    {
+                                    //        AddWP(plla.Lng, plla.Lat, plla.Alt, plla.Tag);
+
+                                    //        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_CAM_TRIGG_DIST, 0, 0, 1, 0,
+                                    //            0, 0, 0, gridobject);
+                                    //    }
+                                    //}
+                                    //else
+                                    {
+                                        // add single start trigger
+                                        //if (!startedtrigdist)
+                                        //{
+                                        //    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_CAM_TRIGG_DIST,
+                                        //        (float)NUM_spacing.Value,
+                                        //        0, 1, 0, 0, 0, 0, gridobject);
+                                        //    startedtrigdist = true;
+                                        //}
+                                        //else 
+                                        if (plla.Tag == "ME")
+                                        {
+                                            AddWP(plla.Lng, plla.Lat, plla.Alt, plla.Tag);
+                                        }
+                                    }
+                                }
+                                //else if (rad_repeatservo.Checked)
+                                //{
+                                //    if (chk_stopstart.Checked)
+                                //    {
+                                //        if (plla.Tag == "SM")
+                                //        {
+                                //            if (plla.Lat != lastplla.Lat || plla.Lng != lastplla.Lng ||
+                                //                plla.Alt != lastplla.Alt)
+                                //                AddWP(plla.Lng, plla.Lat, plla.Alt, plla.Tag);
+
+                                //            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_REPEAT_SERVO,
+                                //                (float)NUM_reptservo.Value,
+                                //                (float)num_reptpwm.Value, 999, (float)NUM_repttime.Value, 0, 0, 0,
+                                //                gridobject);
+                                //        }
+                                //        else if (plla.Tag == "ME")
+                                //        {
+                                //            AddWP(plla.Lng, plla.Lat, plla.Alt, plla.Tag);
+
+                                //            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_REPEAT_SERVO,
+                                //                (float)NUM_reptservo.Value,
+                                //                (float)num_reptpwm.Value, 0, (float)NUM_repttime.Value, 0, 0, 0,
+                                //                gridobject);
+                                //        }
+                                //    }
+                                //}
+                                //else if (rad_do_set_servo.Checked)
+                                //{
+                                //    if (plla.Tag == "SM")
+                                //    {
+                                //        if (plla.Lat != lastplla.Lat || plla.Lng != lastplla.Lng ||
+                                //            plla.Alt != lastplla.Alt)
+                                //            AddWP(plla.Lng, plla.Lat, plla.Alt, plla.Tag);
+
+                                //        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_SERVO,
+                                //            (float)num_setservono.Value,
+                                //            (float)num_setservolow.Value, 0, 0, 0, 0, 0,
+                                //            gridobject);
+                                //    }
+                                //    else if (plla.Tag == "ME")
+                                //    {
+                                //        AddWP(plla.Lng, plla.Lat, plla.Alt, plla.Tag);
+
+                                //        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_SERVO,
+                                //            (float)num_setservono.Value,
+                                //            (float)num_setservohigh.Value, 0, 0, 0, 0, 0,
+                                //            gridobject);
+                                //    }
+                                //}
+                            }
+                        }
+                        else
+                        {
+                            AddWP(plla.Lng, plla.Lat, plla.Alt, plla.Tag, gridobject);
+                        }
                         lastplla = plla;
-
                         ++i;
-
-                        if (i == end)
-                        {
-                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_RELAY, 1,
-                                    0, 0, 0, 0, 0, 0, gridobject);
-                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.RETURN_TO_LAUNCH, 0,
-                                    0, 0, 0, 0, 0, 0, gridobject);
-                        }
                     }
 
+                    // end
+                    //if (rad_trigdist.Checked)
+                    //{
+                    //    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_CAM_TRIGG_DIST, 0, 0, 1, 0, 0, 0, 0, gridobject);
+                    //}
 
+                    //if (CHK_usespeed.Checked)
+                    //{
+                    //    if (MainV2.comPort.MAV.param["WPNAV_SPEED"] != null)
+                    //    {
+                    //        double speed = MainV2.comPort.MAV.param["WPNAV_SPEED"].Value;
+                    //        speed = speed / 100;
+                    //        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_CHANGE_SPEED, 0, speed, 0, 0, 0, 0, 0, gridobject);
+                    //    }
+                    //}
+
+                    //if (CHK_toandland.Checked)
+                    //{
+                        if (CHK_toandland_RTL.Checked)
+                        {
+                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.RETURN_TO_LAUNCH, 0, 0, 0, 0, 0, 0, 0, gridobject);
+                        }
+                        //else
+                        //{
+                        //    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.LAND, 0, 0, 0, 0, plugin.Host.cs.PlannedHomeLocation.Lng,
+                        //        plugin.Host.cs.PlannedHomeLocation.Lat, 0, gridobject);
+                        //}
+                    //}
                 }
 
                 //if (NUM_split.Value > 1)
@@ -1646,33 +1681,33 @@ namespace MissionPlanner.Grid
                 plugin.Host.RedrawFPPolygon(list);
 
                 // save camera fov's for use with footprints
-                double fovha = 0;
-                double fovva = 0;
-                try
-                {
-                    getFOVangle(ref fovha, ref fovva);
+                //double fovha = 0;
+                //double fovva = 0;
+                //try
+                //{
+                //    getFOVangle(ref fovha, ref fovva);
 
-                    if (CHK_camdirection.Checked)
-                    {
-                        Settings.Instance["camera_fovh"] = fovha.ToString();
-                        Settings.Instance["camera_fovv"] = fovva.ToString();
-                    }
-                    else
-                    {
-                        Settings.Instance["camera_fovh"] = fovva.ToString();
-                        Settings.Instance["camera_fovv"] = fovha.ToString();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    log.Error(ex);
-                }
+                //    if (CHK_camdirection.Checked)
+                //    {
+                //        Settings.Instance["camera_fovh"] = fovha.ToString();
+                //        Settings.Instance["camera_fovv"] = fovva.ToString();
+                //    }
+                //    else
+                //    {
+                //        Settings.Instance["camera_fovh"] = fovva.ToString();
+                //        Settings.Instance["camera_fovv"] = fovha.ToString();
+                //    }
+                //}
+                //catch (Exception ex)
+                //{
+                //    log.Error(ex);
+                //}
 
                 savesettings();
 
-                MainV2.instance.FlightPlanner.FlightPlannerBase.quickadd = false;
+                MainV2.instance.FlightPlanner.quickadd = false;
 
-                MainV2.instance.FlightPlanner.FlightPlannerBase.writeKML();
+                MainV2.instance.FlightPlanner.writeKML();
 
                 this.Close();
             }
@@ -1706,30 +1741,5 @@ namespace MissionPlanner.Grid
             domainUpDown1_ValueChanged(sender, e);
         }
 
-        public void myButton1_Click(object sender, EventArgs e)
-        {
-            clear_routes_poly();
-            FlightPlanner.instance.Estado_btn_insert_poly = true;
-            CustomColor.RestoreColor(FlightPlanner.instance.ButInsertPol);
-            //FlightPlanner.instance.BUT_insertWP.Enabled = true;
-            //FlightPlanner.instance.ButInsertPol.Enabled = true;
-            //FlightPlanner.instance.ButClearPol.Enabled = true;
-            FlightPlanner.instance.statusSurveyGrid = false;
-        }
-
-        public void clear_routes_poly() {
-            GMapMarkerOverlap.Clear();
-            routesOverlay.Routes.Clear();
-            routesOverlay.Polygons.Clear();
-            routesOverlay.Markers.Clear();
-            FlightPlannerBase.instance._flightPlanner.PaneMenu.Visible = false;
-            FlightPlanner.instance.estadomenu = false;
-            CustomColor.RestoreColor(FlightPlanner.instance.But_SurveyGrid);
-        }
-
-        private void groupBox6_Enter(object sender, EventArgs e)
-        {
-
-        }
     }
 }

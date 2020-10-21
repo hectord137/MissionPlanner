@@ -43,7 +43,7 @@ namespace MissionPlanner.Utilities
         /// </summary>
         public static Dictionary<string, string> config = new Dictionary<string, string>();
 
-        const string FileName = "config.xml";
+        public static string FileName { get; set; } = "config.xml";
 
         public string this[string key]
         {
@@ -82,7 +82,7 @@ namespace MissionPlanner.Utilities
             return config.ContainsKey(key);
         }
 
-        public string UserAgent { get; set; } = "";
+        public string UserAgent { get; set; } = "MissionPlanner";
         
         public string ComPort
         {
@@ -144,20 +144,28 @@ namespace MissionPlanner.Utilities
 
         public IEnumerable<string> GetList(string key)
         {
-            if(config.ContainsKey(key))
-                return config[key].Split(';');
+            if (config.ContainsKey(key))
+                return config[key].Split(';').Select(a => System.Net.WebUtility.UrlDecode(a)).Distinct();
             return new string[0];
         }
 
         public void SetList(string key, IEnumerable<string> list)
         {
-            config[key] = list.Aggregate((s, s1) => s + ';' + s1);
+            if (list == null || list.Count() == 0)
+                return;
+            config[key] = list.Select(a => System.Net.WebUtility.UrlEncode(a)).Distinct().Aggregate((s, s1) => s + ';' + s1);
         }
 
         public void AppendList(string key, string item)
         {
             var list = GetList(key).ToList();
             list.Add(item);
+            SetList(key, list);
+        }
+
+        public void RemoveList(string key, string item)
+        {
+            var list = GetList(key).ToList().Where(a => a != item);
             SetList(key, list);
         }
 
@@ -232,16 +240,26 @@ namespace MissionPlanner.Utilities
         /// </summary>
         /// <returns></returns>
         public static string GetRunningDirectory()
-        {     
-            
+        {
             var ass = Assembly.GetEntryAssembly();
 
             if (ass == null)
+            {
+                if (CustomUserDataDirectory != "")
+                    return CustomUserDataDirectory + Path.DirectorySeparatorChar + AppConfigName +
+                           Path.DirectorySeparatorChar;
+
                 return "." + Path.DirectorySeparatorChar;
+            }
 
             var location = ass.Location;
 
             var path = Path.GetDirectoryName(location);
+
+            if (path == "")
+            {
+                path = Path.GetDirectoryName(GetDataDirectory());
+            }
 
             return path + Path.DirectorySeparatorChar;
         }
@@ -269,12 +287,18 @@ namespace MissionPlanner.Utilities
             return path;
         }
 
+        public static string CustomUserDataDirectory = "";
+
         /// <summary>
         /// User specific data
         /// </summary>
         /// <returns></returns>
         public static string GetUserDataDirectory()
         {
+            if (CustomUserDataDirectory != "")
+                return CustomUserDataDirectory + Path.DirectorySeparatorChar + AppConfigName +
+                       Path.DirectorySeparatorChar;
+
             var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + Path.DirectorySeparatorChar + AppConfigName +
                           Path.DirectorySeparatorChar;
 
@@ -381,7 +405,7 @@ namespace MissionPlanner.Utilities
 
                 xmlwriter.WriteStartElement("Config");
 
-                foreach (string key in config.Keys)
+                foreach (string key in config.Keys.OrderBy(a=>a))
                 {
                     try
                     {

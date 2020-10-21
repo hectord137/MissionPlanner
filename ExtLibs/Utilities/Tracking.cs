@@ -41,12 +41,25 @@ namespace MissionPlanner.Utilities
 
         static string version = "1";
         static string tid = "UA-43098846-1";
-        public static Guid cid = new Guid();
+
+        public static Guid cid
+        {
+            get => _cid;
+            set
+            {
+                _cid = value;
+            }
+        }
 
         static bool sessionstart = false;
 
         private static readonly Uri trackingEndpoint = new Uri("http://www.google-analytics.com/collect");
         private static readonly Uri secureTrackingEndpoint = new Uri("https://ssl.google-analytics.com/collect");
+        private static Guid _cid = new Guid();
+
+        static Tracking()
+        {
+        }
 
         public static void AddEvent(string cat, string action, string label, string value)
         {
@@ -184,10 +197,6 @@ namespace MissionPlanner.Utilities
                             break;
                         }
                     }
-                    // 150 bytes
-
-                    reportline =
-                        reportline.Replace(@"c:\Users\hog\Documents\Visual Studio 2010\Projects\MissionPlanner.", "");
                 }
 
                 param.Add(new KeyValuePair<string, string>("exd", ex.Message + reportline));

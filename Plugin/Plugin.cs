@@ -15,6 +15,8 @@ namespace MissionPlanner.Plugin
         public Assembly Assembly = null;
 
         public PluginHost Host { get; internal set; }
+        public string FileName { get; set; }            //contains the filename of the plugin (.dll or .cs)
+
 
         public abstract string Name { get; }
         public abstract string Version { get; }
@@ -164,7 +166,7 @@ namespace MissionPlanner.Plugin
         /// </summary>
         public PointLatLng FPMenuMapPosition
         {
-            get { return MainV2.instance.FlightPlanner.FlightPlannerBase.MouseDownEnd; }
+            get { return MainV2.instance.FlightPlanner.MouseDownEnd; }
         }
 
         /// <summary>
@@ -174,15 +176,15 @@ namespace MissionPlanner.Plugin
         {
             get
             {
-                return new GMapPolygon(new List<PointLatLng>(MainV2.instance.FlightPlanner.FlightPlannerBase.drawnpolygon.Points),
+                return new GMapPolygon(new List<PointLatLng>(MainV2.instance.FlightPlanner.drawnpolygon.Points),
                     "Poly Copy")
-                { Stroke = MainV2.instance.FlightPlanner.FlightPlannerBase.drawnpolygon.Stroke };
+                { Stroke = MainV2.instance.FlightPlanner.drawnpolygon.Stroke };
             }
         }
 
         public void RedrawFPPolygon(List<PointLatLngAlt> list)
         {
-            MainV2.instance.FlightPlanner.FlightPlannerBase.redrawPolygonSurvey(list);
+            MainV2.instance.FlightPlanner.redrawPolygonSurvey(list);
         }
 
         /// <summary>
@@ -201,7 +203,6 @@ namespace MissionPlanner.Plugin
             get { return MainV2.instance.FlightData.gMapControl1; }
         }
 
-        public int contador_wps = 0;
         /// <summary>
         /// add wp to command queue - dont upload to mav
         /// </summary>
@@ -216,17 +217,14 @@ namespace MissionPlanner.Plugin
         public int AddWPtoList(MAVLink.MAV_CMD cmd, double p1, double p2, double p3, double p4, double x, double y,
             double z, object tag = null)
         {
-            
-            contador_wps++;
-            FlightPlanner.instance.cont_wps = contador_wps;
-            return MainV2.instance.FlightPlanner.FlightPlannerBase.AddCommand(cmd, p1, p2, p3, p4, x, y, z, tag);
+            return MainV2.instance.FlightPlanner.AddCommand(cmd, p1, p2, p3, p4, x, y, z, tag);
         }
 
         public void InsertWP(int idx, MAVLink.MAV_CMD cmd, double p1, double p2, double p3, double p4, double x,
             double y,
             double z, object tag = null)
         {
-            MainV2.instance.FlightPlanner.FlightPlannerBase.InsertCommand(idx, cmd, p1, p2, p3, p4, x, y, z);
+            MainV2.instance.FlightPlanner.InsertCommand(idx, cmd, p1, p2, p3, p4, x, y, z);
         }
 
         public int AddWPtoList(MAVLink.MAV_CMD cmd, double p1, double p2, double p3, double p4, double x, double y,
@@ -247,7 +245,7 @@ namespace MissionPlanner.Plugin
         /// </summary>
         public void GetWPs()
         {
-            MainV2.instance.FlightPlanner.FlightPlannerBase.BUT_read_Click(null, null);
+            MainV2.instance.FlightPlanner.BUT_read_Click(null, null);
         }
     }
 }

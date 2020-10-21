@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using System.IO;
-using System.Drawing;
 using System.Threading;
 using log4net;
+using System.Drawing;
 using MissionPlanner.Drawing;
 
 namespace MissionPlanner.Utilities
@@ -20,10 +20,14 @@ namespace MissionPlanner.Utilities
         static bool running = false;
         public static string URL = @"http://127.0.0.1:56781/map.jpg";
 
-        public static event EventHandler OnNewImage;
-
         static DateTime lastimage = DateTime.Now;
         static int fps = 0;
+        private static event EventHandler<Bitmap> _onNewImage;
+        public static event EventHandler<Bitmap> onNewImage
+        {
+            add { _onNewImage += value; }
+            remove { _onNewImage -= value; }
+        }
 
         public static void runAsync()
         {
@@ -66,6 +70,8 @@ namespace MissionPlanner.Utilities
             }
 
             sb = sb.Replace("\r\n", "");
+
+            log.Debug(sb.ToString());
 
             return sb.ToString();
         }
@@ -141,11 +147,10 @@ namespace MissionPlanner.Utilities
                             int offset = 0;
                             int len = 0;
 
-                            while ((len = br.Read(buf1, offset, length)) > 0)
+                            while (length > 0 && (len = br.Read(buf1, offset, length)) >= 0)
                             {
                                 offset += len;
                                 length -= len;
-
                             }
                             /*
                             BinaryWriter sw = new BinaryWriter(File.OpenWrite("test.jpg"));
@@ -167,10 +172,13 @@ namespace MissionPlanner.Utilities
                                     lastimage = DateTime.Now;
                                 }
 
-                                if (OnNewImage != null)
-                                    OnNewImage(frame, EventArgs.Empty);
+                                _onNewImage?.Invoke(null, frame);
                             }
                             catch { }
+                        }
+                        else
+                        {
+                            throw new Exception("No mjpeg length header");
                         }
 
                         // blank line at end of data
@@ -181,8 +189,7 @@ namespace MissionPlanner.Utilities
                 }
 
                 // clear last image
-                if (OnNewImage != null)
-                    OnNewImage(null, EventArgs.Empty);
+                _onNewImage?.Invoke(null, null);
 
                 dataStream.Close();
                 response.Close();

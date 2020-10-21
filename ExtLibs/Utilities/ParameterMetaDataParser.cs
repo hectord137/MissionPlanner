@@ -4,6 +4,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,6 +17,8 @@ namespace MissionPlanner.Utilities
 {
     public static class ParameterMetaDataParser
     {
+        private static HttpClient httpClient;
+
         private static readonly Regex _paramMetaRegex =
             new Regex(ParameterMetaDataConstants.ParamDelimeter +
                       @"(?<MetaKey>\w+)(?:{(?<MetaFrame>[^:]+)})?:(?<MetaValue>.+)");
@@ -38,6 +41,12 @@ namespace MissionPlanner.Utilities
             {"ArduCopter", "Copter"},
             {"ArduPlane", "Plane"},
             {"AntennaTracker", "Tracker"},
+
+            {"Copter", "Copter"},
+            {"Rover", "Rover"},
+            {"Plane", "Plane"},
+            {"Sub", "Sub"},
+            {"Tracker", "Tracker"},
         };
 
         /// <summary>
@@ -45,6 +54,11 @@ namespace MissionPlanner.Utilities
         /// </summary>
         public static void GetParameterInformation(string urls, string file = null)
         {
+            httpClient = new HttpClient();
+            if (!String.IsNullOrEmpty(Settings.Instance.UserAgent))
+                httpClient.DefaultRequestHeaders.Add("User-Agent", Settings.Instance.UserAgent);
+            httpClient.Timeout = TimeSpan.FromSeconds(30);
+
             var parameterLocationsString = urls;
 
             string XMLFileName =
@@ -58,8 +72,10 @@ namespace MissionPlanner.Utilities
                 var parameterLocations = parameterLocationsString.Split(';').ToList();
                 parameterLocations.RemoveAll(String.IsNullOrEmpty);
 
+                ParallelOptions opt = new ParallelOptions() { MaxDegreeOfParallelism = 3 };
+
                 // precache all the base urls
-                Parallel.ForEach(parameterLocations,
+                Parallel.ForEach(parameterLocations, opt,
                     parameterLocation =>
                     {
                         // load the base urls
@@ -76,12 +92,12 @@ namespace MissionPlanner.Utilities
 
                     objXmlTextWriter.WriteStartElement("Params");
 
-                    parameterLocations.Sort((a, b) => GetVechile(a).CompareTo(GetVechile(b)));
+                    parameterLocations.Sort((a, b) => GetVehicle(a).CompareTo(GetVehicle(b)));
 
                     var lastelement = "";
                     foreach (string parameterLocation in parameterLocations)
                     {
-                        string element = GetVechile(parameterLocation.ToLower());                       
+                        string element = GetVehicle(parameterLocation.ToLower());                       
 
                         // Read and parse the content.
                         string dataFromAddress = ReadDataFromAddress(parameterLocation.Trim());
@@ -127,6 +143,8 @@ namespace MissionPlanner.Utilities
                         vech.Add(item);
                 }
                 root.Save(XMLFileName);
+
+                Console.WriteLine("Saved to " + XMLFileName);
             }
         }
 
@@ -142,7 +160,7 @@ namespace MissionPlanner.Utilities
             }
         }
 
-        private static string GetVechile(string parameterLocation)
+        private static string GetVehicle(string parameterLocation)
         {
             var element = "none";
 
@@ -219,7 +237,7 @@ namespace MissionPlanner.Utilities
                                         StringSplitOptions.None)
                                         .ForEach(separatedPath =>
                                         {
-                                            log.Info("Process " + parameterPrefix + node.Key + " : " + separatedPath);
+                                            log.Info("Process " + parameterPrefix + node.Key + " : " + separatedPath + " from " + parameterLocation);
                                             Uri newUri = new Uri(new Uri(parameterLocation), separatedPath.Trim());
 
                                             var newPath = newUri.AbsoluteUri;
@@ -312,7 +330,7 @@ namespace MissionPlanner.Utilities
                         GetIndexOfMarkers(ref metaIndicies, subStringToSearch, ParameterMetaDataConstants.ParamDelimeter,
                             0);
 
-                        if (metaIndicies.Count > 0)
+                        if (metaIndicies.Count > 1)
                         {
                             // This meta param key
                             var paramNameKey = subStringToSearch.Substring(metaIndicies[0],
@@ -323,7 +341,8 @@ namespace MissionPlanner.Utilities
 
                             if (paramNameKeyMatch.Success && paramNameKeyMatch.Groups["MetaKey"].Value == nodeKey)
                             {
-                                string key = paramNameKeyMatch.Groups["MetaValue"].Value.Trim(new char[] {' '});
+                                string key = paramNameKeyMatch.Groups["MetaValue"].Value
+                                    .Trim(new char[] {' ', '\r', '\n'});
                                 var metaDict = new Dictionary<string, string>();
                                 if (!returnDict.ContainsKey(key))
                                 {
@@ -352,20 +371,30 @@ namespace MissionPlanner.Utilities
                                                 metaDict.Add(metaKey,
                                                     metaMatch.Groups["MetaValue"].Value.Trim(new char[] {' '}));
                                             }
-                                            else if (metaMatch?.Groups["MetaFrame"]?.Value != "")
+
+                                            if (metaMatch?.Groups["MetaFrame"]?.Value != "")
                                             {
                                                 var metaframe = metaMatch?.Groups["MetaFrame"]?.Value.ToString();
-                                                try
-                                                {
-                                                    var mapname = truename_map.First(a =>
-                                                        a.Value.ToLower() == metaframe.ToLower());
 
-                                                    if (mapname.Key.ToLower() == vehicleType.ToLower())
+                                                var vehicles = metaframe.Split(',');
+                                                foreach (var vehicle in vehicles)
+                                                {
+                                                    try
                                                     {
-                                                        metaDict[metaKey] = metaMatch.Groups["MetaValue"].Value
-                                                            .Trim(new char[] {' '});
+                                                        var mapname = truename_map.First(a =>
+                                                            a.Value.ToLower() == vehicle.ToLower().Trim());
+
+                                                        if (mapname.Key.ToLower() == vehicleType.ToLower())
+                                                        {
+                                                            metaDict[metaKey] = metaMatch.Groups["MetaValue"].Value
+                                                                .Trim(new char[] {' '});
+                                                        }
                                                     }
-                                                } catch { log.Error("Invalid MetaFrame " + metaframe); }
+                                                    catch
+                                                    {
+                                                        log.Error("Invalid MetaFrame " + vehicle);
+                                                    }
+                                                }
                                             }
                                         }
                                     }
@@ -379,6 +408,10 @@ namespace MissionPlanner.Utilities
                                     log.Error("Duplicate Key " + key);
                                 }
                             }
+                        } 
+                        else
+                        {
+                            log.Error("Bad Key - Value " + subStringToSearch);
                         }
                     }
                 }
@@ -440,6 +473,9 @@ namespace MissionPlanner.Utilities
             {
                 lock (cachequeue)
                 {
+                    if (cache.ContainsKey(address))
+                        break;
+
                     if (!cachequeue.Keys.Contains(address))
                     {
                         cachequeue[address] = "";
@@ -447,42 +483,52 @@ namespace MissionPlanner.Utilities
                     }
                 }
 
-                Console.WriteLine("ReadDataFromAddress attempt {1} Queued {0}", address, attempt);
+                //Console.WriteLine("ReadDataFromAddress attempt {1} Queued {0}", address, attempt);
                 Thread.Sleep(500);
             }
 
             // check cache - after delay above for other loader
-            if (cache.ContainsKey(address))
+            lock (cachequeue)
             {
-                log.Info("using cache " + address);
-                lock (cachequeue)
+                if (cache.ContainsKey(address))
                 {
+                    log.Info("using cache " + address);
                     while (cachequeue.Remove(address)) ;
+
+                    return cache[address];
                 }
-                return cache[address];
             }
 
+            DateTime start = DateTime.Now;
             // Make sure we don't blow up if the user is not connected or the endpoint is not available
             try
             {
-                var request = WebRequest.Create(address);
-                if (!String.IsNullOrEmpty(Settings.Instance.UserAgent))
-                    ((HttpWebRequest)request).UserAgent = Settings.Instance.UserAgent;
-
-                // Plenty of timeout
-                request.Timeout = 10000;
-
-                // Set the Method property of the request to GET.
-                request.Method = "GET";
-
+                if (!address.ToLower().StartsWith("http"))
+                {
+                    log.Info(address);
+                    data = File.ReadAllText(address.Replace("file:///",""));
+                    return data;
+                }
                 // Get the response.
-                using (var response = request.GetResponse())
+                using (var response = httpClient.GetAsync(address).GetAwaiter().GetResult())
                 {
                     // Display the status.
-                    log.Info(address + " " + ((HttpWebResponse) response).StatusDescription);
+                    log.Info(address + " " + ((HttpResponseMessage) response).StatusCode);
+
+                    if (response.StatusCode == HttpStatusCode.BadRequest || response.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        lock (cachequeue)
+                        {
+                            cache[address] = "";
+                        }
+                        return "";
+                    }
+
+                    if (!response.IsSuccessStatusCode)
+                        throw new WebException(response.StatusCode.ToString());
 
                     // Get the stream containing content returned by the server.
-                    using (var dataStream = response.GetResponseStream())
+                    using (var dataStream = response.Content.ReadAsStreamAsync().GetAwaiter().GetResult())
                     {
                         if (dataStream != null)
                         {
@@ -496,14 +542,20 @@ namespace MissionPlanner.Utilities
                     }
                 }
 
-                cache[address] = data;
+                lock (cachequeue)
+                {
+                    cache[address] = data;
+                }
 
                 // Return the data
                 return data;
             }
-            catch (WebException ex)
+            catch (Exception ex)
             {
-                log.Error(String.Format("The request to {0} failed.", address), ex);
+                DateTime end = DateTime.Now;
+                log.Error(
+                    String.Format("The request to {0} failed after {1} sec attempt {2}", address,
+                        (end - start).TotalSeconds, attempt), ex);
 
                 attempt++;
 

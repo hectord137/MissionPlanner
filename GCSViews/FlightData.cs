@@ -142,11 +142,7 @@ namespace MissionPlanner.GCSViews
             log.Info("Ctor Start");
 
             InitializeComponent();
-            // get map type
-            this.comboBoxMapTypeData.ValueMember = "Name";
-            this.comboBoxMapTypeData.DataSource = GMapProviders.List.ToArray();
-            this.comboBoxMapTypeData.SelectedItem = gMapControl1.MapProvider;
-            this.comboBoxMapTypeData.SelectedValueChanged += comboBoxMapTypeData_SelectedValueChanged;
+
             gMapControl1.RoutesEnabled = true;
             //load mapa
 
@@ -312,16 +308,6 @@ namespace MissionPlanner.GCSViews
         private void Bind_Parse(object sender, ConvertEventArgs e)
         {
             UpdateButColorMode();
-        }
-
-        public void comboBoxMapTypeData_SelectedValueChanged(object sender, EventArgs e)
-        {
-            FlightPlannerBase.instance.SetMapOrigin(sender, e, comboBoxMapTypeData.SelectedItem);
-
-        }
-        public void setvaluemap(object idmap)
-        {
-            comboBoxMapTypeData.SelectedItem = idmap;
         }
 
         public void Activate()
@@ -606,7 +592,7 @@ namespace MissionPlanner.GCSViews
                     MainV2.comPort.logplaybackfile = new BinaryReader(File.OpenRead(file));
                     MainV2.comPort.lastlogread = DateTime.MinValue;
 
-                    LBL_logfn.Text = Path.GetFileName(file);
+                    //LBL_logfn.Text = Path.GetFileName(file);
 
                     log.Info("Open logfile " + file);
 
@@ -864,7 +850,7 @@ namespace MissionPlanner.GCSViews
 
         private void altitudeAngelSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new Utilities.AltitudeAngel.AASettings().Show(this);
+//            new Utilities.AltitudeAngel.AASettings().Show(this);
         }
 
         private void BUT_abortland_Click(object sender, EventArgs e)
@@ -1006,7 +992,7 @@ namespace MissionPlanner.GCSViews
                                 using (tr = new StreamReader(logfile))
                                 {
                                     GC.Collect();
-                                    CollectionBuffer temp = new CollectionBuffer(tr.BaseStream);
+                                    DFLogBuffer temp = new DFLogBuffer(tr.BaseStream);
 
                                     uint a = 0;
                                     foreach (var line in temp)
@@ -1359,10 +1345,10 @@ namespace MissionPlanner.GCSViews
 
                         MainV2.comPort.setWPACK();
 
-                        FlightPlannerBase.instance.BUT_read_Click(this, null);
+                        FlightPlanner.instance.BUT_read_Click(this, null);
 
                         // set index back to 1
-                        MainV2.comPort.setWPCurrent(1);
+                        MainV2.comPort.setWPCurrent(MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid, 1);
 
                         if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
                         {
@@ -1439,7 +1425,8 @@ namespace MissionPlanner.GCSViews
             try
             {
                 ((Control)sender).Enabled = false;
-                MainV2.comPort.setWPCurrent((ushort)CMB_setwp.SelectedIndex); // set nav to
+                MainV2.comPort.setWPCurrent(MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid,
+                    (ushort)CMB_setwp.SelectedIndex); // set nav to
             }
             catch
             {
@@ -1451,7 +1438,7 @@ namespace MissionPlanner.GCSViews
         private void BUT_speed1_Click(object sender, EventArgs e)
         {
             LogPlayBackSpeed = double.Parse(((MyButton)sender).Tag.ToString(), CultureInfo.InvariantCulture);
-            lbl_playbackspeed.Text = "x " + LogPlayBackSpeed;
+            //lbl_playbackspeed.Text = "x " + LogPlayBackSpeed;
         }
 
         private void BUTrestartmission_Click(object sender, EventArgs e)
@@ -1460,7 +1447,7 @@ namespace MissionPlanner.GCSViews
             {
                 ((Control)sender).Enabled = false;
 
-                MainV2.comPort.setWPCurrent(0); // set nav to
+                MainV2.comPort.setWPCurrent(MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid, 0); // set nav to
             }
             catch
             {
@@ -2209,29 +2196,29 @@ namespace MissionPlanner.GCSViews
 
         private void GStreamerStopToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GStreamer.StopAll();
+//            GStreamer.StopAll();
         }
 
         private void HereLinkVideoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GStreamer.StopAll();
+//            GStreamer.StopAll();
 
-            string url =
-                "rtspsrc location=rtsp://192.168.43.1:8554/fpv_stream latency=41 udp-reconnect=1 timeout=0 do-retransmission=false ! application/x-rtp ! rtph264depay ! h264parse ! queue ! avdec_h264 ! video/x-raw,format=BGRx ! appsink name=outsink";
+//            string url =
+//                "rtspsrc location=rtsp://192.168.43.1:8554/fpv_stream latency=41 udp-reconnect=1 timeout=0 do-retransmission=false ! application/x-rtp ! rtph264depay ! h264parse ! queue ! avdec_h264 ! video/x-raw,format=BGRx ! appsink name=outsink";
 
-            GStreamer.LookForGstreamer();
+//            GStreamer.LookForGstreamer();
 
-            if (!File.Exists(GStreamer.gstlaunch))
-            {
-                GStreamerUI.DownloadGStreamer();
+//            if (!File.Exists(GStreamer.gstlaunch))
+//            {
+//                GStreamerUI.DownloadGStreamer();
+//
+//                if (!File.Exists(GStreamer.gstlaunch))
+//                {
+//                    return;
+//                }
+//            }
 
-                if (!File.Exists(GStreamer.gstlaunch))
-                {
-                    return;
-                }
-            }
-
-            GStreamer.StartA(url);
+//            GStreamer.StartA(url);
         }
 
         private void hud_UserItem(object sender, EventArgs e)
@@ -2724,15 +2711,17 @@ namespace MissionPlanner.GCSViews
 
                                     if (wps.Count == 1)
                                     {
-                                        overlay.CreateOverlay((MAVLink.MAV_FRAME)wps[0].frame, homeplla,
+                                        overlay.CreateOverlay(homeplla,
                                             mission_items,
-                                            0 / CurrentState.multiplieralt, 0 / CurrentState.multiplieralt);
+                                            0 / CurrentState.multiplieralt, 0 / CurrentState.multiplieralt,
+                                            CurrentState.multiplieralt);
                                     }
                                     else
                                     {
-                                        overlay.CreateOverlay((MAVLink.MAV_FRAME)wps[1].frame, homeplla,
+                                        overlay.CreateOverlay(homeplla,
                                             mission_items,
-                                            0 / CurrentState.multiplieralt, 0 / CurrentState.multiplieralt);
+                                            0 / CurrentState.multiplieralt, 0 / CurrentState.multiplieralt,
+                                            CurrentState.multiplieralt);
 
                                     }
                                 }
@@ -2790,7 +2779,9 @@ namespace MissionPlanner.GCSViews
                             var fenceoverlay = new WPOverlay();
                             fenceoverlay.overlay.Id = "fence";
 
-                            fenceoverlay.CreateOverlay(MAVLink.MAV_FRAME.GLOBAL, PointLatLngAlt.Zero, MainV2.comPort.MAV.fencepoints.Values.Select(a => (Locationwp)a).ToList(), 0, 0);
+                            fenceoverlay.CreateOverlay(PointLatLngAlt.Zero,
+                                MainV2.comPort.MAV.fencepoints.Values.Select(a => (Locationwp)a).ToList(), 0, 0,
+                                CurrentState.multiplieralt);
 
                             var fence = mymap.Overlays.Where(a => a.Id == "fence");
                             if (fence.Count() > 0)
@@ -3283,34 +3274,34 @@ namespace MissionPlanner.GCSViews
 
         private void setGStreamerSourceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string url = Settings.Instance["gstreamer_url"] != null
-                ? Settings.Instance["gstreamer_url"]
-                : @"rtspsrc location=rtsp://192.168.1.133:8554/video1 ! application/x-rtp ! rtpjpegdepay ! videoconvert ! video/x-raw,format=BGRA ! appsink name=outsink";
+            //string url = Settings.Instance["gstreamer_url"] != null
+            //    ? Settings.Instance["gstreamer_url"]
+            //    : @"rtspsrc location=rtsp://192.168.1.133:8554/video1 ! application/x-rtp ! rtpjpegdepay ! videoconvert ! video/x-raw,format=BGRA ! appsink name=outsink";
 
-            if (DialogResult.OK == InputBox.Show("GStreamer url", "Enter the source pipeline\nEnsure the final payload is ! videoconvert ! video/x-raw,format=BGRA ! appsink name=outsink", ref url))
-            {
-                Settings.Instance["gstreamer_url"] = url;
+            //if (DialogResult.OK == InputBox.Show("GStreamer url", "Enter the source pipeline\nEnsure the final payload is ! videoconvert ! video/x-raw,format=BGRA ! appsink name=outsink", ref url))
+            //{
+            //    Settings.Instance["gstreamer_url"] = url;
 
-                GStreamer.StopAll();
+            //    GStreamer.StopAll();
 
-                GStreamer.LookForGstreamer();
+            //    GStreamer.LookForGstreamer();
 
-                if (!File.Exists(GStreamer.gstlaunch))
-                {
-                    GStreamerUI.DownloadGStreamer();
+            //    if (!File.Exists(GStreamer.gstlaunch))
+            //    {
+            //        GStreamerUI.DownloadGStreamer();
 
-                    if (!File.Exists(GStreamer.gstlaunch))
-                    {
-                        return;
-                    }
-                }
+            //        if (!File.Exists(GStreamer.gstlaunch))
+            //        {
+            //            return;
+            //        }
+            //    }
 
-                GStreamer.StartA(url);
-            }
-            else
-            {
-                GStreamer.Stop(null);
-            }
+            //    GStreamer.StartA(url);
+            //}
+            //else
+            //{
+            //    GStreamer.Stop(null);
+            //}
         }
 
         private void setHomeHereToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3336,8 +3327,6 @@ namespace MissionPlanner.GCSViews
                 CaptureMJPEG.Stop();
 
                 CaptureMJPEG.URL = url;
-
-                CaptureMJPEG.OnNewImage += CaptureMJPEG_OnNewImage;
 
                 CaptureMJPEG.runAsync();
             }
@@ -3612,7 +3601,7 @@ namespace MissionPlanner.GCSViews
                     updateBindingSourceThreadName = Thread.CurrentThread.Name;
                 }
 
-                this.BeginInvokeIfRequired((MethodInvoker)delegate
+                this.BeginInvokeIfRequired(delegate
                 {
                     updateBindingSourceWork();
 
@@ -3697,13 +3686,13 @@ namespace MissionPlanner.GCSViews
                        tracklog.ValueChanged += tracklog_Scroll;
                    }
 
-                   if (lbl_logpercent.Visible)
-                       lbl_logpercent.Text =
-                           (MainV2.comPort.logplaybackfile.BaseStream.Position /
-                            (double)MainV2.comPort.logplaybackfile.BaseStream.Length).ToString("0.00%");
+                   //if (lbl_logpercent.Visible)
+                   //    lbl_logpercent.Text =
+                   //        (MainV2.comPort.logplaybackfile.BaseStream.Position /
+                   //         (double)MainV2.comPort.logplaybackfile.BaseStream.Length).ToString("0.00%");
 
-                   if (lbl_playbackspeed.Visible)
-                       lbl_playbackspeed.Text = "x " + LogPlayBackSpeed;
+                   //if (lbl_playbackspeed.Visible)
+                   //    lbl_playbackspeed.Text = "x " + LogPlayBackSpeed;
                }
                catch
                {
@@ -3996,7 +3985,7 @@ namespace MissionPlanner.GCSViews
             object homelat = MouseDownStart.Lat.ToString();
             object homelng = MouseDownStart.Lng.ToString();
 
-            FlightPlannerBase.instance.sethomeh(homealt, homelat, homelng);
+//            FlightPlanner.instance.sethomeh(homealt, homelat, homelng);
         }
 
         public void modifybutton()
@@ -4197,7 +4186,6 @@ namespace MissionPlanner.GCSViews
                 CustomColor.RestoreColor(BUT_loiter);
                 CustomColor.RestoreColor(BUT_quickrtl);
                 CustomColor.RestoreColor(BUT_manual);
-                MainV2.instance.MenuFlightPlanner.Enabled = false;
             }
             else if (mode == "unknow")
             {
@@ -4206,7 +4194,6 @@ namespace MissionPlanner.GCSViews
                 CustomColor.RestoreColor(BUT_quickauto);
                 CustomColor.RestoreColor(BUT_quickrtl);
                 CustomColor.RestoreColor(BUT_manual);
-                MainV2.instance.MenuFlightPlanner.Enabled = true;
 
             }
             else if (mode == "Loiter")
@@ -4215,7 +4202,6 @@ namespace MissionPlanner.GCSViews
                 CustomColor.RestoreColor(BUT_quickauto);
                 CustomColor.RestoreColor(BUT_quickrtl);
                 CustomColor.RestoreColor(BUT_manual);
-                MainV2.instance.MenuFlightPlanner.Enabled = true;
             }
             else if (mode == "RTL")
             {
@@ -4223,7 +4209,6 @@ namespace MissionPlanner.GCSViews
                 CustomColor.RestoreColor(BUT_quickauto);
                 CustomColor.RestoreColor(BUT_loiter);
                 CustomColor.RestoreColor(BUT_manual);
-                MainV2.instance.MenuFlightPlanner.Enabled = true;
             }
             else if (mode == "Manual")
             {
@@ -4231,7 +4216,6 @@ namespace MissionPlanner.GCSViews
                 CustomColor.RestoreColor(BUT_quickauto);
                 CustomColor.RestoreColor(BUT_loiter);
                 CustomColor.RestoreColor(BUT_quickrtl);
-                MainV2.instance.MenuFlightPlanner.Enabled = true;
             }
             else
             {
@@ -4239,7 +4223,6 @@ namespace MissionPlanner.GCSViews
                 CustomColor.RestoreColor(BUT_loiter);
                 CustomColor.RestoreColor(BUT_quickrtl);
                 CustomColor.RestoreColor(BUT_manual);
-                MainV2.instance.MenuFlightPlanner.Enabled = true;
             }
         }
 

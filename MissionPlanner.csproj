@@ -17,6 +17,7 @@
     <Description>Mission Planner ground control station for ardupilot</Description>
     <Copyright>Copyright © Michael Oborne 2010-2018</Copyright>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -29,7 +30,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -117,10 +117,6 @@
     <ProjectReference Include="ExtLibs\alglibnet\alglibnet.csproj">
       <Project>{b994d8d2-c052-4616-9d20-386640c7387f}</Project>
       <Name>alglibnet</Name>
-    </ProjectReference>
-    <ProjectReference Include="ExtLibs\AltitudeAngelWings\AltitudeAngelWings.csproj">
-      <Project>{098f542c-7c70-4b9c-b2e2-ac5dc5e0294b}</Project>
-      <Name>AltitudeAngelWings</Name>
     </ProjectReference>
     <ProjectReference Include="ExtLibs\Antenna\MissionPlanner.Antenna.csproj">
       <Project>{94836116-0CD5-4EA9-8049-447FEA886406}</Project>
@@ -223,14 +219,11 @@
     <ProjectReference Include="ExtLibs\MissionPlanner.Drawing\MissionPlanner.Drawing.csproj">
       <Project>{6974D22C-EDE6-4BB2-AAD2-FF23ED6EC165}</Project>
       <Name>MissionPlanner.Drawing</Name>
+      <Aliases>global</Aliases>
     </ProjectReference>
     <ProjectReference Include="ExtLibs\netDxf\netDxf.csproj">
       <Project>{785380e0-ceb9-4c34-82e5-60d0e33e848e}</Project>
       <Name>netDxf</Name>
-    </ProjectReference>
-    <ProjectReference Include="ExtLibs\OSDConfigurator\OSDConfigurator.csproj">
-      <Project>{1442b805-d6b1-4729-89f8-3a5a1c7547ad}</Project>
-      <Name>OSDConfigurator</Name>
     </ProjectReference>
     <ProjectReference Include="ExtLibs\ProjNet\ProjNET.csproj">
       <Project>{993DB853-EC9F-45D5-AD2C-BA008B72995B}</Project>
@@ -335,7 +328,7 @@
     <PackageReference Include="NETStandard.Library">
       <Version>2.0.3</Version>
     </PackageReference>
-    <PackageReference Include="Newtonsoft.Json" version="12.0.2" targetFramework="net462" />
+    <PackageReference Include="Newtonsoft.Json" version="12.0.3" targetFramework="net462" />
     <PackageReference Include="OpenTK">
       <Version>3.1.0</Version>
     </PackageReference>
@@ -347,7 +340,7 @@
     <PackageReference Include="SimpleWifi">
       <Version>1.0.0</Version>
     </PackageReference>
-    <PackageReference Include="SkiaSharp" Version="1.68.0" />
+    <PackageReference Include="SkiaSharp" Version="1.68.1.1" />
     <PackageReference Include="SkiaSharp.NativeAssets.Linux">
       <Version>1.68.0</Version>
     </PackageReference>
@@ -356,11 +349,14 @@
     <PackageReference Include="System.CodeDom">
       <Version>4.5.0</Version>
     </PackageReference>
-    <PackageReference Include="System.Drawing.Common" Version="4.5.1" />
+    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
     <PackageReference Include="System.IO.Ports" Version="4.5.0" />
     <PackageReference Include="System.Reactive" Version="4.0.0" />
     <PackageReference Include="System.Reactive.Core" Version="4.0.0" />
     <PackageReference Include="System.Reactive.Linq" Version="4.0.0" />
+    <PackageReference Include="System.Resources.Extensions">
+      <Version>4.6.0</Version>
+    </PackageReference>
     <PackageReference Include="Unofficial.ObjectListView" version="2.6.0" targetFramework="net40" />
     <PackageReference Include="WindowsAPICodePack-Shell">
       <Version>1.1.1</Version>
@@ -383,6 +379,7 @@
       <DependentUpon>DigitalSkyUI.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\Icon\File.cs" />
+    <Compile Include="Controls\Icon\Zoom.cs" />
     <Compile Include="Controls\UAVCANFileUI.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -417,6 +414,12 @@
     <Compile Include="Controls\FollowMe.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="GCSViews\ConfigurationView\ConfigTerminal.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GCSViews\ConfigurationView\ConfigTerminal.designer.cs">
+      <DependentUpon>ConfigTerminal.cs</DependentUpon>
+    </Compile>
     <Compile Include="GCSViews\EchosounderProccess.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -430,7 +433,15 @@
       <DependentUpon>UAVCANParams.cs</DependentUpon>
     </Compile>
     <Compile Include="GCSViews\ConfigurationView\CustomColor.cs" />
-    <Compile Include="GCSViews\FlightPlannerBase.cs" />
+    <Compile Include="Grid\camerainfo.cs" />
+    <Compile Include="Grid\GridData.cs" />
+    <Compile Include="Grid\GridPlugin.cs" />
+    <Compile Include="Grid\GridUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grid\GridUI.designer.cs">
+      <DependentUpon>GridUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="Joystick\JoystickAxis.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -451,17 +462,11 @@
     <Compile Include="Splash.Designer.cs">
       <DependentUpon>Splash.cs</DependentUpon>
     </Compile>
-    <Compile Include="temp.Designer.cs">
-      <DependentUpon>temp.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Utilities\AltitudeAngel\MissionPlannerStateAdapter.cs" />
     <Compile Include="Utilities\ConexWifi.cs" />
     <Compile Include="Utilities\NativeLibrary.cs" />
-    <Compile Include="Utilities\ReadGeotiff.cs" />
+    <Compile Include="Utilities\GeoTiffReadMetaData.cs" />
     <Compile Include="Utilities\Speech.cs" />
     <Compile Include="Utilities\SSHTerminal.cs" />
-    <Compile Include="Grid\camerainfo.cs" />
-    <Compile Include="Grid\GridData.cs" />
     <Compile Include="L10N.cs" />
     <Compile Include="MagCalib.cs" />
     <Compile Include="MainV2.cs">
@@ -503,9 +508,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Splash.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="temp.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Antenna\TrackerUI.cs">
@@ -585,6 +587,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\PropagationSettings.resx">
       <DependentUpon>PropagationSettings.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ProximityControl.resx">
       <DependentUpon>ProximityControl.cs</DependentUpon>
@@ -634,8 +637,72 @@
     <EmbeddedResource Include="Controls\UAVCANParams.zh-TW.resx">
       <DependentUpon>UAVCANParams.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.ar.resx">
+      <DependentUpon>ConfigTerminal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.az-Latn-AZ.resx">
+      <DependentUpon>ConfigTerminal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.de-DE.resx">
+      <DependentUpon>ConfigTerminal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.es-ES.resx">
+      <DependentUpon>ConfigTerminal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.fr.resx">
+      <DependentUpon>ConfigTerminal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.id-ID.resx">
+      <DependentUpon>ConfigTerminal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.it-IT.resx">
+      <DependentUpon>ConfigTerminal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.ja-JP.resx">
+      <DependentUpon>ConfigTerminal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.ko-KR.resx">
+      <DependentUpon>ConfigTerminal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.pl.resx">
+      <DependentUpon>ConfigTerminal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.pt.resx">
+      <DependentUpon>ConfigTerminal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.resx">
+      <DependentUpon>ConfigTerminal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.ru-KZ.resx">
+      <DependentUpon>ConfigTerminal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.ru-RU.resx">
+      <DependentUpon>ConfigTerminal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.tr.resx">
+      <DependentUpon>ConfigTerminal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.zh-Hans.resx">
+      <DependentUpon>ConfigTerminal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.zh-Hant.resx">
+      <DependentUpon>ConfigTerminal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.zh-TW.resx">
+      <DependentUpon>ConfigTerminal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\EchosounderProccess.resx">
       <DependentUpon>EchosounderProccess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grid\GridUI.resx">
+      <DependentUpon>GridUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grid\GridUI.ru-KZ.resx">
+      <DependentUpon>GridUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grid\GridUI.tr.resx">
+      <DependentUpon>GridUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Joystick\JoystickAxis.resx" />
     <EmbeddedResource Include="Log\LogStrings.resx">
@@ -678,9 +745,6 @@
     <Compile Include="Controls\Vibration.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\Video.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Controls\Icon\Icon.cs" />
     <Compile Include="Controls\Icon\Polygon.cs" />
     <Compile Include="Controls\PreFlight\CheckListControl.cs">
@@ -709,10 +773,6 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="GeoRef\georefimage.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Grid\GridPlugin.cs" />
-    <Compile Include="Grid\GridUI.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Joystick\JoystickSetup.cs">
@@ -782,16 +842,8 @@
     <Compile Include="Utilities\LogAnalyzer.cs" />
     <Compile Include="Utilities\POI.cs" />
     <Compile Include="Utilities\ThemeManager.cs" />
-    <Compile Include="Utilities\GStreamerUI.cs" />
     <Compile Include="Utilities\Update.cs" />
     <Compile Include="Utilities\Win32DeviceMgnt.cs" />
-    <Compile Include="Utilities\AltitudeAngel\AASettings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Utilities\AltitudeAngel\AltitudeAngel.cs" />
-    <Compile Include="Utilities\AltitudeAngel\MapAdapter.cs" />
-    <Compile Include="Utilities\AltitudeAngel\MissionPlannerAdaptor.cs" />
-    <Compile Include="Utilities\AltitudeAngel\OverlayAdapter.cs" />
     <Compile Include="Warnings\WarningControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -875,9 +927,6 @@
     <Compile Include="Controls\Vibration.Designer.cs">
       <DependentUpon>Vibration.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Video.Designer.cs">
-      <DependentUpon>Video.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\PreFlight\CheckListControl.Designer.cs">
       <DependentUpon>CheckListControl.cs</DependentUpon>
     </Compile>
@@ -901,9 +950,6 @@
     </Compile>
     <Compile Include="GeoRef\georefimage.Designer.cs">
       <DependentUpon>georefimage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Grid\GridUI.Designer.cs">
-      <DependentUpon>GridUI.cs</DependentUpon>
     </Compile>
     <Compile Include="Joystick\JoystickSetup.Designer.cs">
       <DependentUpon>JoystickSetup.cs</DependentUpon>
@@ -955,9 +1001,6 @@
     </Compile>
     <Compile Include="Controls\fftui.Designer.cs">
       <DependentUpon>fftui.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Utilities\AltitudeAngel\AASettings.Designer.cs">
-      <DependentUpon>AASettings.cs</DependentUpon>
     </Compile>
     <Compile Include="Warnings\WarningsManager.Designer.cs">
       <DependentUpon>WarningsManager.cs</DependentUpon>
@@ -1344,9 +1387,6 @@
     <EmbeddedResource Include="Splash.resx">
       <DependentUpon>Splash.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="temp.resx">
-      <DependentUpon>temp.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Antenna\TrackerUI.resx">
       <DependentUpon>TrackerUI.cs</DependentUpon>
     </EmbeddedResource>
@@ -1564,6 +1604,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\SITL.resx">
       <DependentUpon>SITL.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ThemeColors.resx">
       <DependentUpon>ThemeColors.cs</DependentUpon>
@@ -1598,9 +1639,6 @@
     <EmbeddedResource Include="Controls\Vibration.resx">
       <DependentUpon>Vibration.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Video.resx">
-      <DependentUpon>Video.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\PreFlight\CheckListEditor.resx">
       <DependentUpon>CheckListEditor.cs</DependentUpon>
     </EmbeddedResource>
@@ -1616,9 +1654,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\FlightPlanner.resx">
       <DependentUpon>FlightPlanner.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\FlightPlanner.ar.resx">
       <DependentUpon>FlightPlanner.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\FlightPlanner.az-Latn-AZ.resx">
       <DependentUpon>FlightPlanner.cs</DependentUpon>
@@ -1628,24 +1668,31 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\FlightPlanner.es-ES.resx">
       <DependentUpon>FlightPlanner.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\FlightPlanner.fr.resx">
       <DependentUpon>FlightPlanner.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\FlightPlanner.id-ID.resx">
       <DependentUpon>FlightPlanner.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\FlightPlanner.it-IT.resx">
       <DependentUpon>FlightPlanner.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\FlightPlanner.ja-JP.resx">
       <DependentUpon>FlightPlanner.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\FlightPlanner.ko-KR.resx">
       <DependentUpon>FlightPlanner.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\FlightPlanner.pl.resx">
       <DependentUpon>FlightPlanner.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\FlightPlanner.pt.resx">
       <DependentUpon>FlightPlanner.cs</DependentUpon>
@@ -1655,6 +1702,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\FlightPlanner.ru-RU.resx">
       <DependentUpon>FlightPlanner.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\FlightPlanner.tr.resx">
       <DependentUpon>FlightPlanner.cs</DependentUpon>
@@ -1664,6 +1712,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\FlightPlanner.zh-Hant.resx">
       <DependentUpon>FlightPlanner.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\FlightPlanner.zh-TW.resx">
       <DependentUpon>FlightPlanner.cs</DependentUpon>
@@ -1731,6 +1780,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.ar.resx">
       <DependentUpon>ConfigPlanner.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.az-Latn-AZ.resx">
       <DependentUpon>ConfigPlanner.cs</DependentUpon>
@@ -1749,6 +1799,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.ja-JP.resx">
       <DependentUpon>ConfigPlanner.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.ko-KR.resx">
       <DependentUpon>ConfigPlanner.cs</DependentUpon>
@@ -1773,6 +1824,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GeoRef\georefimage.resx">
       <DependentUpon>georefimage.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GeoRef\Georefimage.ar.resx">
       <DependentUpon>georefimage.cs</DependentUpon>
@@ -1812,15 +1864,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GeoRef\georefimage.zh-TW.resx">
       <DependentUpon>georefimage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Grid\GridUI.resx">
-      <DependentUpon>GridUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Grid\GridUI.ru-KZ.resx">
-      <DependentUpon>GridUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Grid\GridUI.tr.resx">
-      <DependentUpon>GridUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Joystick\JoystickSetup.resx">
       <DependentUpon>JoystickSetup.cs</DependentUpon>
@@ -1836,6 +1880,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Joystick\JoystickSetup.es-ES.resx">
       <DependentUpon>JoystickSetup.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Joystick\JoystickSetup.fr.resx">
       <DependentUpon>JoystickSetup.cs</DependentUpon>
@@ -1917,6 +1962,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Log\LogBrowse.resx">
       <DependentUpon>LogBrowse.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Log\LogBrowse.ar.resx">
       <DependentUpon>LogBrowse.cs</DependentUpon>
@@ -2163,9 +2209,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\fftui.resx">
       <DependentUpon>fftui.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Utilities\AltitudeAngel\AASettings.resx">
-      <DependentUpon>AASettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Warnings\WarningControl.resx">
       <DependentUpon>WarningControl.cs</DependentUpon>
@@ -2539,7 +2582,7 @@
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 y x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

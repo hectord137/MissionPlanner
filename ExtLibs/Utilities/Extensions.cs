@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -15,6 +16,60 @@ namespace MissionPlanner.Utilities
 {
     public static class Extensions
     {
+        public static Action MessageLoop;
+        //https://medium.com/rubrikkgroup/understanding-async-avoiding-deadlocks-e41f8f2c6f5d
+        public static T AwaitSync<T>(this Task<T> infunc)
+        {
+            var tsk = Task.Run<T>(async () =>
+            {
+                return await infunc.ConfigureAwait(true);
+            });
+
+            return tsk.GetAwaiter().GetResult();
+        }
+
+        public static IEnumerable<IEnumerable<T>> Chunk<T>(this IEnumerable<T> source, int chunksize)
+        {
+            while (source.Any())
+            {
+                yield return source.Take(chunksize);
+                source = source.Skip(chunksize);
+            }
+        }
+
+        /// <summary>
+        /// Chunk based on a field selector from the type
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="checkmatching"></param>
+        /// <returns></returns>
+        public static IEnumerable<IEnumerable<T>> ChunkByField<T>(this IEnumerable<T> source, Func<T,T, int, bool> checkmatching)
+        {
+            while (source.Any())
+            {
+                // store the first element to compare against
+                T first = source.First();
+                int include = 0;
+                // build the list by comparing the first to all after it
+                var sublist = source.TakeWhile((a,count) =>
+                {
+                    if (first.Equals(a))
+                    {
+                        include++;
+                        return true;
+                    }
+
+                    var check = checkmatching(first, a, count);
+                    if(check)
+                        include++;
+                    return check;
+                }).ToList(); // tolist improves performance vs ienumerable requery on every access
+                yield return sublist;
+                // continue on in the list
+                source = source.Skip(include);
+            }
+        }
 
         public static void AddRange<T>(this IList<T> list, IEnumerable<T> extras )
         {
@@ -30,6 +85,12 @@ namespace MissionPlanner.Utilities
         {
             timer.Change(intervalms, intervalms);
         }
+
+        public static byte[] ToByteArray(this char[] input)
+        {
+            return input.Select(a => (byte) a).ToArray();
+        }
+
         public static string ToJSON(this object msg, Formatting fmt)
         {
             return JsonConvert.SerializeObject(msg, fmt, new JsonSerializerSettings()
@@ -49,6 +110,11 @@ namespace MissionPlanner.Utilities
             return JsonConvert.DeserializeObject<T>(msg);
         }
 
+        public static string CleanString(this string dirtyString)
+        {
+            return new String(dirtyString.Where(Char.IsLetterOrDigit).ToArray());
+        }
+
         public static string RemoveFromEnd(this string s, string suffix)
         {
             if (s.EndsWith(suffix))
@@ -60,7 +126,7 @@ namespace MissionPlanner.Utilities
                 return s;
             }
         }
-
+        
         public static byte[] MakeSize(this byte[] buffer, int length)
         {
             if (buffer.Length == length)
@@ -77,7 +143,20 @@ namespace MissionPlanner.Utilities
             Array.Resize(ref buffer, length);
             return buffer;
         }
+        public static byte[] MakeBytes(this string item)
+        {
+            var buffer = ASCIIEncoding.ASCII.GetBytes(item);
+            return buffer;
+        }
 
+        public static char[] MakeCharSize(this string item, int length)
+        {
+            var buffer = item.ToCharArray();
+            if (buffer.Length == length)
+                return buffer;
+            Array.Resize(ref buffer, length);
+            return buffer;
+        }
         public static MemoryStream ToMemoryStream(this byte[] buffer)
         {
             return new MemoryStream(buffer);
@@ -195,21 +274,6 @@ namespace MissionPlanner.Utilities
             }
         }
 
-        public static async void Async(this Action function)
-        {
-            await Task.Run(() => { function(); });
-        }
-
-        public static async Task<TOut> Async<TOut>(this Func<TOut> function)
-        {
-            return await Task.Run(() => { return function(); });
-        }
-
-        public static async Task<TOut> Async<TIn, TOut>(this Func<TIn, TOut> function, TIn input)
-        {
-            return await Task.Run(() => { return function(input); });
-        }
-
         public static void Add<T, T2>(this List<Tuple<T, T2>> input, T in1, T2 in2)
         {
             input.Add(new Tuple<T, T2>(in1, in2));
@@ -222,23 +286,40 @@ namespace MissionPlanner.Utilities
 
         public static bool IsNumber(this object value)
         {
-            if (Equals(value, null))
+            return IsNumber(value?.GetType());
+        }
+
+        public static bool IsNumber(this Type value)
+        {
+            if (value == null)
             {
                 return false;
             }
 
-            return value is sbyte
-                   || value is double
-                   || value is float
-                   || value is uint
-                   || value is byte
-                   || value is short
-                   || value is ushort
-                   || value is int
-                   || value is long
-                   || value is ulong
-                   
-                   || value is decimal;
+            switch (Type.GetTypeCode(value))
+            {
+                case TypeCode.Byte:
+                case TypeCode.SByte:
+                case TypeCode.UInt16:
+                case TypeCode.UInt32:
+                case TypeCode.UInt64:
+                case TypeCode.Int16:
+                case TypeCode.Int32:
+                case TypeCode.Int64:
+                case TypeCode.Decimal:
+                case TypeCode.Double:
+                case TypeCode.Single:
+                    return true;
+                case TypeCode.Object:
+                    if (value.IsGenericType && value.GetGenericTypeDefinition() == typeof(Nullable<>))
+                    {
+                        return Nullable.GetUnderlyingType(value).IsNumber();
+                    }
+
+                    return false;
+                default:
+                    return false;
+            }
         }
 
         public static IEnumerable<MAVLink.MAVLinkMessage> GetMessageOfType(this CommsFile commsFile,
@@ -329,6 +410,17 @@ namespace MissionPlanner.Utilities
             }
         }
 
+        public static IEnumerable<T> CloseLoop<T>(this IEnumerable<T> list)
+        {
+            foreach (var item in list)
+            {
+                yield return item;
+            }
+
+            if (!list.First().Equals(list.Last()))
+                yield return list.First();
+        }
+
         public static IEnumerable<Tuple<T, T, T>> PrevNowNext<T>(this IEnumerable<T> list, T InitialValue = default(T), T InvalidValue = default(T))
         {
             T prev = InvalidValue;
@@ -409,6 +501,16 @@ namespace MissionPlanner.Utilities
         }
 
         public static DateTime fromUnixTime(this int time)
+        {
+            return new DateTime(1970, 1, 1).AddSeconds(time);
+        }
+
+        public static double toUnixTimeDouble(this DateTime dateTime)
+        {
+            return dateTime.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+        }
+
+        public static DateTime fromUnixTime(this double time)
         {
             return new DateTime(1970, 1, 1).AddSeconds(time);
         }

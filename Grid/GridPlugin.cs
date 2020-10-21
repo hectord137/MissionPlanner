@@ -1,12 +1,11 @@
-﻿using MissionPlanner.GCSViews;
-using MissionPlanner.GCSViews.ConfigurationView;
-using System;
+﻿using System;
 using System.Windows.Forms;
 
 namespace MissionPlanner.Grid
 {
     public class GridPlugin : MissionPlanner.Plugin.Plugin
     {
+
 
         ToolStripMenuItem but;
 
@@ -22,7 +21,7 @@ namespace MissionPlanner.Grid
 
         public override string Author
         {
-            get { return ""; }
+            get { return "Michael Oborne"; }
         }
 
         public override bool Init()
@@ -56,73 +55,33 @@ namespace MissionPlanner.Grid
                 col.Add(but);
 
             return true;
-
         }
-        public static GridUI GridUI;
 
-
-        public bool haypoly = false;
         public void but_Click(object sender, EventArgs e)
         {
-
-
-            using (GridUI = new GridUI(this))
+            using (var gridui = new GridUI(this))
             {
-
-
-                MissionPlanner.Utilities.ThemeManager.ApplyThemeTo(GridUI);
+                MissionPlanner.Utilities.ThemeManager.ApplyThemeTo(gridui);
 
                 if (Host.FPDrawnPolygon != null && Host.FPDrawnPolygon.Points.Count > 2)
                 {
-                    FlightPlannerBase.instance._flightPlanner.tableLayoutPanel12.Controls.Clear();
-                    FlightPlannerBase.instance._flightPlanner.tableLayoutPanel12.Controls.Add(GridUI.tabControl1);  //Agrega la instancia al panel 
-                    GridUI.GridUI_Load(sender, e);
-                    haypoly = true;
-                    FlightPlanner.instance.PaneMenu.Visible = true;
+                    gridui.ShowDialog();
                 }
                 else
                 {
                     if (
                         CustomMessageBox.Show("No polygon defined. Load a file?", "Load File", MessageBoxButtons.YesNo) ==
                         (int)DialogResult.Yes)
-
                     {
-
-                        GridUI.LoadGrid();
-                        FlightPlannerBase.instance._flightPlanner.tableLayoutPanel12.Controls.Clear();
-                        FlightPlannerBase.instance._flightPlanner.tableLayoutPanel12.Controls.Add(GridUI.tabControl1);
-                        haypoly = true;
-                        FlightPlanner.instance.PaneMenu.Visible = true;
+                        gridui.LoadGrid();
+                        gridui.ShowDialog();
                     }
                     else
                     {
                         CustomMessageBox.Show("Please define a polygon.", "Error");
-                        FlightPlannerBase.instance._flightPlanner.estadomenu = false;
-                        haypoly = false;
-                        FlightPlanner.instance.PaneMenu.Visible = false;
-                        FlightPlanner.instance.Estado_btn_insert_poly = true;
-                        FlightPlanner.instance.ButInsertPol_Click(sender, e);
-                        CustomColor.RestoreColor(FlightPlanner.instance.But_SurveyGrid);
-
-
                     }
                 }
             }
-        }
-
-        public void mousedown(object sender, MouseEventArgs e)
-        {
-          if(FlightPlanner.instance.statusSurveyGrid)
-                GridUI.map_MouseDown(sender, e);
-            
-        }
-
-        public void mousemove(object sender, MouseEventArgs e)
-        {
-
-            if (FlightPlanner.instance.statusSurveyGrid)
-                GridUI.map_MouseMove(sender, e);
-            
         }
 
         public override bool Exit()

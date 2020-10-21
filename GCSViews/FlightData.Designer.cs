@@ -132,7 +132,6 @@
             this.TRK_zoom = new MissionPlanner.Controls.MyTrackBar();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label19 = new System.Windows.Forms.Label();
-            this.comboBoxMapTypeData = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
             this.coords1 = new MissionPlanner.Controls.Coords();
             this.Zoomlevel = new System.Windows.Forms.NumericUpDown();
@@ -256,7 +255,6 @@
             this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("heading", this.bindingSourceHud, "yaw", true));
             this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("linkqualitygcs", this.bindingSourceHud, "linkqualitygcs", true));
             this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("message", this.bindingSourceHud, "messageHigh", true));
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("messagetime", this.bindingSourceHud, "messageHighTime", true));
             this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("mode", this.bindingSourceHud, "mode", true));
             this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("navpitch", this.bindingSourceHud, "nav_pitch", true));
             this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("navroll", this.bindingSourceHud, "nav_roll", true));
@@ -1422,7 +1420,6 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.label19);
-            this.panel1.Controls.Add(this.comboBoxMapTypeData);
             this.panel1.Controls.Add(this.label18);
             this.panel1.Controls.Add(this.coords1);
             this.panel1.Controls.Add(this.Zoomlevel);
@@ -1437,14 +1434,6 @@
             this.label19.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSourceQuickTab, "armed", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0"));
             this.label19.Name = "label19";
             this.label19.TextChanged += new System.EventHandler(this.label19_TextChanged);
-            // 
-            // comboBoxMapTypeData
-            // 
-            this.comboBoxMapTypeData.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxMapTypeData.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxMapTypeData, "comboBoxMapTypeData");
-            this.comboBoxMapTypeData.Name = "comboBoxMapTypeData";
-            this.toolTip1.SetToolTip(this.comboBoxMapTypeData, resources.GetString("comboBoxMapTypeData.ToolTip"));
             // 
             // label18
             // 
@@ -1638,7 +1627,6 @@
         private System.Windows.Forms.TableLayoutPanel tableMap;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.NumericUpDown Zoomlevel;
-        private Controls.MyLabel label1;
         private System.Windows.Forms.CheckBox CHK_autopan;
         public Controls.myGMAP gMapControl1;
         private ZedGraph.ZedGraphControl zg1;
@@ -1649,25 +1637,14 @@
         private Controls.MyButton BUT_log2kml;
         private Controls.MyButton BUT_joystick_settings;
         private System.Windows.Forms.ToolTip toolTip1;
-        private Controls.MyLabel lbl_logpercent;
         private System.Windows.Forms.ToolStripMenuItem pointCameraHereToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private Controls.MyLabel lbl_hdop;
-        private Controls.MyLabel lbl_sats;
-        private Controls.MyLabel lbl_playbackspeed;
-        private Controls.QuickView quickView3;
-        private Controls.QuickView quickView2;
-        private Controls.QuickView quickView1;
-        private Controls.QuickView quickView4;
-        private Controls.QuickView quickView6;
-        private Controls.QuickView quickView5;
         private System.Windows.Forms.ToolStripMenuItem flyToHereAltToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem flightPlannerToolStripMenuItem;
         //private Crom.Controls.Docking.DockContainer dockContainer1;
         private Controls.MyButton BUT_ARM;
         private System.Windows.Forms.ToolStripMenuItem triggerCameraToolStripMenuItem;
         private Controls.MyTrackBar TRK_zoom;
-        private Controls.MyLabel LBL_logfn;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPaneltlogs;
         private System.Windows.Forms.BindingSource bindingSourceHud;
         private System.Windows.Forms.Panel panel2;
@@ -1701,7 +1678,6 @@
         private System.Windows.Forms.ToolStripMenuItem altitudeAngelSettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setEKFHomeHereToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setHomeHereToolStripMenuItem1;
-        public System.Windows.Forms.ComboBox comboBoxMapTypeData;
         public System.Windows.Forms.ContextMenuStrip contextMenuStripHud;
         private System.Windows.Forms.ToolStripMenuItem videoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem recordHudToAVIToolStripMenuItem;

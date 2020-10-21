@@ -1,15 +1,70 @@
-﻿using System;
-using System.Text;
-using System.Collections;
-using System.CodeDom;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CSharp;
+using MissionPlanner.Utilities;
+using System;
+using System.CodeDom;
 using System.CodeDom.Compiler;
-using System.Reflection;
+using System.Collections;
 using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace MissionPlanner
 {
+    public static class CodeGenRoslyn
+    {
+        public static Assembly BuildCode(string filepath)
+        {
+            var syntaxTree =
+                CSharpSyntaxTree.ParseText(File.ReadAllText(filepath, Encoding.UTF8), path: filepath,
+                    encoding: Encoding.UTF8);
+            var assemblyName = Path.GetFileNameWithoutExtension(filepath); //Guid.NewGuid().ToString();
+
+            var refs = AppDomain.CurrentDomain.GetAssemblies();
+            var refFiles = refs.Where(a =>
+                    !a.IsDynamic && !a.FullName.Contains("MissionPlanner.Drawing"))
+                .Select(a => a.Location);
+            var refmeta = refFiles.Select(a =>
+            {
+                try
+                {
+                    if (a == "")
+                        return null;
+                    return AssemblyMetadata.CreateFromFile(a).GetReference();
+                }
+                catch
+                {
+                    return null;
+                }
+            }).Where(a => a != null).ToArray();
+
+            CSharpCompilation compilation = CSharpCompilation.Create(
+                assemblyName,
+                new[] {syntaxTree}, refmeta,
+                new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
+
+            using (var dllStream = new MemoryStream())
+            using (var pdbStream = new MemoryStream())
+            {
+                var emitResult = compilation.Emit(dllStream, pdbStream);
+                if (!emitResult.Success)
+                {
+                    // emitResult.Diagnostics
+                    emitResult.Diagnostics.ForEach(a => Console.WriteLine("{0}", a.ToString()));
+                }
+                else
+                {
+                    return Assembly.Load(dllStream.GetBuffer(), pdbStream.GetBuffer());
+                }
+
+                return null;
+            }
+        }
+    }
+
     public static class CodeGen
     {
         public static object runCode(string code)
@@ -59,30 +114,16 @@ namespace MissionPlanner
         /// <returns></returns>
         public static CompilerParameters CreateCompilerParameters()
         {
+            var refs = AppDomain.CurrentDomain.GetAssemblies();
+            var refFiles = refs.Where(a => !a.IsDynamic && !a.FullName.Contains("mscorlib") && !a.FullName.Contains("MissionPlanner.Drawing"))
+                .Select(a => a.Location);
+
             //add compiler parameters and assembly references
-            CompilerParameters compilerParams = new CompilerParameters();
-            compilerParams.CompilerOptions = "/target:library /optimize";
+            CompilerParameters compilerParams = new CompilerParameters(refFiles.ToArray());
+            compilerParams.CompilerOptions = "/target:library /langversion:5";
             compilerParams.GenerateExecutable = false;
             compilerParams.GenerateInMemory = true;
-            compilerParams.IncludeDebugInformation = false;
-            compilerParams.ReferencedAssemblies.Add("netstandard.dll");
-
-            foreach (var assembly in Assembly.GetExecutingAssembly().GetReferencedAssemblies())
-            { try
-                {
-                    var ass = Assembly.ReflectionOnlyLoad(assembly.FullName);
-
-                    var loc = ass.Location;
-
-                    var file = Path.GetFileName(loc);
-
-                    if (!compilerParams.ReferencedAssemblies.Contains(file))
-                        compilerParams.ReferencedAssemblies.Add(file);
-                }
-                catch { }
-            }
-
-            compilerParams.ReferencedAssemblies.Add("");
+            compilerParams.IncludeDebugInformation = true;
 
             //add any aditional references needed
             //            foreach (string refAssembly in code.References)
@@ -108,8 +149,37 @@ namespace MissionPlanner
             if (results.Errors.Count > 0)
             {
                 foreach (CompilerError error in results.Errors)
-                    Console.WriteLine("Compile Error:" + error.ErrorText);
+                    Console.WriteLine("Compile Error: Line: " + error.Line + ":" + error.Column + " " + error.ErrorText);
                 return null;
+            }
+
+            return results;
+        }
+
+        public static CompilerResults CompileCodeFile(CodeDomProvider compiler, CompilerParameters parms,
+            string filename)
+        {
+            //actually compile the code
+            CompilerResults results = compiler.CompileAssemblyFromFile(parms, new string[]
+            {
+                filename
+            });
+
+            //Do we have any compiler errors?
+            if (results.Errors.Count > 0)
+            {
+                bool iserror = false;
+                foreach (CompilerError error in results.Errors)
+                {
+                    Console.WriteLine("Compile " + (error.IsWarning ? "Warning" : "Error") + ": Line: " + error.Line +
+                                      ":" + error.Column + " " +
+                                      error.ErrorText);
+                    if (!error.IsWarning)
+                        iserror = true;
+                }
+
+                if(iserror)
+                    return null;
             }
 
             return results;

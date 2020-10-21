@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MissionPlanner
@@ -89,7 +90,7 @@ namespace MissionPlanner
         /// <summary>
         /// Self contained process tlog and save/display offsets
         /// </summary>
-        public static void ProcessLog(int throttleThreshold = 0)
+        public static async Task ProcessLog(int throttleThreshold = 0)
         {
             using (OpenFileDialog openFileDialog1 = new OpenFileDialog())
             {
@@ -113,7 +114,7 @@ namespace MissionPlanner
 
                         if (openFileDialog1.FileName.ToLower().EndsWith("tlog"))
                         {
-                            ans = getOffsets(openFileDialog1.FileName, throttleThreshold);
+                            ans = await getOffsets(openFileDialog1.FileName, throttleThreshold).ConfigureAwait(true);
                         }
                         else
                         {
@@ -302,9 +303,9 @@ namespace MissionPlanner
             return true;
         }
 
-        public static void test()
+        public static async Task test()
         {
-            getOffsets(@"C:\Users\michael\Downloads\2017-12-03 19-26-47.tlog");
+            await getOffsets(@"C:\Users\michael\Downloads\2017-12-03 19-26-47.tlog");
 
             CompassCalibrator com = new CompassCalibrator();
 
@@ -341,7 +342,7 @@ namespace MissionPlanner
                 // gather data
                 while (mine.logplaybackfile.BaseStream.Position < mine.logplaybackfile.BaseStream.Length)
                 {
-                    MAVLink.MAVLinkMessage packetraw = mine.readPacket();
+                    MAVLink.MAVLinkMessage packetraw = await mine.readPacketAsync().ConfigureAwait(false);
 
                     com.update(ref test);
 
@@ -362,40 +363,40 @@ namespace MissionPlanner
             var prsphere = sender as ProgressReporterSphere;
 
             // turn learning off
-            MainV2.comPort.setParam("COMPASS_LEARN", 0);
+            MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_LEARN", 0);
 
             bool havecompass2 = false;
             bool havecompass3 = false;
 
             if (MainV2.comPort.MAV.param.ContainsKey("COMPASS_OFS_X"))
             {
-                MainV2.comPort.setParam("COMPASS_OFS_X", 0, true);
-                MainV2.comPort.setParam("COMPASS_OFS_Y", 0, true);
-                MainV2.comPort.setParam("COMPASS_OFS_Z", 0, true);
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_OFS_X", 0, true);
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_OFS_Y", 0, true);
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_OFS_Z", 0, true);
 
-                MainV2.comPort.setParam("COMPASS_DIA_X", 1, true);
-                MainV2.comPort.setParam("COMPASS_DIA_Y", 1, true);
-                MainV2.comPort.setParam("COMPASS_DIA_Z", 1, true);
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_DIA_X", 1, true);
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_DIA_Y", 1, true);
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_DIA_Z", 1, true);
 
-                MainV2.comPort.setParam("COMPASS_ODI_X", 0, true);
-                MainV2.comPort.setParam("COMPASS_ODI_Y", 0, true);
-                MainV2.comPort.setParam("COMPASS_ODI_Z", 0, true);
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_ODI_X", 0, true);
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_ODI_Y", 0, true);
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_ODI_Z", 0, true);
             }
 
             //compass2 get mag2 offsets
             if (MainV2.comPort.MAV.param.ContainsKey("COMPASS_OFS2_X"))
             {
-                MainV2.comPort.setParam("COMPASS_OFS2_X", 0, true);
-                MainV2.comPort.setParam("COMPASS_OFS2_Y", 0, true);
-                MainV2.comPort.setParam("COMPASS_OFS2_Z", 0, true);
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_OFS2_X", 0, true);
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_OFS2_Y", 0, true);
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_OFS2_Z", 0, true);
 
-                MainV2.comPort.setParam("COMPASS_DIA2_X", 1, true);
-                MainV2.comPort.setParam("COMPASS_DIA2_Y", 1, true);
-                MainV2.comPort.setParam("COMPASS_DIA2_Z", 1, true);
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_DIA2_X", 1, true);
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_DIA2_Y", 1, true);
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_DIA2_Z", 1, true);
 
-                MainV2.comPort.setParam("COMPASS_ODI2_X", 0, true);
-                MainV2.comPort.setParam("COMPASS_ODI2_Y", 0, true);
-                MainV2.comPort.setParam("COMPASS_ODI2_Z", 0, true);
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_ODI2_X", 0, true);
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_ODI2_Y", 0, true);
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_ODI2_Z", 0, true);
 
                 havecompass2 = true;
             }
@@ -403,17 +404,17 @@ namespace MissionPlanner
             //compass3
             if (MainV2.comPort.MAV.param.ContainsKey("COMPASS_OFS3_X"))
             {
-                MainV2.comPort.setParam("COMPASS_OFS3_X", 0, true);
-                MainV2.comPort.setParam("COMPASS_OFS3_Y", 0, true);
-                MainV2.comPort.setParam("COMPASS_OFS3_Z", 0, true);
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_OFS3_X", 0, true);
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_OFS3_Y", 0, true);
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_OFS3_Z", 0, true);
 
-                MainV2.comPort.setParam("COMPASS_DIA3_X", 1, true);
-                MainV2.comPort.setParam("COMPASS_DIA3_Y", 1, true);
-                MainV2.comPort.setParam("COMPASS_DIA3_Z", 1, true);
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_DIA3_X", 1, true);
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_DIA3_Y", 1, true);
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_DIA3_Z", 1, true);
 
-                MainV2.comPort.setParam("COMPASS_ODI3_X", 0, true);
-                MainV2.comPort.setParam("COMPASS_ODI3_Y", 0, true);
-                MainV2.comPort.setParam("COMPASS_ODI3_Z", 0, true);
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_ODI3_X", 0, true);
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_ODI3_Y", 0, true);
+                MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_ODI3_Z", 0, true);
 
                 havecompass3 = true;
             }
@@ -510,15 +511,21 @@ namespace MissionPlanner
                     lastlsq = DateTime.Now;
                     lock (_locker)
                     {
-                        var lsq = MagCalib.LeastSq(datacompass1, false);
-                        // simple validation
-                        if (Math.Abs(lsq[0]) < 999)
+                        try
                         {
-                            centre = new Vector3(lsq[0], lsq[1], lsq[2]);
-                            log.Info("new centre " + centre.ToString());
+                            var lsq = MagCalib.LeastSq(datacompass1, false);
+                            // simple validation
+                            if (Math.Abs(lsq[0]) < 999)
+                            {
+                                centre = new Vector3(lsq[0], lsq[1], lsq[2]);
+                                log.Info("new centre " + centre.ToString());
 
-                            prsphere.sphere1.CenterPoint = new OpenTK.Vector3(
-                                (float)centre.x, (float)centre.y, (float)centre.z);
+                                prsphere.sphere1.CenterPoint = new OpenTK.Vector3(
+                                    (float) centre.x, (float) centre.y, (float) centre.z);
+                            }
+                        }
+                        catch
+                        {
                         }
                     }
                 }
@@ -529,15 +536,21 @@ namespace MissionPlanner
                     lastlsq2 = DateTime.Now;
                     lock (_locker)
                     {
-                        var lsq = MagCalib.LeastSq(datacompass2, false);
-                        // simple validation
-                        if (Math.Abs(lsq[0]) < 999)
+                        try
                         {
-                            Vector3 centre2 = new Vector3(lsq[0], lsq[1], lsq[2]);
-                            log.Info("new centre2 " + centre2.ToString());
+                            var lsq = MagCalib.LeastSq(datacompass2, false);
+                            // simple validation
+                            if (Math.Abs(lsq[0]) < 999)
+                            {
+                                Vector3 centre2 = new Vector3(lsq[0], lsq[1], lsq[2]);
+                                log.Info("new centre2 " + centre2.ToString());
 
-                            prsphere.sphere2.CenterPoint = new OpenTK.Vector3(
-                                (float)centre2.x, (float)centre2.y, (float)centre2.z);
+                                prsphere.sphere2.CenterPoint = new OpenTK.Vector3(
+                                    (float) centre2.x, (float) centre2.y, (float) centre2.z);
+                            }
+                        }
+                        catch
+                        {
                         }
                     }
                 }
@@ -548,15 +561,21 @@ namespace MissionPlanner
                     lastlsq3 = DateTime.Now;
                     lock (_locker)
                     {
-                        var lsq = MagCalib.LeastSq(datacompass3, false);
-                        // simple validation
-                        if (Math.Abs(lsq[0]) < 999)
+                        try
                         {
-                            Vector3 centre3 = new Vector3(lsq[0], lsq[1], lsq[2]);
-                            log.Info("new centre2 " + centre3.ToString());
+                            var lsq = MagCalib.LeastSq(datacompass3, false);
+                            // simple validation
+                            if (Math.Abs(lsq[0]) < 999)
+                            {
+                                Vector3 centre3 = new Vector3(lsq[0], lsq[1], lsq[2]);
+                                log.Info("new centre2 " + centre3.ToString());
 
-                            prsphere.sphere3.CenterPoint = new OpenTK.Vector3(
-                                (float)centre3.x, (float)centre3.y, (float)centre3.z);
+                                prsphere.sphere3.CenterPoint = new OpenTK.Vector3(
+                                    (float) centre3.x, (float) centre3.y, (float) centre3.z);
+                            }
+                        }
+                        catch
+                        {
                         }
                     }
                 }
@@ -604,8 +623,9 @@ namespace MissionPlanner
                 for (int i = 0; i < datacompass1.Count; i++)
                 {
                     point = new Vector3(datacompass1[i].Item1, datacompass1[i].Item2, datacompass1[i].Item3);
-                    radius += (float)(point + centre).length();
+                    radius += (float) (point + centre).length();
                 }
+
                 radius /= datacompass1.Count;
 
                 //test that we can find one point near a set of points all around the sphere surface
@@ -623,9 +643,9 @@ namespace MissionPlanner
                         double phi = (2 * Math.PI * i) / factor2;
 
                         Vector3 point_sphere = new Vector3(
-                            (float)(Math.Sin(theta) * Math.Cos(phi) * radius),
-                            (float)(Math.Sin(theta) * Math.Sin(phi) * radius),
-                            (float)(Math.Cos(theta) * radius)) - centre;
+                            (float) (Math.Sin(theta) * Math.Cos(phi) * radius),
+                            (float) (Math.Sin(theta) * Math.Sin(phi) * radius),
+                            (float) (Math.Cos(theta) * radius)) - centre;
 
                         //log.InfoFormat("magcalib check - {0} {1} dist {2}", theta * MathHelper.rad2deg, phi * MathHelper.rad2deg, max_distance);
 
@@ -641,19 +661,22 @@ namespace MissionPlanner
                                 break;
                             }
                         }
+
                         // draw them all
                         //((ProgressReporterSphere)sender).sphere1.AimFor(new OpenTK.Vector3((float)point_sphere.x, (float)point_sphere.y, (float)point_sphere.z));
                         if (!found)
                         {
                             displayresult = "more data needed Aim For " +
-                                            GetColour((int)(theta * MathHelper.rad2deg), (int)(phi * MathHelper.rad2deg));
-                            prsphere.sphere1.AimFor(new OpenTK.Vector3((float)point_sphere.x,
-                                (float)point_sphere.y, (float)point_sphere.z));
+                                            GetColour((int) (theta * MathHelper.rad2deg),
+                                                (int) (phi * MathHelper.rad2deg));
+                            prsphere.sphere1.AimFor(new OpenTK.Vector3((float) point_sphere.x,
+                                (float) point_sphere.y, (float) point_sphere.z));
                             //j = factor;
                             //break;
                         }
                     }
                 }
+
                 extramsg = displayresult;
 
                 //Console.WriteLine("3 "+ DateTime.Now.Millisecond);
@@ -799,7 +822,7 @@ namespace MissionPlanner
             double[] ofsDoubles2 = new double[3];
             double[] ofsDoubles3 = new double[3];
 
-            CollectionBuffer logdata = new CollectionBuffer(File.OpenRead(fn));
+            DFLogBuffer logdata = new DFLogBuffer(File.OpenRead(fn));
 
             var dflog = logdata.dflog;
 
@@ -910,7 +933,7 @@ namespace MissionPlanner
         /// </summary>
         /// <param name="fn">Filename</param>
         /// <returns>Offsets</returns>
-        public static double[] getOffsets(string fn, int throttleThreshold = 0)
+        public static async Task<double[]> getOffsets(string fn, int throttleThreshold = 0)
         {
             // based off tridge's work
             string logfile = fn;
@@ -960,7 +983,7 @@ namespace MissionPlanner
                 // gather data
                 while (mine.logplaybackfile.BaseStream.Position < mine.logplaybackfile.BaseStream.Length)
                 {
-                    MAVLink.MAVLinkMessage packetraw = mine.readPacket();
+                    MAVLink.MAVLinkMessage packetraw = await mine.readPacketAsync().ConfigureAwait(false);
 
                     var packet = mine.DebugPacket(packetraw, false);
 
@@ -1174,7 +1197,14 @@ namespace MissionPlanner
 
             var t1 = new alglib.ndimensional_fvec(fitalgo);
 
-            alglib.minlmoptimize(state, t1, null, data);
+            try
+            {
+                alglib.minlmoptimize(state, t1, null, data);
+            }
+            catch
+            {
+
+            }
 
             alglib.minlmresults(state, out x, out rep);
 
@@ -1237,35 +1267,35 @@ namespace MissionPlanner
                 try
                 {
                     // disable learning
-                    MainV2.comPort.setParam("COMPASS_LEARN", 0);
+                    MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_LEARN", 0);
 
                     if (
-                        !MainV2.comPort.SetSensorOffsets(MAVLinkInterface.sensoroffsetsenum.magnetometer, (float)ofs[0],
+                        !MainV2.comPort.SetSensorOffsets((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLinkInterface.sensoroffsetsenum.magnetometer, (float)ofs[0],
                             (float)ofs[1], (float)ofs[2]))
                     {
                         // set values
-                        MainV2.comPort.setParam("COMPASS_OFS_X", (float)ofs[0]);
-                        MainV2.comPort.setParam("COMPASS_OFS_Y", (float)ofs[1]);
-                        MainV2.comPort.setParam("COMPASS_OFS_Z", (float)ofs[2]);
+                        MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_OFS_X", (float)ofs[0]);
+                        MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_OFS_Y", (float)ofs[1]);
+                        MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_OFS_Z", (float)ofs[2]);
                     }
                     else
                     {
                         // Need to reload these params into the param list if SetSensorOffsets() was used
-                        MainV2.comPort.GetParam("COMPASS_OFS_X");
-                        MainV2.comPort.GetParam("COMPASS_OFS_Y");
-                        MainV2.comPort.GetParam("COMPASS_OFS_Z");
+                        MainV2.comPort.GetParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_OFS_X");
+                        MainV2.comPort.GetParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_OFS_Y");
+                        MainV2.comPort.GetParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_OFS_Z");
                     }
 
                     if (ofs.Length > 5 && MainV2.comPort.MAV.param.ContainsKey("COMPASS_DIA_X"))
                     {
                         // ellipsoid
-                        MainV2.comPort.setParam("COMPASS_DIA_X", (float)ofs[3]);
-                        MainV2.comPort.setParam("COMPASS_DIA_Y", (float)ofs[4]);
-                        MainV2.comPort.setParam("COMPASS_DIA_Z", (float)ofs[5]);
+                        MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_DIA_X", (float)ofs[3]);
+                        MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_DIA_Y", (float)ofs[4]);
+                        MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_DIA_Z", (float)ofs[5]);
 
-                        MainV2.comPort.setParam("COMPASS_ODI_X", (float)ofs[6]);
-                        MainV2.comPort.setParam("COMPASS_ODI_Y", (float)ofs[7]);
-                        MainV2.comPort.setParam("COMPASS_ODI_Z", (float)ofs[8]);
+                        MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_ODI_X", (float)ofs[6]);
+                        MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_ODI_Y", (float)ofs[7]);
+                        MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_ODI_Z", (float)ofs[8]);
                     }
                 }
                 catch
@@ -1293,34 +1323,34 @@ namespace MissionPlanner
                 try
                 {
                     // disable learning
-                    MainV2.comPort.setParam("COMPASS_LEARN", 0);
+                    MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_LEARN", 0);
 
                     if (
-                        !MainV2.comPort.SetSensorOffsets(MAVLinkInterface.sensoroffsetsenum.second_magnetometer,
+                        !MainV2.comPort.SetSensorOffsets((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLinkInterface.sensoroffsetsenum.second_magnetometer,
                             (float)ofs[0], (float)ofs[1], (float)ofs[2]))
                     {
                         // set values
-                        MainV2.comPort.setParam("COMPASS_OFS2_X", (float)ofs[0]);
-                        MainV2.comPort.setParam("COMPASS_OFS2_Y", (float)ofs[1]);
-                        MainV2.comPort.setParam("COMPASS_OFS2_Z", (float)ofs[2]);
+                        MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_OFS2_X", (float)ofs[0]);
+                        MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_OFS2_Y", (float)ofs[1]);
+                        MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_OFS2_Z", (float)ofs[2]);
                     }
                     else
                     {
                         // Need to reload these params into the param list if SetSensorOffsets() was used
-                        MainV2.comPort.GetParam("COMPASS_OFS2_X");
-                        MainV2.comPort.GetParam("COMPASS_OFS2_Y");
-                        MainV2.comPort.GetParam("COMPASS_OFS2_Z");
+                        MainV2.comPort.GetParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_OFS2_X");
+                        MainV2.comPort.GetParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_OFS2_Y");
+                        MainV2.comPort.GetParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_OFS2_Z");
                     }
                     if (ofs.Length > 5 && MainV2.comPort.MAV.param.ContainsKey("COMPASS_DIA2_X"))
                     {
                         // ellipsoid
-                        MainV2.comPort.setParam("COMPASS_DIA2_X", (float)ofs[3]);
-                        MainV2.comPort.setParam("COMPASS_DIA2_Y", (float)ofs[4]);
-                        MainV2.comPort.setParam("COMPASS_DIA2_Z", (float)ofs[5]);
+                        MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_DIA2_X", (float)ofs[3]);
+                        MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_DIA2_Y", (float)ofs[4]);
+                        MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_DIA2_Z", (float)ofs[5]);
 
-                        MainV2.comPort.setParam("COMPASS_ODI2_X", (float)ofs[6]);
-                        MainV2.comPort.setParam("COMPASS_ODI2_Y", (float)ofs[7]);
-                        MainV2.comPort.setParam("COMPASS_ODI2_Z", (float)ofs[8]);
+                        MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_ODI2_X", (float)ofs[6]);
+                        MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_ODI2_Y", (float)ofs[7]);
+                        MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_ODI2_Z", (float)ofs[8]);
                     }
                 }
                 catch
@@ -1348,22 +1378,22 @@ namespace MissionPlanner
                 try
                 {
                     // disable learning
-                    MainV2.comPort.setParam("COMPASS_LEARN", 0);
+                    MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_LEARN", 0);
                     {
-                        MainV2.comPort.setParam("COMPASS_OFS3_X", (float)ofs[0]);
-                        MainV2.comPort.setParam("COMPASS_OFS3_Y", (float)ofs[1]);
-                        MainV2.comPort.setParam("COMPASS_OFS3_Z", (float)ofs[2]);
+                        MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_OFS3_X", (float)ofs[0]);
+                        MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_OFS3_Y", (float)ofs[1]);
+                        MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_OFS3_Z", (float)ofs[2]);
                     }
                     if (ofs.Length > 5 && MainV2.comPort.MAV.param.ContainsKey("COMPASS_DIA3_X"))
                     {
                         // ellipsoid
-                        MainV2.comPort.setParam("COMPASS_DIA3_X", (float)ofs[3]);
-                        MainV2.comPort.setParam("COMPASS_DIA3_Y", (float)ofs[4]);
-                        MainV2.comPort.setParam("COMPASS_DIA3_Z", (float)ofs[5]);
+                        MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_DIA3_X", (float)ofs[3]);
+                        MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_DIA3_Y", (float)ofs[4]);
+                        MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_DIA3_Z", (float)ofs[5]);
 
-                        MainV2.comPort.setParam("COMPASS_ODI3_X", (float)ofs[6]);
-                        MainV2.comPort.setParam("COMPASS_ODI3_Y", (float)ofs[7]);
-                        MainV2.comPort.setParam("COMPASS_ODI3_Z", (float)ofs[8]);
+                        MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_ODI3_X", (float)ofs[6]);
+                        MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_ODI3_Y", (float)ofs[7]);
+                        MainV2.comPort.setParam((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, "COMPASS_ODI3_Z", (float)ofs[8]);
                     }
                 }
                 catch

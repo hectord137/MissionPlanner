@@ -157,43 +157,43 @@
     <value>False</value>
   </data>
   <data name="recordHudToAVIToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>213, 24</value>
+    <value>217, 24</value>
   </data>
   <data name="recordHudToAVIToolStripMenuItem.Text" xml:space="preserve">
     <value>Record Hud to AVI</value>
   </data>
   <data name="stopRecordToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>213, 24</value>
+    <value>217, 24</value>
   </data>
   <data name="stopRecordToolStripMenuItem.Text" xml:space="preserve">
     <value>Stop Record</value>
   </data>
   <data name="setMJPEGSourceToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>213, 24</value>
+    <value>217, 24</value>
   </data>
   <data name="setMJPEGSourceToolStripMenuItem.Text" xml:space="preserve">
     <value>Set MJPEG source</value>
   </data>
   <data name="startCameraToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>213, 24</value>
+    <value>217, 24</value>
   </data>
   <data name="startCameraToolStripMenuItem.Text" xml:space="preserve">
     <value>Start Camera</value>
   </data>
   <data name="setGStreamerSourceToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>213, 24</value>
+    <value>217, 24</value>
   </data>
   <data name="setGStreamerSourceToolStripMenuItem.Text" xml:space="preserve">
     <value>Set GStreamer Source</value>
   </data>
   <data name="hereLinkVideoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>213, 24</value>
+    <value>217, 24</value>
   </data>
   <data name="hereLinkVideoToolStripMenuItem.Text" xml:space="preserve">
     <value>HereLink Video</value>
   </data>
   <data name="gStreamerStopToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>213, 24</value>
+    <value>217, 24</value>
   </data>
   <data name="gStreamerStopToolStripMenuItem.Text" xml:space="preserve">
     <value>GStreamer Stop</value>
@@ -956,7 +956,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAD8
-        CAAAAk1TRnQBSQFMAgEBAgEAAVABAAFQAQABIAEAASABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CAAAAk1TRnQBSQFMAgEBAgEAAZABAAGQAQABIAEAASABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABgAMAASADAAEBAQABCAYAARAYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1215,7 +1215,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABW
-        CgAAAk1TRnQBSQFMAgEBAgEAAUgBAAFIAQABIAEAASABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CgAAAk1TRnQBSQFMAgEBAgEAAYgBAAGIAQABIAEAASABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABgAMAASADAAEBAQABCAYAARAYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1338,7 +1338,7 @@
     <value>zedGraphControl1</value>
   </data>
   <data name="&gt;&gt;zedGraphControl1.Type" xml:space="preserve">
-    <value>ZedGraph.ZedGraphControl, ZedGraph, Version=5.1.5.27425, Culture=neutral, PublicKeyToken=null</value>
+    <value>ZedGraph.ZedGraphControl, ZedGraph, Version=5.1.5.29009, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;zedGraphControl1.Parent" xml:space="preserve">
     <value>tableLayoutPanel12</value>
@@ -2592,7 +2592,7 @@
     <value>zg1</value>
   </data>
   <data name="&gt;&gt;zg1.Type" xml:space="preserve">
-    <value>ZedGraph.ZedGraphControl, ZedGraph, Version=5.1.5.27425, Culture=neutral, PublicKeyToken=null</value>
+    <value>ZedGraph.ZedGraphControl, ZedGraph, Version=5.1.5.29009, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;zg1.Parent" xml:space="preserve">
     <value>splitContainer1.Panel1</value>
@@ -2631,19 +2631,19 @@
     <value>False</value>
   </data>
   <data name="deleteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>134, 24</value>
+    <value>138, 24</value>
   </data>
   <data name="deleteToolStripMenuItem.Text" xml:space="preserve">
     <value>Delete</value>
   </data>
   <data name="saveFileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>134, 24</value>
+    <value>138, 24</value>
   </data>
   <data name="saveFileToolStripMenuItem.Text" xml:space="preserve">
     <value>Save File</value>
   </data>
   <data name="loadFileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>134, 24</value>
+    <value>138, 24</value>
   </data>
   <data name="loadFileToolStripMenuItem.Text" xml:space="preserve">
     <value>Load File</value>
@@ -2691,13 +2691,13 @@
     <value>False</value>
   </data>
   <data name="setEKFHomeHereToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 24</value>
+    <value>204, 24</value>
   </data>
   <data name="setEKFHomeHereToolStripMenuItem.Text" xml:space="preserve">
     <value>Set EKF Origin Here</value>
   </data>
   <data name="setHomeHereToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 24</value>
+    <value>204, 24</value>
   </data>
   <data name="setHomeHereToolStripMenuItem1.Text" xml:space="preserve">
     <value>Set Home Here</value>
@@ -2853,7 +2853,7 @@
     <value>distanceBar1</value>
   </data>
   <data name="&gt;&gt;distanceBar1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.DistanceBar, MissionPlanner, Version=1.3.7443.3382, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.DistanceBar, MissionPlanner, Version=1.3.7598.36505, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;distanceBar1.Parent" xml:space="preserve">
     <value>splitContainer1.Panel2</value>
@@ -3140,33 +3140,6 @@
   <data name="&gt;&gt;label19.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="comboBoxMapTypeData.Location" type="System.Drawing.Point, System.Drawing">
-    <value>532, 7</value>
-  </data>
-  <data name="comboBoxMapTypeData.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 21</value>
-  </data>
-  <data name="comboBoxMapTypeData.TabIndex" type="System.Int32, mscorlib">
-    <value>72</value>
-  </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>617, 17</value>
-  </metadata>
-  <data name="comboBoxMapTypeData.ToolTip" xml:space="preserve">
-    <value>Change the current map type</value>
-  </data>
-  <data name="&gt;&gt;comboBoxMapTypeData.Name" xml:space="preserve">
-    <value>comboBoxMapTypeData</value>
-  </data>
-  <data name="&gt;&gt;comboBoxMapTypeData.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBoxMapTypeData.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;comboBoxMapTypeData.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="label18.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -3195,7 +3168,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;label18.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="coords1.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 9</value>
@@ -3216,7 +3189,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;coords1.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="Zoomlevel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -3230,6 +3203,9 @@
   <data name="Zoomlevel.TabIndex" type="System.Int32, mscorlib">
     <value>69</value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>617, 17</value>
+  </metadata>
   <data name="Zoomlevel.ToolTip" xml:space="preserve">
     <value>Change Zoom Level</value>
   </data>
@@ -3243,7 +3219,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;Zoomlevel.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="CHK_autopan.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -3279,7 +3255,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;CHK_autopan.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="CB_tuning.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -3315,7 +3291,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;CB_tuning.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -3419,11 +3395,17 @@
   <data name="dataGridViewImageColumn1.HeaderText" xml:space="preserve">
     <value>Up</value>
   </data>
+  <data name="dataGridViewImageColumn1.MinimumWidth" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
   <data name="dataGridViewImageColumn1.Width" type="System.Int32, mscorlib">
     <value>20</value>
   </data>
   <data name="dataGridViewImageColumn2.HeaderText" xml:space="preserve">
     <value>Down</value>
+  </data>
+  <data name="dataGridViewImageColumn2.MinimumWidth" type="System.Int32, mscorlib">
+    <value>6</value>
   </data>
   <data name="dataGridViewImageColumn2.Width" type="System.Int32, mscorlib">
     <value>20</value>

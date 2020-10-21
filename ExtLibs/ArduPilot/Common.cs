@@ -2,7 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
+using Flurl.Util;
+using MissionPlanner.Utilities;
 
 namespace MissionPlanner.ArduPilot
 {
@@ -85,7 +88,7 @@ namespace MissionPlanner.ArduPilot
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         public static List<KeyValuePair<int, string>> getModesList(Firmwares firmware)
         {
-            log.Info("getModesList Called");
+            //log.Info("getModesList Called");
 
             if (firmware == Firmwares.PX4)
             {
@@ -224,12 +227,18 @@ union px4_custom_mode {
             input = input.Replace("{timeinair}",
                 (new TimeSpan(0, 0, 0, (int)MAV.cs.timeInAir)).ToString());
 
+
+            input = input.Replace("{altunit}", CurrentState.AltUnit);
+            input = input.Replace("{speedunit}", CurrentState.SpeedUnit);
+
+
             try
             {
                 object thisBoxed = MAV.cs;
                 Type test = thisBoxed.GetType();
 
-                PropertyInfo[] props = test.GetProperties();
+                PropertyInfo[] props =
+                    test.GetProperties(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public);
 
                 //props
                 foreach (var field in props)
@@ -252,7 +261,19 @@ union px4_custom_mode {
                     }
 
                     var fname = String.Format("{{{0}}}", field.Name);
-                    input = input.Replace(fname, fieldValue.ToString());
+
+                    if (typeCode == TypeCode.Double)
+                    {
+                        input = input.Replace(fname, ((double) fieldValue).ToString("F1"));
+                    }
+                    else if (typeCode == TypeCode.Single)
+                    {
+                        input = input.Replace(fname, ((float) fieldValue).ToString("F1"));
+                    }
+                    else
+                    {
+                        input = input.Replace(fname, fieldValue.ToInvariantString());
+                    }
                 }
             }
             catch

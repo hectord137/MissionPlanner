@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-//using BitMiracle.LibTiff.Classic;
+using BitMiracle.LibTiff.Classic;
 using GMap.NET;
 using log4net;
 

@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MissionPlanner.Log
@@ -192,7 +193,7 @@ namespace MissionPlanner.Log
             }
         }
 
-        string GetLog(ushort no, string fileName)
+        async Task<string> GetLog(ushort no, string fileName)
         {
             log.Info("GetLog " + no);
 
@@ -201,7 +202,7 @@ namespace MissionPlanner.Log
             status = SerialStatus.Reading;
 
             // get df log from mav
-            using (var ms = MainV2.comPort.GetLog(no))
+            using (var ms = await MainV2.comPort.GetLog(no).ConfigureAwait(false))
             {
                 if (ms != null)
                     log.Info("Got Log length: " + ms.Length);
@@ -241,7 +242,7 @@ namespace MissionPlanner.Log
             // rename file if needed
             log.Info("about to GetFirstGpsTime: " + logfile);
             // get gps time of assci log
-            DateTime logtime = new DFLog().GetFirstGpsTime(logfile);
+            DateTime logtime = new DFLog(null).GetFirstGpsTime(logfile);
 
             // rename log is we have a valid gps time
             if (logtime != DateTime.MinValue)
@@ -329,7 +330,7 @@ namespace MissionPlanner.Log
             status = SerialStatus.Done;
         }
 
-        private void DownloadThread(int[] selectedLogs)
+        private async void DownloadThread(int[] selectedLogs)
         {
             try
             {
@@ -352,7 +353,7 @@ namespace MissionPlanner.Log
 
                     AppendSerialLog(string.Format(LogStrings.FetchingLog, fileName));
 
-                    var logname = GetLog(entry.id, fileName);
+                    var logname = await GetLog(entry.id, fileName).ConfigureAwait(false);
 
                     CreateLog(logname);
 

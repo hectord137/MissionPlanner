@@ -86,7 +86,18 @@ namespace MissionPlanner {
                 return ResourceManager.GetString("AutoWP", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Bad Battery.
+        /// </summary>
+        public static string Bad_Battery
+        {
+            get
+            {
+                return ResourceManager.GetString("Bad_Battery", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Bad KML File :.
         /// </summary>
@@ -95,7 +106,29 @@ namespace MissionPlanner {
                 return ResourceManager.GetString("Bad_KML_File", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Bad Proximity.
+        /// </summary>
+        public static string Bad_Proximity
+        {
+            get
+            {
+                return ResourceManager.GetString("Bad_Proximity", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Bad SatCom.
+        /// </summary>
+        public static string Bad_SatCom
+        {
+            get
+            {
+                return ResourceManager.GetString("Bad_SatCom", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Bad Vision Position.
         /// </summary>
@@ -846,7 +879,18 @@ namespace MissionPlanner {
                 return ResourceManager.GetString("Invalid_home_location", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Location.
+        /// </summary>
+        public static string Invalid_Location
+        {
+            get
+            {
+                return ResourceManager.GetString("Invalid_Location", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Invalid Alt.
         /// </summary>

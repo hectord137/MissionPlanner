@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Security;
 using System.Text;
 using System.Threading;
@@ -17,6 +19,8 @@ namespace MissionPlanner.Utilities
         private long _length;
         string _uri = "";
         public int chunksize { get; set; } = 1000 * 250;
+
+        static HttpClient client = new HttpClient();
 
         private static object _lock = new object();
         /// <summary>
@@ -72,6 +76,8 @@ namespace MissionPlanner.Utilities
         static DownloadStream()
         {
             _timer = new Timer(a => { expireCache(); }, null, 1000 * 30, 1000 * 30);
+            if (!String.IsNullOrEmpty(Settings.Instance.UserAgent))
+                client.DefaultRequestHeaders.Add("User-Agent", Settings.Instance.UserAgent);
         }
 
         public DownloadStream(string uri)
@@ -126,7 +132,7 @@ namespace MissionPlanner.Utilities
 
                 var maxcount = (int)Math.Min(chunkleft, count);
 
-                Array.Copy(chunk.Value.ToArray(), positioninchunk, buffer, offset, maxcount);
+                Array.Copy(chunk.Value.GetBuffer(), positioninchunk, buffer, offset, maxcount);
 
                 bytesgot += maxcount;
                 offset += maxcount;
@@ -211,16 +217,13 @@ namespace MissionPlanner.Utilities
                 var end = Math.Min(Length, start + chunksize);
 
                 // cache it
-                HttpWebRequest request = (HttpWebRequest) WebRequest.Create(_uri);
-                if (!String.IsNullOrEmpty(Settings.Instance.UserAgent))
-                    ((HttpWebRequest)request).UserAgent = Settings.Instance.UserAgent;
-                request.AddRange(start, end);
-                HttpWebResponse response = (HttpWebResponse) request.GetResponse();
+                var request = new HttpRequestMessage() {RequestUri = new Uri(_uri)};
+                request.Headers.Range = new RangeHeaderValue(start, end);
 
-                Console.WriteLine("{0}: {1} - {2}", _uri, start, end);
+                Console.WriteLine("{0}: {1} - {2} {3}", _uri, start, end, end-start);
 
                 MemoryStream ms = new MemoryStream();
-                using (Stream stream = response.GetResponseStream())
+                using (Stream stream = client.SendAsync(request).GetAwaiter().GetResult().Content.ReadAsStreamAsync().GetAwaiter().GetResult())
                 {
                     stream.CopyTo(ms);
 
@@ -277,25 +280,110 @@ namespace MissionPlanner.Utilities
         private static readonly ILog log =
             LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public static async Task<bool> getFilefromNetAsync(string url, string saveto)
-        {
-            return await Task.Run(() =>
-            {
-                return getFilefromNet(url, saveto);
-            });            
-        }
-
-        public static bool getFilefromNet(string url, string saveto)
+        public static async Task<bool> getFilefromNetAsync(string url, string saveto, Action<int, string> status = null)
         {
             try
             {
-                // this is for mono to a ssl server
-                //ServicePointManager.CertificatePolicy = new NoCheckCertificatePolicy(); 
+                log.Info("Get " + url);
 
-                ServicePointManager.ServerCertificateValidationCallback =
-                    new System.Net.Security.RemoteCertificateValidationCallback(
-                        (sender, certificate, chain, policyErrors) => { return true; });
+                using (var response = await client.GetAsync(url))
+                {
+                    lock (log)
+                        log.Info((response).StatusCode.ToString());
+                    if ((response).StatusCode != HttpStatusCode.OK)
+                        return false;
 
+                    if (File.Exists(saveto))
+                    {
+                        DateTime lastfilewrite = new FileInfo(saveto).LastWriteTime;
+                        DateTime lasthttpmod = response.Content.Headers.LastModified.HasValue
+                            ? response.Content.Headers.LastModified.Value.DateTime
+                            : DateTime.MinValue;
+
+                        if (lasthttpmod < lastfilewrite)
+                        {
+                            if ((response).Content.Headers.ContentLength == new FileInfo(saveto).Length)
+                            {
+                                lock (log)
+                                    log.Info("got LastModified " + saveto + " " +
+                                             (response).Content.Headers.LastModified +
+                                             " vs " + new FileInfo(saveto).LastWriteTime);
+                                response.Dispose();
+                                return true;
+                            }
+                        }
+                    }
+
+                    int size = 0;
+                    using (Stream resstream = await response.Content.ReadAsStreamAsync())
+                    using (FileStream fs = new FileStream(saveto + ".new", FileMode.Create))
+                    {
+                        byte[] buf1 = new byte[1024];
+
+                        DateTime lastupdate = DateTime.MinValue;
+                        DateTime starttime = DateTime.Now;
+                        var contlen = response.Content.Headers.ContentLength;
+
+                        while (resstream.CanRead)
+                        {
+                            int len = await resstream.ReadAsync(buf1, 0, 1024);
+                            if (len == 0)
+                                break;
+                            fs.Write(buf1, 0, len);
+
+                            size += len;
+
+                            var elapsed = (DateTime.Now - starttime).TotalSeconds;
+                            var percent = ((size / (float) contlen) * 100.0f);
+                            if (lastupdate.Second != DateTime.Now.Second)
+                            {
+                                lastupdate = DateTime.Now;
+                                Console.WriteLine("{0} bps {1} {2}s {3}% of {4}     \r", size / elapsed, size, elapsed,
+                                    percent, contlen);
+                                var timeleft = TimeSpan.FromSeconds(((elapsed / percent) * (100 - percent)));
+                                status?.Invoke((int) percent,
+                                    "Downloading.. ETA: " +
+                                    //DateTime.Now.AddSeconds(((elapsed / percent) * (100 - percent))).ToShortTimeString()
+                                    formatTimeSpan(timeleft)
+                                );
+                            }
+                        }
+
+                        fs.Flush();
+                        fs.Close();
+                    }
+
+                    log.Info("Got " + url + " " + size);
+
+                    if (File.Exists(saveto))
+                    {
+                        File.Delete(saveto);
+                    }
+
+                    File.Move(saveto + ".new", saveto);
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                lock (log)
+                    log.Info("getFilefromNetAsync(): " + ex.ToString());
+                return false;
+            }
+        }
+
+        static Download()
+        {
+            if (!String.IsNullOrEmpty(Settings.Instance.UserAgent))
+                client.DefaultRequestHeaders.Add("User-Agent", Settings.Instance.UserAgent);
+        }
+
+        static HttpClient client = new HttpClient();
+        public static bool getFilefromNet(string url, string saveto, Action<int, string> status = null)
+        {
+            try
+            {
                 lock (log)
                     log.Info(url);
                 // Create a request using a URL that can receive a post. 
@@ -344,21 +432,30 @@ namespace MissionPlanner.Utilities
 
                 FileStream fs = new FileStream(saveto + ".new", FileMode.Create);
 
-                DateTime dt = DateTime.Now;
-                int bps = 0;
+                DateTime lastupdate = DateTime.MinValue;
+                DateTime starttime = DateTime.Now;
+                int got = 0;
 
                 while (dataStream.CanRead && bytes > 0)
                 {
                     int len = dataStream.Read(buf1, 0, buf1.Length);
                     bytes -= len;
-                    bps += len;
+                    got += len;
                     fs.Write(buf1, 0, len);
 
-                    if (dt.Second != DateTime.Now.Second)
+                    var elapsed = (DateTime.Now - starttime).TotalSeconds;
+                    var percent = ((got / (float)contlen) * 100.0f);
+                    if (lastupdate.Second != DateTime.Now.Second)
                     {
-                        log.Info(url + " " + bps + " " + bytes);
-                        dt = DateTime.Now;
-                        bps = 0;
+                        lastupdate = DateTime.Now;
+                        Console.WriteLine("{0} bps {1} {2}s {3}% of {4}     \r", got / elapsed, got, elapsed,
+                            percent, contlen);
+                        var timeleft = TimeSpan.FromSeconds(((elapsed / percent) * (100 - percent)));
+                        status?.Invoke((int)percent,
+                            "Downloading.. ETA: " +
+                            //DateTime.Now.AddSeconds(((elapsed / percent) * (100 - percent))).ToShortTimeString()
+                            formatTimeSpan(timeleft)
+                        );
                     }
                 }
 
@@ -519,18 +616,21 @@ namespace MissionPlanner.Utilities
             if (uri == null)
                 throw new ArgumentNullException("uri");
 
-            if (fileSizeCache.ContainsKey(uri) && fileSizeCache[uri] > 0)
-                return fileSizeCache[uri];
+            lock (fileSizeCache)
+            {
+                if (fileSizeCache.ContainsKey(uri) && fileSizeCache[uri] > 0)
+                    return fileSizeCache[uri];
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-            if (!String.IsNullOrEmpty(Settings.Instance.UserAgent))
-                ((HttpWebRequest)request).UserAgent = Settings.Instance.UserAgent;
-            request.Method = "GET";
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            var len = response.ContentLength;
-            response.Close();
-            fileSizeCache[uri] = len;
-            return len;
+                HttpWebRequest request = (HttpWebRequest) WebRequest.Create(uri);
+                if (!String.IsNullOrEmpty(Settings.Instance.UserAgent))
+                    ((HttpWebRequest) request).UserAgent = Settings.Instance.UserAgent;
+                request.Method = "GET";
+                HttpWebResponse response = (HttpWebResponse) request.GetResponse();
+                var len = response.ContentLength;
+                response.Close();
+                fileSizeCache[uri] = len;
+                return len;
+            }
         }
 
         private static IEnumerable<long> LongRange(long start, long count)

@@ -1,42 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using MissionPlanner.ArduPilot;
 
 namespace MissionPlanner.Utilities
 {
-    public class FenceCircle
-    {
-        public PointLatLngAlt Center { get; set; }
-        public float Radius { get; set; }
-
-        public PolyType Mode { get; set; }
-
-        public enum PolyType
-        {
-            Inclusive = MAVLink.MAV_CMD.FENCE_CIRCLE_INCLUSION,
-            Exclusive = MAVLink.MAV_CMD.FENCE_CIRCLE_EXCLUSION
-        }
-    }
-
-    public class FencePolygon
-    {
-        public List<PointLatLngAlt> Points { get; set; } = new List<PointLatLngAlt>();
-
-        public PolyType Mode { get; set; }
-
-        public enum PolyType
-        {
-            Inclusive = MAVLink.MAV_CMD.FENCE_POLYGON_VERTEX_INCLUSION,
-            Exclusive = MAVLink.MAV_CMD.FENCE_POLYGON_VERTEX_EXCLUSION
-        }
-    }
-
-    public class FenceReturn
-    {
-        public PointLatLngAlt Return { get; set; }
-    }
-
     public class Fence
     {
         /// <summary>
@@ -46,7 +15,8 @@ namespace MissionPlanner.Utilities
 
         public void DownloadFence(MAVLinkInterface port, Action<int, string> progress = null)
         {
-            var list = mav_mission.download(port, MAVLink.MAV_MISSION_TYPE.FENCE, progress);
+            var list = Task.Run(async () => await mav_mission
+                .download(port, port.MAV.sysid, port.MAV.compid, MAVLink.MAV_MISSION_TYPE.FENCE, progress).ConfigureAwait(false)).Result;
 
             LocationToFence(list);
         }
@@ -121,7 +91,7 @@ namespace MissionPlanner.Utilities
         {
             var fence = FenceToLocation();
 
-            mav_mission.upload(port, MAVLink.MAV_MISSION_TYPE.FENCE, fence, progress);
+            mav_mission.upload(port, port.MAV.sysid, port.MAV.compid, MAVLink.MAV_MISSION_TYPE.FENCE, fence, progress).ConfigureAwait(false).GetAwaiter().GetResult();
         }
 
         public List<Locationwp> FenceToLocation()

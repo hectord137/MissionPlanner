@@ -49,7 +49,7 @@ namespace MissionPlanner.Utilities
             float minLaneSeparation, double width, float leadin = 0)
         {
             return await Task.Run(() => CreateCorridor(polygon, altitude, distance, spacing, angle, overshoot1, overshoot2,
-                startpos, shutter, minLaneSeparation, width, leadin));
+                startpos, shutter, minLaneSeparation, width, leadin)).ConfigureAwait(false);
         }
 
         public static List<PointLatLngAlt> CreateCorridor(List<PointLatLngAlt> polygon, double altitude, double distance,
@@ -190,7 +190,7 @@ namespace MissionPlanner.Utilities
         public static async Task<List<PointLatLngAlt>> CreateRotaryAsync(List<PointLatLngAlt> polygon, double altitude, double distance, double spacing, double angle, double overshoot1, double overshoot2, StartPosition startpos, bool shutter, float minLaneSeparation, float leadin, PointLatLngAlt HomeLocation)
         {
             return await Task.Run((() => CreateRotary(polygon, altitude, distance, spacing, angle, overshoot1, overshoot2,
-                startpos, shutter, minLaneSeparation, leadin, HomeLocation)));
+                startpos, shutter, minLaneSeparation, leadin, HomeLocation))).ConfigureAwait(false);
         }
 
         public static List<PointLatLngAlt> CreateRotary(List<PointLatLngAlt> polygon, double altitude, double distance, double spacing, double angle, double overshoot1, double overshoot2, StartPosition startpos, bool shutter, float minLaneSeparation, float leadin, PointLatLngAlt HomeLocation)
@@ -231,25 +231,22 @@ namespace MissionPlanner.Utilities
                 if (tree.ChildCount == 0)
                     break;
 
-                ans1 = tree.GetFirst().Contour.Select(a => new utmpos(a.X / 1000.0, a.Y / 1000.0, utmzone)).ToList();
-
-                if (ans.Count() > 2)
+                foreach (var treeChild in tree.Childs)
                 {
-                    var start1 = ans[ans.Count() - 1];
-                    var end1 = ans[ans.Count() - 2];
+                    ans1 = treeChild.Contour.Select(a => new utmpos(a.X / 1000.0, a.Y / 1000.0, utmzone))
+                        .ToList();
 
-                    var start2 = ans1[0];
-                    var end2 = ans1[ans1.Count() - 1];
-
-                    var intersection = FindLineIntersectionExtension(start1, end1, start2, end2);
-
-                    if (intersection != utmpos.Zero)
+                    if (ans.Count() > 2)
                     {
-                        //ans.Add(intersection);
-                    }
-                }
+                        var start1 = ans[ans.Count() - 1];
+                        var end1 = ans[ans.Count() - 2];
 
-                ans.AddRange(ans1);
+                        var start2 = ans1[0];
+                        var end2 = ans1[ans1.Count() - 1];
+                    }
+
+                    ans.AddRange(ans1);
+                }
             }
 
             // set the altitude on all points
@@ -276,7 +273,7 @@ namespace MissionPlanner.Utilities
             bool shutter, float minLaneSeparation, float leadin, PointLatLngAlt HomeLocation)
         {
             return await Task.Run((() => CreateGrid(polygon, altitude, distance, spacing, angle, overshoot1, overshoot2,
-                startpos, shutter, minLaneSeparation, leadin, HomeLocation)));
+                startpos, shutter, minLaneSeparation, leadin, HomeLocation))).ConfigureAwait(false);
         }
 
         public static List<PointLatLngAlt> CreateGrid(List<PointLatLngAlt> polygon, double altitude, double distance, double spacing, double angle, double overshoot1, double overshoot2, StartPosition startpos, bool shutter, float minLaneSeparation, float leadin, PointLatLngAlt HomeLocation)

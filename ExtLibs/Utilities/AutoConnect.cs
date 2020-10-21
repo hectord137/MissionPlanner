@@ -75,7 +75,7 @@ namespace MissionPlanner.Utilities
                     {
                         try
                         {
-                            var client = new UdpClient(connectionInfo.Port, AddressFamily.InterNetwork);
+                            var client = new UdpClient(connectionInfo.Port);
                             client.BeginReceive(clientdataMAVLink, client);
                         }
                         catch (Exception ex)

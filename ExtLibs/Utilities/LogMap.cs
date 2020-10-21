@@ -1,15 +1,16 @@
 ﻿using GMap.NET;
 using GMap.NET.MapProviders;
 using MissionPlanner.Comms;
-using MissionPlanner.Drawing;
 using MissionPlanner.Utilities;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+//using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using MissionPlanner.Drawing;
 
 namespace MissionPlanner.Log
 {
@@ -88,8 +89,8 @@ namespace MissionPlanner.Log
                 else if (logfile.ToLower().EndsWith(".bin") || logfile.ToLower().EndsWith(".log"))
                 {
                     using (
-                        CollectionBuffer colbuf =
-                            new CollectionBuffer(File.Open(logfile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                        DFLogBuffer colbuf =
+                            new DFLogBuffer(File.Open(logfile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                         )
                     {
                         loc_list[0] = new List<PointLatLngAlt>();
@@ -262,6 +263,7 @@ namespace MissionPlanner.Log
                                         {
                                             try
                                             {
+                                                tile.Data.Position = 0;
                                                 gfx.DrawImage(Image.FromStream(tile.Data), x, y, prj.TileSize.Width,
                                                     prj.TileSize.Height);
                                             } catch (Exception ex2) {  }
