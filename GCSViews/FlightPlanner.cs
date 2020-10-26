@@ -50,6 +50,8 @@ using Resources = MissionPlanner.Properties.Resources;
 
 using ImageMagick;
 using MathNet.Numerics.Providers.LinearAlgebra;
+using System.Drawing.Imaging;
+using GMap.NET.WindowsForms.ToolTips;
 
 namespace MissionPlanner.GCSViews
 {
@@ -133,8 +135,12 @@ namespace MissionPlanner.GCSViews
         public GMapPolygon wppolygon;
         private GMapMarker CurrentMidLine;
 
+        //Capa utilizada para dibujar el Geotiff
         GMapOverlay tiffOverlay;
         GMarkerGoogle tiffMarker;
+
+        //Capa utilizada para dibujar la traza de la ecosonda
+        GMapOverlay echoSounderOverlay;
 
 
         public void Init()
@@ -158,6 +164,9 @@ namespace MissionPlanner.GCSViews
             MainMap.MouseUp += MainMap_MouseUp;
             MainMap.OnMarkerEnter += MainMap_OnMarkerEnter;
             MainMap.OnMarkerLeave += MainMap_OnMarkerLeave;
+
+            MainMap.OnRouteEnter += new RouteEnter(MainMap_OnRouteEnter_1);
+            MainMap.OnRouteLeave += new RouteLeave(MainMap_OnRouteLeave_1);
 
             MainMap.MapScaleInfoEnabled = false;
             MainMap.ScalePen = new Pen(Color.Red);
@@ -285,10 +294,13 @@ namespace MissionPlanner.GCSViews
             timer.Start();
             */
 
+            //Para dibujar la ruta de la Ecosonda
+            echoSounderOverlay = new GMapOverlay("echoSounderOverlay");
+            MainMap.Overlays.Insert(0, echoSounderOverlay);
+
             //Para dibujar el Geotiff en esta capa.
             tiffOverlay = new GMapOverlay("Geotiff");
             MainMap.Overlays.Insert(0, tiffOverlay);
-
 
         }
 
@@ -1347,7 +1359,7 @@ namespace MissionPlanner.GCSViews
 
                     try
                     {
-                        if (TXT_WPRad.Text == "") TXT_WPRad.Text = "2";
+                        if (TXT_WPRad.Text == "") TXT_WPRad.Text = "3";
                         if (TXT_loiterrad.Text == "") TXT_loiterrad.Text = "30";
 
                         overlay.CreateOverlay(home,
@@ -1369,7 +1381,9 @@ namespace MissionPlanner.GCSViews
                         MainMap.Overlays.Remove(b);
                     }
 
-                    MainMap.Overlays.Insert(1, overlay.overlay);
+                    //MainMap.Overlays.Insert(1, overlay.overlay);
+                    //La capa 0 y 1 se utiliza para el Geotiff y para la Echosounder.
+                    MainMap.Overlays.Insert(3, overlay.overlay);
 
                     overlay.overlay.ForceUpdate();
 
@@ -1463,7 +1477,9 @@ namespace MissionPlanner.GCSViews
                         MainMap.Overlays.Remove(b);
                     }
 
-                    MainMap.Overlays.Insert(1, overlay.overlay);
+                    //MainMap.Overlays.Insert(1, overlay.overlay);
+                    //La capa 0 y 1 se utiliza para el Geotiff y para la Echosounder.
+                    MainMap.Overlays.Insert(3, overlay.overlay);
 
                     overlay.overlay.ForceUpdate();
 
@@ -1520,7 +1536,9 @@ namespace MissionPlanner.GCSViews
                         MainMap.Overlays.Remove(b);
                     }
 
-                    MainMap.Overlays.Insert(1, overlay.overlay);
+                    //MainMap.Overlays.Insert(1, overlay.overlay);
+                    //La capa 0 y 1 se utiliza para el Geotiff y para la Echosounder.
+                    MainMap.Overlays.Insert(3, overlay.overlay);
 
                     overlay.overlay.ForceUpdate();
 
@@ -6001,7 +6019,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             {
                 lock (thisLock)
                 {
-                    tiffMarker.IsVisible = false;
+                    if(tiffMarker != null)
+                        tiffMarker.IsVisible = false;
                     MainMap.Zoom = trackBar1.Value;
                     UpdateTiffOverlay();
                 }
@@ -6138,7 +6157,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             float isNumber = 0;
             if (!float.TryParse(TXT_WPRad.Text, out isNumber))
             {
-                TXT_WPRad.Text = "2";
+                TXT_WPRad.Text = "3";
             }
             if (isNumber > (127 * CurrentState.multiplierdist))
             {
@@ -7436,6 +7455,190 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 BUT_WP_Mode.BackColor = colorActive;
                 BUT_Set_Home_On_Map.BackColor = colorNormal;
             }
+        }
+
+        private void BUT_Plot_EchoSounder_Click(object sender, EventArgs e)
+        {
+            string inFilePath = "";
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = "(*.txt)|*.txt";
+                DialogResult result = dialog.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    inFilePath = dialog.FileName;
+                }
+                else
+                {
+                    return;
+                }
+            }
+            catch { }
+
+            string[] lines = new string[1];
+            if (File.Exists(inFilePath))
+            {
+                try
+                {
+                    lines = File.ReadAllLines(inFilePath);
+                }
+                catch (Exception ex)
+                {
+                    CustomMessageBox.Show("Error. " + ex.Message, "Error");
+                    return;
+                }
+            }
+            else
+            {
+                CustomMessageBox.Show("Input file don't exist.", "Error"); ;
+                return;
+            }
+
+            
+            List<PointLatLng> points = new List<PointLatLng>();
+            List<double> depthList = new List<double>();
+
+            bool dbt_OK = false;
+            bool gga_OK = false;
+            double lat = 0;
+            double lon = 0;
+            string time = "";
+            double depth = 0;
+            foreach (string line in lines)
+            {
+                if (!string.IsNullOrEmpty(line))
+                {
+                    if (line.Contains("$GPDBT"))
+                    {
+                        string[] sp = line.Split(',');
+                        depth = double.Parse(sp[3], CultureInfo.InvariantCulture);
+                        dbt_OK = true;
+                    }
+
+                    if (line.Contains("$GPGGA") || line.Contains("$GNGGA"))
+                    {
+                        string[] sp = line.Split(',');
+                        time = sp[1];
+                        lat = EchosounderProccess.ToDecimalDegrees(sp[2] + sp[3]);
+                        lon = EchosounderProccess.ToDecimalDegrees(sp[4] + sp[5]);
+                        gga_OK = true;
+                    }
+
+                    continue;
+                }
+
+                //Cuando se llega a este punto, se ha completado un bloque.
+                if (dbt_OK && gga_OK)
+                {
+                    points.Add(new PointLatLng(lat, lon));
+                    depthList.Add(depth);
+                }
+                dbt_OK = false;
+                gga_OK = false;
+            }
+
+            //Crear el Filtro - orden 40, 
+            MathNet.Filtering.OnlineFilter filter = MathNet.Filtering.OnlineFilter.CreateDenoise(40);
+            //Filtrar Forward y Backward
+            double[] depthForward = filter.ProcessSamples(depthList.ToArray());
+            double[] depthBackward = filter.ProcessSamples(depthForward.Reverse().ToArray());
+            depthBackward = depthBackward.Reverse().ToArray();
+
+            //En este punto estan todos los datos cargados en points y depthBackward
+
+            //Crear el Gradiente de colores para evaluar la profundidad filtrada
+            System.Windows.Media.GradientStopCollection grad = new System.Windows.Media.GradientStopCollection();
+            grad.Add(new System.Windows.Media.GradientStop(System.Windows.Media.Colors.Red, 1));
+            grad.Add(new System.Windows.Media.GradientStop(System.Windows.Media.Colors.Red, 0.9));
+            grad.Add(new System.Windows.Media.GradientStop(System.Windows.Media.Colors.Green, 0.5));
+            grad.Add(new System.Windows.Media.GradientStop(System.Windows.Media.Colors.Blue, 0.1));
+            grad.Add(new System.Windows.Media.GradientStop(System.Windows.Media.Colors.Blue, 0));
+
+            //Borrar los GMapRoute en echoSounderOverlay
+            echoSounderOverlay.Clear();
+
+            double maxDepth = depthBackward.Max();
+            LBL_Max_Depth.Text = maxDepth.ToString("N1") + "m";
+            for (int i = 3; i < points.Count; i+=3)
+            {
+                GMapRoute route = new GMapRoute(i.ToString());
+                route.Points.Add(points[i-3]);
+                route.Points.Add(points[i]);
+
+                double off = depthBackward[i-3] / maxDepth;
+                System.Windows.Media.Color res = GetRelativeColor(grad, off);
+
+                route.Stroke = new Pen(Color.FromArgb(res.A, res.R, res.G, res.B), 10);
+                route.Stroke.EndCap = System.Drawing.Drawing2D.LineCap.Round;
+                route.Stroke.StartCap = System.Drawing.Drawing2D.LineCap.Round;
+                route.IsHitTestVisible = true;
+
+                route.Tag = echoSounderOverlay.Routes.Count;
+
+                GMapMarkerRect m = new GMapMarkerRect(points[i - 3]);
+                m.ToolTip = new GMapRoundedToolTip(m);
+                m.ToolTipMode = MarkerTooltipMode.Always;
+                m.ToolTipText = "Depth: " + depthBackward[i].ToString("N1");
+                m.IsVisible = false;
+                m.IsHitTestVisible = false;
+                
+                echoSounderOverlay.Markers.Add(m);
+                echoSounderOverlay.Routes.Add(route);
+            }
+
+            Panel_Legend.Visible = true;
+        }
+
+        public static System.Windows.Media.Color GetRelativeColor(System.Windows.Media.GradientStopCollection gsc, double offset)
+        {
+            var point = gsc.SingleOrDefault(f => f.Offset == offset);
+            if (point != null) return point.Color;
+
+            System.Windows.Media.GradientStop before = gsc.Where(w => w.Offset == gsc.Min(m => m.Offset)).First();
+            System.Windows.Media.GradientStop after = gsc.Where(w => w.Offset == gsc.Max(m => m.Offset)).First();
+
+            foreach (var gs in gsc)
+            {
+                if (gs.Offset < offset && gs.Offset > before.Offset)
+                {
+                    before = gs;
+                }
+                if (gs.Offset > offset && gs.Offset < after.Offset)
+                {
+                    after = gs;
+                }
+            }
+
+            var color = new System.Windows.Media.Color();
+
+            color.ScA = (float)((offset - before.Offset) * (after.Color.ScA - before.Color.ScA) / (after.Offset - before.Offset) + before.Color.ScA);
+            color.ScR = (float)((offset - before.Offset) * (after.Color.ScR - before.Color.ScR) / (after.Offset - before.Offset) + before.Color.ScR);
+            color.ScG = (float)((offset - before.Offset) * (after.Color.ScG - before.Color.ScG) / (after.Offset - before.Offset) + before.Color.ScG);
+            color.ScB = (float)((offset - before.Offset) * (after.Color.ScB - before.Color.ScB) / (after.Offset - before.Offset) + before.Color.ScB);
+
+            return color;
+        }
+
+        private void BUT_Clear_Echosounder_Click(object sender, EventArgs e)
+        {
+            echoSounderOverlay.Clear();
+            Panel_Legend.Visible = false;
+        }
+
+        private void MainMap_OnRouteEnter_1(GMapRoute item)
+        {
+            foreach(var r in echoSounderOverlay.Markers)
+            {
+                r.IsVisible = false;
+            }
+
+            echoSounderOverlay.Markers[(int)item.Tag].IsVisible = true;
+        }
+
+        private void MainMap_OnRouteLeave_1(GMapRoute item)
+        {
+            echoSounderOverlay.Markers[(int)item.Tag].IsVisible = false;
         }
     }
 }

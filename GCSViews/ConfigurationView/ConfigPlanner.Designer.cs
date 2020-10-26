@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigPlanner));
-            this.myButton1 = new MissionPlanner.Controls.MyButton();
             this.LBLTittleConfig = new System.Windows.Forms.Label();
             this.myUserControl1 = new System.Windows.Forms.MyUserControl();
             this.CMB_language = new System.Windows.Forms.ComboBox();
@@ -120,21 +119,6 @@
             this.BtnReadGps = new MissionPlanner.Controls.MyButton();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.txtIp = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.BTNSaveRemote = new MissionPlanner.Controls.MyButton();
-            this.TXTremoteIp = new System.Windows.Forms.MaskedTextBox();
-            this.TXTPortTX = new System.Windows.Forms.NumericUpDown();
-            this.TXTPortRX = new System.Windows.Forms.NumericUpDown();
-            this.ValEchosounder = new System.Windows.Forms.Label();
-            this.BtnLimitEchosounder = new MissionPlanner.Controls.MyButton();
-            this.NumLimitEchosounder = new System.Windows.Forms.NumericUpDown();
-            this.label25 = new System.Windows.Forms.Label();
-            this.ChkAutoStop = new System.Windows.Forms.CheckBox();
-            this.myButton4 = new MissionPlanner.Controls.MyButton();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.txtProtocol = new System.Windows.Forms.ComboBox();
             this.myButton5 = new MissionPlanner.Controls.MyButton();
             this.myButton6 = new MissionPlanner.Controls.MyButton();
@@ -149,20 +133,8 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.num_gcsid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_tracklength)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TXTPortTX)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TXTPortRX)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumLimitEchosounder)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // myButton1
-            // 
-            resources.ApplyResources(this.myButton1, "myButton1");
-            this.myButton1.Name = "myButton1";
-            this.myButton1.TextColor = System.Drawing.Color.White;
-            this.myButton1.UseVisualStyleBackColor = true;
-            this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
             // 
             // LBLTittleConfig
             // 
@@ -240,7 +212,6 @@
             // 
             resources.ApplyResources(this.label98, "label98");
             this.label98.Name = "label98";
-            this.label98.Click += new System.EventHandler(this.label98_Click);
             // 
             // CMB_altunits
             // 
@@ -678,7 +649,6 @@
             // 
             resources.ApplyResources(this.label107, "label107");
             this.label107.Name = "label107";
-            this.label107.Click += new System.EventHandler(this.label107_Click);
             // 
             // CMB_raterc
             // 
@@ -754,7 +724,6 @@
             // 
             resources.ApplyResources(this.label103, "label103");
             this.label103.Name = "label103";
-            this.label103.Click += new System.EventHandler(this.label103_Click);
             // 
             // label102
             // 
@@ -872,113 +841,6 @@
             resources.ApplyResources(this.label19, "label19");
             this.label19.Name = "label19";
             // 
-            // label20
-            // 
-            resources.ApplyResources(this.label20, "label20");
-            this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(172)))), ((int)(((byte)(24)))));
-            this.label20.Name = "label20";
-            // 
-            // txtIp
-            // 
-            resources.ApplyResources(this.txtIp, "txtIp");
-            this.txtIp.Name = "txtIp";
-            // 
-            // label22
-            // 
-            resources.ApplyResources(this.label22, "label22");
-            this.label22.Name = "label22";
-            // 
-            // label21
-            // 
-            resources.ApplyResources(this.label21, "label21");
-            this.label21.Name = "label21";
-            // 
-            // BTNSaveRemote
-            // 
-            resources.ApplyResources(this.BTNSaveRemote, "BTNSaveRemote");
-            this.BTNSaveRemote.Name = "BTNSaveRemote";
-            this.BTNSaveRemote.TextColor = System.Drawing.Color.White;
-            this.BTNSaveRemote.UseVisualStyleBackColor = true;
-            this.BTNSaveRemote.Click += new System.EventHandler(this.BTNSaveRemote_Click);
-            // 
-            // TXTremoteIp
-            // 
-            resources.ApplyResources(this.TXTremoteIp, "TXTremoteIp");
-            this.TXTremoteIp.Name = "TXTremoteIp";
-            // 
-            // TXTPortTX
-            // 
-            resources.ApplyResources(this.TXTPortTX, "TXTPortTX");
-            this.TXTPortTX.Maximum = new decimal(new int[] {
-            20000,
-            0,
-            0,
-            0});
-            this.TXTPortTX.Name = "TXTPortTX";
-            // 
-            // TXTPortRX
-            // 
-            resources.ApplyResources(this.TXTPortRX, "TXTPortRX");
-            this.TXTPortRX.Maximum = new decimal(new int[] {
-            20000,
-            0,
-            0,
-            0});
-            this.TXTPortRX.Name = "TXTPortRX";
-            // 
-            // ValEchosounder
-            // 
-            resources.ApplyResources(this.ValEchosounder, "ValEchosounder");
-            this.ValEchosounder.Name = "ValEchosounder";
-            this.ValEchosounder.Click += new System.EventHandler(this.ValEchosounder_Click);
-            // 
-            // BtnLimitEchosounder
-            // 
-            resources.ApplyResources(this.BtnLimitEchosounder, "BtnLimitEchosounder");
-            this.BtnLimitEchosounder.Name = "BtnLimitEchosounder";
-            this.BtnLimitEchosounder.TextColor = System.Drawing.Color.White;
-            this.BtnLimitEchosounder.UseVisualStyleBackColor = true;
-            this.BtnLimitEchosounder.Click += new System.EventHandler(this.BtnLimitEchosounder_Click);
-            // 
-            // NumLimitEchosounder
-            // 
-            resources.ApplyResources(this.NumLimitEchosounder, "NumLimitEchosounder");
-            this.NumLimitEchosounder.Maximum = new decimal(new int[] {
-            2000,
-            0,
-            0,
-            0});
-            this.NumLimitEchosounder.Name = "NumLimitEchosounder";
-            // 
-            // label25
-            // 
-            resources.ApplyResources(this.label25, "label25");
-            this.label25.Name = "label25";
-            // 
-            // ChkAutoStop
-            // 
-            resources.ApplyResources(this.ChkAutoStop, "ChkAutoStop");
-            this.ChkAutoStop.Name = "ChkAutoStop";
-            this.ChkAutoStop.UseVisualStyleBackColor = true;
-            // 
-            // myButton4
-            // 
-            resources.ApplyResources(this.myButton4, "myButton4");
-            this.myButton4.Name = "myButton4";
-            this.myButton4.TextColor = System.Drawing.Color.White;
-            this.myButton4.UseVisualStyleBackColor = true;
-            this.myButton4.Click += new System.EventHandler(this.myButton4_Click);
-            // 
-            // numericUpDown1
-            // 
-            resources.ApplyResources(this.numericUpDown1, "numericUpDown1");
-            this.numericUpDown1.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            // 
             // txtProtocol
             // 
             this.txtProtocol.FormattingEnabled = true;
@@ -1071,21 +933,6 @@
             this.Controls.Add(this.myButton6);
             this.Controls.Add(this.myButton5);
             this.Controls.Add(this.txtProtocol);
-            this.Controls.Add(this.numericUpDown1);
-            this.Controls.Add(this.myButton4);
-            this.Controls.Add(this.ChkAutoStop);
-            this.Controls.Add(this.label25);
-            this.Controls.Add(this.NumLimitEchosounder);
-            this.Controls.Add(this.BtnLimitEchosounder);
-            this.Controls.Add(this.ValEchosounder);
-            this.Controls.Add(this.TXTPortRX);
-            this.Controls.Add(this.TXTPortTX);
-            this.Controls.Add(this.TXTremoteIp);
-            this.Controls.Add(this.BTNSaveRemote);
-            this.Controls.Add(this.label21);
-            this.Controls.Add(this.label22);
-            this.Controls.Add(this.txtIp);
-            this.Controls.Add(this.label20);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.BtnWriteGps);
@@ -1093,7 +940,6 @@
             this.Controls.Add(this.label17);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.myButton1);
             this.Controls.Add(this.LBLTittleConfig);
             this.Controls.Add(this.myUserControl1);
             this.Controls.Add(this.CMB_language);
@@ -1174,10 +1020,6 @@
             this.Load += new System.EventHandler(this.ConfigPlanner_Load);
             ((System.ComponentModel.ISupportInitialize)(this.num_gcsid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_tracklength)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TXTPortTX)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TXTPortRX)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumLimitEchosounder)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
@@ -1262,7 +1104,6 @@
         private System.Windows.Forms.ComboBox CMB_language;
         private System.Windows.Forms.Label label93;
         private System.Windows.Forms.Label LBLTittleConfig;
-        public Controls.MyButton myButton1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
@@ -1277,21 +1118,6 @@
         public Controls.MyButton BtnReadGps;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Label txtIp;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label label21;
-        private Controls.MyButton BTNSaveRemote;
-        private System.Windows.Forms.MaskedTextBox TXTremoteIp;
-        private System.Windows.Forms.NumericUpDown TXTPortTX;
-        private System.Windows.Forms.NumericUpDown TXTPortRX;
-        private System.Windows.Forms.Label ValEchosounder;
-        private Controls.MyButton BtnLimitEchosounder;
-        private System.Windows.Forms.NumericUpDown NumLimitEchosounder;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.CheckBox ChkAutoStop;
-        private Controls.MyButton myButton4;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.ComboBox txtProtocol;
         private Controls.MyButton myButton5;
         private Controls.MyButton myButton6;

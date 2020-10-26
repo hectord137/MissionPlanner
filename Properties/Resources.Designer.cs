@@ -19,7 +19,7 @@ namespace MissionPlanner.Properties {
     // a través de una herramienta como ResGen o Visual Studio.
     // Para agregar o quitar un miembro, edite el archivo .ResX y, a continuación, vuelva a ejecutar ResGen
     // con la opción /str o recompile su proyecto de VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -832,6 +832,16 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap GradDepth {
+            get {
+                object obj = ResourceManager.GetObject("GradDepth", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap heli {
             get {
                 object obj = ResourceManager.GetObject("heli", resourceCulture);
@@ -1172,9 +1182,9 @@ namespace MissionPlanner.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;
+        ///   Busca una cadena traducida similar a &lt;?xml version=&quot;1.0&quot;?&gt;
         ///
         ///&lt;!-- TAGS ARE CASE SENSATIVE --&gt;
         ///&lt;CMD&gt;
@@ -1202,17 +1212,14 @@ namespace MissionPlanner.Properties {
         ///      &lt;P2&gt;&lt;/P2&gt;
         ///      &lt;P3&gt;Radius&lt;/P3&gt;
         ///      &lt;P4&gt;&lt;/P4&gt;
-        ///      &lt;X&gt;Lat&lt;/X&gt;
-        ///      &lt;Y&gt;Long [rest of string was truncated]&quot;;.
+        ///   [resto de la cadena truncado]&quot;;.
         /// </summary>
-        public static string mavcmd
-        {
-            get
-            {
+        internal static string mavcmd {
+            get {
                 return ResourceManager.GetString("mavcmd", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Busca una cadena traducida similar a == MAVLink Parameters == (this is a copy fo the wiki page FYI)
         ///

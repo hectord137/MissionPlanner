@@ -922,11 +922,6 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             //}
         }
 
-        private void chk_temp_FormClosing(object sender, EventArgs e)
-        {
-            chk_temp.Checked = false;
-        }
-
         private void chk_norcreceiver_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Instance["norcreceiver"] = chk_norcreceiver.Checked.ToString();
@@ -973,61 +968,6 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             MAVLinkInterface.gcssysid = (byte)num_gcsid.Value;
             Settings.Instance["gcsid"] = num_gcsid.Value.ToString();
         }
-
-        private void label107_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label103_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label98_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void myButton1_Click(object sender, EventArgs e)
-        {
-
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void myButton2_Click(object sender, EventArgs e)
-        {
-        }
-
-
-        private void BTNSaveRemote_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void maskedTextBox8_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
-        {
-
-        }
-
-        private void myButton3_Click(object sender, EventArgs e)
-        {
-
-        } 
-
-     
-
-       
-
-      
-        private void txtRange_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
-        {
-
-        }
         
         private void BtnReadGps_Click(object sender, EventArgs e)
         {
@@ -1053,19 +993,6 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             {
                 CustomMessageBox.Show(ex.Message);
             }
-        }
-
-        private void BtnLimitEchosounder_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void myButton4_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void ValEchosounder_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void myButton5_Click(object sender, EventArgs e)
@@ -1154,15 +1081,6 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 CustomMessageBox.Show("Rrror writing parameters.: " + ex.Message);
             }
         }
-
-        private void myButton7_Click(object sender, EventArgs e)
-        {
-            //MainV2.comPort.getParamListWithProggress();
-        }
-
-
-
-
 
     }
 }

@@ -253,7 +253,7 @@ namespace MissionPlanner.GCSViews
 
         }
 
-        double ToDecimalDegrees(string deg)
+        public static double ToDecimalDegrees(string deg)
         {
             if (string.IsNullOrEmpty(deg))
             {

@@ -113,10 +113,12 @@ namespace MissionPlanner.GCSViews
             this.label4 = new System.Windows.Forms.Label();
             this.lineSeparator1 = new MissionPlanner.Controls.LineSeparator();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.BUT_Clear_Echosounder = new System.Windows.Forms.Button();
+            this.BUT_Plot_EchoSounder = new System.Windows.Forms.Button();
             this.BUT_Clear_GeoTiff = new System.Windows.Forms.Button();
-            this.BUT_Load_KML = new System.Windows.Forms.Button();
             this.BUT_Clear_KML = new System.Windows.Forms.Button();
             this.BUT_Load_GeoTiff = new System.Windows.Forms.Button();
+            this.BUT_Load_KML = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.LBL_Map_origin = new System.Windows.Forms.Label();
             this.chk_grid = new System.Windows.Forms.CheckBox();
@@ -124,6 +126,9 @@ namespace MissionPlanner.GCSViews
             this.lnk_kml = new System.Windows.Forms.LinkLabel();
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.panelMap = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.IMG_GradDepth = new System.Windows.Forms.PictureBox();
+            this.LBL_Max_Depth = new System.Windows.Forms.Label();
             this.IMG_Tiff_Loading = new System.Windows.Forms.PictureBox();
             this.lbl_homedist = new System.Windows.Forms.Label();
             this.lbl_prevdist = new System.Windows.Forms.Label();
@@ -222,6 +227,7 @@ namespace MissionPlanner.GCSViews
             this.zoomToMissionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zoomToHomeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Timer_Update_Button_State = new System.Windows.Forms.Timer(this.components);
+            this.Panel_Legend = new System.Windows.Forms.Panel();
             this.Commands = new MissionPlanner.Controls.MyDataGridView();
             this.Command = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Param1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -261,12 +267,14 @@ namespace MissionPlanner.GCSViews
             this.tableLayoutPanel6.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panelMap.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.IMG_GradDepth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.IMG_Tiff_Loading)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.panelBASE.SuspendLayout();
             this.contextMenuStripPoly.SuspendLayout();
             this.contextMenuStripZoom.SuspendLayout();
+            this.Panel_Legend.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Commands)).BeginInit();
             this.SuspendLayout();
             // 
@@ -554,6 +562,7 @@ namespace MissionPlanner.GCSViews
             this.imageList1.Images.SetKeyName(9, "TIFF-icon.png");
             this.imageList1.Images.SetKeyName(10, "ZoomVehicle-icon.png");
             this.imageList1.Images.SetKeyName(11, "ZoomMission.png");
+            this.imageList1.Images.SetKeyName(12, "PlotEcho-icon.png");
             // 
             // BUT_Zoom_Mission
             // 
@@ -697,6 +706,7 @@ namespace MissionPlanner.GCSViews
             this.BUT_Load_Poly.ImageList = this.imageList1;
             this.BUT_Load_Poly.Name = "BUT_Load_Poly";
             this.BUT_Load_Poly.UseVisualStyleBackColor = false;
+            this.BUT_Load_Poly.Click += new System.EventHandler(this.loadPolygonToolStripMenuItem_Click);
             // 
             // BUT_Save_Poly
             // 
@@ -705,6 +715,7 @@ namespace MissionPlanner.GCSViews
             this.BUT_Save_Poly.ImageList = this.imageList1;
             this.BUT_Save_Poly.Name = "BUT_Save_Poly";
             this.BUT_Save_Poly.UseVisualStyleBackColor = false;
+            this.BUT_Save_Poly.Click += new System.EventHandler(this.savePolygonToolStripMenuItem_Click);
             // 
             // BUT_Poly_Mode
             // 
@@ -748,11 +759,31 @@ namespace MissionPlanner.GCSViews
             // tableLayoutPanel6
             // 
             resources.ApplyResources(this.tableLayoutPanel6, "tableLayoutPanel6");
+            this.tableLayoutPanel6.Controls.Add(this.BUT_Clear_Echosounder, 1, 2);
+            this.tableLayoutPanel6.Controls.Add(this.BUT_Plot_EchoSounder, 0, 2);
             this.tableLayoutPanel6.Controls.Add(this.BUT_Clear_GeoTiff, 1, 0);
-            this.tableLayoutPanel6.Controls.Add(this.BUT_Load_KML, 0, 1);
-            this.tableLayoutPanel6.Controls.Add(this.BUT_Clear_KML, 0, 1);
+            this.tableLayoutPanel6.Controls.Add(this.BUT_Clear_KML, 1, 1);
             this.tableLayoutPanel6.Controls.Add(this.BUT_Load_GeoTiff, 0, 0);
+            this.tableLayoutPanel6.Controls.Add(this.BUT_Load_KML, 0, 1);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
+            // 
+            // BUT_Clear_Echosounder
+            // 
+            this.BUT_Clear_Echosounder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
+            resources.ApplyResources(this.BUT_Clear_Echosounder, "BUT_Clear_Echosounder");
+            this.BUT_Clear_Echosounder.ImageList = this.imageList1;
+            this.BUT_Clear_Echosounder.Name = "BUT_Clear_Echosounder";
+            this.BUT_Clear_Echosounder.UseVisualStyleBackColor = false;
+            this.BUT_Clear_Echosounder.Click += new System.EventHandler(this.BUT_Clear_Echosounder_Click);
+            // 
+            // BUT_Plot_EchoSounder
+            // 
+            this.BUT_Plot_EchoSounder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
+            resources.ApplyResources(this.BUT_Plot_EchoSounder, "BUT_Plot_EchoSounder");
+            this.BUT_Plot_EchoSounder.ImageList = this.imageList1;
+            this.BUT_Plot_EchoSounder.Name = "BUT_Plot_EchoSounder";
+            this.BUT_Plot_EchoSounder.UseVisualStyleBackColor = false;
+            this.BUT_Plot_EchoSounder.Click += new System.EventHandler(this.BUT_Plot_EchoSounder_Click);
             // 
             // BUT_Clear_GeoTiff
             // 
@@ -762,15 +793,6 @@ namespace MissionPlanner.GCSViews
             this.BUT_Clear_GeoTiff.Name = "BUT_Clear_GeoTiff";
             this.BUT_Clear_GeoTiff.UseVisualStyleBackColor = false;
             this.BUT_Clear_GeoTiff.Click += new System.EventHandler(this.BUT_Clear_GeoTiff_Click);
-            // 
-            // BUT_Load_KML
-            // 
-            this.BUT_Load_KML.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
-            resources.ApplyResources(this.BUT_Load_KML, "BUT_Load_KML");
-            this.BUT_Load_KML.ImageList = this.imageList1;
-            this.BUT_Load_KML.Name = "BUT_Load_KML";
-            this.BUT_Load_KML.UseVisualStyleBackColor = false;
-            this.BUT_Load_KML.Click += new System.EventHandler(this.kMLOverlayToolStripMenuItem_Click);
             // 
             // BUT_Clear_KML
             // 
@@ -789,6 +811,15 @@ namespace MissionPlanner.GCSViews
             this.BUT_Load_GeoTiff.Name = "BUT_Load_GeoTiff";
             this.BUT_Load_GeoTiff.UseVisualStyleBackColor = false;
             this.BUT_Load_GeoTiff.Click += new System.EventHandler(this.BUT_Load_GeoTiff_Click);
+            // 
+            // BUT_Load_KML
+            // 
+            this.BUT_Load_KML.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
+            resources.ApplyResources(this.BUT_Load_KML, "BUT_Load_KML");
+            this.BUT_Load_KML.ImageList = this.imageList1;
+            this.BUT_Load_KML.Name = "BUT_Load_KML";
+            this.BUT_Load_KML.UseVisualStyleBackColor = false;
+            this.BUT_Load_KML.Click += new System.EventHandler(this.kMLOverlayToolStripMenuItem_Click);
             // 
             // panel3
             // 
@@ -835,6 +866,7 @@ namespace MissionPlanner.GCSViews
             // 
             // panelMap
             // 
+            this.panelMap.Controls.Add(this.Panel_Legend);
             this.panelMap.Controls.Add(this.IMG_Tiff_Loading);
             this.panelMap.Controls.Add(this.lbl_homedist);
             this.panelMap.Controls.Add(this.lbl_prevdist);
@@ -847,6 +879,23 @@ namespace MissionPlanner.GCSViews
             this.panelMap.ForeColor = System.Drawing.SystemColors.ControlText;
             this.panelMap.Name = "panelMap";
             this.panelMap.Resize += new System.EventHandler(this.panelMap_Resize);
+            // 
+            // label7
+            // 
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.Name = "label7";
+            // 
+            // IMG_GradDepth
+            // 
+            this.IMG_GradDepth.Image = global::MissionPlanner.Properties.Resources.GradDepth;
+            resources.ApplyResources(this.IMG_GradDepth, "IMG_GradDepth");
+            this.IMG_GradDepth.Name = "IMG_GradDepth";
+            this.IMG_GradDepth.TabStop = false;
+            // 
+            // LBL_Max_Depth
+            // 
+            resources.ApplyResources(this.LBL_Max_Depth, "LBL_Max_Depth");
+            this.LBL_Max_Depth.Name = "LBL_Max_Depth";
             // 
             // IMG_Tiff_Loading
             // 
@@ -920,7 +969,7 @@ namespace MissionPlanner.GCSViews
             this.MainMap.NegativeMode = false;
             this.MainMap.PolygonsEnabled = true;
             this.MainMap.RetryLoadTile = 0;
-            this.MainMap.RoutesEnabled = false;
+            this.MainMap.RoutesEnabled = true;
             this.MainMap.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Fractional;
             this.MainMap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.MainMap.ShowTileGridLines = false;
@@ -1549,6 +1598,14 @@ namespace MissionPlanner.GCSViews
             this.Timer_Update_Button_State.Enabled = true;
             this.Timer_Update_Button_State.Tick += new System.EventHandler(this.Timer_Update_Button_State_Tick);
             // 
+            // Panel_Legend
+            // 
+            resources.ApplyResources(this.Panel_Legend, "Panel_Legend");
+            this.Panel_Legend.Controls.Add(this.IMG_GradDepth);
+            this.Panel_Legend.Controls.Add(this.LBL_Max_Depth);
+            this.Panel_Legend.Controls.Add(this.label7);
+            this.Panel_Legend.Name = "Panel_Legend";
+            // 
             // Commands
             // 
             this.Commands.AllowUserToAddRows = false;
@@ -1769,12 +1826,15 @@ namespace MissionPlanner.GCSViews
             this.panel3.PerformLayout();
             this.panelMap.ResumeLayout(false);
             this.panelMap.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.IMG_GradDepth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.IMG_Tiff_Loading)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.panelBASE.ResumeLayout(false);
             this.contextMenuStripPoly.ResumeLayout(false);
             this.contextMenuStripZoom.ResumeLayout(false);
+            this.Panel_Legend.ResumeLayout(false);
+            this.Panel_Legend.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Commands)).EndInit();
             this.ResumeLayout(false);
 
@@ -1973,5 +2033,11 @@ namespace MissionPlanner.GCSViews
         private Panel panel2;
         private PictureBox IMG_Tiff_Loading;
         private Timer Timer_Update_Button_State;
+        private Button BUT_Plot_EchoSounder;
+        private Button BUT_Clear_Echosounder;
+        public Label LBL_Max_Depth;
+        private PictureBox IMG_GradDepth;
+        public Label label7;
+        private Panel Panel_Legend;
     }
 }
