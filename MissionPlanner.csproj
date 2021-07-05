@@ -2226,6 +2226,18 @@
     <Content Include="aircraft.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\Up2.png" />
+    <None Include="Resources\Down2.png" />
+    <None Include="Resources\Motor.png" />
+    <None Include="Resources\CPU.png" />
+    <None Include="Resources\Floater.png" />
+    <None Include="Resources\Satellite.png" />
+    <None Include="Resources\Distance.png" />
+    <None Include="Resources\Amper.png" />
+    <None Include="Resources\Speed.png" />
+    <None Include="Resources\Humidity.png" />
+    <None Include="Resources\Temperature.png" />
+    <None Include="Resources\Depth.png" />
     <None Include="Resources\GradDepth.png" />
     <None Include="Resources\edit-symbol.png" />
     <None Include="Resources\mute3.png" />

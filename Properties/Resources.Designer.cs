@@ -132,6 +132,16 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Amper {
+            get {
+                object obj = ResourceManager.GetObject("Amper", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Antenna_Tracker_01 {
             get {
                 object obj = ResourceManager.GetObject("Antenna Tracker-01", resourceCulture);
@@ -472,6 +482,16 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap CPU {
+            get {
+                object obj = ResourceManager.GetObject("CPU", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap dark_connect_icon {
             get {
                 object obj = ResourceManager.GetObject("dark_connect_icon", resourceCulture);
@@ -562,6 +582,26 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Depth {
+            get {
+                object obj = ResourceManager.GetObject("Depth", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Distance {
+            get {
+                object obj = ResourceManager.GetObject("Distance", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap donate {
             get {
                 object obj = ResourceManager.GetObject("donate", resourceCulture);
@@ -582,6 +622,16 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Down2 {
+            get {
+                object obj = ResourceManager.GetObject("Down2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap echosounder1 {
             get {
                 object obj = ResourceManager.GetObject("echosounder1", resourceCulture);
@@ -595,6 +645,16 @@ namespace MissionPlanner.Properties {
         internal static System.Drawing.Bitmap edit_symbol {
             get {
                 object obj = ResourceManager.GetObject("edit_symbol", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Floater {
+            get {
+                object obj = ResourceManager.GetObject("Floater", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -936,6 +996,16 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Humidity {
+            get {
+                object obj = ResourceManager.GetObject("Humidity", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap iconWarning32 {
             get {
                 object obj = ResourceManager.GetObject("iconWarning32", resourceCulture);
@@ -1261,6 +1331,16 @@ namespace MissionPlanner.Properties {
         internal static System.Drawing.Bitmap missionplannerlogodark {
             get {
                 object obj = ResourceManager.GetObject("missionplannerlogodark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Motor {
+            get {
+                object obj = ResourceManager.GetObject("Motor", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1738,6 +1818,16 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Satellite {
+            get {
+                object obj = ResourceManager.GetObject("Satellite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap selectvehicle {
             get {
                 object obj = ResourceManager.GetObject("selectvehicle", resourceCulture);
@@ -1768,6 +1858,16 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Speed {
+            get {
+                object obj = ResourceManager.GetObject("Speed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap splashdark {
             get {
                 object obj = ResourceManager.GetObject("splashdark", resourceCulture);
@@ -1781,6 +1881,16 @@ namespace MissionPlanner.Properties {
         internal static System.Drawing.Bitmap sub {
             get {
                 object obj = ResourceManager.GetObject("sub", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Temperature {
+            get {
+                object obj = ResourceManager.GetObject("Temperature", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1811,6 +1921,16 @@ namespace MissionPlanner.Properties {
         internal static System.Drawing.Bitmap up {
             get {
                 object obj = ResourceManager.GetObject("up", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Up2 {
+            get {
+                object obj = ResourceManager.GetObject("Up2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

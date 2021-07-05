@@ -290,8 +290,8 @@ namespace MissionPlanner.GCSViews
              contextMenuStripHud.Items.RemoveByKey("1"); */
 
             //Para mostrar la curva de produndidad en el grafico bajo el HUD
-            zedGraphControl1.GraphPane.AddCurve("Depth", depthRollingList, Color.Red, SymbolType.None);
-            CreateDepthChart(zedGraphControl1);
+            //zedGraphControl1.GraphPane.AddCurve("Depth", depthRollingList, Color.Red, SymbolType.None);
+            //CreateDepthChart(zedGraphControl1);
 
             NUM_DepthAlarmValue.Value = (decimal)Settings.Instance.GetDouble("DEPTH_ALARM", 0.30);
 
@@ -4260,16 +4260,52 @@ namespace MissionPlanner.GCSViews
                 depth = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.rangefinder1 / 100);
                 LBL_Depth.Text = depth.ToString("N2");
 
-                LBL_Temp.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.rangefinder2 / 100).ToString("N2");
+                LBL_Temp.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.rangefinder2 / 100).ToString("N1");
+                LBL_Humidity.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.rangefinder3 / 100).ToString("N1");
 
-                LBL_Humidity.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.rangefinder3 / 100).ToString("N2");
+                LBL_TempL.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch10in / 100).ToString("N1");
+                LBL_HumidityL.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch11in / 100).ToString("N1");
+                LBL_CurrentL.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch12in / 100).ToString("N1");
+
+                LBL_TempR.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch13in / 100).ToString("N1");
+                LBL_HumidityR.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch14in / 100).ToString("N1");
+                LBL_CurrentR.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch15in / 100).ToString("N1");
             }
             else
             {
                 LBL_Depth.Text = "0";
                 LBL_Temp.Text = "0";
                 LBL_Humidity.Text = "0";
+
+                LBL_TempL.Text = "0";
+                LBL_HumidityL.Text = "0";
+                LBL_CurrentL.Text = "0";
+
+                LBL_TempR.Text = "0";
+                LBL_HumidityR.Text = "0";
+                LBL_CurrentR.Text = "0";
             }
+
+            //Actualizar las barras de los motores en reversa
+            int ch1 = -(int)MainV2.comPort.MAV.cs.ch1out + 2500;
+            int ch3 = -(int)MainV2.comPort.MAV.cs.ch3out + 2500;
+            ch1 = (ch1 < progressBarL_Down.Minimum) ? progressBarL_Down.Minimum : ch1;
+            ch1 = (ch1 > progressBarL_Down.Maximum) ? progressBarL_Down.Maximum : ch1;
+
+            ch3 = (ch3 < progressBarR_Down.Minimum) ? progressBarR_Down.Minimum : ch3;
+            ch3 = (ch3 > progressBarR_Down.Maximum) ? progressBarR_Down.Maximum : ch3;
+            try
+            {
+                progressBarL_Down.Value = ch1;
+                progressBarR_Down.Value = ch3;
+            }
+            catch (Exception)
+            {
+            }
+            
+
+
+
 
             //Visualizar el % de bateria en base al voltaje. (Aprox lineal en base al 10% - 100% para 6S)
             //No es la mejor solucion, es solo para una referencia. 
@@ -4287,12 +4323,12 @@ namespace MissionPlanner.GCSViews
             else
             {
                 depthAlertTimer.Enabled = false;
-                if(_oldFill != null) zedGraphControl1.GraphPane.Chart.Fill = _oldFill;
+                //if(_oldFill != null) zedGraphControl1.GraphPane.Chart.Fill = _oldFill;
             }
         }
 
         private void depthChartTimer_Tick(object sender, EventArgs e)
-        {
+        {/*
             try
             {
                 // Make sure that the curvelist has at least one curve
@@ -4331,7 +4367,7 @@ namespace MissionPlanner.GCSViews
             }
             catch
             {
-            }
+            }*/
         }
 
         bool _colored = false;
@@ -4343,15 +4379,15 @@ namespace MissionPlanner.GCSViews
                 if(depthAlarmSound)
                     simpleSound.Play();
 
-                _oldFill = zedGraphControl1.GraphPane.Chart.Fill;
-                zedGraphControl1.GraphPane.Chart.Fill = new Fill(Color.Red);
+                //_oldFill = zedGraphControl1.GraphPane.Chart.Fill;
+                //zedGraphControl1.GraphPane.Chart.Fill = new Fill(Color.Red);
                 depthAlertTimer.Interval = 300;
                 _colored = true;
             }
             else
             {
-                if (_oldFill != null)
-                    zedGraphControl1.GraphPane.Chart.Fill = _oldFill;
+                //if (_oldFill != null)
+                //    zedGraphControl1.GraphPane.Chart.Fill = _oldFill;
                 depthAlertTimer.Interval = 500;
                 _colored = false;
             }
@@ -4398,6 +4434,8 @@ namespace MissionPlanner.GCSViews
         {
             Settings.Instance["DEPTH_ALARM"] = NUM_DepthAlarmValue.Value.ToString();
         }
+
+
     }
     }
 
