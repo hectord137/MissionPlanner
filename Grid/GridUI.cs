@@ -61,6 +61,11 @@ namespace MissionPlanner.Grid
         bool isMouseDown = false;
         bool isMouseDraging = false;
 
+        //Capa utilizada para dibujar el Geotiff
+        GMapOverlay tiffOverlay;
+        GMarkerGoogle tiffMarker;
+        Bitmap imageTiff;
+
         // GridUI
         public GridUI(GridPlugin plugin)
         {
@@ -119,6 +124,30 @@ namespace MissionPlanner.Grid
             xmlcamera(false, Settings.GetRunningDirectory() + "camerasBuiltin.xml");
 
             xmlcamera(false, Settings.GetUserDataDirectory() + "cameras.xml");
+
+            //Para dibujar el Geotiff en esta capa.
+            tiffOverlay = new GMapOverlay("Geotiff");
+            map.Overlays.Insert(0, tiffOverlay);
+
+            try
+            {
+                //Crear el GMarkerGoogle a partir del bitmap desde FlightPlanner.imageTiff
+                //No se puede utilizar el FlightPlanner.imageTiff como referencia, ya que se destruye
+                //al cerrar la ventana GridPlugin
+                if (plugin.Host.MainForm.FlightPlanner.imageTiff != null)
+                {
+                    imageTiff = new Bitmap(plugin.Host.MainForm.FlightPlanner.imageTiff);
+                    tiffMarker = new GMarkerGoogle(new PointLatLng(plugin.Host.MainForm.FlightPlanner.geoTiffMetaData.Latitude, plugin.Host.MainForm.FlightPlanner.geoTiffMetaData.Longitude), imageTiff);
+                    tiffMarker.Offset = new Point(0, 0);
+
+                    UpdateTiffOverlay();
+
+                    tiffOverlay.Markers.Add(tiffMarker);
+                }
+            }
+            catch
+            {
+            }
 
             loading = false;
         }
@@ -739,8 +768,8 @@ namespace MissionPlanner.Grid
             double flyspeedms = CurrentState.fromSpeedDisplayUnit((double)NUM_UpDownFlySpeed.Value);
 
             lbl_strips.Text = ((int)(strips / 2)).ToString();
-            double seconds = ((routetotal * 1000.0) / ((flyspeedms) * 0.8));
-            // reduce flying speed by 20 %
+            double seconds = ((routetotal * 1000.0) / ((flyspeedms)));
+
             lbl_flighttime.Text = secondsToNice(seconds);
             seconds = ((routetotal * 1000.0) / (flyspeedms));
             map.HoldInvalidation = false;
@@ -1160,6 +1189,9 @@ namespace MissionPlanner.Grid
                 try
                 {
                     TRK_zoom.Value = (float)map.Zoom;
+
+                    //Actualizar el tamaño del marker de acuerdo a la escala del mapa
+                    UpdateTiffOverlay();
                 }
                 catch { }
             }
@@ -1184,7 +1216,14 @@ namespace MissionPlanner.Grid
             {
                 lock (thisLock)
                 {
+                    //Ocultar el Geotiff antes de modificar el Zoom
+                    if (tiffMarker != null)
+                        tiffMarker.IsVisible = false;
+
                     map.Zoom = TRK_zoom.Value;
+
+                    //Actualizar el tamaño del marker de acuerdo a la escala del mapa
+                    UpdateTiffOverlay();
                 }
             }
             catch { }
@@ -1739,6 +1778,31 @@ namespace MissionPlanner.Grid
         {
             // doCalc
             domainUpDown1_ValueChanged(sender, e);
+        }
+
+        private void UpdateTiffOverlay()
+        {
+            if (imageTiff != null)
+            {
+                //Ancho en m del screen MainMap
+                double width =
+                (map.MapProvider.Projection.GetDistance(map.FromLocalToLatLng(0, 0),
+                    map.FromLocalToLatLng(map.Width, 0)) * 1000.0);
+
+                //Alto en m del screen MainMap
+                double height =
+                    (map.MapProvider.Projection.GetDistance(map.FromLocalToLatLng(0, 0),
+                        map.FromLocalToLatLng(map.Height, 0)) * 1000.0);
+
+                //Res en m/pixel
+                double m2pixelwidth = width / map.Width;
+                double m2pixelheight = height / map.Height;
+
+                //Calcular el nuevo tamaño del Marker segun la nueva res del mapa.
+                tiffMarker.Size = new Size((int)(plugin.Host.MainForm.FlightPlanner.geoTiffMetaData.Width_m / m2pixelwidth), (int)(plugin.Host.MainForm.FlightPlanner.geoTiffMetaData.Height_m / m2pixelheight));
+
+                tiffMarker.IsVisible = true;
+            }
         }
 
     }

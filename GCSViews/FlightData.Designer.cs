@@ -67,11 +67,19 @@
             this.tableMap = new System.Windows.Forms.TableLayoutPanel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.zg1 = new ZedGraph.ZedGraphControl();
-            this.lineSeparator3 = new MissionPlanner.Controls.LineSeparator();
+            this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
+            this.LBL_TimeRemain = new System.Windows.Forms.Label();
             this.lineSeparator1 = new MissionPlanner.Controls.LineSeparator();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.LBL_TotalDist = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.LBL_TraveledDist = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.LBL_MissionCompleted = new System.Windows.Forms.Label();
             this.COMBJOY = new System.Windows.Forms.ComboBox();
             this.but_disablejoystick = new MissionPlanner.Controls.MyButton();
-            this.windDir1 = new MissionPlanner.Controls.WindDir();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -82,8 +90,8 @@
             this.label19 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.coords1 = new MissionPlanner.Controls.Coords();
-            this.pictureBox9 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
+            this.pictureBox9 = new System.Windows.Forms.PictureBox();
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.progressBarL_Down = new System.Windows.Forms.ProgressBar();
             this.progressBarL_Up = new System.Windows.Forms.ProgressBar();
@@ -133,8 +141,8 @@
             this.BUT_setwp = new MissionPlanner.Controls.MyButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.ButJoyOn = new MissionPlanner.Controls.MyButton();
-            this.BUT_joystick_settings = new MissionPlanner.Controls.MyButton();
+            this.BUT_EchoGrab = new MissionPlanner.Controls.MyButton();
+            this.BUT_StopGrab = new MissionPlanner.Controls.MyButton();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.LBL_DisToHome = new System.Windows.Forms.Label();
             this.LBL_SatNumber = new System.Windows.Forms.Label();
@@ -159,6 +167,9 @@
             this.BUT_speed1_10 = new MissionPlanner.Controls.MyButton();
             this.MainH = new System.Windows.Forms.SplitContainer();
             this.ZedGraphTimer = new System.Windows.Forms.Timer(this.components);
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.BUT_EchoGrab_BlinkTimer = new System.Windows.Forms.Timer(this.components);
             this.distanceBar1 = new MissionPlanner.Controls.DistanceBar();
             this.contextMenuStripHud.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).BeginInit();
@@ -179,10 +190,11 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.tableLayoutPanel12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TRK_zoom)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
             this.tableLayoutPanel9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_DepthAlarmValue)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
@@ -604,7 +616,7 @@
             // TimerUpdateSecondMAV
             // 
             this.TimerUpdateSecondMAV.Enabled = true;
-            this.TimerUpdateSecondMAV.Interval = 200;
+            this.TimerUpdateSecondMAV.Interval = 500;
             this.TimerUpdateSecondMAV.Tick += new System.EventHandler(this.TimerUpdateSecondMAV_Tick);
             // 
             // depthAlertTimer
@@ -632,12 +644,10 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.ContextMenuStrip = this.contextMenuStripMap;
-            this.splitContainer1.Panel2.Controls.Add(this.lineSeparator3);
-            this.splitContainer1.Panel2.Controls.Add(this.lineSeparator1);
+            this.splitContainer1.Panel2.Controls.Add(this.tableLayoutPanel12);
             this.splitContainer1.Panel2.Controls.Add(this.COMBJOY);
             this.splitContainer1.Panel2.Controls.Add(this.but_disablejoystick);
             this.splitContainer1.Panel2.Controls.Add(this.distanceBar1);
-            this.splitContainer1.Panel2.Controls.Add(this.windDir1);
             this.splitContainer1.Panel2.Controls.Add(this.label6);
             this.splitContainer1.Panel2.Controls.Add(this.label5);
             this.splitContainer1.Panel2.Controls.Add(this.label3);
@@ -658,15 +668,83 @@
             this.zg1.ScrollMinY2 = 0D;
             this.zg1.DoubleClick += new System.EventHandler(this.zg1_DoubleClick);
             // 
-            // lineSeparator3
+            // tableLayoutPanel12
             // 
-            resources.ApplyResources(this.lineSeparator3, "lineSeparator3");
-            this.lineSeparator3.Name = "lineSeparator3";
+            resources.ApplyResources(this.tableLayoutPanel12, "tableLayoutPanel12");
+            this.tableLayoutPanel12.Controls.Add(this.LBL_TimeRemain, 0, 5);
+            this.tableLayoutPanel12.Controls.Add(this.lineSeparator1, 0, 3);
+            this.tableLayoutPanel12.Controls.Add(this.label17, 0, 4);
+            this.tableLayoutPanel12.Controls.Add(this.label7, 0, 0);
+            this.tableLayoutPanel12.Controls.Add(this.label9, 1, 1);
+            this.tableLayoutPanel12.Controls.Add(this.LBL_TotalDist, 2, 2);
+            this.tableLayoutPanel12.Controls.Add(this.label8, 0, 1);
+            this.tableLayoutPanel12.Controls.Add(this.LBL_TraveledDist, 1, 2);
+            this.tableLayoutPanel12.Controls.Add(this.label10, 2, 1);
+            this.tableLayoutPanel12.Controls.Add(this.LBL_MissionCompleted, 0, 2);
+            this.tableLayoutPanel12.Name = "tableLayoutPanel12";
+            // 
+            // LBL_TimeRemain
+            // 
+            this.LBL_TimeRemain.AutoEllipsis = true;
+            resources.ApplyResources(this.LBL_TimeRemain, "LBL_TimeRemain");
+            this.tableLayoutPanel12.SetColumnSpan(this.LBL_TimeRemain, 3);
+            this.LBL_TimeRemain.Name = "LBL_TimeRemain";
             // 
             // lineSeparator1
             // 
             resources.ApplyResources(this.lineSeparator1, "lineSeparator1");
+            this.tableLayoutPanel12.SetColumnSpan(this.lineSeparator1, 3);
             this.lineSeparator1.Name = "lineSeparator1";
+            // 
+            // label17
+            // 
+            this.label17.AutoEllipsis = true;
+            resources.ApplyResources(this.label17, "label17");
+            this.tableLayoutPanel12.SetColumnSpan(this.label17, 3);
+            this.label17.Name = "label17";
+            // 
+            // label7
+            // 
+            this.label7.AutoEllipsis = true;
+            resources.ApplyResources(this.label7, "label7");
+            this.tableLayoutPanel12.SetColumnSpan(this.label7, 3);
+            this.label7.Name = "label7";
+            // 
+            // label9
+            // 
+            this.label9.AutoEllipsis = true;
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
+            // 
+            // LBL_TotalDist
+            // 
+            this.LBL_TotalDist.AutoEllipsis = true;
+            resources.ApplyResources(this.LBL_TotalDist, "LBL_TotalDist");
+            this.LBL_TotalDist.Name = "LBL_TotalDist";
+            // 
+            // label8
+            // 
+            this.label8.AutoEllipsis = true;
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.Name = "label8";
+            // 
+            // LBL_TraveledDist
+            // 
+            this.LBL_TraveledDist.AutoEllipsis = true;
+            resources.ApplyResources(this.LBL_TraveledDist, "LBL_TraveledDist");
+            this.LBL_TraveledDist.Name = "LBL_TraveledDist";
+            // 
+            // label10
+            // 
+            this.label10.AutoEllipsis = true;
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
+            // 
+            // LBL_MissionCompleted
+            // 
+            this.LBL_MissionCompleted.AutoEllipsis = true;
+            resources.ApplyResources(this.LBL_MissionCompleted, "LBL_MissionCompleted");
+            this.LBL_MissionCompleted.Name = "LBL_MissionCompleted";
             // 
             // COMBJOY
             // 
@@ -684,16 +762,6 @@
             this.but_disablejoystick.TextColor = System.Drawing.Color.Empty;
             this.but_disablejoystick.UseVisualStyleBackColor = true;
             this.but_disablejoystick.Click += new System.EventHandler(this.but_disablejoystick_Click);
-            // 
-            // windDir1
-            // 
-            this.windDir1.BackColor = System.Drawing.Color.Transparent;
-            this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSource1, "wind_dir", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSource1, "wind_vel", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.windDir1.Direction = 360D;
-            resources.ApplyResources(this.windDir1, "windDir1");
-            this.windDir1.Name = "windDir1";
-            this.windDir1.Speed = 0D;
             // 
             // label6
             // 
@@ -807,14 +875,6 @@
             this.coords1.Name = "coords1";
             this.coords1.Vertical = false;
             // 
-            // pictureBox9
-            // 
-            resources.ApplyResources(this.pictureBox9, "pictureBox9");
-            this.tableLayoutPanel9.SetColumnSpan(this.pictureBox9, 2);
-            this.pictureBox9.Image = global::MissionPlanner.Properties.Resources.Up2;
-            this.pictureBox9.Name = "pictureBox9";
-            this.pictureBox9.TabStop = false;
-            // 
             // tableLayoutPanel9
             // 
             resources.ApplyResources(this.tableLayoutPanel9, "tableLayoutPanel9");
@@ -823,6 +883,14 @@
             this.tableLayoutPanel9.Controls.Add(this.progressBarL_Down, 0, 1);
             this.tableLayoutPanel9.Controls.Add(this.progressBarL_Up, 1, 1);
             this.tableLayoutPanel9.Name = "tableLayoutPanel9";
+            // 
+            // pictureBox9
+            // 
+            resources.ApplyResources(this.pictureBox9, "pictureBox9");
+            this.tableLayoutPanel9.SetColumnSpan(this.pictureBox9, 2);
+            this.pictureBox9.Image = global::MissionPlanner.Properties.Resources.Up2;
+            this.pictureBox9.Name = "pictureBox9";
+            this.pictureBox9.TabStop = false;
             // 
             // pictureBox8
             // 
@@ -853,8 +921,6 @@
             // 
             // label22
             // 
-            this.label22.AutoEllipsis = true;
-            this.tableLayoutPanel11.SetColumnSpan(this.label22, 4);
             resources.ApplyResources(this.label22, "label22");
             this.label22.Name = "label22";
             // 
@@ -1373,29 +1439,33 @@
             // tableLayoutPanel6
             // 
             resources.ApplyResources(this.tableLayoutPanel6, "tableLayoutPanel6");
-            this.tableLayoutPanel6.Controls.Add(this.ButJoyOn, 0, 0);
-            this.tableLayoutPanel6.Controls.Add(this.BUT_joystick_settings, 1, 0);
+            this.tableLayoutPanel6.Controls.Add(this.BUT_EchoGrab, 0, 0);
+            this.tableLayoutPanel6.Controls.Add(this.BUT_StopGrab, 1, 0);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             // 
-            // ButJoyOn
+            // BUT_EchoGrab
             // 
-            this.ButJoyOn.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
-            resources.ApplyResources(this.ButJoyOn, "ButJoyOn");
-            this.ButJoyOn.Name = "ButJoyOn";
-            this.ButJoyOn.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(50)))));
-            this.ButJoyOn.TextColor = System.Drawing.Color.Black;
-            this.ButJoyOn.Click += new System.EventHandler(this.ButJoyOn_Click_1);
+            resources.ApplyResources(this.BUT_EchoGrab, "BUT_EchoGrab");
+            this.BUT_EchoGrab.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
+            this.BUT_EchoGrab.ColorMouseDown = System.Drawing.Color.Empty;
+            this.BUT_EchoGrab.ColorMouseOver = System.Drawing.Color.Empty;
+            this.BUT_EchoGrab.ColorNotEnabled = System.Drawing.Color.Empty;
+            this.BUT_EchoGrab.Name = "BUT_EchoGrab";
+            this.BUT_EchoGrab.Outline = System.Drawing.Color.Black;
+            this.BUT_EchoGrab.Tag = "";
+            this.BUT_EchoGrab.TextColor = System.Drawing.Color.Black;
+            this.BUT_EchoGrab.Click += new System.EventHandler(this.BUT_EchoGrab_Click);
             // 
-            // BUT_joystick_settings
+            // BUT_StopGrab
             // 
-            this.BUT_joystick_settings.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
-            this.BUT_joystick_settings.ColorMouseDown = System.Drawing.Color.Empty;
-            this.BUT_joystick_settings.ColorMouseOver = System.Drawing.Color.Empty;
-            this.BUT_joystick_settings.ColorNotEnabled = System.Drawing.Color.Empty;
-            resources.ApplyResources(this.BUT_joystick_settings, "BUT_joystick_settings");
-            this.BUT_joystick_settings.Name = "BUT_joystick_settings";
-            this.BUT_joystick_settings.TextColor = System.Drawing.Color.Black;
-            this.BUT_joystick_settings.Click += new System.EventHandler(this.BUT_joystick_Click);
+            resources.ApplyResources(this.BUT_StopGrab, "BUT_StopGrab");
+            this.BUT_StopGrab.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
+            this.BUT_StopGrab.ColorMouseDown = System.Drawing.Color.Empty;
+            this.BUT_StopGrab.ColorMouseOver = System.Drawing.Color.Empty;
+            this.BUT_StopGrab.ColorNotEnabled = System.Drawing.Color.Empty;
+            this.BUT_StopGrab.Name = "BUT_StopGrab";
+            this.BUT_StopGrab.TextColor = System.Drawing.Color.Black;
+            this.BUT_StopGrab.Click += new System.EventHandler(this.BUT_StopGrab_Click);
             // 
             // tableLayoutPanel8
             // 
@@ -1434,7 +1504,7 @@
             // LBL_GSpeed
             // 
             this.LBL_GSpeed.AutoEllipsis = true;
-            this.LBL_GSpeed.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSourceQuickTab, "groundspeed", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "N2"));
+            this.LBL_GSpeed.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSourceQuickTab, "groundspeed", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "N1"));
             resources.ApplyResources(this.LBL_GSpeed, "LBL_GSpeed");
             this.LBL_GSpeed.Name = "LBL_GSpeed";
             // 
@@ -1649,6 +1719,23 @@
             // 
             this.ZedGraphTimer.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // label15
+            // 
+            this.label15.AutoEllipsis = true;
+            resources.ApplyResources(this.label15, "label15");
+            this.label15.Name = "label15";
+            // 
+            // label16
+            // 
+            this.label16.AutoEllipsis = true;
+            resources.ApplyResources(this.label16, "label16");
+            this.label16.Name = "label16";
+            // 
+            // BUT_EchoGrab_BlinkTimer
+            // 
+            this.BUT_EchoGrab_BlinkTimer.Interval = 500;
+            this.BUT_EchoGrab_BlinkTimer.Tick += new System.EventHandler(this.BUT_EchoGrab_BlinkTimer_Tick);
+            // 
             // distanceBar1
             // 
             resources.ApplyResources(this.distanceBar1, "distanceBar1");
@@ -1686,11 +1773,13 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.tableLayoutPanel12.ResumeLayout(false);
+            this.tableLayoutPanel12.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TRK_zoom)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
             this.tableLayoutPanel9.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_DepthAlarmValue)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -1717,6 +1806,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tableLayoutPanel6.ResumeLayout(false);
+            this.tableLayoutPanel6.PerformLayout();
             this.tableLayoutPanel8.ResumeLayout(false);
             this.tabTLogs.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -1781,11 +1871,9 @@
         private System.Windows.Forms.TableLayoutPanel tableMap;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private ZedGraph.ZedGraphControl zg1;
-        private Controls.LineSeparator lineSeparator1;
         private System.Windows.Forms.ComboBox COMBJOY;
         private Controls.MyButton but_disablejoystick;
         private Controls.DistanceBar distanceBar1;
-        public Controls.WindDir windDir1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label3;
@@ -1820,8 +1908,8 @@
         private Controls.MyButton BUT_setwp;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
-        private Controls.MyButton ButJoyOn;
-        private Controls.MyButton BUT_joystick_settings;
+        private Controls.MyButton BUT_EchoGrab;
+        private Controls.MyButton BUT_StopGrab;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
         private System.Windows.Forms.NumericUpDown NUM_DepthAlarmValue;
         private System.Windows.Forms.Button BUT_DisDepthAlarm;
@@ -1878,12 +1966,25 @@
         private System.Windows.Forms.ProgressBar progressBarR_Down;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private Controls.LineSeparator lineSeparator3;
         private Controls.LineSeparator lineSeparator4;
         private System.Windows.Forms.PictureBox pictureBox8;
-        private System.Windows.Forms.PictureBox pictureBox9;
         private System.Windows.Forms.PictureBox pictureBox12;
         private System.Windows.Forms.PictureBox pictureBox10;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel12;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label LBL_TimeRemain;
+        private Controls.LineSeparator lineSeparator1;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label LBL_TotalDist;
+        private System.Windows.Forms.Label LBL_TraveledDist;
+        private System.Windows.Forms.Label LBL_MissionCompleted;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Timer BUT_EchoGrab_BlinkTimer;
+        private System.Windows.Forms.PictureBox pictureBox9;
     }
 }

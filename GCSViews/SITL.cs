@@ -364,6 +364,8 @@ namespace MissionPlanner.GCSViews
         {
             var content = File.ReadAllText(filename);
 
+            content = content.Replace("True", "true");
+
             var match = BraceMatch(content, '{', '}');
 
             match = Regex.Replace(match, @"#.*", "");

@@ -89,7 +89,7 @@ namespace MissionPlanner.GCSViews
         internal PointLatLng MouseDownEnd;
         internal string wpfilename;
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private static Propagation prop;
+//        private static Propagation prop;
         private static GMapOverlay rallypointoverlay;
         private static string zone = "50s";
         private readonly Random rnd = new Random();
@@ -138,6 +138,10 @@ namespace MissionPlanner.GCSViews
         //Capa utilizada para dibujar el Geotiff
         GMapOverlay tiffOverlay;
         GMarkerGoogle tiffMarker;
+        //El bitmap debe ser publico para acceder desde el GridPlugin
+        public Bitmap imageTiff;
+        //Debe ser publico para acceder desde FlightData y GridPlugin
+        public GeoTiffReadMetaData geoTiffMetaData = new GeoTiffReadMetaData();
 
         //Capa utilizada para dibujar la traza de la ecosonda
         GMapOverlay echoSounderOverlay;
@@ -219,7 +223,7 @@ namespace MissionPlanner.GCSViews
 
             MainMap.Overlays.Add(poioverlay);
 
-            prop = new Propagation(MainMap);
+//            prop = new Propagation(MainMap);
 
             top = new GMapOverlay("top");
             //MainMap.Overlays.Add(top);
@@ -5460,19 +5464,19 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 ((ProgressReporterDialogue)sender).UpdateProgressAndStatus(95, "Setting params");
 
                 // m
-                port.setParam("WP_RADIUS", float.Parse(TXT_WPRad.Text) / CurrentState.multiplierdist);
+                //port.setParam("WP_RADIUS", float.Parse(TXT_WPRad.Text) / CurrentState.multiplierdist);
 
                 // cm's
-                port.setParam("WPNAV_RADIUS", float.Parse(TXT_WPRad.Text) / CurrentState.multiplierdist * 100.0);
+                //port.setParam("WPNAV_RADIUS", float.Parse(TXT_WPRad.Text) / CurrentState.multiplierdist * 100.0);
 
-                try
-                {
-                    port.setParam(new[] { "LOITER_RAD", "WP_LOITER_RAD" },
-                        float.Parse(TXT_loiterrad.Text) / CurrentState.multiplierdist);
-                }
-                catch
-                {
-                }
+                //try
+                //{
+                //    port.setParam(new[] { "LOITER_RAD", "WP_LOITER_RAD" },
+                //        float.Parse(TXT_loiterrad.Text) / CurrentState.multiplierdist);
+                //}
+                //catch
+                //{
+                //}
 
                 //Establece Home Manual
                 port.doCommand((byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent, MAVLink.MAV_CMD.DO_SET_HOME, 0, 0, 0, 0, (float)home.lat, (float)home.lng, home.alt);
@@ -5978,11 +5982,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 if (isMouseDown || CurentRectMarker != null)
                     return;
 
-                prop.alt = MainV2.comPort.MAV.cs.alt;
-                prop.altasl = MainV2.comPort.MAV.cs.altasl;
-                prop.center = MainMap.Position;
-                prop.Update(MainV2.comPort.MAV.cs.PlannedHomeLocation, MainV2.comPort.MAV.cs.Location,
-                    MainV2.comPort.MAV.cs.battery_kmleft);
+//                prop.alt = MainV2.comPort.MAV.cs.alt;
+//                prop.altasl = MainV2.comPort.MAV.cs.altasl;
+//                prop.center = MainMap.Position;
+//                prop.Update(MainV2.comPort.MAV.cs.PlannedHomeLocation, MainV2.comPort.MAV.cs.Location,
+//                    MainV2.comPort.MAV.cs.battery_kmleft);
 
                 routesoverlay.Markers.Clear();
 
@@ -6019,9 +6023,13 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             {
                 lock (thisLock)
                 {
-                    if(tiffMarker != null)
+                    //Ocultar el Geotiff antes de modificar el Zoom
+                    if (tiffMarker != null)
                         tiffMarker.IsVisible = false;
+
                     MainMap.Zoom = trackBar1.Value;
+
+                    //Actualizar el tamaño del marker de acuerdo a la escala del mapa
                     UpdateTiffOverlay();
                 }
             }
@@ -6975,6 +6983,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 try
                 {
                     trackBar1.Value = (int)(MainMap.Zoom);
+
+                    //Actualizar el tamaño del marker de acuerdo a la escala del mapa
                     UpdateTiffOverlay();
                 }
                 catch (Exception ex)
@@ -7357,8 +7367,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             FlightData.kmlpolygons.Polygons.Clear();
         }
 
-        Bitmap imageTiff;
-        GeoTiffReadMetaData geoTiffMetaData = new GeoTiffReadMetaData();
+        
         private void BUT_Load_GeoTiff_Click(object sender, EventArgs e)
         {
             string path = SelectImageDialog();
@@ -7370,7 +7379,17 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                 //extrae latitud, longitud, scala x e y segun ruta
                 geoTiffMetaData.LoadImageTiff(path);
-                imageTiff = new Bitmap(path);
+                
+                try
+                {
+                    imageTiff = new Bitmap(path);
+                }
+                catch (Exception ex)
+                {
+                    CustomMessageBox.Show("Geotiff Error. " + ex.Message, "Load Fail");
+                    IMG_Tiff_Loading.Visible = false;
+                    return;
+                }
 
                 tiffMarker = new GMarkerGoogle(new PointLatLng(geoTiffMetaData.Latitude, geoTiffMetaData.Longitude), imageTiff);
                 tiffMarker.Offset = new Point(0, 0);
@@ -7380,6 +7399,13 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 tiffOverlay.Markers.Add(tiffMarker);
 
                 IMG_Tiff_Loading.Visible = false;
+
+                //Para inicializar las capas en la pestaña de FlightData
+                FlightData.instance.tiffOverlay.Clear();
+                FlightData.instance.tiffMarker = new GMarkerGoogle(new PointLatLng(geoTiffMetaData.Latitude, geoTiffMetaData.Longitude), imageTiff); ;
+                FlightData.instance.tiffMarker.Offset = new Point(0, 0);
+                FlightData.instance.UpdateTiffOverlay();
+                FlightData.instance.tiffOverlay.Markers.Add(FlightData.instance.tiffMarker);
             }
         }
 
@@ -7428,7 +7454,9 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         private void BUT_Clear_GeoTiff_Click(object sender, EventArgs e)
         {
             tiffOverlay.Markers.Clear();
+            FlightData.instance.tiffOverlay.Clear();
             imageTiff.Dispose();
+            imageTiff = null;
         }
 
         private void Timer_Update_Button_State_Tick(object sender, EventArgs e)

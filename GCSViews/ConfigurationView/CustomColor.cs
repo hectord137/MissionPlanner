@@ -39,5 +39,15 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 btn.Outline = Color.FromArgb(148, 170, 50);
             }
         }
+
+        public static void SetRecordColor(MyButton btn)
+        {
+            if (btn != null)
+            {
+                btn.BGGradBot = Color.FromArgb(255, 128, 128);
+                btn.BGGradTop = Color.FromArgb(255, 0, 0);
+                btn.Outline = Color.FromArgb(0, 0, 0);
+            }
+        }
     }
 }

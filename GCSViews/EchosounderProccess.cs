@@ -151,7 +151,9 @@ namespace MissionPlanner.GCSViews
                 //Cuando se llega a este punto, se ha completado un bloque.
                 if (dbt_OK && gga_OK)
                 {
-                    timeLatLonList.Add(time, lat, lon);
+                    PointLatLngAlt point = new PointLatLngAlt(lat, lon);
+                    double[] utm  = point.ToUTM();
+                    timeLatLonList.Add(time, utm[0], utm[1]);
                     depthList.Add(depth);
                 }
                 dbt_OK = false;
@@ -179,42 +181,34 @@ namespace MissionPlanner.GCSViews
 
             //Crear la lista string Lat,Lon,Depth
             List<string> listOut = new List<string>();
-            NumberFormatInfo nfi = new NumberFormatInfo();
-            NumberFormatInfo nfi2 = new NumberFormatInfo();
-            nfi.NumberDecimalSeparator = ".";
-            nfi2.NumberDecimalSeparator = ".";
-            nfi2.NumberDecimalDigits = 1;
-            
+
+            CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US");
+
             for (int i = 0; i < timeLatLonList.Count(); i++)
             {
-                DateTime dateTime = DateTime.ParseExact(timeLatLonList[i].Item1, "HHmmss.ff", null);
-                string st = dateTime.TimeOfDay.TotalSeconds.ToString(nfi2);
-
-                listOut.Add(st + "," + // Time
-                            timeLatLonList[i].Item2.ToString(nfi) + "," + // Lat
-                            timeLatLonList[i].Item3.ToString(nfi) + "," + // Lon
-                            depthList[i].ToString(nfi) + "," +
-                            depthBackward[i].ToString(nfi));              // Depth
+                listOut.Add(timeLatLonList[i].Item2.ToString("F3", culture) + "," + // Lat
+                            timeLatLonList[i].Item3.ToString("F3", culture) + "," + // Lon
+                            //depthList[i].ToString("F3", culture) + "," +
+                            depthBackward[i].ToString("F3", culture));              // Depth
             }
 
             //Crear la lista string fotmato HYPACK
             List<string> listOutHYPACK = new List<string>();
             listOutHYPACK.Add("FTP NEW 2");
-            listOutHYPACK.Add("TND 12:00:26 05/01/2019");
+            listOutHYPACK.Add("TND " + DateTime.Now.ToString("hh:mm:ss dd/MM/yyyy"));
             listOutHYPACK.Add("DEV 0 32784 \"ECHOSOUNDER\" 0");
             listOutHYPACK.Add("DEV 1 32837 \"GPS\" 57348");
-            listOutHYPACK.Add("USR \"GEOSUPPORT\" \"HYPACK\"");
+            listOutHYPACK.Add("USR \"SBY\" \"HYPACK\"");
             listOutHYPACK.Add("EOH");
             for (int i = 0; i < timeLatLonList.Count(); i++)
             {
                 //EC2 0 1.0 2.8 0.000
                 //POS 1 1.1 307916.529 6461349.538
-                double[] east_north = new PointLatLngAlt(timeLatLonList[i].Item2, timeLatLonList[i].Item3).ToUTM();
                 DateTime dateTime = DateTime.ParseExact(timeLatLonList[i].Item1, "HHmmss.ff", null);
-                string st = dateTime.TimeOfDay.TotalSeconds.ToString(nfi2);
+                string st = dateTime.TimeOfDay.TotalSeconds.ToString("F1", culture);
 
-                listOutHYPACK.Add("EC2 0 " + st + " " + depthBackward[i].ToString(nfi) + " 0.0");
-                listOutHYPACK.Add("POS 1 " + st + " " + east_north[0].ToString(nfi) + " " + east_north[1].ToString(nfi));
+                listOutHYPACK.Add("EC2 0 " + st + " " + depthBackward[i].ToString("F3", culture) + " 0.0");
+                listOutHYPACK.Add("POS 1 " + st + " " + timeLatLonList[i].Item2.ToString("F3", culture) + " " + timeLatLonList[i].Item3.ToString("F3", culture));
             }
 
             //Reportar progreso

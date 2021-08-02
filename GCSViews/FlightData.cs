@@ -102,7 +102,7 @@ namespace MissionPlanner.GCSViews
 
         bool playingLog;
         GMapOverlay polygons;
-        private Propagation prop;
+        //private Propagation prop;
         Random random = new Random();
         GMapRoute route;
         GMapOverlay routes;
@@ -127,13 +127,20 @@ namespace MissionPlanner.GCSViews
 
         string updateBindingSourceThreadName = "";
 
-        RollingPointPairList depthRollingList = new RollingPointPairList(50);
+        //RollingPointPairList depthRollingList = new RollingPointPairList(50);
 
-        MathNet.Filtering.OnlineFilter depthChartFilter = MathNet.Filtering.OnlineFilter.CreateDenoise(10);
+        MathNet.Filtering.OnlineFilter depthFilter = MathNet.Filtering.OnlineFilter.CreateDenoise(10);
+
+        MathNet.Filtering.OnlineFilter speedMedianFilter = new MathNet.Filtering.Median.OnlineMedianFilter(10);
+        MathNet.Filtering.OnlineFilter distRemainMedianFilter = new MathNet.Filtering.Median.OnlineMedianFilter(10);
 
         SoundPlayer simpleSound = new SoundPlayer(Properties.Resources.alarma_depth);
         bool depthAlarmSound = true;
         bool depthAlarmEnable = true;
+
+        //Capa utilizada para dibujar el Geotiff
+        public GMapOverlay tiffOverlay;
+        public GMarkerGoogle tiffMarker;
 
         public FlightData()
         {
@@ -302,6 +309,10 @@ namespace MissionPlanner.GCSViews
             depthAlarmSound = Settings.Instance.GetBoolean("depthAlarmSound", true);
             depthAlarmSound = !depthAlarmSound;
             BUT_Mute_Click(null, null);
+
+            //Para dibujar el Geotiff en esta capa.
+            tiffOverlay = new GMapOverlay("Geotiff");
+            gMapControl1.Overlays.Insert(0, tiffOverlay);
 
         }
 
@@ -654,8 +665,8 @@ namespace MissionPlanner.GCSViews
             if (aviwriter != null)
                 aviwriter.Dispose();
 
-            if (prop != null)
-                prop.Stop();
+//            if (prop != null)
+//                prop.Stop();
 
             if (disposing && (components != null))
             {
@@ -1087,25 +1098,18 @@ namespace MissionPlanner.GCSViews
                 Thread.Sleep(100);
                 if (JoystickSetup.hay_joystick == false)
                 {
-                    CustomColor.RestoreColor(ButJoyOn);
+                    CustomColor.RestoreColor(BUT_EchoGrab);
                 }
                 else {
-                    CustomColor.SetActiveMode(ButJoyOn);
+                    CustomColor.SetActiveMode(BUT_EchoGrab);
                 }
             }
             else
             {
-               CustomColor.RestoreColor(ButJoyOn);
+               CustomColor.RestoreColor(BUT_EchoGrab);
                 stateJoys = !stateJoys;
                 but_disablejoystick_Click(sender, e);
             }
-        }
-
-        private void BUT_joystick_Click(object sender, EventArgs e)
-        {
-            Form joy = new JoystickSetup();
-//            ThemeManager.ApplyThemeTo(joy);
-            joy.Show();
         }
 
         private void BUT_loadtelem_Click(object sender, EventArgs e)
@@ -1889,7 +1893,7 @@ namespace MissionPlanner.GCSViews
 
             hud1.doResize();
 
-            prop = new Propagation(gMapControl1);
+//            prop = new Propagation(gMapControl1);
 
             thisthread = new Thread(mainloop);
             thisthread.Name = "FD Mainloop";
@@ -2107,6 +2111,9 @@ namespace MissionPlanner.GCSViews
                 // Exception System.Runtime.InteropServices.SEHException: External component has thrown an exception.
                 TRK_zoom.Value = (float)gMapControl1.Zoom;
                 Zoomlevel.Value = Convert.ToDecimal(gMapControl1.Zoom);
+
+                //Actualizar el tamaño del marker de acuerdo a la escala del mapa
+                UpdateTiffOverlay();
             }
             catch
             {
@@ -2350,7 +2357,7 @@ namespace MissionPlanner.GCSViews
 
             DateTime tunning = DateTime.Now.AddSeconds(0);
 
-            DateTime depthTime = DateTime.Now.AddSeconds(0);
+            //DateTime depthTime = DateTime.Now.AddSeconds(0);
 
             DateTime mapupdate = DateTime.Now.AddSeconds(0);
 
@@ -2363,6 +2370,13 @@ namespace MissionPlanner.GCSViews
             DateTime tsreal = DateTime.Now;
             double taketime = 0;
             double timeerror = 0;
+
+            //Inicializar el filtro de speed y de distRemain
+            for (int i = 0; i < 30; i++)
+            {
+                speedMedianFilter.ProcessSample(1.0);
+                distRemainMedianFilter.ProcessSample(5);
+            }
 
             while (!IsHandleCreated)
                 Thread.Sleep(1000);
@@ -2618,22 +2632,22 @@ namespace MissionPlanner.GCSViews
                     }
 
                     //Actualizar el Grafico de profundidad
-                    if (depthTime.AddMilliseconds(250) < DateTime.Now)
-                    {
-                        if (MainV2.comPort.MAVlist.Contains(200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL))
-                        {
-                            double time = (Environment.TickCount - tickStart) / 1000.0;
-                            double depth = -(double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.rangefinder1 / 100.0;
-                            depth = depthChartFilter.ProcessSample(depth);
+                    //if (depthTime.AddMilliseconds(250) < DateTime.Now)
+                    //{
+                    //    if (MainV2.comPort.MAVlist.Contains(200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL))
+                    //    {
+                    //        double time = (Environment.TickCount - tickStart) / 1000.0;
+                    //        double depth = -(double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.rangefinder1 / 100.0;
+                    //        depth = depthChartFilter.ProcessSample(depth);
 
-                            //For test only
-                            //double depth = -(double)MainV2.comPort.MAV.cs.lat;
+                    //        //For test only
+                    //        //double depth = -(double)MainV2.comPort.MAV.cs.lat;
 
-                            depthRollingList.Add(time, depth);
-                        }
+                    //        depthRollingList.Add(time, depth);
+                    //    }
 
-                        depthTime = DateTime.Now.AddMilliseconds(250);
-                    }
+                    //    depthTime = DateTime.Now.AddMilliseconds(250);
+                    //}
 
                     // update map
                     if (tracklast.AddSeconds(Settings.Instance.GetDouble("FD_MapUpdateDelay", 1.2)) < DateTime.Now)
@@ -2737,7 +2751,7 @@ namespace MissionPlanner.GCSViews
                                 overlay.overlay.ForceUpdate();
 
                                 distanceBar1.ClearWPDist();
-
+                                /*
                                 var i = -1;
                                 var travdist = 0.0;
                                 var lastplla = overlay.pointlist.First();
@@ -2758,9 +2772,63 @@ namespace MissionPlanner.GCSViews
                                 }
 
                                 travdist -= MainV2.comPort.MAV.cs.wp_dist;
+                                */
+
+                                //Algoritmo mio para calcular la distancia de punto a punto en la mision
+                                var travdist = 0.0;
+                                for (int i = 0; i < overlay.pointlist.Count-1; i++)
+                                {
+                                    var p1 = overlay.pointlist.ElementAt(i);
+                                    var p2 = overlay.pointlist.ElementAt(i+1);
+
+                                    if (p1 == null || p2 == null)
+                                        continue;
+
+                                    var dist = p1.GetDistance(p2);
+                                    distanceBar1.AddWPDist((float)dist);
+
+                                    if (i+1 <= MainV2.comPort.MAV.cs.wpno)
+                                    {
+                                        travdist += dist;
+                                    }
+                                }
+                                travdist -= MainV2.comPort.MAV.cs.wp_dist;
+
 
                                 if (MainV2.comPort.MAV.cs.mode.ToUpper() == "AUTO")
                                     distanceBar1.traveleddist = (float)travdist;
+
+                                if (distanceBar1.traveleddist < 0)
+                                    distanceBar1.traveleddist = 0;
+
+
+                                //Actualizar la tabla de Mission Status
+                                LBL_TotalDist.Text = distanceBar1.totaldist.ToString("N0") + " m";
+                                LBL_TraveledDist.Text = distanceBar1.traveleddist.ToString("N0") + " m";
+                                double progress = ((double)distanceBar1.traveleddist / (double)distanceBar1.totaldist * 100.0);
+                                progress = MathHelper.constrain(progress, 0, 100);
+                                LBL_MissionCompleted.Text = progress.ToString("N0") + " %";
+
+                                //El Mission Status Time Remain solo se actualiza en modo Auto
+                                if (MainV2.comPort.MAV.cs.mode.ToUpper() == "AUTO")
+                                {
+
+                                    //Se debe filtrar la valocidad y la distancia para suavisar la variacion del tiempo
+                                    double distRemain = distanceBar1.totaldist - distanceBar1.traveleddist; //En metros
+                                    distRemain = distRemainMedianFilter.ProcessSample(distRemain);
+                                    double speed = speedMedianFilter.ProcessSample(MainV2.comPort.MAV.cs.groundspeed);
+                                    double timeRemain = distRemain / speed; //En segundos
+
+                                    //Tiempo de mision restante estimado
+                                    TimeSpan t = TimeSpan.FromSeconds(timeRemain);
+
+                                    LBL_TimeRemain.Text = t.ToString(@"hh\:mm\:ss");
+                                }
+                                else
+                                {
+                                    LBL_TimeRemain.Text = "--:--:--";
+                                }
+                                    
                             }
 
                             RegeneratePolygon();
@@ -3032,12 +3100,12 @@ namespace MissionPlanner.GCSViews
                             }
                         }
 
-                        prop.Update(MainV2.comPort.MAV.cs.HomeLocation, MainV2.comPort.MAV.cs.Location,
-                            MainV2.comPort.MAV.cs.battery_kmleft);
+//                        prop.Update(MainV2.comPort.MAV.cs.HomeLocation, MainV2.comPort.MAV.cs.Location,
+//                            MainV2.comPort.MAV.cs.battery_kmleft);
 
-                        prop.alt = MainV2.comPort.MAV.cs.alt;
-                        prop.altasl = MainV2.comPort.MAV.cs.altasl;
-                        prop.center = gMapControl1.Position;
+//                        prop.alt = MainV2.comPort.MAV.cs.alt;
+//                        prop.altasl = MainV2.comPort.MAV.cs.altasl;
+//                        prop.center = gMapControl1.Position;
 
                         gMapControl1.HoldInvalidation = false;
 
@@ -3564,6 +3632,10 @@ namespace MissionPlanner.GCSViews
         {
             try
             {
+                //Ocultar el Geotiff antes de modificar el Zoom
+                if (tiffMarker != null)
+                    tiffMarker.IsVisible = false;
+
                 if (gMapControl1.MaxZoom + 1 == (double)TRK_zoom.Value)
                 {
                     gMapControl1.Zoom = TRK_zoom.Value - .1;
@@ -3574,6 +3646,9 @@ namespace MissionPlanner.GCSViews
                 }
 
                 UpdateOverlayVisibility();
+
+                //Actualizar el tamaño del marker de acuerdo a la escala del mapa
+                UpdateTiffOverlay();
             }
             catch
             {
@@ -3996,7 +4071,7 @@ namespace MissionPlanner.GCSViews
             if (!joystick.start(COMBJOY.Text))
             {
 
-                ButJoyOn.Enabled = false;
+                BUT_EchoGrab.Enabled = false;
             }
 
         }
@@ -4117,9 +4192,63 @@ namespace MissionPlanner.GCSViews
             this.hud_UserItem(sender, e);
         }
 
-        private void ButJoyOn_Click_1(object sender, EventArgs e)
+        private void BUT_EchoGrab_Click(object sender, EventArgs e)
         {
-            activatedjoy(sender, e);
+            //MAVLink.MAV_CMD.USER_3 - Este comando es usado para iniciar o detener la captura
+            //de dato de la Ecosonda.
+            //Parametro P1 = 0 - Detener la captura de datos.
+            //Parametro P1 = 1 - Iniciar la captura de datos.
+            try
+            {
+                bool res = MainV2.comPort.doCommand(200, (byte)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL,
+                                                               MAVLink.MAV_CMD.USER_3, 1, 0, 0, 0, 0, 0, 0);
+                if(!res)
+                {
+                    CustomMessageBox.Show("Error executing command.");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                CustomMessageBox.Show(ex.Message);
+            }
+        }
+
+        private void BUT_StopGrab_Click(object sender, EventArgs e)
+        {
+            //MAVLink.MAV_CMD.USER_3 - Este comando es usado para iniciar o detener la captura
+            //de dato de la Ecosonda.
+            //Parametro P1 = 0 - Detener la captura de datos.
+            //Parametro P1 = 1 - Iniciar la captura de datos.
+            try
+            {
+                bool res = MainV2.comPort.doCommand(200, (byte)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL,
+                                                               MAVLink.MAV_CMD.USER_3, 0, 0, 0, 0, 0, 0, 0);
+                if (!res)
+                {
+                    CustomMessageBox.Show("Error executing command.");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                CustomMessageBox.Show(ex.Message);
+            }
+        }
+
+        //Timer cada 500ms para parpadear el color del boton BUT_EchoGrab
+        private void BUT_EchoGrab_BlinkTimer_Tick(object sender, EventArgs e)
+        {
+            if (BUT_EchoGrab.Tag.ToString() == "1")
+            {
+                CustomColor.RestoreColor(BUT_EchoGrab);
+                BUT_EchoGrab.Tag = "0";
+            }
+            else
+            {
+                CustomColor.SetRecordColor(BUT_EchoGrab);
+                BUT_EchoGrab.Tag = "1";
+            }
         }
 
         public bool status_btn = false;
@@ -4242,9 +4371,36 @@ namespace MissionPlanner.GCSViews
             }
         }
 
+        string _lastMode = "";
         private void label18_TextChanged(object sender, EventArgs e)
         {
             UpdateButColorMode();
+
+            //Inicializar los filtros speedMedianFilter y distRemainMedianFilter al pasar a modo Auto
+            
+            if (MainV2.comPort.MAV.cs.mode == "Auto" && _lastMode != "Auto")
+            {
+
+                for (int i = 0; i < 10; i++)
+                {
+                    speedMedianFilter.ProcessSample(1.0);
+                }
+
+                System.Timers.Timer t = new System.Timers.Timer(6000);
+                t.AutoReset = false;
+                t.Elapsed += (sender2, e2) => {
+                    for (int i = 0; i < 10; i++)
+                    {
+                        distRemainMedianFilter.ProcessSample(distanceBar1.totaldist - distanceBar1.traveleddist);
+                    }
+                    ((System.Timers.Timer)sender2).Close();
+                };
+                t.Start();
+
+            }
+            
+
+            _lastMode = MainV2.comPort.MAV.cs.mode;
         }
 
         private void label19_TextChanged(object sender, EventArgs e)
@@ -4252,24 +4408,123 @@ namespace MissionPlanner.GCSViews
             UpdateButArmingColor();
         }
 
+        int lastSequenceL = 0, counterTimeOutL = 0;
+        int lastSequenceR = 0, counterTimeOutR = 0;
+        int lastSequenceEchosounder = 0, counterTimeOutEchosounder = 0;
         private void TimerUpdateSecondMAV_Tick(object sender, EventArgs e)
         {
             double depth = 0;
             if(MainV2.comPort.MAVlist.Contains(200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL))
             {
-                depth = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.rangefinder1 / 100);
-                LBL_Depth.Text = depth.ToString("N2");
+                //Actualizar la etiqueta de la ecosonda solo si hay datos nuevos.
+                if (MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch1in > lastSequenceEchosounder)
+                {
+                    depth = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.rangefinder1 / 100);
+                    depth = depthFilter.ProcessSample(depth);
+                    LBL_Depth.Text = depth.ToString("N2");
+
+                    counterTimeOutEchosounder = 0;
+                }
+                else
+                {
+                    //Si se ha pasado mas de 4 ciclos y no hay datos nuevos, se consideta timeout.
+                    counterTimeOutEchosounder++;
+                    if(counterTimeOutEchosounder > 4)
+                    {
+                        LBL_Depth.Text = "--";
+                        counterTimeOutEchosounder = 0;
+                    }
+                }
+                lastSequenceEchosounder = (int)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch1in;
 
                 LBL_Temp.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.rangefinder2 / 100).ToString("N1");
                 LBL_Humidity.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.rangefinder3 / 100).ToString("N1");
 
-                LBL_TempL.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch10in / 100).ToString("N1");
-                LBL_HumidityL.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch11in / 100).ToString("N1");
-                LBL_CurrentL.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch12in / 100).ToString("N1");
+                //Actualizar las etiquetas de los flotadores solo si hay datos nuevos.
+                if (MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch6in > lastSequenceL)
+                {
+                    LBL_TempL.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch7in / 100).ToString("N1");
+                    LBL_HumidityL.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch8in / 100).ToString("N1");
+                    LBL_CurrentL.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch9in / 100).ToString("N1");
+                    //int RPM_L = MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch10in;
 
-                LBL_TempR.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch13in / 100).ToString("N1");
-                LBL_HumidityR.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch14in / 100).ToString("N1");
-                LBL_CurrentR.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch15in / 100).ToString("N1");
+                    counterTimeOutL = 0;
+                }
+                else
+                {
+                    //Si se ha pasado mas de 4 ciclos y no hay datos nuevos, se consideta timeout.
+                    counterTimeOutL++;
+                    if(counterTimeOutL > 4)
+                    {
+                        LBL_TempL.Text = "--";
+                        LBL_HumidityL.Text = "--";
+                        LBL_CurrentL.Text = "--";
+                        counterTimeOutL = 0;
+                    }
+                }
+                lastSequenceL = (int)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch6in;
+
+                //Actualizar las etiquetas de los flotadores solo si hay datos nuevos.
+                if (MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch11in > lastSequenceR)
+                {
+                    LBL_TempR.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch12in / 100).ToString("N1");
+                    LBL_HumidityR.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch13in / 100).ToString("N1");
+                    LBL_CurrentR.Text = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch14in / 100).ToString("N1");
+                    //int RPM_R = MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch15in;
+
+                    counterTimeOutR = 0;
+                }
+                else
+                {
+                    //Si se ha pasado mas de 4 ciclos y no hay datos nuevos, se consideta timeout.
+                    counterTimeOutR++;
+                    if (counterTimeOutR > 4)
+                    {
+                        LBL_TempR.Text = "--";
+                        LBL_HumidityR.Text = "--";
+                        LBL_CurrentR.Text = "--";
+                        counterTimeOutR = 0;
+                    }
+                }
+                lastSequenceR = (int)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch11in;
+
+                //Para parpadear el color del BUT_EchoGrab cuando se capturen datos de la ecosonda
+                int echosounderGrabStatus = (int)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch16in;
+                if(echosounderGrabStatus > 0)
+                {
+                    if(!BUT_EchoGrab_BlinkTimer.Enabled)
+                        BUT_EchoGrab_BlinkTimer.Start();
+                }
+                else
+                {
+                    BUT_EchoGrab_BlinkTimer.Stop();
+                    if (BUT_EchoGrab.Tag.ToString() != "off")
+                    {
+                        CustomColor.RestoreColor(BUT_EchoGrab);
+                        BUT_EchoGrab.Tag = "off";
+                    }
+                }
+
+
+                //Visualizar el % de bateria en base al voltaje.
+                //ch8in - se recive el V min (10%)
+                //ch9in - se recive el V max (100%)
+                //Recta de ajuste mx+n: P1(Vmin, 10%); P2(Vmax, 100%)
+                double Vmin = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch4in / 100);
+                double Vmax = ((double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch5in / 100);
+                double m = (100 - 10) / (Vmax - Vmin);
+                double n = 100 - m * Vmax;
+                if (Double.IsNaN(m))
+                {
+                    m = n = 0;
+                }
+
+                myhud.batteryremaining = (int)(m * MainV2.comPort.MAV.cs.battery_voltage + n);
+                if (myhud.batteryremaining > 100)
+                    myhud.batteryremaining = 100;
+                if (myhud.batteryremaining < 0)
+                    myhud.batteryremaining = 0;
+
             }
             else
             {
@@ -4287,33 +4542,61 @@ namespace MissionPlanner.GCSViews
             }
 
             //Actualizar las barras de los motores en reversa
-            int ch1 = -(int)MainV2.comPort.MAV.cs.ch1out + 2500;
-            int ch3 = -(int)MainV2.comPort.MAV.cs.ch3out + 2500;
-            ch1 = (ch1 < progressBarL_Down.Minimum) ? progressBarL_Down.Minimum : ch1;
-            ch1 = (ch1 > progressBarL_Down.Maximum) ? progressBarL_Down.Maximum : ch1;
+            int ch1Down = -(int)MainV2.comPort.MAV.cs.ch1out + 2500;
+            int ch3Down = -(int)MainV2.comPort.MAV.cs.ch3out + 2500;
+            int ch1Up = (int)MainV2.comPort.MAV.cs.ch1out;
+            int ch3Up = (int)MainV2.comPort.MAV.cs.ch3out;
 
-            ch3 = (ch3 < progressBarR_Down.Minimum) ? progressBarR_Down.Minimum : ch3;
-            ch3 = (ch3 > progressBarR_Down.Maximum) ? progressBarR_Down.Maximum : ch3;
+            ch1Down = (ch1Down < progressBarL_Down.Minimum) ? progressBarL_Down.Minimum : ch1Down;
+            ch1Down = (ch1Down > progressBarL_Down.Maximum) ? progressBarL_Down.Maximum : ch1Down;
+
+            ch1Up = (ch1Up < progressBarL_Up.Minimum) ? progressBarL_Up.Minimum : ch1Up;
+            ch1Up = (ch1Up > progressBarL_Up.Maximum) ? progressBarL_Up.Maximum : ch1Up;
+
+            ch3Down = (ch3Down < progressBarR_Down.Minimum) ? progressBarR_Down.Minimum : ch3Down;
+            ch3Down = (ch3Down > progressBarR_Down.Maximum) ? progressBarR_Down.Maximum : ch3Down;
+
+            ch3Up = (ch3Up < progressBarR_Up.Minimum) ? progressBarR_Up.Minimum : ch3Up;
+            ch3Up = (ch3Up > progressBarR_Up.Maximum) ? progressBarR_Up.Maximum : ch3Up;
+
             try
             {
-                progressBarL_Down.Value = ch1;
-                progressBarR_Down.Value = ch3;
+                progressBarL_Down.Value = ch1Down;
             }
             catch (Exception)
             {
+                progressBarL_Down.Value = progressBarL_Down.Minimum;
+            }
+
+            try
+            {
+                progressBarL_Up.Value = ch1Up;
+            }
+            catch (Exception)
+            {
+                progressBarL_Up.Value = progressBarL_Up.Minimum;
+            }
+
+            try
+            {
+                progressBarR_Down.Value = ch3Down;
+            }
+            catch (Exception)
+            {
+                progressBarR_Down.Value = progressBarR_Down.Minimum;
+            }
+
+            try
+            {
+                progressBarR_Up.Value = ch3Up;
+            }
+            catch (Exception)
+            {
+                progressBarR_Up.Value = progressBarR_Up.Minimum;
             }
             
 
-
-
-
-            //Visualizar el % de bateria en base al voltaje. (Aprox lineal en base al 10% - 100% para 6S)
-            //No es la mejor solucion, es solo para una referencia. 
-            myhud.batteryremaining = (int)(29.0 * MainV2.comPort.MAV.cs.battery_voltage - 630.8);
-            if (myhud.batteryremaining > 100)
-                myhud.batteryremaining = 100;
-            if (myhud.batteryremaining < 0)
-                myhud.batteryremaining = 0;
+            
 
             //Para activar o desactivar la alarma de profundidad.
             if(depth > 0 && depth <= (double)NUM_DepthAlarmValue.Value && depthAlarmEnable)
@@ -4433,6 +4716,35 @@ namespace MissionPlanner.GCSViews
         private void NUM_DepthAlarmValue_ValueChanged(object sender, EventArgs e)
         {
             Settings.Instance["DEPTH_ALARM"] = NUM_DepthAlarmValue.Value.ToString();
+        }
+
+        public void UpdateTiffOverlay()
+        {
+            try
+            {
+                //Ancho en m del screen gMapControl1
+                double width =
+                (gMapControl1.MapProvider.Projection.GetDistance(gMapControl1.FromLocalToLatLng(0, 0),
+                    gMapControl1.FromLocalToLatLng(gMapControl1.Width, 0)) * 1000.0);
+
+                //Alto en m del screen gMapControl1
+                double height =
+                    (gMapControl1.MapProvider.Projection.GetDistance(gMapControl1.FromLocalToLatLng(0, 0),
+                        gMapControl1.FromLocalToLatLng(gMapControl1.Height, 0)) * 1000.0);
+
+                //Res en m/pixel
+                double m2pixelwidth = width / gMapControl1.Width;
+                double m2pixelheight = height / gMapControl1.Height;
+
+                //Calcular el nuevo tamaño del Marker segun la nueva res del mapa.
+                if(tiffMarker != null)
+                {
+                    tiffMarker.Size = new Size((int)(FlightPlanner.instance.geoTiffMetaData.Width_m / m2pixelwidth), (int)(FlightPlanner.instance.geoTiffMetaData.Height_m / m2pixelheight));
+                    tiffMarker.IsVisible = true;
+                }
+            }
+            catch(Exception ex)
+            { }
         }
 
 

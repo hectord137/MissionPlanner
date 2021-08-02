@@ -8,8 +8,9 @@ using System.IO;
 
 namespace MissionPlanner.Utilities
 {
-    class GeoTiffReadMetaData
+    public class GeoTiffReadMetaData
     {
+
         public double Latitude { get; private set; }
         public double Longitude { get; private set; }
         //public double CenterLatitude { get; private set; }
