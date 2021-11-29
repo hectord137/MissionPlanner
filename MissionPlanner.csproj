@@ -2226,6 +2226,7 @@
     <Content Include="aircraft.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\Battery.png" />
     <None Include="Resources\Up2.png" />
     <None Include="Resources\Down2.png" />
     <None Include="Resources\Motor.png" />

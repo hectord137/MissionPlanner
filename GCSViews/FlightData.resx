@@ -258,46 +258,46 @@
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAD6
-        CAAAAk1TRnQBSQFMAgEBAgIAAQUBAAEFASABAAEgAQAE/wEJAQAI/wFCAU0BNgEEBgABNgEEAgABKAMA
-        AYADAAEgAwABAQEAAQgGAAEQGAABgAIAAYADAAKAAQABgAMAAYABAAGAAQACgAIAA8ABAAHAAdwBwAEA
-        AfABygGmAQABMwUAATMBAAEzAQABMwEAAjMCAAMWAQADHAEAAyIBAAMpAQADVQEAA00BAANCAQADOQEA
-        AYABfAH/AQACUAH/AQABkwEAAdYBAAH/AewBzAEAAcYB1gHvAQAB1gLnAQABkAGpAa0CAAH/ATMDAAFm
-        AwABmQMAAcwCAAEzAwACMwIAATMBZgIAATMBmQIAATMBzAIAATMB/wIAAWYDAAFmATMCAAJmAgABZgGZ
-        AgABZgHMAgABZgH/AgABmQMAAZkBMwIAAZkBZgIAApkCAAGZAcwCAAGZAf8CAAHMAwABzAEzAgABzAFm
-        AgABzAGZAgACzAIAAcwB/wIAAf8BZgIAAf8BmQIAAf8BzAEAATMB/wIAAf8BAAEzAQABMwEAAWYBAAEz
-        AQABmQEAATMBAAHMAQABMwEAAf8BAAH/ATMCAAMzAQACMwFmAQACMwGZAQACMwHMAQACMwH/AQABMwFm
-        AgABMwFmATMBAAEzAmYBAAEzAWYBmQEAATMBZgHMAQABMwFmAf8BAAEzAZkCAAEzAZkBMwEAATMBmQFm
-        AQABMwKZAQABMwGZAcwBAAEzAZkB/wEAATMBzAIAATMBzAEzAQABMwHMAWYBAAEzAcwBmQEAATMCzAEA
-        ATMBzAH/AQABMwH/ATMBAAEzAf8BZgEAATMB/wGZAQABMwH/AcwBAAEzAv8BAAFmAwABZgEAATMBAAFm
-        AQABZgEAAWYBAAGZAQABZgEAAcwBAAFmAQAB/wEAAWYBMwIAAWYCMwEAAWYBMwFmAQABZgEzAZkBAAFm
-        ATMBzAEAAWYBMwH/AQACZgIAAmYBMwEAA2YBAAJmAZkBAAJmAcwBAAFmAZkCAAFmAZkBMwEAAWYBmQFm
-        AQABZgKZAQABZgGZAcwBAAFmAZkB/wEAAWYBzAIAAWYBzAEzAQABZgHMAZkBAAFmAswBAAFmAcwB/wEA
-        AWYB/wIAAWYB/wEzAQABZgH/AZkBAAFmAf8BzAEAAcwBAAH/AQAB/wEAAcwBAAKZAgABmQEzAZkBAAGZ
-        AQABmQEAAZkBAAHMAQABmQMAAZkCMwEAAZkBAAFmAQABmQEzAcwBAAGZAQAB/wEAAZkBZgIAAZkBZgEz
-        AQABmQEzAWYBAAGZAWYBmQEAAZkBZgHMAQABmQEzAf8BAAKZATMBAAKZAWYBAAOZAQACmQHMAQACmQH/
-        AQABmQHMAgABmQHMATMBAAFmAcwBZgEAAZkBzAGZAQABmQLMAQABmQHMAf8BAAGZAf8CAAGZAf8BMwEA
-        AZkBzAFmAQABmQH/AZkBAAGZAf8BzAEAAZkC/wEAAcwDAAGZAQABMwEAAcwBAAFmAQABzAEAAZkBAAHM
-        AQABzAEAAZkBMwIAAcwCMwEAAcwBMwFmAQABzAEzAZkBAAHMATMBzAEAAcwBMwH/AQABzAFmAgABzAFm
-        ATMBAAGZAmYBAAHMAWYBmQEAAcwBZgHMAQABmQFmAf8BAAHMAZkCAAHMAZkBMwEAAcwBmQFmAQABzAKZ
-        AQABzAGZAcwBAAHMAZkB/wEAAswCAALMATMBAALMAWYBAALMAZkBAAPMAQACzAH/AQABzAH/AgABzAH/
-        ATMBAAGZAf8BZgEAAcwB/wGZAQABzAH/AcwBAAHMAv8BAAHMAQABMwEAAf8BAAFmAQAB/wEAAZkBAAHM
-        ATMCAAH/AjMBAAH/ATMBZgEAAf8BMwGZAQAB/wEzAcwBAAH/ATMB/wEAAf8BZgIAAf8BZgEzAQABzAJm
-        AQAB/wFmAZkBAAH/AWYBzAEAAcwBZgH/AQAB/wGZAgAB/wGZATMBAAH/AZkBZgEAAf8CmQEAAf8BmQHM
-        AQAB/wGZAf8BAAH/AcwCAAH/AcwBMwEAAf8BzAFmAQAB/wHMAZkBAAH/AswBAAH/AcwB/wEAAv8BMwEA
-        AcwB/wFmAQAC/wGZAQAC/wHMAQACZgH/AQABZgH/AWYBAAFmAv8BAAH/AmYBAAH/AWYB/wEAAv8BZgEA
-        ASEBAAGlAQADXwEAA3cBAAOGAQADlgEAA8sBAAOyAQAD1wEAA90BAAPjAQAD6gEAA/EBAAP4AQAB8AH7
-        Af8BAAGkAqABAAOAAwAB/wIAAf8DAAL/AQAB/wMAAf8BAAH/AQAC/wIAA///AP8A/wD/AP8A/wD/AP8A
-        /wD/AP8A/wD/AP8A/wD/ABEAAUIBTQE+BwABPgMAASgDAAGAAwABIAMAAQEBAAEBBgABAhYAA/8BAAHw
-        AgABDwHwAgABDAgAAfACAAEPAfACAAEICAAB8wL/Ac8B8wL/AcEIAAHzAv8BzwHzAv8BwwgAAfEC/wGP
-        AfEC/wGHCAAB8AL/AQ8B8AL/AQ8IAAH4AgABHwH4AgABHwgAAfwCAAE/AfwCAAE/CAAB/wE/AfwC/wE/
-        AfwBfwgAAf8BMAH8Av8BMAH4Af8IAAH/ATAB/AL/ATAB8AH/CAAB/wEwAfwC/wEwAeAB/wgAAf8BMAH8
-        Av8BMAHEAf8IAAH/ATAB/AL/ATABjAH/CAAB/wEwAfwC/wEwARwB/wgAAf8BMAH8Av8BMAE8Af8IAAGD
-        ATAB/AHBAYMBMAF8AcEIAAGDATAB/AHBAYMBMAH8AcEIAAH/ATAB/AL/ATAB/AH/CAAB/wE4AfwC/wEg
-        AfwB/wgAAf8BHAH4Av8BBAH4Af8IAAH/AY8B8QL/AY8B8QH/CAAB/wHHAeMC/wEHAeMB/wgAAf8B4AEH
-        Af8B/gEgAQcB/wgAAf4BcAEOAX8B/AFwAQ4BfwgAAfwBfwH+AT8B+AF/Af4BPwgAAfgC/wEfAfAC/wEf
-        CAAB+QH+AX8BnwHhAf4BfwGfCAAB/wH+AX8B/wHHAf4BfwH/CAAB/wH+AX8B/wGPAf4BfwH/CAAB/wH+
-        AX8B/wEfAf4BfwH/CAAE/wE/A/8IAAs=
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAD8
+        CAAAAk1TRnQBSQFMAgEBAgEAASgBBQEoAQUBIAEAASABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        AwABgAMAASADAAEBAQABCAYAARAYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
+        AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
+        AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
+        AWYDAAGZAwABzAIAATMDAAIzAgABMwFmAgABMwGZAgABMwHMAgABMwH/AgABZgMAAWYBMwIAAmYCAAFm
+        AZkCAAFmAcwCAAFmAf8CAAGZAwABmQEzAgABmQFmAgACmQIAAZkBzAIAAZkB/wIAAcwDAAHMATMCAAHM
+        AWYCAAHMAZkCAALMAgABzAH/AgAB/wFmAgAB/wGZAgAB/wHMAQABMwH/AgAB/wEAATMBAAEzAQABZgEA
+        ATMBAAGZAQABMwEAAcwBAAEzAQAB/wEAAf8BMwIAAzMBAAIzAWYBAAIzAZkBAAIzAcwBAAIzAf8BAAEz
+        AWYCAAEzAWYBMwEAATMCZgEAATMBZgGZAQABMwFmAcwBAAEzAWYB/wEAATMBmQIAATMBmQEzAQABMwGZ
+        AWYBAAEzApkBAAEzAZkBzAEAATMBmQH/AQABMwHMAgABMwHMATMBAAEzAcwBZgEAATMBzAGZAQABMwLM
+        AQABMwHMAf8BAAEzAf8BMwEAATMB/wFmAQABMwH/AZkBAAEzAf8BzAEAATMC/wEAAWYDAAFmAQABMwEA
+        AWYBAAFmAQABZgEAAZkBAAFmAQABzAEAAWYBAAH/AQABZgEzAgABZgIzAQABZgEzAWYBAAFmATMBmQEA
+        AWYBMwHMAQABZgEzAf8BAAJmAgACZgEzAQADZgEAAmYBmQEAAmYBzAEAAWYBmQIAAWYBmQEzAQABZgGZ
+        AWYBAAFmApkBAAFmAZkBzAEAAWYBmQH/AQABZgHMAgABZgHMATMBAAFmAcwBmQEAAWYCzAEAAWYBzAH/
+        AQABZgH/AgABZgH/ATMBAAFmAf8BmQEAAWYB/wHMAQABzAEAAf8BAAH/AQABzAEAApkCAAGZATMBmQEA
+        AZkBAAGZAQABmQEAAcwBAAGZAwABmQIzAQABmQEAAWYBAAGZATMBzAEAAZkBAAH/AQABmQFmAgABmQFm
+        ATMBAAGZATMBZgEAAZkBZgGZAQABmQFmAcwBAAGZATMB/wEAApkBMwEAApkBZgEAA5kBAAKZAcwBAAKZ
+        Af8BAAGZAcwCAAGZAcwBMwEAAWYBzAFmAQABmQHMAZkBAAGZAswBAAGZAcwB/wEAAZkB/wIAAZkB/wEz
+        AQABmQHMAWYBAAGZAf8BmQEAAZkB/wHMAQABmQL/AQABzAMAAZkBAAEzAQABzAEAAWYBAAHMAQABmQEA
+        AcwBAAHMAQABmQEzAgABzAIzAQABzAEzAWYBAAHMATMBmQEAAcwBMwHMAQABzAEzAf8BAAHMAWYCAAHM
+        AWYBMwEAAZkCZgEAAcwBZgGZAQABzAFmAcwBAAGZAWYB/wEAAcwBmQIAAcwBmQEzAQABzAGZAWYBAAHM
+        ApkBAAHMAZkBzAEAAcwBmQH/AQACzAIAAswBMwEAAswBZgEAAswBmQEAA8wBAALMAf8BAAHMAf8CAAHM
+        Af8BMwEAAZkB/wFmAQABzAH/AZkBAAHMAf8BzAEAAcwC/wEAAcwBAAEzAQAB/wEAAWYBAAH/AQABmQEA
+        AcwBMwIAAf8CMwEAAf8BMwFmAQAB/wEzAZkBAAH/ATMBzAEAAf8BMwH/AQAB/wFmAgAB/wFmATMBAAHM
+        AmYBAAH/AWYBmQEAAf8BZgHMAQABzAFmAf8BAAH/AZkCAAH/AZkBMwEAAf8BmQFmAQAB/wKZAQAB/wGZ
+        AcwBAAH/AZkB/wEAAf8BzAIAAf8BzAEzAQAB/wHMAWYBAAH/AcwBmQEAAf8CzAEAAf8BzAH/AQAC/wEz
+        AQABzAH/AWYBAAL/AZkBAAL/AcwBAAJmAf8BAAFmAf8BZgEAAWYC/wEAAf8CZgEAAf8BZgH/AQAC/wFm
+        AQABIQEAAaUBAANfAQADdwEAA4YBAAOWAQADywEAA7IBAAPXAQAD3QEAA+MBAAPqAQAD8QEAA/gBAAHw
+        AfsB/wEAAaQCoAEAA4ADAAH/AgAB/wMAAv8BAAH/AwAB/wEAAf8BAAL/AgAD//8A/wD/AP8A/wD/AP8A
+        /wD/AP8A/wD/AP8A/wD/AP8AEQABQgFNAT4HAAE+AwABKAMAAYADAAEgAwABAQEAAQEGAAECFgAD/wEA
+        AfACAAEPAfACAAEMCAAB8AIAAQ8B8AIAAQgIAAHzAv8BzwHzAv8BwQgAAfMC/wHPAfMC/wHDCAAB8QL/
+        AY8B8QL/AYcIAAHwAv8BDwHwAv8BDwgAAfgCAAEfAfgCAAEfCAAB/AIAAT8B/AIAAT8IAAH/AT8B/AL/
+        AT8B/AF/CAAB/wEwAfwC/wEwAfgB/wgAAf8BMAH8Av8BMAHwAf8IAAH/ATAB/AL/ATAB4AH/CAAB/wEw
+        AfwC/wEwAcQB/wgAAf8BMAH8Av8BMAGMAf8IAAH/ATAB/AL/ATABHAH/CAAB/wEwAfwC/wEwATwB/wgA
+        AYMBMAH8AcEBgwEwAXwBwQgAAYMBMAH8AcEBgwEwAfwBwQgAAf8BMAH8Av8BMAH8Af8IAAH/ATgB/AL/
+        ASAB/AH/CAAB/wEcAfgC/wEEAfgB/wgAAf8BjwHxAv8BjwHxAf8IAAH/AccB4wL/AQcB4wH/CAAB/wHg
+        AQcB/wH+ASABBwH/CAAB/gFwAQ4BfwH8AXABDgF/CAAB/AF/Af4BPwH4AX8B/gE/CAAB+AL/AR8B8AL/
+        AR8IAAH5Af4BfwGfAeEB/gF/AZ8IAAH/Af4BfwH/AccB/gF/Af8IAAH/Af4BfwH/AY8B/gF/Af8IAAH/
+        Af4BfwH/AR8B/gF/Af8IAAT/AT8D/wgACw==
 </value>
   </data>
   <metadata name="bindingSourceQuickTab.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -311,7 +311,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABW
-        CgAAAk1TRnQBSQFMAgEBAgEAAfgBBAH4AQQBIAEAASABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CgAAAk1TRnQBSQFMAgEBAgEAASABBQEgAQUBIAEAASABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABgAMAASADAAEBAQABCAYAARAYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -615,7 +615,10 @@
     <value>NoControl</value>
   </data>
   <data name="pictureBox7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>561, 3</value>
+    <value>561, 0</value>
+  </data>
+  <data name="pictureBox7.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
   </data>
   <data name="pictureBox7.Size" type="System.Drawing.Size, System.Drawing">
     <value>48, 42</value>
@@ -648,7 +651,10 @@
     <value>NoControl</value>
   </data>
   <data name="pictureBox6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>393, 3</value>
+    <value>393, 0</value>
+  </data>
+  <data name="pictureBox6.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
   </data>
   <data name="pictureBox6.Size" type="System.Drawing.Size, System.Drawing">
     <value>48, 42</value>
@@ -681,7 +687,10 @@
     <value>NoControl</value>
   </data>
   <data name="pictureBox4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>226, 3</value>
+    <value>226, 0</value>
+  </data>
+  <data name="pictureBox4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
   </data>
   <data name="pictureBox4.Size" type="System.Drawing.Size, System.Drawing">
     <value>48, 42</value>
@@ -714,7 +723,10 @@
     <value>NoControl</value>
   </data>
   <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>59, 3</value>
+    <value>59, 0</value>
+  </data>
+  <data name="pictureBox1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
   </data>
   <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
     <value>48, 42</value>
@@ -747,10 +759,10 @@
     <value>NoControl</value>
   </data>
   <data name="pictureBox11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>51, 51</value>
+    <value>51, 83</value>
   </data>
   <data name="pictureBox11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 42</value>
+    <value>64, 26</value>
   </data>
   <data name="pictureBox11.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
     <value>Zoom</value>
@@ -771,7 +783,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;pictureBox11.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>14</value>
   </data>
   <data name="pictureBox3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
@@ -780,10 +792,10 @@
     <value>NoControl</value>
   </data>
   <data name="pictureBox3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>51, 99</value>
+    <value>51, 115</value>
   </data>
   <data name="pictureBox3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 42</value>
+    <value>64, 26</value>
   </data>
   <data name="pictureBox3.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
     <value>Zoom</value>
@@ -804,7 +816,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;pictureBox3.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>15</value>
   </data>
   <data name="pictureBox5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
@@ -816,7 +828,7 @@
     <value>55, 147</value>
   </data>
   <data name="pictureBox5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 42</value>
+    <value>56, 26</value>
   </data>
   <data name="pictureBox5.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
     <value>Zoom</value>
@@ -837,7 +849,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;pictureBox5.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>17</value>
   </data>
   <data name="pictureBox2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
@@ -846,10 +858,10 @@
     <value>NoControl</value>
   </data>
   <data name="pictureBox2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>50, 195</value>
+    <value>50, 179</value>
   </data>
   <data name="pictureBox2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>67, 42</value>
+    <value>67, 26</value>
   </data>
   <data name="pictureBox2.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
     <value>Zoom</value>
@@ -870,7 +882,37 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;pictureBox2.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>4</value>
+  </data>
+  <data name="pictureBox13.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="pictureBox13.Location" type="System.Drawing.Point, System.Drawing">
+    <value>33, 54</value>
+  </data>
+  <data name="pictureBox13.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 20</value>
+  </data>
+  <data name="pictureBox13.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="pictureBox13.TabIndex" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="pictureBox13.ToolTip" xml:space="preserve">
+    <value>Battery</value>
+  </data>
+  <data name="&gt;&gt;pictureBox13.Name" xml:space="preserve">
+    <value>pictureBox13</value>
+  </data>
+  <data name="&gt;&gt;pictureBox13.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pictureBox13.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;pictureBox13.ZOrder" xml:space="preserve">
+    <value>23</value>
   </data>
   <metadata name="openScriptDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>1451, 18</value>
@@ -1443,7 +1485,7 @@
     <value>distanceBar1</value>
   </data>
   <data name="&gt;&gt;distanceBar1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.DistanceBar, MissionPlanner, Version=1.3.7878.29440, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.DistanceBar, MissionPlanner, Version=1.3.8003.30331, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;distanceBar1.Parent" xml:space="preserve">
     <value>splitContainer1.Panel2</value>
@@ -1827,7 +1869,7 @@
     <value>NoControl</value>
   </data>
   <data name="pictureBox9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>46, 20</value>
+    <value>47, 20</value>
   </data>
   <data name="pictureBox9.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
@@ -1860,7 +1902,7 @@
     <value>NoControl</value>
   </data>
   <data name="pictureBox8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>46, 0</value>
+    <value>47, 0</value>
   </data>
   <data name="pictureBox8.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
@@ -1905,7 +1947,7 @@
     <value>True</value>
   </data>
   <data name="progressBarL_Down.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 10</value>
+    <value>79, 10</value>
   </data>
   <data name="progressBarL_Down.TabIndex" type="System.Int32, mscorlib">
     <value>101</value>
@@ -1929,7 +1971,7 @@
     <value>NoControl</value>
   </data>
   <data name="progressBarL_Up.Location" type="System.Drawing.Point, System.Drawing">
-    <value>78, 10</value>
+    <value>79, 10</value>
   </data>
   <data name="progressBarL_Up.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
@@ -1953,16 +1995,16 @@
     <value>3</value>
   </data>
   <data name="tableLayoutPanel9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>339, 201</value>
+    <value>339, 177</value>
   </data>
   <data name="tableLayoutPanel9.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 5, 5, 5</value>
+    <value>5, 0, 0, 0</value>
   </data>
   <data name="tableLayoutPanel9.RowCount" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
   <data name="tableLayoutPanel9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>157, 30</value>
+    <value>158, 30</value>
   </data>
   <data name="tableLayoutPanel9.TabIndex" type="System.Int32, mscorlib">
     <value>105</value>
@@ -1977,34 +2019,10 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;tableLayoutPanel9.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>6</value>
   </data>
   <data name="tableLayoutPanel9.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="pictureBox9" Row="2" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="pictureBox8" Row="0" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="progressBarL_Down" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="progressBarL_Up" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="Absolute,10,AutoSize,0,Absolute,10" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
-  <data name="label22.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label22.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 0</value>
-  </data>
-  <data name="label22.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 23</value>
-  </data>
-  <data name="label22.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;label22.Name" xml:space="preserve">
-    <value>label22</value>
-  </data>
-  <data name="&gt;&gt;label22.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label22.Parent" xml:space="preserve">
-    <value>tableLayoutPanel11</value>
-  </data>
-  <data name="&gt;&gt;label22.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <data name="NUM_DepthAlarmValue.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -2096,11 +2114,110 @@
   <data name="tableLayoutPanel1.ColumnCount" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
+  <data name="LBL_BattR.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="LBL_BattR.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="LBL_BattR.Location" type="System.Drawing.Point, System.Drawing">
+    <value>504, 48</value>
+  </data>
+  <data name="LBL_BattR.Size" type="System.Drawing.Size, System.Drawing">
+    <value>162, 32</value>
+  </data>
+  <data name="LBL_BattR.TabIndex" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="LBL_BattR.Text" xml:space="preserve">
+    <value>battL</value>
+  </data>
+  <data name="LBL_BattR.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;LBL_BattR.Name" xml:space="preserve">
+    <value>LBL_BattR</value>
+  </data>
+  <data name="&gt;&gt;LBL_BattR.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LBL_BattR.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;LBL_BattR.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="LBL_BattL.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="LBL_BattL.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="LBL_BattL.Location" type="System.Drawing.Point, System.Drawing">
+    <value>337, 48</value>
+  </data>
+  <data name="LBL_BattL.Size" type="System.Drawing.Size, System.Drawing">
+    <value>161, 32</value>
+  </data>
+  <data name="LBL_BattL.TabIndex" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="LBL_BattL.Text" xml:space="preserve">
+    <value>battL</value>
+  </data>
+  <data name="LBL_BattL.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;LBL_BattL.Name" xml:space="preserve">
+    <value>LBL_BattL</value>
+  </data>
+  <data name="&gt;&gt;LBL_BattL.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LBL_BattL.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;LBL_BattL.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="LBL_Batt.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="LBL_Batt.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14pt</value>
+  </data>
+  <data name="LBL_Batt.Location" type="System.Drawing.Point, System.Drawing">
+    <value>170, 48</value>
+  </data>
+  <data name="LBL_Batt.Size" type="System.Drawing.Size, System.Drawing">
+    <value>161, 32</value>
+  </data>
+  <data name="LBL_Batt.TabIndex" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="LBL_Batt.Text" xml:space="preserve">
+    <value>batt</value>
+  </data>
+  <data name="LBL_Batt.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;LBL_Batt.Name" xml:space="preserve">
+    <value>LBL_Batt</value>
+  </data>
+  <data name="&gt;&gt;LBL_Batt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LBL_Batt.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;LBL_Batt.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <data name="lineSeparator4.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
   <data name="lineSeparator4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 243</value>
+    <value>3, 211</value>
   </data>
   <data name="lineSeparator4.MaximumSize" type="System.Drawing.Size, System.Drawing">
     <value>2000, 2</value>
@@ -2124,7 +2241,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;lineSeparator4.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>3</value>
   </data>
   <data name="tableLayoutPanel10.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -2268,10 +2385,10 @@
     <value>3</value>
   </data>
   <data name="tableLayoutPanel10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>506, 201</value>
+    <value>506, 177</value>
   </data>
   <data name="tableLayoutPanel10.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 5, 5, 5</value>
+    <value>5, 0, 5, 0</value>
   </data>
   <data name="tableLayoutPanel10.RowCount" type="System.Int32, mscorlib">
     <value>3</value>
@@ -2292,7 +2409,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;tableLayoutPanel10.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>5</value>
   </data>
   <data name="tableLayoutPanel10.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="pictureBox12" Row="2" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="pictureBox10" Row="0" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="progressBarR_Down" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="progressBarR_Up" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="Absolute,10,AutoSize,0,Absolute,10" /&gt;&lt;/TableLayoutSettings&gt;</value>
@@ -2310,7 +2427,7 @@
     <value>504, 144</value>
   </data>
   <data name="LBL_CurrentR.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 48</value>
+    <value>162, 32</value>
   </data>
   <data name="LBL_CurrentR.TabIndex" type="System.Int32, mscorlib">
     <value>101</value>
@@ -2331,7 +2448,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;LBL_CurrentR.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>7</value>
   </data>
   <data name="LBL_CurrentL.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -2346,7 +2463,7 @@
     <value>337, 144</value>
   </data>
   <data name="LBL_CurrentL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 48</value>
+    <value>161, 32</value>
   </data>
   <data name="LBL_CurrentL.TabIndex" type="System.Int32, mscorlib">
     <value>101</value>
@@ -2367,7 +2484,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;LBL_CurrentL.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>8</value>
   </data>
   <data name="LBL_HumidityR.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -2379,10 +2496,10 @@
     <value>NoControl</value>
   </data>
   <data name="LBL_HumidityR.Location" type="System.Drawing.Point, System.Drawing">
-    <value>504, 96</value>
+    <value>504, 112</value>
   </data>
   <data name="LBL_HumidityR.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 48</value>
+    <value>162, 32</value>
   </data>
   <data name="LBL_HumidityR.TabIndex" type="System.Int32, mscorlib">
     <value>101</value>
@@ -2403,7 +2520,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;LBL_HumidityR.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>9</value>
   </data>
   <data name="LBL_TempR.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -2415,10 +2532,10 @@
     <value>NoControl</value>
   </data>
   <data name="LBL_TempR.Location" type="System.Drawing.Point, System.Drawing">
-    <value>504, 48</value>
+    <value>504, 80</value>
   </data>
   <data name="LBL_TempR.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 48</value>
+    <value>162, 32</value>
   </data>
   <data name="LBL_TempR.TabIndex" type="System.Int32, mscorlib">
     <value>98</value>
@@ -2439,7 +2556,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;LBL_TempR.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>10</value>
   </data>
   <data name="label14.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -2475,7 +2592,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;label14.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>11</value>
   </data>
   <data name="LBL_TempL.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -2487,10 +2604,10 @@
     <value>NoControl</value>
   </data>
   <data name="LBL_TempL.Location" type="System.Drawing.Point, System.Drawing">
-    <value>337, 48</value>
+    <value>337, 80</value>
   </data>
   <data name="LBL_TempL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 48</value>
+    <value>161, 32</value>
   </data>
   <data name="LBL_TempL.TabIndex" type="System.Int32, mscorlib">
     <value>97</value>
@@ -2511,7 +2628,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;LBL_TempL.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>12</value>
   </data>
   <data name="label12.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -2547,7 +2664,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>13</value>
   </data>
   <data name="label1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -2583,7 +2700,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>16</value>
   </data>
   <data name="LBL_Temp.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -2595,10 +2712,10 @@
     <value>NoControl</value>
   </data>
   <data name="LBL_Temp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>170, 48</value>
+    <value>170, 80</value>
   </data>
   <data name="LBL_Temp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 48</value>
+    <value>161, 32</value>
   </data>
   <data name="LBL_Temp.TabIndex" type="System.Int32, mscorlib">
     <value>93</value>
@@ -2619,7 +2736,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;LBL_Temp.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>18</value>
   </data>
   <data name="LBL_Humidity.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -2631,10 +2748,10 @@
     <value>NoControl</value>
   </data>
   <data name="LBL_Humidity.Location" type="System.Drawing.Point, System.Drawing">
-    <value>170, 96</value>
+    <value>170, 112</value>
   </data>
   <data name="LBL_Humidity.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 48</value>
+    <value>161, 32</value>
   </data>
   <data name="LBL_Humidity.TabIndex" type="System.Int32, mscorlib">
     <value>94</value>
@@ -2655,7 +2772,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;LBL_Humidity.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>19</value>
   </data>
   <data name="label13.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -2691,7 +2808,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>20</value>
   </data>
   <data name="LBL_CurrentMain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -2706,7 +2823,7 @@
     <value>170, 144</value>
   </data>
   <data name="LBL_CurrentMain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 48</value>
+    <value>161, 32</value>
   </data>
   <data name="LBL_CurrentMain.TabIndex" type="System.Int32, mscorlib">
     <value>96</value>
@@ -2727,7 +2844,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;LBL_CurrentMain.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>21</value>
   </data>
   <data name="LBL_HumidityL.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -2739,10 +2856,10 @@
     <value>NoControl</value>
   </data>
   <data name="LBL_HumidityL.Location" type="System.Drawing.Point, System.Drawing">
-    <value>337, 96</value>
+    <value>337, 112</value>
   </data>
   <data name="LBL_HumidityL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 48</value>
+    <value>161, 32</value>
   </data>
   <data name="LBL_HumidityL.TabIndex" type="System.Int32, mscorlib">
     <value>99</value>
@@ -2763,22 +2880,22 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;LBL_HumidityL.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>22</value>
   </data>
   <data name="tableLayoutPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
   <data name="tableLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 264</value>
+    <value>0, 248</value>
   </data>
   <data name="tableLayoutPanel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
   <data name="tableLayoutPanel1.RowCount" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>669, 248</value>
+    <value>669, 216</value>
   </data>
   <data name="tableLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -2796,7 +2913,7 @@
     <value>3</value>
   </data>
   <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="lineSeparator4" Row="5" RowSpan="1" Column="0" ColumnSpan="4" /&gt;&lt;Control Name="pictureBox2" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanel10" Row="4" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanel9" Row="4" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="LBL_CurrentR" Row="3" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="LBL_CurrentL" Row="3" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="LBL_HumidityR" Row="2" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="LBL_TempR" Row="1" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="label14" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="LBL_TempL" Row="1" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="label12" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="pictureBox11" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="pictureBox3" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label1" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="pictureBox5" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="LBL_Temp" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="LBL_Humidity" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="label13" Row="0" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="LBL_CurrentMain" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="LBL_HumidityL" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,25,Percent,25,Percent,25,Percent,25" /&gt;&lt;Rows Styles="Absolute,48,Absolute,48,Absolute,48,Absolute,48,Absolute,48,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="LBL_BattR" Row="1" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="LBL_BattL" Row="1" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="LBL_Batt" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lineSeparator4" Row="6" RowSpan="1" Column="0" ColumnSpan="4" /&gt;&lt;Control Name="pictureBox2" Row="5" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanel10" Row="5" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanel9" Row="5" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="LBL_CurrentR" Row="4" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="LBL_CurrentL" Row="4" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="LBL_HumidityR" Row="3" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="LBL_TempR" Row="2" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="label14" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="LBL_TempL" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="label12" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="pictureBox11" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="pictureBox3" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label1" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="pictureBox5" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="LBL_Temp" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="LBL_Humidity" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="label13" Row="0" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="LBL_CurrentMain" Row="4" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="LBL_HumidityL" Row="3" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="pictureBox13" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,25,Percent,25,Percent,25,Percent,25" /&gt;&lt;Rows Styles="Absolute,48,Absolute,32,Absolute,32,Absolute,32,Absolute,32,Absolute,32,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="SubMainLeft.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -2863,42 +2980,6 @@
   </data>
   <data name="tableLayoutPanel3.ColumnCount" type="System.Int32, mscorlib">
     <value>1</value>
-  </data>
-  <data name="tableLayoutPanel11.ColumnCount" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="tableLayoutPanel11.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="tableLayoutPanel11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 512</value>
-  </data>
-  <data name="tableLayoutPanel11.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 0, 3, 3</value>
-  </data>
-  <data name="tableLayoutPanel11.RowCount" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="tableLayoutPanel11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>663, 102</value>
-  </data>
-  <data name="tableLayoutPanel11.TabIndex" type="System.Int32, mscorlib">
-    <value>106</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanel11.Name" xml:space="preserve">
-    <value>tableLayoutPanel11</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanel11.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanel11.Parent" xml:space="preserve">
-    <value>tableLayoutPanel3</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanel11.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="tableLayoutPanel11.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="label22" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="BUT_DisDepthAlarm" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="BUT_MuteDepthAlarm" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="NUM_DepthAlarmValue" Row="1" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0,AutoSize,0,Absolute,8" /&gt;&lt;Rows Styles="AutoSize,0,Absolute,48" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="tableLayoutPanel4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3207,10 +3288,10 @@
     <value>tableLayoutPanel3</value>
   </data>
   <data name="&gt;&gt;tableLayoutPanel4.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="tableLayoutPanel4.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="BUT_resumemis" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="BUT_manual" Row="0" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="BUT_quickauto" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="BUT_loiter" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="BUT_quickrtl" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="BUTrestartmission" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="BUT_clear_track" Row="1" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="BUT_ARM" Row="1" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,25,Percent,25,Percent,25,Percent,25" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="BUT_resumemis" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="BUT_manual" Row="0" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="BUT_quickauto" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="BUT_loiter" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="BUT_quickrtl" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="BUTrestartmission" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="BUT_clear_track" Row="1" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="BUT_ARM" Row="1" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,25,Percent,25,Percent,25,Percent,25" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="tableLayoutPanel5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3228,7 +3309,7 @@
     <value>0 (Home)</value>
   </data>
   <data name="CMB_setwp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>163, 9</value>
+    <value>163, 10</value>
   </data>
   <data name="CMB_setwp.Size" type="System.Drawing.Size, System.Drawing">
     <value>102, 21</value>
@@ -3495,7 +3576,7 @@
     <value>tableLayoutPanel3</value>
   </data>
   <data name="&gt;&gt;tableLayoutPanel5.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="tableLayoutPanel5.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="groupBox2" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="groupBox1" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="AutoSize,0,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
@@ -3519,7 +3600,7 @@
     <value>337, 48</value>
   </data>
   <data name="LBL_DisToHome.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 48</value>
+    <value>161, 32</value>
   </data>
   <data name="LBL_DisToHome.TabIndex" type="System.Int32, mscorlib">
     <value>88</value>
@@ -3555,7 +3636,7 @@
     <value>504, 48</value>
   </data>
   <data name="LBL_SatNumber.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 48</value>
+    <value>162, 32</value>
   </data>
   <data name="LBL_SatNumber.TabIndex" type="System.Int32, mscorlib">
     <value>90</value>
@@ -3591,7 +3672,7 @@
     <value>3, 48</value>
   </data>
   <data name="LBL_Depth.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 48</value>
+    <value>161, 32</value>
   </data>
   <data name="LBL_Depth.TabIndex" type="System.Int32, mscorlib">
     <value>87</value>
@@ -3627,7 +3708,7 @@
     <value>170, 48</value>
   </data>
   <data name="LBL_GSpeed.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 48</value>
+    <value>161, 32</value>
   </data>
   <data name="LBL_GSpeed.TabIndex" type="System.Int32, mscorlib">
     <value>86</value>
@@ -3654,7 +3735,7 @@
     <value>Top</value>
   </data>
   <data name="lineSeparator2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 99</value>
+    <value>3, 83</value>
   </data>
   <data name="lineSeparator2.MaximumSize" type="System.Drawing.Size, System.Drawing">
     <value>2000, 2</value>
@@ -3693,7 +3774,7 @@
     <value>3</value>
   </data>
   <data name="tableLayoutPanel8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>669, 104</value>
+    <value>669, 88</value>
   </data>
   <data name="tableLayoutPanel8.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -3708,10 +3789,70 @@
     <value>tableLayoutPanel3</value>
   </data>
   <data name="&gt;&gt;tableLayoutPanel8.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>2</value>
   </data>
   <data name="tableLayoutPanel8.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="LBL_DisToHome" Row="1" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="pictureBox4" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="LBL_SatNumber" Row="1" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="pictureBox6" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="pictureBox7" Row="0" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="LBL_Depth" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="LBL_GSpeed" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="pictureBox1" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="lineSeparator2" Row="2" RowSpan="1" Column="0" ColumnSpan="4" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,25,Percent,25,Percent,25,Percent,25" /&gt;&lt;Rows Styles="Absolute,48,Absolute,48,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="LBL_DisToHome" Row="1" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="pictureBox4" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="LBL_SatNumber" Row="1" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="pictureBox6" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="pictureBox7" Row="0" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="LBL_Depth" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="LBL_GSpeed" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="pictureBox1" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="lineSeparator2" Row="2" RowSpan="1" Column="0" ColumnSpan="4" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,25,Percent,25,Percent,25,Percent,25" /&gt;&lt;Rows Styles="Absolute,48,Absolute,32,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="tableLayoutPanel11.ColumnCount" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="label22.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label22.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 0</value>
+  </data>
+  <data name="label22.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 23</value>
+  </data>
+  <data name="label22.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;label22.Name" xml:space="preserve">
+    <value>label22</value>
+  </data>
+  <data name="&gt;&gt;label22.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label22.Parent" xml:space="preserve">
+    <value>tableLayoutPanel11</value>
+  </data>
+  <data name="&gt;&gt;label22.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tableLayoutPanel11.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="tableLayoutPanel11.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 464</value>
+  </data>
+  <data name="tableLayoutPanel11.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 0, 3, 3</value>
+  </data>
+  <data name="tableLayoutPanel11.RowCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="tableLayoutPanel11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>663, 102</value>
+  </data>
+  <data name="tableLayoutPanel11.TabIndex" type="System.Int32, mscorlib">
+    <value>106</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel11.Name" xml:space="preserve">
+    <value>tableLayoutPanel11</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel11.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel11.Parent" xml:space="preserve">
+    <value>tableLayoutPanel3</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel11.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="tableLayoutPanel11.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="label22" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="BUT_DisDepthAlarm" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="BUT_MuteDepthAlarm" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="NUM_DepthAlarmValue" Row="1" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0,AutoSize,0,Absolute,8" /&gt;&lt;Rows Styles="AutoSize,0,Absolute,48" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="tableLayoutPanel3.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -3741,7 +3882,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanel3.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="tableLayoutPanel11" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanel4" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanel5" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanel1" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanel8" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,Absolute,74,Absolute,8" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="tableLayoutPanel4" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanel5" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanel8" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanel1" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanel11" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,Absolute,74,Absolute,8" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="tabActions.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 26</value>

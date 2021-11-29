@@ -4519,11 +4519,23 @@ namespace MissionPlanner.GCSViews
                     m = n = 0;
                 }
 
-                myhud.batteryremaining = (int)(m * MainV2.comPort.MAV.cs.battery_voltage + n);
-                if (myhud.batteryremaining > 100)
-                    myhud.batteryremaining = 100;
-                if (myhud.batteryremaining < 0)
-                    myhud.batteryremaining = 0;
+                int batPercentL = (int)(m * MainV2.comPort.MAV.cs.battery_voltage + n);
+                if (batPercentL > 100)
+                    batPercentL = 100;
+                if (batPercentL < 0)
+                    batPercentL = 0;
+                LBL_BattL.Text = batPercentL.ToString() + "%";
+
+                int batPercentR = (int)(m * MainV2.comPort.MAV.cs.battery_voltage2 + n);
+                if (batPercentR > 100)
+                    batPercentR = 100;
+                if (batPercentR < 0)
+                    batPercentR = 0;
+                LBL_BattR.Text = batPercentR.ToString() + "%";
+
+
+
+
 
             }
             else
@@ -4539,6 +4551,9 @@ namespace MissionPlanner.GCSViews
                 LBL_TempR.Text = "0";
                 LBL_HumidityR.Text = "0";
                 LBL_CurrentR.Text = "0";
+
+                LBL_BattL.Text = "0";
+                LBL_BattR.Text = "0";
             }
 
             //Actualizar las barras de los motores en reversa

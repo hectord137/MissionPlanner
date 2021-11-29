@@ -59,6 +59,7 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox13 = new System.Windows.Forms.PictureBox();
             this.openScriptDialog = new System.Windows.Forms.OpenFileDialog();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
@@ -80,6 +81,7 @@
             this.LBL_MissionCompleted = new System.Windows.Forms.Label();
             this.COMBJOY = new System.Windows.Forms.ComboBox();
             this.but_disablejoystick = new MissionPlanner.Controls.MyButton();
+            this.distanceBar1 = new MissionPlanner.Controls.DistanceBar();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -95,11 +97,13 @@
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.progressBarL_Down = new System.Windows.Forms.ProgressBar();
             this.progressBarL_Up = new System.Windows.Forms.ProgressBar();
-            this.label22 = new System.Windows.Forms.Label();
             this.NUM_DepthAlarmValue = new System.Windows.Forms.NumericUpDown();
             this.BUT_DisDepthAlarm = new System.Windows.Forms.Button();
             this.BUT_MuteDepthAlarm = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.LBL_BattR = new System.Windows.Forms.Label();
+            this.LBL_BattL = new System.Windows.Forms.Label();
+            this.LBL_Batt = new System.Windows.Forms.Label();
             this.lineSeparator4 = new MissionPlanner.Controls.LineSeparator();
             this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox12 = new System.Windows.Forms.PictureBox();
@@ -124,7 +128,6 @@
             this.tabControlactions = new System.Windows.Forms.TabControl();
             this.tabActions = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.BUT_resumemis = new MissionPlanner.Controls.MyButton();
             this.BUT_manual = new MissionPlanner.Controls.MyButton();
@@ -149,6 +152,8 @@
             this.LBL_Depth = new System.Windows.Forms.Label();
             this.LBL_GSpeed = new System.Windows.Forms.Label();
             this.lineSeparator2 = new MissionPlanner.Controls.LineSeparator();
+            this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
+            this.label22 = new System.Windows.Forms.Label();
             this.tabTLogs = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPaneltlogs = new System.Windows.Forms.TableLayoutPanel();
@@ -170,7 +175,6 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.BUT_EchoGrab_BlinkTimer = new System.Windows.Forms.Timer(this.components);
-            this.distanceBar1 = new MissionPlanner.Controls.DistanceBar();
             this.contextMenuStripHud.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceQuickTab)).BeginInit();
@@ -185,6 +189,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).BeginInit();
             this.tableMap.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -208,7 +213,6 @@
             this.tabControlactions.SuspendLayout();
             this.tabActions.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
-            this.tableLayoutPanel11.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -216,6 +220,7 @@
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
+            this.tableLayoutPanel11.SuspendLayout();
             this.tabTLogs.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPaneltlogs.SuspendLayout();
@@ -593,6 +598,14 @@
             this.pictureBox2.TabStop = false;
             this.toolTip1.SetToolTip(this.pictureBox2, resources.GetString("pictureBox2.ToolTip"));
             // 
+            // pictureBox13
+            // 
+            resources.ApplyResources(this.pictureBox13, "pictureBox13");
+            this.pictureBox13.Image = global::MissionPlanner.Properties.Resources.Battery;
+            this.pictureBox13.Name = "pictureBox13";
+            this.pictureBox13.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBox13, resources.GetString("pictureBox13.ToolTip"));
+            // 
             // openScriptDialog
             // 
             resources.ApplyResources(this.openScriptDialog, "openScriptDialog");
@@ -763,6 +776,14 @@
             this.but_disablejoystick.UseVisualStyleBackColor = true;
             this.but_disablejoystick.Click += new System.EventHandler(this.but_disablejoystick_Click);
             // 
+            // distanceBar1
+            // 
+            resources.ApplyResources(this.distanceBar1, "distanceBar1");
+            this.distanceBar1.BackColor = System.Drawing.Color.Transparent;
+            this.distanceBar1.Name = "distanceBar1";
+            this.distanceBar1.totaldist = 100F;
+            this.distanceBar1.traveleddist = 0F;
+            // 
             // label6
             // 
             resources.ApplyResources(this.label6, "label6");
@@ -919,11 +940,6 @@
             this.progressBarL_Up.Step = 1;
             this.progressBarL_Up.Value = 1500;
             // 
-            // label22
-            // 
-            resources.ApplyResources(this.label22, "label22");
-            this.label22.Name = "label22";
-            // 
             // NUM_DepthAlarmValue
             // 
             resources.ApplyResources(this.NUM_DepthAlarmValue, "NUM_DepthAlarmValue");
@@ -964,27 +980,49 @@
             // tableLayoutPanel1
             // 
             resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-            this.tableLayoutPanel1.Controls.Add(this.lineSeparator4, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.pictureBox2, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel10, 3, 4);
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel9, 2, 4);
-            this.tableLayoutPanel1.Controls.Add(this.LBL_CurrentR, 3, 3);
-            this.tableLayoutPanel1.Controls.Add(this.LBL_CurrentL, 2, 3);
-            this.tableLayoutPanel1.Controls.Add(this.LBL_HumidityR, 3, 2);
-            this.tableLayoutPanel1.Controls.Add(this.LBL_TempR, 3, 1);
+            this.tableLayoutPanel1.Controls.Add(this.LBL_BattR, 3, 1);
+            this.tableLayoutPanel1.Controls.Add(this.LBL_BattL, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.LBL_Batt, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.lineSeparator4, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.pictureBox2, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel10, 3, 5);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel9, 2, 5);
+            this.tableLayoutPanel1.Controls.Add(this.LBL_CurrentR, 3, 4);
+            this.tableLayoutPanel1.Controls.Add(this.LBL_CurrentL, 2, 4);
+            this.tableLayoutPanel1.Controls.Add(this.LBL_HumidityR, 3, 3);
+            this.tableLayoutPanel1.Controls.Add(this.LBL_TempR, 3, 2);
             this.tableLayoutPanel1.Controls.Add(this.label14, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.LBL_TempL, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.LBL_TempL, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.label12, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.pictureBox11, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.pictureBox3, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.pictureBox11, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.pictureBox3, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.label1, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.pictureBox5, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.LBL_Temp, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.LBL_Humidity, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.pictureBox5, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.LBL_Temp, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.LBL_Humidity, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.label13, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.LBL_CurrentMain, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.LBL_HumidityL, 2, 2);
+            this.tableLayoutPanel1.Controls.Add(this.LBL_CurrentMain, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.LBL_HumidityL, 2, 3);
+            this.tableLayoutPanel1.Controls.Add(this.pictureBox13, 0, 1);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            // 
+            // LBL_BattR
+            // 
+            this.LBL_BattR.AutoEllipsis = true;
+            resources.ApplyResources(this.LBL_BattR, "LBL_BattR");
+            this.LBL_BattR.Name = "LBL_BattR";
+            // 
+            // LBL_BattL
+            // 
+            this.LBL_BattL.AutoEllipsis = true;
+            resources.ApplyResources(this.LBL_BattL, "LBL_BattL");
+            this.LBL_BattL.Name = "LBL_BattL";
+            // 
+            // LBL_Batt
+            // 
+            this.LBL_Batt.AutoEllipsis = true;
+            resources.ApplyResources(this.LBL_Batt, "LBL_Batt");
+            this.LBL_Batt.Name = "LBL_Batt";
             // 
             // lineSeparator4
             // 
@@ -1138,6 +1176,7 @@
             resources.ApplyResources(this.hud1, "hud1");
             this.hud1.BackColor = System.Drawing.Color.Black;
             this.hud1.batterylevel = 0F;
+            this.hud1.batteryon = false;
             this.hud1.batteryremaining = 50F;
             this.hud1.bgimage = null;
             this.hud1.connected = false;
@@ -1254,21 +1293,12 @@
             // tableLayoutPanel3
             // 
             resources.ApplyResources(this.tableLayoutPanel3, "tableLayoutPanel3");
-            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel11, 0, 4);
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel4, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel5, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel1, 0, 3);
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel8, 0, 2);
+            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel1, 0, 3);
+            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel11, 0, 4);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            // 
-            // tableLayoutPanel11
-            // 
-            resources.ApplyResources(this.tableLayoutPanel11, "tableLayoutPanel11");
-            this.tableLayoutPanel11.Controls.Add(this.label22, 0, 0);
-            this.tableLayoutPanel11.Controls.Add(this.BUT_DisDepthAlarm, 0, 1);
-            this.tableLayoutPanel11.Controls.Add(this.BUT_MuteDepthAlarm, 1, 1);
-            this.tableLayoutPanel11.Controls.Add(this.NUM_DepthAlarmValue, 2, 1);
-            this.tableLayoutPanel11.Name = "tableLayoutPanel11";
             // 
             // tableLayoutPanel4
             // 
@@ -1514,6 +1544,20 @@
             resources.ApplyResources(this.lineSeparator2, "lineSeparator2");
             this.lineSeparator2.Name = "lineSeparator2";
             // 
+            // tableLayoutPanel11
+            // 
+            resources.ApplyResources(this.tableLayoutPanel11, "tableLayoutPanel11");
+            this.tableLayoutPanel11.Controls.Add(this.label22, 0, 0);
+            this.tableLayoutPanel11.Controls.Add(this.BUT_DisDepthAlarm, 0, 1);
+            this.tableLayoutPanel11.Controls.Add(this.BUT_MuteDepthAlarm, 1, 1);
+            this.tableLayoutPanel11.Controls.Add(this.NUM_DepthAlarmValue, 2, 1);
+            this.tableLayoutPanel11.Name = "tableLayoutPanel11";
+            // 
+            // label22
+            // 
+            resources.ApplyResources(this.label22, "label22");
+            this.label22.Name = "label22";
+            // 
             // tabTLogs
             // 
             this.tabTLogs.Controls.Add(this.tableLayoutPanel2);
@@ -1736,14 +1780,6 @@
             this.BUT_EchoGrab_BlinkTimer.Interval = 500;
             this.BUT_EchoGrab_BlinkTimer.Tick += new System.EventHandler(this.BUT_EchoGrab_BlinkTimer_Tick);
             // 
-            // distanceBar1
-            // 
-            resources.ApplyResources(this.distanceBar1, "distanceBar1");
-            this.distanceBar1.BackColor = System.Drawing.Color.Transparent;
-            this.distanceBar1.Name = "distanceBar1";
-            this.distanceBar1.totaldist = 100F;
-            this.distanceBar1.traveleddist = 0F;
-            // 
             // FlightData
             // 
             this.Controls.Add(this.MainH);
@@ -1767,6 +1803,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).EndInit();
             this.tableMap.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -1796,7 +1833,6 @@
             this.tabActions.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
-            this.tableLayoutPanel11.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
             this.tableLayoutPanel5.ResumeLayout(false);
@@ -1808,6 +1844,7 @@
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel6.PerformLayout();
             this.tableLayoutPanel8.ResumeLayout(false);
+            this.tableLayoutPanel11.ResumeLayout(false);
             this.tabTLogs.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPaneltlogs.ResumeLayout(false);
@@ -1960,7 +1997,6 @@
         private System.Windows.Forms.Label LBL_HumidityR;
         private System.Windows.Forms.ProgressBar progressBarL_Up;
         private System.Windows.Forms.ProgressBar progressBarL_Down;
-        private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
         private System.Windows.Forms.ProgressBar progressBarR_Up;
         private System.Windows.Forms.ProgressBar progressBarR_Down;
@@ -1986,5 +2022,10 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Timer BUT_EchoGrab_BlinkTimer;
         private System.Windows.Forms.PictureBox pictureBox9;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.PictureBox pictureBox13;
+        private System.Windows.Forms.Label LBL_BattR;
+        private System.Windows.Forms.Label LBL_BattL;
+        private System.Windows.Forms.Label LBL_Batt;
     }
 }

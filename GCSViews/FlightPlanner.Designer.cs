@@ -133,7 +133,6 @@ namespace MissionPlanner.GCSViews
             this.BUT_Clear_Poly = new System.Windows.Forms.Button();
             this.GP_Layer_Options = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.lineSeparator1 = new MissionPlanner.Controls.LineSeparator();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.BUT_Clear_Echosounder = new System.Windows.Forms.Button();
             this.BUT_Plot_EchoSounder = new System.Windows.Forms.Button();
@@ -250,6 +249,7 @@ namespace MissionPlanner.GCSViews
             this.zoomToMissionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zoomToHomeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Timer_Update_Button_State = new System.Windows.Forms.Timer(this.components);
+            this.GP_MapOptions = new System.Windows.Forms.GroupBox();
             this.panel1.SuspendLayout();
             this.panelWaypoints.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Commands)).BeginInit();
@@ -276,6 +276,7 @@ namespace MissionPlanner.GCSViews
             this.panelBASE.SuspendLayout();
             this.contextMenuStripPoly.SuspendLayout();
             this.contextMenuStripZoom.SuspendLayout();
+            this.GP_MapOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // CHK_verifyheight
@@ -703,6 +704,7 @@ namespace MissionPlanner.GCSViews
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.GP_MapOptions);
             this.panel2.Controls.Add(this.GP_Zoom_Options);
             this.panel2.Controls.Add(this.GP_Home_Options);
             this.panel2.Controls.Add(this.GP_WP_Tools);
@@ -925,11 +927,7 @@ namespace MissionPlanner.GCSViews
             // 
             // GP_Layer_Options
             // 
-            this.GP_Layer_Options.Controls.Add(this.label4);
-            this.GP_Layer_Options.Controls.Add(this.lineSeparator1);
-            this.GP_Layer_Options.Controls.Add(this.coords1);
             this.GP_Layer_Options.Controls.Add(this.tableLayoutPanel6);
-            this.GP_Layer_Options.Controls.Add(this.panel3);
             resources.ApplyResources(this.GP_Layer_Options, "GP_Layer_Options");
             this.GP_Layer_Options.Name = "GP_Layer_Options";
             this.GP_Layer_Options.TabStop = false;
@@ -938,11 +936,6 @@ namespace MissionPlanner.GCSViews
             // 
             resources.ApplyResources(this.label4, "label4");
             this.label4.Name = "label4";
-            // 
-            // lineSeparator1
-            // 
-            resources.ApplyResources(this.lineSeparator1, "lineSeparator1");
-            this.lineSeparator1.Name = "lineSeparator1";
             // 
             // tableLayoutPanel6
             // 
@@ -1794,6 +1787,15 @@ namespace MissionPlanner.GCSViews
             this.Timer_Update_Button_State.Enabled = true;
             this.Timer_Update_Button_State.Tick += new System.EventHandler(this.Timer_Update_Button_State_Tick);
             // 
+            // GP_MapOptions
+            // 
+            this.GP_MapOptions.Controls.Add(this.label4);
+            this.GP_MapOptions.Controls.Add(this.coords1);
+            this.GP_MapOptions.Controls.Add(this.panel3);
+            resources.ApplyResources(this.GP_MapOptions, "GP_MapOptions");
+            this.GP_MapOptions.Name = "GP_MapOptions";
+            this.GP_MapOptions.TabStop = false;
+            // 
             // FlightPlanner
             // 
             this.BackColor = System.Drawing.SystemColors.Control;
@@ -1821,7 +1823,6 @@ namespace MissionPlanner.GCSViews
             this.GP_Polygon_Tools.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.GP_Layer_Options.ResumeLayout(false);
-            this.GP_Layer_Options.PerformLayout();
             this.tableLayoutPanel6.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
@@ -1836,6 +1837,8 @@ namespace MissionPlanner.GCSViews
             this.panelBASE.ResumeLayout(false);
             this.contextMenuStripPoly.ResumeLayout(false);
             this.contextMenuStripZoom.ResumeLayout(false);
+            this.GP_MapOptions.ResumeLayout(false);
+            this.GP_MapOptions.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -2028,7 +2031,6 @@ namespace MissionPlanner.GCSViews
         private Button BUT_Load_GeoTiff;
         private ImageList imageList1;
         public Label LBL_Map_origin;
-        private LineSeparator lineSeparator1;
         public Label label4;
         private Panel panel2;
         private PictureBox IMG_Tiff_Loading;
@@ -2039,5 +2041,6 @@ namespace MissionPlanner.GCSViews
         private PictureBox IMG_GradDepth;
         public Label label7;
         private Panel Panel_Legend;
+        private GroupBox GP_MapOptions;
     }
 }

@@ -53,6 +53,8 @@ using MathNet.Numerics.Providers.LinearAlgebra;
 using System.Drawing.Imaging;
 using GMap.NET.WindowsForms.ToolTips;
 
+using BitMiracle.LibTiff.Classic;
+
 namespace MissionPlanner.GCSViews
 {
     public partial class FlightPlanner : MyUserControl, IDeactivate, IActivate
@@ -7367,47 +7369,95 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             FlightData.kmlpolygons.Polygons.Clear();
         }
 
-        
+        string _tiffPath = "";
         private void BUT_Load_GeoTiff_Click(object sender, EventArgs e)
         {
-            string path = SelectImageDialog();
-            if (path != null)
+            _tiffPath = SelectImageDialog();
+            if (_tiffPath != null)
             {
                 IMG_Tiff_Loading.Visible = true;
 
                 tiffOverlay.Markers.Clear();
 
-                //extrae latitud, longitud, scala x e y segun ruta
-                geoTiffMetaData.LoadImageTiff(path);
-                
-                try
+                IProgressReporterDialogue frmProgressReporter = new ProgressReporterDialogue
                 {
-                    imageTiff = new Bitmap(path);
-                }
-                catch (Exception ex)
-                {
-                    CustomMessageBox.Show("Geotiff Error. " + ex.Message, "Load Fail");
-                    IMG_Tiff_Loading.Visible = false;
-                    return;
-                }
+                    StartPosition = FormStartPosition.CenterScreen,
+                    Text = "Loading Geotiff"
+                };
 
-                tiffMarker = new GMarkerGoogle(new PointLatLng(geoTiffMetaData.Latitude, geoTiffMetaData.Longitude), imageTiff);
-                tiffMarker.Offset = new Point(0, 0);
+                frmProgressReporter.DoWork += LoadTiffBackground;
 
-                UpdateTiffOverlay();
+                frmProgressReporter.UpdateProgressAndStatus(-1, "Loading Geotiff");
 
-                tiffOverlay.Markers.Add(tiffMarker);
+                ThemeManager.ApplyThemeTo(frmProgressReporter);
 
-                IMG_Tiff_Loading.Visible = false;
+                frmProgressReporter.RunBackgroundOperationAsync();
 
-                //Para inicializar las capas en la pestaña de FlightData
-                FlightData.instance.tiffOverlay.Clear();
-                FlightData.instance.tiffMarker = new GMarkerGoogle(new PointLatLng(geoTiffMetaData.Latitude, geoTiffMetaData.Longitude), imageTiff); ;
-                FlightData.instance.tiffMarker.Offset = new Point(0, 0);
-                FlightData.instance.UpdateTiffOverlay();
-                FlightData.instance.tiffOverlay.Markers.Add(FlightData.instance.tiffMarker);
+                frmProgressReporter.Dispose();
+
+                MainMap.Focus();
             }
         }
+
+        //Esta es la funcion que carga el Geotiff en segundo plano para poder reportar el progreso
+        void LoadTiffBackground(IProgressReporterDialogue sender)
+        {
+            //extrae latitud, longitud, scala x e y segun ruta
+
+            sender.UpdateProgressAndStatus(-1, "Loading MetaData");
+            geoTiffMetaData.LoadImageTiff(_tiffPath);
+
+            try
+            {
+
+                int[] buff32 = new int[(int)geoTiffMetaData.Width_px * (int)geoTiffMetaData.Height_px];
+
+                sender.UpdateProgressAndStatus(-1, "Reading RGB Data");
+                geoTiffMetaData.tiff.ReadRGBAImageOriented((int)geoTiffMetaData.Width_px, (int)geoTiffMetaData.Height_px, buff32, BitMiracle.LibTiff.Classic.Orientation.TOPLEFT);
+
+                imageTiff = new Bitmap((int)geoTiffMetaData.Width_px, (int)geoTiffMetaData.Height_px);
+
+                int index = 0;
+                for (int i = 0; i < (int)geoTiffMetaData.Height_px; i++)
+                {
+                    for (int j = 0; j < (int)geoTiffMetaData.Width_px; j++)
+                    {
+                        imageTiff.SetPixel(j, i, Color.FromArgb(Tiff.GetA(buff32[index]), Tiff.GetR(buff32[index]), Tiff.GetG(buff32[index]), Tiff.GetB(buff32[index])));
+                        index++;
+                    }
+
+                    sender.UpdateProgressAndStatus(index*100/(buff32.Length), "Creating Bitmap Image");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                CustomMessageBox.Show("Geotiff Error. " + ex.Message, "Load Fail");
+                IMG_Tiff_Loading.Visible = false;
+                return;
+            }
+
+            sender.UpdateProgressAndStatus(-1, "Adding Map Layer");
+
+            tiffMarker = new GMarkerGoogle(new PointLatLng(geoTiffMetaData.Latitude, geoTiffMetaData.Longitude), imageTiff);
+            tiffMarker.Offset = new Point(0, 0);
+
+            UpdateTiffOverlay();
+
+            tiffOverlay.Markers.Add(tiffMarker);
+
+            IMG_Tiff_Loading.Visible = false;
+
+            //Para inicializar las capas en la pestaña de FlightData
+            FlightData.instance.tiffOverlay.Clear();
+            FlightData.instance.tiffMarker = new GMarkerGoogle(new PointLatLng(geoTiffMetaData.Latitude, geoTiffMetaData.Longitude), imageTiff); ;
+            FlightData.instance.tiffMarker.Offset = new Point(0, 0);
+            FlightData.instance.UpdateTiffOverlay();
+            FlightData.instance.tiffOverlay.Markers.Add(FlightData.instance.tiffMarker);
+
+            sender.UpdateProgressAndStatus(-1, "Done");
+        }
+
 
         //Para obtener el Path del Geotiff
         private string SelectImageDialog()
