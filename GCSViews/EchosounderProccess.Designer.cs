@@ -70,7 +70,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(39, 77);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(126, 15);
+            this.label1.Size = new System.Drawing.Size(112, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "NMEA Raw Input File:";
             // 
@@ -79,7 +79,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(39, 143);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(113, 15);
+            this.label2.Size = new System.Drawing.Size(100, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "Data Output Folder:";
             // 
@@ -89,7 +89,7 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.26415F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(39, 31);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(290, 25);
+            this.label3.Size = new System.Drawing.Size(265, 25);
             this.label3.TabIndex = 5;
             this.label3.Text = "Echosounder Data Converter";
             // 
@@ -106,7 +106,7 @@
             // 
             // myButton3
             // 
-            this.myButton3.Location = new System.Drawing.Point(39, 207);
+            this.myButton3.Location = new System.Drawing.Point(39, 199);
             this.myButton3.Name = "myButton3";
             this.myButton3.Size = new System.Drawing.Size(75, 23);
             this.myButton3.TabIndex = 7;

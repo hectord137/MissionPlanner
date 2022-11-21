@@ -145,13 +145,6 @@ namespace MissionPlanner.Plugin
             get { return FlightData.mymap.MapProvider; }
         }
 
-        /// <summary>
-        /// add things to flightdata hud menu
-        /// </summary>
-        public ContextMenuStrip FDMenuHud
-        {
-            get { return MainV2.instance.FlightData.contextMenuStripHud; }
-        }
 
         /// <summary>
         /// add things to flightplanner map menu

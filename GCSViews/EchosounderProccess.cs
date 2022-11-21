@@ -16,6 +16,13 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Globalization;
 using System.IO;
 using System.Threading;
+using System.Net;
+using IronPython.Runtime;
+using fastJSON;
+using OpenTK.Graphics.ES30;
+using SharpDX;
+using static IronPython.Modules._ast;
+using System.Net.NetworkInformation;
 
 namespace MissionPlanner.GCSViews
 {
@@ -25,6 +32,10 @@ namespace MissionPlanner.GCSViews
         public static event ProgressEventHandle CreateIProgressReporterDialogue;
 
         public IProgressReporterDialogue formProgressReporter;
+
+        System.Net.Sockets.UdpClient udpClient;
+        int totalBytes = 1;
+        int receivedBytes = 0;
 
         public EchosounderProccess()
         {
@@ -73,7 +84,7 @@ namespace MissionPlanner.GCSViews
             formProgressReporter.Dispose();
         }
 
-        void ConvertData(IProgressReporterDialogue sender)
+        private void ConvertData(IProgressReporterDialogue sender)
         {
             string inFilePath = TXT_InData.Text;
             string[] lines = new string[1];
@@ -85,7 +96,7 @@ namespace MissionPlanner.GCSViews
                 {
                     lines = File.ReadAllLines(inFilePath);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     if (formProgressReporter != null)
                         formProgressReporter.doWorkArgs.ErrorMessage = e.Message;
@@ -111,7 +122,7 @@ namespace MissionPlanner.GCSViews
             int progressIndex = 0;
             foreach (string line in lines)
             {
-                if(progressIndex % 200 == 0)
+                if (progressIndex % 200 == 0)
                     Thread.Sleep(1);
 
                 progressIndex++;
@@ -125,7 +136,7 @@ namespace MissionPlanner.GCSViews
 
                 //Reportar progreso
                 if (formProgressReporter != null)
-                    this.formProgressReporter.UpdateProgressAndStatus((progressIndex * 70)/lines.Count(), "Extracting NMEA sentences.");
+                    this.formProgressReporter.UpdateProgressAndStatus((progressIndex * 70) / lines.Count(), "Extracting NMEA sentences.");
 
                 if (!string.IsNullOrEmpty(line))
                 {
@@ -152,7 +163,7 @@ namespace MissionPlanner.GCSViews
                 if (dbt_OK && gga_OK)
                 {
                     PointLatLngAlt point = new PointLatLngAlt(lat, lon);
-                    double[] utm  = point.ToUTM();
+                    double[] utm = point.ToUTM();
                     timeLatLonList.Add(time, utm[0], utm[1]);
                     depthList.Add(depth);
                 }
@@ -188,7 +199,7 @@ namespace MissionPlanner.GCSViews
             {
                 listOut.Add(timeLatLonList[i].Item2.ToString("F3", culture) + "," + // Lat
                             timeLatLonList[i].Item3.ToString("F3", culture) + "," + // Lon
-                            //depthList[i].ToString("F3", culture) + "," +
+                                                                                    //depthList[i].ToString("F3", culture) + "," +
                             depthBackward[i].ToString("F3", culture));              // Depth
             }
 
@@ -221,7 +232,7 @@ namespace MissionPlanner.GCSViews
             {
                 File.WriteAllLines(TXT_OutData.Text + "\\" + Path.GetFileNameWithoutExtension(TXT_InData.Text) + ".XYZ", listOut.ToArray());
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 if (formProgressReporter != null)
                     formProgressReporter.doWorkArgs.ErrorMessage = e.Message;
@@ -264,5 +275,13 @@ namespace MissionPlanner.GCSViews
             var result = (double.Parse(degree, CultureInfo.InvariantCulture) + (double.Parse(minute, CultureInfo.InvariantCulture) / 60.0)) * plusMinus;
             return result;
         }
+
+
+
+
+
+
+
+        
     }
 }
