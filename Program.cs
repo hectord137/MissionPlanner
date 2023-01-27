@@ -100,23 +100,8 @@ namespace MissionPlanner
                 new System.Net.Security.RemoteCertificateValidationCallback(
                     (sender, certificate, chain, policyErrors) => { return true; });
 
-            if (args.Length > 0 && args[0] == "/update")
-            {
-                Utilities.Update.DoUpdate();
-                return;
-            }
 
             name = "Mission Planner by SBY";
-
-            try
-            {
-                if (File.Exists(Settings.GetRunningDirectory() + "logo.txt"))
-                    name = File.ReadAllLines(Settings.GetRunningDirectory() + "logo.txt",
-                        Encoding.UTF8)[0];
-            }
-            catch
-            {
-            }
 
             if (File.Exists(Settings.GetRunningDirectory() + "logo.png"))
                 Logo = new Bitmap(Settings.GetRunningDirectory() + "logo.png");

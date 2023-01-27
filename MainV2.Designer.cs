@@ -48,7 +48,6 @@ namespace MissionPlanner
             this.MenuInitConfig = new System.Windows.Forms.ToolStripButton();
             this.MenuConfigTune = new System.Windows.Forms.ToolStripButton();
             this.MenuSimulation = new System.Windows.Forms.ToolStripButton();
-            this.MenuEchosounder = new System.Windows.Forms.ToolStripButton();
             this.MenuTerminal = new System.Windows.Forms.ToolStripButton();
             this.MenuHelp = new System.Windows.Forms.ToolStripButton();
             this.MenuDonate = new System.Windows.Forms.ToolStripButton();
@@ -75,7 +74,6 @@ namespace MissionPlanner
             this.MenuInitConfig,
             this.MenuConfigTune,
             this.MenuSimulation,
-            this.MenuEchosounder,
             this.MenuTerminal,
             this.MenuHelp,
             this.MenuDonate,
@@ -176,19 +174,6 @@ namespace MissionPlanner
             this.MenuSimulation.Name = "MenuSimulation";
             this.MenuSimulation.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
             this.MenuSimulation.Click += new System.EventHandler(this.MenuSimulation_Click);
-            // 
-            // MenuEchosounder
-            // 
-            resources.ApplyResources(this.MenuEchosounder, "MenuEchosounder");
-            this.MenuEchosounder.ForeColor = System.Drawing.Color.White;
-            this.MenuEchosounder.Margin = new System.Windows.Forms.Padding(0);
-            this.MenuEchosounder.Name = "MenuEchosounder";
-            this.MenuEchosounder.Text = "ECHOSOUNDER";
-            this.MenuEchosounder.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
-            this.MenuEchosounder.Image = global::MissionPlanner.Properties.Resources.echosounder1;
-            this.MenuEchosounder.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.MenuEchosounder.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.MenuEchosounder.Click += new System.EventHandler(this.MenuEchosounder_Click);
             // 
             // MenuTerminal
             // 
@@ -294,7 +279,6 @@ namespace MissionPlanner
         public System.Windows.Forms.ToolStripButton MenuInitConfig;
         public System.Windows.Forms.ToolStripButton MenuSimulation;
         public System.Windows.Forms.ToolStripButton MenuConfigTune;
-        public System.Windows.Forms.ToolStripButton MenuEchosounder;
         public System.Windows.Forms.ToolStripButton MenuTerminal;
         public System.Windows.Forms.ToolStripButton MenuConnect;
 

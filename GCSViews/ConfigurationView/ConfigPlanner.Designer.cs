@@ -71,7 +71,6 @@
             this.CHK_speecharmdisarm = new System.Windows.Forms.CheckBox();
             this.BUT_Vario = new MissionPlanner.Controls.MyButton();
             this.chk_analytics = new System.Windows.Forms.CheckBox();
-            this.CHK_beta = new System.Windows.Forms.CheckBox();
             this.CHK_Password = new System.Windows.Forms.CheckBox();
             this.CHK_speechlowspeed = new System.Windows.Forms.CheckBox();
             this.CHK_showairports = new System.Windows.Forms.CheckBox();
@@ -451,13 +450,6 @@
             this.chk_analytics.Name = "chk_analytics";
             this.chk_analytics.UseVisualStyleBackColor = true;
             this.chk_analytics.CheckedChanged += new System.EventHandler(this.chk_analytics_CheckedChanged);
-            // 
-            // CHK_beta
-            // 
-            resources.ApplyResources(this.CHK_beta, "CHK_beta");
-            this.CHK_beta.Name = "CHK_beta";
-            this.CHK_beta.UseVisualStyleBackColor = true;
-            this.CHK_beta.CheckedChanged += new System.EventHandler(this.CHK_beta_CheckedChanged);
             // 
             // CHK_Password
             // 
@@ -976,7 +968,6 @@
             this.Controls.Add(this.CHK_resetapmonconnect);
             this.Controls.Add(this.CHK_Password);
             this.Controls.Add(this.label108);
-            this.Controls.Add(this.CHK_beta);
             this.Controls.Add(this.NUM_tracklength);
             this.Controls.Add(this.chk_analytics);
             this.Controls.Add(this.label23);
@@ -1058,7 +1049,6 @@
         private System.Windows.Forms.CheckBox CHK_speecharmdisarm;
         private Controls.MyButton BUT_Vario;
         private System.Windows.Forms.CheckBox chk_analytics;
-        private System.Windows.Forms.CheckBox CHK_beta;
         private System.Windows.Forms.CheckBox CHK_Password;
         private System.Windows.Forms.CheckBox CHK_speechlowspeed;
         private System.Windows.Forms.CheckBox CHK_showairports;

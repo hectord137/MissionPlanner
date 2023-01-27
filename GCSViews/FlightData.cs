@@ -4586,6 +4586,11 @@ namespace MissionPlanner.GCSViews
                     fileOut += ".txt";
                 }
                 File.WriteAllLines(fileOut, listOut.ToArray());
+
+                //Escribir tambien el archivo RAW recibido
+                fileOut.RemoveFromEnd(".txt");
+                File.WriteAllText(fileOut + "_RAW.txt", receivedRAW);
+
             }
             catch (Exception e)
             {

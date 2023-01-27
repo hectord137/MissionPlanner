@@ -122,7 +122,6 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             SetCheckboxFromConfig("speechaltenabled", CHK_speechaltwarning);
             SetCheckboxFromConfig("speecharmenabled", CHK_speecharmdisarm);
             SetCheckboxFromConfig("speechlowspeedenabled", CHK_speechlowspeed);
-            SetCheckboxFromConfig("beta_updates", CHK_beta);
             SetCheckboxFromConfig("password_protect", CHK_Password);
             SetCheckboxFromConfig("showairports", CHK_showairports);
             SetCheckboxFromConfig("enableadsb", chk_ADSB);
@@ -777,13 +776,6 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         {
             Tracking.OptOut = chk_analytics.Checked;
             Settings.Instance["analyticsoptout"] = chk_analytics.Checked.ToString();
-        }
-
-        private void CHK_beta_CheckedChanged(object sender, EventArgs e)
-        {
-            Settings.Instance["beta_updates"] = CHK_beta.Checked.ToString();
-
-            MissionPlanner.Utilities.Update.dobeta = CHK_beta.Checked;
         }
 
         private void CHK_Password_CheckedChanged(object sender, EventArgs e)

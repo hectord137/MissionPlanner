@@ -7577,43 +7577,24 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             List<PointLatLng> points = new List<PointLatLng>();
             List<double> depthList = new List<double>();
 
-            bool dbt_OK = false;
-            bool gga_OK = false;
             double lat = 0;
             double lon = 0;
-            string time = "";
             double depth = 0;
             foreach (string line in lines)
             {
-                if (!string.IsNullOrEmpty(line))
+                if (string.IsNullOrEmpty(line))
                 {
-                    if (line.Contains("$GPDBT"))
-                    {
-                        string[] sp = line.Split(',');
-                        depth = double.Parse(sp[3], CultureInfo.InvariantCulture);
-                        dbt_OK = true;
-                    }
-
-                    if (line.Contains("$GPGGA") || line.Contains("$GNGGA"))
-                    {
-                        string[] sp = line.Split(',');
-                        time = sp[1];
-                        lat = EchosounderProccess.ToDecimalDegrees(sp[2] + sp[3]);
-                        lon = EchosounderProccess.ToDecimalDegrees(sp[4] + sp[5]);
-                        gga_OK = true;
-                    }
-
-                    continue;
+                    continue; 
                 }
 
-                //Cuando se llega a este punto, se ha completado un bloque.
-                if (dbt_OK && gga_OK)
-                {
-                    points.Add(new PointLatLng(lat, lon));
-                    depthList.Add(depth);
-                }
-                dbt_OK = false;
-                gga_OK = false;
+                //Falta por implementar
+                depth = 000;
+                lat = 000;
+                lon = 000;
+
+                points.Add(new PointLatLng(lat, lon));
+                depthList.Add(depth);
+
             }
 
             //Crear el Filtro - orden 40, 

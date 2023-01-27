@@ -421,12 +421,6 @@
     <Compile Include="GCSViews\ConfigurationView\ConfigTerminal.designer.cs">
       <DependentUpon>ConfigTerminal.cs</DependentUpon>
     </Compile>
-    <Compile Include="GCSViews\EchosounderProccess.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GCSViews\EchosounderProccess.Designer.cs">
-      <DependentUpon>EchosounderProccess.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\UAVCANParams.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -692,9 +686,6 @@
     <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.zh-TW.resx">
       <DependentUpon>ConfigTerminal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\EchosounderProccess.resx">
-      <DependentUpon>EchosounderProccess.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Grid\GridUI.resx">
       <DependentUpon>GridUI.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -843,7 +834,6 @@
     <Compile Include="Utilities\LogAnalyzer.cs" />
     <Compile Include="Utilities\POI.cs" />
     <Compile Include="Utilities\ThemeManager.cs" />
-    <Compile Include="Utilities\Update.cs" />
     <Compile Include="Utilities\Win32DeviceMgnt.cs" />
     <Compile Include="Warnings\WarningControl.cs">
       <SubType>UserControl</SubType>

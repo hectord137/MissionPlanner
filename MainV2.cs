@@ -1389,11 +1389,6 @@ namespace MissionPlanner
             }
         }
 
-        private void MenuEchosounder_Click(object sender, EventArgs e)
-        {
-            MyView.ShowScreen("Echosounder");
-        }
-
         private void MenuTerminal_Click(object sender, EventArgs e)
         {
             MyView.ShowScreen("Terminal");
@@ -2983,8 +2978,7 @@ namespace MissionPlanner
             MyView.AddScreen(new MainSwitcher.Screen("Simulation", Simulation, true));
             //MyView.AddScreen(new MainSwitcher.Screen("Terminal", typeof(GCSViews.Terminal), false));
             //MyView.AddScreen(new MainSwitcher.Screen("Help", typeof(GCSViews.Help), false));
-            MyView.AddScreen(new MainSwitcher.Screen("Echosounder", typeof(GCSViews.EchosounderProccess), true));
-
+            
             try
             {
                 if (Control.ModifierKeys == Keys.Shift)
@@ -3299,25 +3293,6 @@ namespace MissionPlanner
                 System.Configuration.ConfigurationManager.AppSettings["BetaUpdateLocationVersion"] = "";
             }
 
-            try
-            {
-                // single update check per day - in a seperate thread
-                if (Settings.Instance["update_check"] != DateTime.Now.ToShortDateString())
-                {
-                    System.Threading.ThreadPool.QueueUserWorkItem(checkupdate);
-                    Settings.Instance["update_check"] = DateTime.Now.ToShortDateString();
-                }
-                else if (Settings.Instance.GetBoolean("beta_updates") == true)
-                {
-                    MissionPlanner.Utilities.Update.dobeta = true;
-                    System.Threading.ThreadPool.QueueUserWorkItem(checkupdate);
-                }
-            }
-            catch (Exception ex)
-            {
-                log.Error("Update check failed", ex);
-            }
-
             // play a tlog that was passed to the program/ load a bin log passed
             if (Program.args.Length > 0)
             {
@@ -3609,21 +3584,6 @@ namespace MissionPlanner
             catch (Exception ex)
             {
                 log.Error(ex);
-            }
-        }
-
-        private void checkupdate(object stuff)
-        {
-            if (Program.WindowsStoreApp)
-                return;
-
-            try
-            {
-                MissionPlanner.Utilities.Update.CheckForUpdate();
-            }
-            catch (Exception ex)
-            {
-                log.Error("Update check failed", ex);
             }
         }
 
