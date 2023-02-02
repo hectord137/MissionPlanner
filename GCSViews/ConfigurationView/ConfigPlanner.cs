@@ -59,10 +59,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
             CMB_osdcolor.DataSource = Enum.GetNames(typeof(KnownColor));
 
-            // set distance/speed unit states
-            CMB_distunits.DataSource = Enum.GetNames(typeof(distances));
-            CMB_speedunits.DataSource = Enum.GetNames(typeof(speeds));
-            CMB_altunits.DataSource = Enum.GetNames(typeof(altitudes));
+
 
             CMB_theme.DataSource = Enum.GetNames(typeof(ThemeManager.Themes));
 
@@ -155,14 +152,6 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 {
                 }
             }
-
-
-            if (Settings.Instance["distunits"] != null)
-                CMB_distunits.Text = Settings.Instance["distunits"].ToString();
-            if (Settings.Instance["speedunits"] != null)
-                CMB_speedunits.Text = Settings.Instance["speedunits"].ToString();
-            if (Settings.Instance["altunits"] != null)
-                CMB_altunits.Text = Settings.Instance["altunits"].ToString();
 
 
 
@@ -424,22 +413,6 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             Form joy = new JoystickSetup();
             ThemeManager.ApplyThemeTo(joy);
             joy.Show();
-        }
-
-        private void CMB_distunits_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (startup)
-                return;
-            Settings.Instance["distunits"] = CMB_distunits.Text;
-            MainV2.instance.ChangeUnits();
-        }
-
-        private void CMB_speedunits_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (startup)
-                return;
-            Settings.Instance["speedunits"] = CMB_speedunits.Text;
-            MainV2.instance.ChangeUnits();
         }
 
         private void CMB_rateattitude_SelectedIndexChanged(object sender, EventArgs e)
@@ -865,14 +838,6 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         private void chk_shownofly_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Instance["ShowNoFly"] = chk_shownofly.Checked.ToString();
-        }
-
-        private void CMB_altunits_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (startup)
-                return;
-            Settings.Instance["altunits"] = CMB_altunits.Text;
-            MainV2.instance.ChangeUnits();
         }
 
         private void num_gcsid_ValueChanged(object sender, EventArgs e)

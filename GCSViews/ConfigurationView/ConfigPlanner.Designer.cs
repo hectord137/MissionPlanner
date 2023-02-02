@@ -32,14 +32,11 @@
             this.LBLTittleConfig = new System.Windows.Forms.Label();
             this.myUserControl1 = new System.Windows.Forms.MyUserControl();
             this.CMB_language = new System.Windows.Forms.ComboBox();
-            this.CMB_distunits = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label97 = new System.Windows.Forms.Label();
             this.num_gcsid = new System.Windows.Forms.NumericUpDown();
-            this.CMB_speedunits = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label98 = new System.Windows.Forms.Label();
-            this.CMB_altunits = new System.Windows.Forms.ComboBox();
             this.CMB_rateposition = new System.Windows.Forms.ComboBox();
             this.label26 = new System.Windows.Forms.Label();
             this.CMB_videoresolutions = new System.Windows.Forms.ComboBox();
@@ -128,14 +125,6 @@
             this.CMB_language.Name = "CMB_language";
             this.CMB_language.SelectedIndexChanged += new System.EventHandler(this.CMB_language_SelectedIndexChanged);
             // 
-            // CMB_distunits
-            // 
-            this.CMB_distunits.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CMB_distunits.FormattingEnabled = true;
-            resources.ApplyResources(this.CMB_distunits, "CMB_distunits");
-            this.CMB_distunits.Name = "CMB_distunits";
-            this.CMB_distunits.SelectedIndexChanged += new System.EventHandler(this.CMB_distunits_SelectedIndexChanged);
-            // 
             // label7
             // 
             resources.ApplyResources(this.label7, "label7");
@@ -167,14 +156,6 @@
             0});
             this.num_gcsid.ValueChanged += new System.EventHandler(this.num_gcsid_ValueChanged);
             // 
-            // CMB_speedunits
-            // 
-            this.CMB_speedunits.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CMB_speedunits.FormattingEnabled = true;
-            resources.ApplyResources(this.CMB_speedunits, "CMB_speedunits");
-            this.CMB_speedunits.Name = "CMB_speedunits";
-            this.CMB_speedunits.SelectedIndexChanged += new System.EventHandler(this.CMB_speedunits_SelectedIndexChanged);
-            // 
             // label6
             // 
             resources.ApplyResources(this.label6, "label6");
@@ -184,14 +165,6 @@
             // 
             resources.ApplyResources(this.label98, "label98");
             this.label98.Name = "label98";
-            // 
-            // CMB_altunits
-            // 
-            this.CMB_altunits.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CMB_altunits.FormattingEnabled = true;
-            resources.ApplyResources(this.CMB_altunits, "CMB_altunits");
-            this.CMB_altunits.Name = "CMB_altunits";
-            this.CMB_altunits.SelectedIndexChanged += new System.EventHandler(this.CMB_altunits_SelectedIndexChanged);
             // 
             // CMB_rateposition
             // 
@@ -731,14 +704,11 @@
             this.Controls.Add(this.LBLTittleConfig);
             this.Controls.Add(this.myUserControl1);
             this.Controls.Add(this.CMB_language);
-            this.Controls.Add(this.CMB_distunits);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label97);
             this.Controls.Add(this.num_gcsid);
-            this.Controls.Add(this.CMB_speedunits);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label98);
-            this.Controls.Add(this.CMB_altunits);
             this.Controls.Add(this.CMB_rateposition);
             this.Controls.Add(this.chk_shownofly);
             this.Controls.Add(this.CMB_rateattitude);
@@ -856,7 +826,6 @@
         private System.Windows.Forms.CheckBox CHK_AutoParamCommit;
         private System.Windows.Forms.CheckBox chk_shownofly;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox CMB_altunits;
         private System.Windows.Forms.NumericUpDown num_gcsid;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.MyUserControl myUserControl1;
@@ -882,9 +851,7 @@
         private System.Windows.Forms.ComboBox CMB_rateattitude;
         private System.Windows.Forms.ComboBox CMB_rateposition;
         private System.Windows.Forms.Label label98;
-        private System.Windows.Forms.ComboBox CMB_speedunits;
         private System.Windows.Forms.Label label97;
-        private System.Windows.Forms.ComboBox CMB_distunits;
         private System.Windows.Forms.ComboBox CMB_language;
         private System.Windows.Forms.Label label93;
         private System.Windows.Forms.Label LBLTittleConfig;

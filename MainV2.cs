@@ -546,7 +546,6 @@ namespace MissionPlanner
             MenuHelp.Visible = false;
             MenuTerminal.Visible = false;
             MenuHelp.Visible = false;
-            MenuDonate.Visible = false;
             MenuInitConfig.Visible = false;
             
         }
@@ -568,23 +567,6 @@ namespace MissionPlanner
             L10N.GetConfigLang();
 
             ShowAirports = true;
-
-            // setup adsb
-            Utilities.adsb.UpdatePlanePosition += adsb_UpdatePlanePosition;
-
-            MAVLinkInterface.UpdateADSBPlanePosition += adsb_UpdatePlanePosition;
-
-            MAVLinkInterface.UpdateADSBCollision += (sender, tuple) =>
-            {
-                lock (adsblock)
-                {
-                    if (MainV2.instance.adsbPlanes.ContainsKey(tuple.id))
-                    {
-                        // update existing
-                        ((adsb.PointLatLngAltHdg)instance.adsbPlanes[tuple.id]).ThreatLevel = tuple.threat_level;
-                    }
-                }
-            };
 
             MAVLinkInterface.gcssysid = (byte)Settings.Instance.GetByte("gcsid", MAVLinkInterface.gcssysid);
 
@@ -746,8 +728,6 @@ namespace MissionPlanner
                 var previousExecutionState =
                     NativeMethods.SetThreadExecutionState(NativeMethods.ES_CONTINUOUS | NativeMethods.ES_SYSTEM_REQUIRED);
             }
-
-            ChangeUnits();
 
             if (Settings.Instance["theme"] != null)
             {
@@ -1006,29 +986,6 @@ namespace MissionPlanner
             if (Program.Logo2 != null)
                 MenuArduPilot.Image = Program.Logo2;
 
-            if (Program.Logo != null && Program.name == "VVVVZ")
-            {
-                MenuDonate.Click -= this.toolStripMenuItem1_Click;
-                MenuDonate.Text = "";
-                MenuDonate.Image = Program.Logo;
-
-                MenuDonate.Click += MenuCustom_Click;
-
-                MenuFlightData.Visible = false;
-                MenuFlightPlanner.Visible = true;
-                MenuConfigTune.Visible = false;
-                MenuHelp.Visible = false;
-                MenuInitConfig.Visible = false;
-                MenuSimulation.Visible = false;
-                MenuTerminal.Visible = false;
-            }
-            else if (Program.Logo != null && Program.names.Contains(Program.name))
-            {
-                MenuDonate.Click -= this.toolStripMenuItem1_Click;
-                MenuDonate.Text = "";
-                MenuDonate.Image = Program.Logo;
-            }
-
 
 
             Application.DoEvents();
@@ -1141,7 +1098,6 @@ namespace MissionPlanner
             MenuTerminal.Image = displayicons.terminal;
             MenuConnect.Image = displayicons.connect;
             MenuHelp.Image = displayicons.help;
-            MenuDonate.Image = displayicons.donate;
 
 
             MenuFlightData.ForeColor = ThemeManager.TextColor;
@@ -1152,104 +1108,11 @@ namespace MissionPlanner
             MenuTerminal.ForeColor = ThemeManager.TextColor;
             MenuConnect.ForeColor = ThemeManager.TextColor;
             MenuHelp.ForeColor = ThemeManager.TextColor;
-            MenuDonate.ForeColor = ThemeManager.TextColor;
         }
 
-        void MenuCustom_Click(object sender, EventArgs e)
-        {
-            if (Settings.Instance.GetBoolean("password_protect") == false)
-            {
-                MenuFlightData.Visible = true;
-                MenuFlightPlanner.Visible = true;
-                MenuConfigTune.Visible = true;
-                MenuHelp.Visible = true;
-                MenuInitConfig.Visible = true;
-                MenuSimulation.Visible = true;
-                MenuTerminal.Visible = true;
-            }
-            else
-            {
-                var pw = "";
-                if (InputBox.Show("Enter Password", "Please enter your password", ref pw, true) ==
-    System.Windows.Forms.DialogResult.OK)
-                {
-                    bool ans = Password.ValidatePassword(pw);
+        
 
-                    if (ans == false)
-                    {
-                        CustomMessageBox.Show("Bad Password", "Bad Password");
-                    }
-                }
-
-                if (Password.VerifyPassword(pw))
-                {
-                    MenuFlightData.Visible = true;
-                    MenuFlightPlanner.Visible = true;
-                    MenuConfigTune.Visible = true;
-                    MenuHelp.Visible = true;
-                    MenuInitConfig.Visible = true;
-                    MenuSimulation.Visible = true;
-                    MenuTerminal.Visible = true;
-                }
-            }
-        }
-
-        void adsb_UpdatePlanePosition(object sender, MissionPlanner.Utilities.adsb.PointLatLngAltHdg adsb)
-        {
-            lock (adsblock)
-            {
-                var id = adsb.Tag;
-
-                if (MainV2.instance.adsbPlanes.ContainsKey(id))
-                {
-                    // update existing
-                    ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).Lat = adsb.Lat;
-                    ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).Lng = adsb.Lng;
-                    ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).Alt = adsb.Alt;
-                    ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).Heading = adsb.Heading;
-                    ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).Time = DateTime.Now;
-                    ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).CallSign = adsb.CallSign;
-                    ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).Raw = adsb.Raw;
-                }
-                else
-                {
-                    // create new plane
-                    MainV2.instance.adsbPlanes[id] =
-                        new adsb.PointLatLngAltHdg(adsb.Lat, adsb.Lng,
-                                adsb.Alt, adsb.Heading, adsb.Speed, id,
-                                DateTime.Now)
-                        { CallSign = adsb.CallSign, Raw = adsb.Raw };
-                }
-
-                try
-                {
-                    // dont rebroadcast something that came from the drone
-                    if (sender != null && sender is MAVLinkInterface)
-                        return;
-
-                    MAVLink.mavlink_adsb_vehicle_t packet = new MAVLink.mavlink_adsb_vehicle_t();
-
-                    packet.altitude = (int)(MainV2.instance.adsbPlanes[id].Alt * 1000);
-                    packet.altitude_type = (byte)MAVLink.ADSB_ALTITUDE_TYPE.GEOMETRIC;
-                    packet.callsign = ASCIIEncoding.ASCII.GetBytes(adsb.CallSign);
-                    packet.emitter_type = (byte)MAVLink.ADSB_EMITTER_TYPE.NO_INFO;
-                    packet.heading = (ushort)(MainV2.instance.adsbPlanes[id].Heading * 100);
-                    packet.lat = (int)(MainV2.instance.adsbPlanes[id].Lat * 1e7);
-                    packet.lon = (int)(MainV2.instance.adsbPlanes[id].Lng * 1e7);
-                    packet.ICAO_address = uint.Parse(id, NumberStyles.HexNumber);
-
-                    packet.flags = (ushort)(MAVLink.ADSB_FLAGS.VALID_ALTITUDE | MAVLink.ADSB_FLAGS.VALID_COORDS |
-                        MAVLink.ADSB_FLAGS.VALID_HEADING | MAVLink.ADSB_FLAGS.VALID_CALLSIGN);
-
-                    //send to current connected
-                    MainV2.comPort.sendPacket(packet, MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid);
-                }
-                catch
-                {
-
-                }
-            }
-        }
+        
 
 
         private void ResetConnectionStats()
@@ -3307,18 +3170,6 @@ namespace MissionPlanner
             }
         }
 
-        private void BGgetTFR(object state)
-        {
-            //try
-            //{
-            //    tfr.tfrcache = Settings.GetUserDataDirectory() + "tfr.xml";
-            //    tfr.GetTFRs();
-            //}
-            //catch (Exception ex)
-            //{
-            //    log.Error(ex);
-            //}
-        }
 
         private void BGNoFly(object state)
         {
@@ -3514,93 +3365,6 @@ namespace MissionPlanner
             }
         }
 
-
-        public void ChangeUnits()
-        {
-            try
-            {
-                // dist
-                if (Settings.Instance["distunits"] != null)
-                {
-                    switch (
-                        (distances)Enum.Parse(typeof(distances), Settings.Instance["distunits"].ToString()))
-                    {
-                        case distances.Meters:
-                            CurrentState.multiplierdist = 1;
-                            CurrentState.DistanceUnit = "m";
-                            break;
-                        case distances.Feet:
-                            CurrentState.multiplierdist = 3.2808399f;
-                            CurrentState.DistanceUnit = "ft";
-                            break;
-                    }
-                }
-                else
-                {
-                    CurrentState.multiplierdist = 1;
-                    CurrentState.DistanceUnit = "m";
-                }
-
-                // alt
-                if (Settings.Instance["altunits"] != null)
-                {
-                    switch (
-                        (distances)Enum.Parse(typeof(altitudes), Settings.Instance["altunits"].ToString()))
-                    {
-                        case distances.Meters:
-                            CurrentState.multiplieralt = 1;
-                            CurrentState.AltUnit = "m";
-                            break;
-                        case distances.Feet:
-                            CurrentState.multiplieralt = 3.2808399f;
-                            CurrentState.AltUnit = "ft";
-                            break;
-                    }
-                }
-                else
-                {
-                    CurrentState.multiplieralt = 1;
-                    CurrentState.AltUnit = "m";
-                }
-
-                // speed
-                if (Settings.Instance["speedunits"] != null)
-                {
-                    switch ((speeds)Enum.Parse(typeof(speeds), Settings.Instance["speedunits"].ToString()))
-                    {
-                        case speeds.meters_per_second:
-                            CurrentState.multiplierspeed = 1;
-                            CurrentState.SpeedUnit = "m/s";
-                            break;
-                        case speeds.fps:
-                            CurrentState.multiplierspeed = 3.2808399f;
-                            CurrentState.SpeedUnit = "fps";
-                            break;
-                        case speeds.kph:
-                            CurrentState.multiplierspeed = 3.6f;
-                            CurrentState.SpeedUnit = "kph";
-                            break;
-                        case speeds.mph:
-                            CurrentState.multiplierspeed = 2.23693629f;
-                            CurrentState.SpeedUnit = "mph";
-                            break;
-                        case speeds.knots:
-                            CurrentState.multiplierspeed = 1.94384449f;
-                            CurrentState.SpeedUnit = "kts";
-                            break;
-                    }
-                }
-                else
-                {
-                    CurrentState.multiplierspeed = 1;
-                    CurrentState.SpeedUnit = "m/s";
-                }
-            }
-            catch
-            {
-            }
-        }
-
         private void CMB_baudrate_TextChanged(object sender, EventArgs e)
         {
             if (!int.TryParse(_connectionControl.CMB_baudrate.Text, out comPortBaud))
@@ -3652,19 +3416,9 @@ namespace MissionPlanner
             this.ResumeLayout();
         }
 
-        private void autoHideToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AutoHideMenu(autoHideToolStripMenuItem.Checked);
-
-            Settings.Instance["menu_autohide"] = autoHideToolStripMenuItem.Checked.ToString();
-        }
-
         void AutoHideMenu(bool hide)
         {
-            autoHideToolStripMenuItem.Checked = hide;
 
-            if (!hide)
-            {
                 this.SuspendLayout();
                 panel1.Dock = DockStyle.Top;
                 panel1.SendToBack();
@@ -3674,19 +3428,7 @@ namespace MissionPlanner
                 panel1.MouseLeave -= MainMenu_MouseLeave;
                 toolStripConnectionControl.MouseLeave -= MainMenu_MouseLeave;
                 this.ResumeLayout();
-            }
-            else
-            {
-                this.SuspendLayout();
-                panel1.Dock = DockStyle.None;
-                panel1.Visible = false;
-                MainMenu.MouseLeave += MainMenu_MouseLeave;
-                panel1.MouseLeave += MainMenu_MouseLeave;
-                toolStripConnectionControl.MouseLeave += MainMenu_MouseLeave;
-                menu.Visible = true;
-                menu.SendToBack();
-                this.ResumeLayout();
-            }
+
         }
 
         private void MainV2_KeyDown(object sender, KeyEventArgs e)
@@ -3899,24 +3641,6 @@ namespace MissionPlanner
             }
             //MainMenu.BackColor = Color.Black;
             //MainMenu.BackgroundImage = MissionPlanner.Properties.Resources.bgdark;
-        }
-
-        private void fullScreenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // full screen
-            if (fullScreenToolStripMenuItem.Checked)
-            {
-                this.TopMost = true;
-                this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-                this.WindowState = FormWindowState.Normal;
-                this.WindowState = FormWindowState.Maximized;
-            }
-            else
-            {
-                this.TopMost = false;
-                this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-                this.WindowState = FormWindowState.Maximized;
-            }
         }
 
         private void readonlyToolStripMenuItem_Click(object sender, EventArgs e)

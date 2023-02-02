@@ -38,8 +38,6 @@ namespace MissionPlanner
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainV2));
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.CTX_mainmenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.autoHideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fullScreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.readonlyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.connectionOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.connectionListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,7 +48,6 @@ namespace MissionPlanner
             this.MenuSimulation = new System.Windows.Forms.ToolStripButton();
             this.MenuTerminal = new System.Windows.Forms.ToolStripButton();
             this.MenuHelp = new System.Windows.Forms.ToolStripButton();
-            this.MenuDonate = new System.Windows.Forms.ToolStripButton();
             this.MenuConnect = new System.Windows.Forms.ToolStripButton();
             this.toolStripConnectionControl = new MissionPlanner.Controls.ToolStripConnectionControl();
             this.MenuArduPilot = new System.Windows.Forms.ToolStripButton();
@@ -76,7 +73,6 @@ namespace MissionPlanner
             this.MenuSimulation,
             this.MenuTerminal,
             this.MenuHelp,
-            this.MenuDonate,
             this.MenuConnect,
             this.toolStripConnectionControl,
             this.MenuArduPilot});
@@ -89,27 +85,11 @@ namespace MissionPlanner
             // CTX_mainmenu
             // 
             this.CTX_mainmenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.autoHideToolStripMenuItem,
-            this.fullScreenToolStripMenuItem,
             this.readonlyToolStripMenuItem,
             this.connectionOptionsToolStripMenuItem,
             this.connectionListToolStripMenuItem});
             this.CTX_mainmenu.Name = "CTX_mainmenu";
             resources.ApplyResources(this.CTX_mainmenu, "CTX_mainmenu");
-            // 
-            // autoHideToolStripMenuItem
-            // 
-            this.autoHideToolStripMenuItem.CheckOnClick = true;
-            this.autoHideToolStripMenuItem.Name = "autoHideToolStripMenuItem";
-            resources.ApplyResources(this.autoHideToolStripMenuItem, "autoHideToolStripMenuItem");
-            this.autoHideToolStripMenuItem.Click += new System.EventHandler(this.autoHideToolStripMenuItem_Click);
-            // 
-            // fullScreenToolStripMenuItem
-            // 
-            this.fullScreenToolStripMenuItem.CheckOnClick = true;
-            this.fullScreenToolStripMenuItem.Name = "fullScreenToolStripMenuItem";
-            resources.ApplyResources(this.fullScreenToolStripMenuItem, "fullScreenToolStripMenuItem");
-            this.fullScreenToolStripMenuItem.Click += new System.EventHandler(this.fullScreenToolStripMenuItem_Click);
             // 
             // readonlyToolStripMenuItem
             // 
@@ -192,16 +172,6 @@ namespace MissionPlanner
             this.MenuHelp.Name = "MenuHelp";
             this.MenuHelp.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
             this.MenuHelp.Click += new System.EventHandler(this.MenuHelp_Click);
-            // 
-            // MenuDonate
-            // 
-            resources.ApplyResources(this.MenuDonate, "MenuDonate");
-            this.MenuDonate.ForeColor = System.Drawing.Color.White;
-            this.MenuDonate.Image = global::MissionPlanner.Properties.Resources.donate;
-            this.MenuDonate.Margin = new System.Windows.Forms.Padding(0);
-            this.MenuDonate.Name = "MenuDonate";
-            this.MenuDonate.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
-            this.MenuDonate.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // MenuConnect
             // 
@@ -287,10 +257,7 @@ namespace MissionPlanner
         private Controls.MyButton menu;
         public System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ContextMenuStrip CTX_mainmenu;
-        private System.Windows.Forms.ToolStripMenuItem autoHideToolStripMenuItem;
-        private System.Windows.Forms.ToolStripButton MenuDonate;
         public System.Windows.Forms.MenuStrip MainMenu;
-        private System.Windows.Forms.ToolStripMenuItem fullScreenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem readonlyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem connectionOptionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton MenuArduPilot;
