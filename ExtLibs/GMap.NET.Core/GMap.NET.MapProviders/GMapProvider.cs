@@ -431,42 +431,46 @@ namespace GMap.NET.MapProviders
                 }              
             }
 #endif       
-            using (var response = request.GetResponse())
+            try
             {
-                if (CheckTileImageHttpResponse(response))
+                using (var response = request.GetResponse())
                 {
-                    using (Stream responseStream = response.GetResponseStream())
+                    if (CheckTileImageHttpResponse(response))
                     {
-                        MemoryStream data = Stuff.CopyStream(responseStream, false);
-
-                        Debug.WriteLine("Response[" + data.Length + " bytes]: " + url);
-
-                        if (data.Length > 0)
+                        using (Stream responseStream = response.GetResponseStream())
                         {
-                            ret = TileImageProxy.FromStream(data);
+                            MemoryStream data = Stuff.CopyStream(responseStream, false);
 
-                            if (ret != null)
+                            Debug.WriteLine("Response[" + data.Length + " bytes]: " + url);
+
+                            if (data.Length > 0)
                             {
-                                ret.Data = data;
-                                ret.Data.Position = 0;
+                                ret = TileImageProxy.FromStream(data);
+
+                                if (ret != null)
+                                {
+                                    ret.Data = data;
+                                    ret.Data.Position = 0;
+                                }
+                                else
+                                {
+                                    data.Dispose();
+                                }
                             }
-                            else
-                            {
-                                data.Dispose();
-                            }
+                            data = null;
                         }
-                        data = null;
                     }
-                }
-                else
-                {
-                    Debug.WriteLine("CheckTileImageHttpResponse[false]: " + url);
-                }
+                    else
+                    {
+                        Debug.WriteLine("CheckTileImageHttpResponse[false]: " + url);
+                    }
 #if PocketPC
                 request.Abort();
 #endif
-                response.Close();
-            }
+                    response.Close();
+                }
+            } catch { }
+
             return ret;
         }
 
@@ -521,20 +525,23 @@ namespace GMap.NET.MapProviders
                 }
             }
 #endif
-            using (var response = request.GetResponse())
+            try
             {
-                using (Stream responseStream = response.GetResponseStream())
+                using (var response = request.GetResponse())
                 {
-                    using (StreamReader read = new StreamReader(responseStream, Encoding.UTF8))
+                    using (Stream responseStream = response.GetResponseStream())
                     {
-                        ret = read.ReadToEnd();
+                        using (StreamReader read = new StreamReader(responseStream, Encoding.UTF8))
+                        {
+                            ret = read.ReadToEnd();
+                        }
                     }
-                }
 #if PocketPC
                 request.Abort();
 #endif
-                response.Close();
-            }
+                    response.Close();
+                }
+            } catch { }
 
             return ret;
         }

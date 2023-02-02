@@ -47,8 +47,6 @@ namespace MissionPlanner.Log
             labelBytes.Text = "";
 
             ThemeManager.ApplyThemeTo(this);
-
-            MissionPlanner.Utilities.Tracking.AddPage(this.GetType().ToString(), this.Text);
         }
 
         private void Log_Load(object sender, EventArgs e)

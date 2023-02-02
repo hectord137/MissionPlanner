@@ -31,8 +31,8 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         {
             instance = this;
             InitializeComponent();
-            CMB_Layout.Items.Add(DisplayNames.Basic);
-            CMB_Layout.Items.Add(DisplayNames.Advanced);
+            //CMB_Layout.Items.Add(DisplayNames.Basic);
+            //CMB_Layout.Items.Add(DisplayNames.Advanced);
 
             txt_log_dir.TextChanged += OnLogDirTextChanged;
             this.txt_log_dir.AutoSize = false;
@@ -44,18 +44,18 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         public void Activate()
         {
             startup = true; // flag to ignore changes while we programatically populate controls
-            if (MainV2.DisplayConfiguration.displayName == DisplayNames.Advanced)
-            {
-                CMB_Layout.SelectedIndex = 1;
-            }
-            else if (MainV2.DisplayConfiguration.displayName == DisplayNames.Basic)
-            {
-                CMB_Layout.SelectedIndex = 0;
-            }
-            else
-            {
-                CMB_Layout.SelectedIndex = 0;
-            }
+            //if (MainV2.DisplayConfiguration.displayName == DisplayNames.Advanced)
+            //{
+            //    CMB_Layout.SelectedIndex = 1;
+            //}
+            //else if (MainV2.DisplayConfiguration.displayName == DisplayNames.Basic)
+            //{
+            //    CMB_Layout.SelectedIndex = 0;
+            //}
+            //else
+            //{
+            //    CMB_Layout.SelectedIndex = 0;
+            //}
 
 
             CMB_osdcolor.DataSource = Enum.GetNames(typeof(KnownColor));
@@ -152,7 +152,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
             SetCheckboxFromConfig("CHK_disttohomeflightdata", CHK_disttohomeflightdata);
 
-            CHK_AutoParamCommit.Visible = MainV2.DisplayConfiguration.displayParamCommitButton;
+//            CHK_AutoParamCommit.Visible = MainV2.DisplayConfiguration.displayParamCommitButton;
 
             //set hud color state
             var hudcolor = Settings.Instance["hudcolor"];
@@ -774,7 +774,6 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         private void chk_analytics_CheckedChanged(object sender, EventArgs e)
         {
-            Tracking.OptOut = chk_analytics.Checked;
             Settings.Instance["analyticsoptout"] = chk_analytics.Checked.ToString();
         }
 
@@ -926,15 +925,15 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         private void CMB_Layout_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if ((DisplayNames)CMB_Layout.SelectedItem == DisplayNames.Advanced)
-            {
-                MainV2.DisplayConfiguration = MainV2.DisplayConfiguration.Advanced();
-            }
-            else if ((DisplayNames)CMB_Layout.SelectedItem == DisplayNames.Basic)
-            {
-                MainV2.DisplayConfiguration = MainV2.DisplayConfiguration.Basic();
-            }
-            Settings.Instance["displayview"] = MainV2.DisplayConfiguration.ConvertToString();
+            //if ((DisplayNames)CMB_Layout.SelectedItem == DisplayNames.Advanced)
+            //{
+            //    MainV2.DisplayConfiguration = MainV2.DisplayConfiguration.Advanced();
+            //}
+            //else if ((DisplayNames)CMB_Layout.SelectedItem == DisplayNames.Basic)
+            //{
+            //    MainV2.DisplayConfiguration = MainV2.DisplayConfiguration.Basic();
+            //}
+            //Settings.Instance["displayview"] = MainV2.DisplayConfiguration.ConvertToString();
         }
 
         private void CHK_AutoParamCommit_CheckedChanged(object sender, EventArgs e)
@@ -961,118 +960,8 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             Settings.Instance["gcsid"] = num_gcsid.Value.ToString();
         }
         
-        private void BtnReadGps_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                TXT_GPS_UHF_Frec.Clear();
-                float frec = MainV2.comPort.GetParam(200, (byte)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL, "GPS_UHF_FREC");
-                TXT_GPS_UHF_Frec.Text = frec.ToString("N3");
-            }
-            catch(Exception ex)
-            {
-                CustomMessageBox.Show(ex.Message);
-            }
-        }
 
-        private void BtnWriteGps_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                MainV2.comPort.setParam(200, (byte)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL, "GPS_UHF_FREC", TXT_GPS_UHF_Frec.Text.ConvertToDouble());
-            }
-            catch(Exception ex)
-            {
-                CustomMessageBox.Show(ex.Message);
-            }
-        }
-
-        private void myButton5_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                //Mandar a la Ecosonda a leer sus parametros.
-                bool res = MainV2.comPort.doCommand(200, (byte)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL,
-                                                    MAVLink.MAV_CMD.USER_5, 0, 0, 0, 0, 0, 0, 0);
-                //Si el comando retorna ACCEPTED, se encuesta cada parametro individual.
-                if (res)
-                {
-                    float range     =    MainV2.comPort.GetParam(200, (byte)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL, "ECHO_RANGE");
-                    float interval  =    MainV2.comPort.GetParam(200, (byte)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL, "ECHO_INTERVAL");
-                    float threshold =    MainV2.comPort.GetParam(200, (byte)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL, "ECHO_THRESHOLD");
-                    float offset    =    MainV2.comPort.GetParam(200, (byte)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL, "ECHO_OFFSET");
-                    float deadzone  =    MainV2.comPort.GetParam(200, (byte)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL, "ECHO_DEADZONE");
-                    float sound     =    MainV2.comPort.GetParam(200, (byte)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL, "ECHO_SOUND");
-                    float gain      =    MainV2.comPort.GetParam(200, (byte)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL, "ECHO_GAIN");
-
-                    TXT_EchoRange.Text      =   range.ToString("N0");
-                    TXT_EchoInterval.Text   =   interval.ToString("N2");
-                    TXT_EchoThreshold.Text  =   threshold.ToString("N0");
-                    TXT_EchoOffset.Text     =   offset.ToString("N0");
-                    TXT_EchoDeadzone.Text   =   deadzone.ToString("N0");
-                    TXT_EchoSoundSpeed.Text =   sound.ToString("N0");
-                    TXT_EchoGain.Text       =   gain.ToString("N2");
-                }
-                else
-                {
-                    CustomMessageBox.Show("Error executing command for read Echosounder parameters");
-                    TXT_EchoRange.Clear();
-                    TXT_EchoInterval.Clear();
-                    TXT_EchoThreshold.Clear();
-                    TXT_EchoOffset.Clear();
-                    TXT_EchoDeadzone.Clear();
-                    TXT_EchoSoundSpeed.Clear();
-                    TXT_EchoGain.Clear();
-                }
-            }
-            catch(Exception ex)
-            {
-                CustomMessageBox.Show(ex.Message);
-                TXT_EchoRange.Clear();
-                TXT_EchoInterval.Clear();
-                TXT_EchoThreshold.Clear();
-                TXT_EchoOffset.Clear();
-                TXT_EchoDeadzone.Clear();
-                TXT_EchoSoundSpeed.Clear();
-                TXT_EchoGain.Clear();
-            }
-        }
-
-        private void myButton6_Click(object sender, EventArgs e)
-        {
-            /*
-             * En este orden se deben enviar los parametros de la ecosonda.
-             * MAV_CMD::MAV_CMD_USER_4
-            echoSounderDriver.Parameters.range_mm = cmd.param1;
-            echoSounderDriver.Parameters.interval_s = cmd.param2;
-            echoSounderDriver.Parameters.threshold_prc = cmd.param3;
-            echoSounderDriver.Parameters.offset_mm = cmd.param4;
-            echoSounderDriver.Parameters.deadzone_mm = cmd.param5;
-            echoSounderDriver.Parameters.sound_mps = cmd.param6;
-            echoSounderDriver.Parameters.gain_dB = cmd.param7;
-            */
-            try
-            {
-                bool res = MainV2.comPort.doCommand(200, (byte)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL,
-                    MAVLink.MAV_CMD.USER_4,
-                    float.Parse(TXT_EchoRange.Text),
-                    float.Parse(TXT_EchoInterval.Text),
-                    float.Parse(TXT_EchoThreshold.Text),
-                    float.Parse(TXT_EchoOffset.Text),
-                    float.Parse(TXT_EchoDeadzone.Text),
-                    float.Parse(TXT_EchoSoundSpeed.Text),
-                    float.Parse(TXT_EchoGain.Text));
-                
-                if(res)
-                {
-                    CustomMessageBox.Show("Parameters written successfully.");
-                }
-            }
-            catch(Exception ex)
-            {
-                CustomMessageBox.Show("Rrror writing parameters.: " + ex.Message);
-            }
-        }
+        
 
     }
 }

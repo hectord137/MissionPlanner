@@ -1817,7 +1817,7 @@ namespace MissionPlanner.GCSViews
         {
             POI.POIModified += POI_POIModified;
 
-            tfr.GotTFRs += tfr_GotTFRs;
+//            tfr.GotTFRs += tfr_GotTFRs;
 
             if (!Settings.Instance.ContainsKey("ShowNoFly") || Settings.Instance.GetBoolean("ShowNoFly"))
                 NoFly.NoFly.NoFlyEvent += NoFly_NoFlyEvent;
@@ -2620,11 +2620,16 @@ namespace MissionPlanner.GCSViews
 
 
                                 //Actualizar la tabla de Mission Status
-                                LBL_TotalDist.Text = distanceBar1.totaldist.ToString("N0") + " m";
-                                LBL_TraveledDist.Text = distanceBar1.traveleddist.ToString("N0") + " m";
+                                LBL_TotalDist.Invoke(delegate() { LBL_TotalDist.Text = distanceBar1.totaldist.ToString("N0") + " m"; });
+
+
+
+                                LBL_TraveledDist.Invoke(delegate () { LBL_TraveledDist.Text = distanceBar1.traveleddist.ToString("N0") + " m"; });
+                                
                                 double progress = ((double)distanceBar1.traveleddist / (double)distanceBar1.totaldist * 100.0);
                                 progress = MathHelper.constrain(progress, 0, 100);
-                                LBL_MissionCompleted.Text = progress.ToString("N0") + " %";
+
+                                LBL_MissionCompleted.Invoke(delegate () { LBL_MissionCompleted.Text = progress.ToString("N0") + " %"; });
 
                                 //El Mission Status Time Remain solo se actualiza en modo Auto
                                 if (MainV2.comPort.MAV.cs.mode.ToUpper() == "AUTO")
@@ -2639,11 +2644,11 @@ namespace MissionPlanner.GCSViews
                                     //Tiempo de mision restante estimado
                                     TimeSpan t = TimeSpan.FromSeconds(timeRemain);
 
-                                    LBL_TimeRemain.Text = t.ToString(@"hh\:mm\:ss");
+                                    LBL_TimeRemain.Invoke(delegate () { LBL_TimeRemain.Text = t.ToString(@"hh\:mm\:ss"); });
                                 }
                                 else
                                 {
-                                    LBL_TimeRemain.Text = "--:--:--";
+                                    LBL_TimeRemain.Invoke(delegate () { LBL_TimeRemain.Text = "--:--:--"; });
                                 }
                                     
                             }
@@ -2937,7 +2942,6 @@ namespace MissionPlanner.GCSViews
                 catch (Exception ex)
                 {
                     log.Error(ex);
-                    Tracking.AddException(ex);
                     Console.WriteLine("FD Main loop exception " + ex);
                 }
             }
@@ -3286,23 +3290,23 @@ namespace MissionPlanner.GCSViews
 
         void tfr_GotTFRs(object sender, EventArgs e)
         {
-            Invoke((Action)delegate
-           {
-               foreach (var item in tfr.tfrs)
-               {
-                   List<List<PointLatLng>> points = item.GetPaths();
+           // Invoke((Action)delegate
+           //{
+           //    foreach (var item in tfr.tfrs)
+           //    {
+           //        List<List<PointLatLng>> points = item.GetPaths();
 
-                   foreach (var list in points)
-                   {
-                       GMapPolygon poly = new GMapPolygon(list, item.NAME);
+           //        foreach (var list in points)
+           //        {
+           //            GMapPolygon poly = new GMapPolygon(list, item.NAME);
 
-                       poly.Fill = new SolidBrush(Color.FromArgb(30, Color.Blue));
+           //            poly.Fill = new SolidBrush(Color.FromArgb(30, Color.Blue));
 
-                       tfrpolygons.Polygons.Add(poly);
-                   }
-               }
-               tfrpolygons.IsVisibile = MainV2.ShowTFR;
-           });
+           //            tfrpolygons.Polygons.Add(poly);
+           //        }
+           //    }
+           //    tfrpolygons.IsVisibile = MainV2.ShowTFR;
+           //});
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -3463,8 +3467,6 @@ namespace MissionPlanner.GCSViews
             }
             catch (Exception ex)
             {
-                log.Error(ex);
-                Tracking.AddException(ex);
             }
         }
 
@@ -4530,6 +4532,8 @@ namespace MissionPlanner.GCSViews
                 }
             }
 
+            udpClient.Close();
+
             if (formProgressReporter != null)
                 this.formProgressReporter.UpdateProgressAndStatus(100, "Applying Filtering.");
 
@@ -4650,6 +4654,7 @@ namespace MissionPlanner.GCSViews
 
         private void BUT_ClearEchoData_Click(object sender, EventArgs e)
         {
+            udpClient.Close();
             udpClient = new System.Net.Sockets.UdpClient();
             udpClient.Connect("192.168.4.1", 8080);
 

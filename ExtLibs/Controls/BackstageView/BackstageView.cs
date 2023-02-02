@@ -35,8 +35,6 @@ namespace MissionPlanner.Controls.BackstageView
 
         public BackstageViewPage SelectedPage { get { return _activePage; } }
 
-        public delegate void TrackingEventHandler(string page, string title);
-        public static event TrackingEventHandler Tracking;
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public BackstageViewCollection Pages { get { return _items; } }
@@ -441,7 +439,6 @@ namespace MissionPlanner.Controls.BackstageView
                 return;
             }
 
-            Tracking?.Invoke(associatedPage.Page.GetType().ToString(), associatedPage.LinkText);
 
             var start = DateTime.Now;
 

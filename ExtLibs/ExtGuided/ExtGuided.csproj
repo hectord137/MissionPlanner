@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">  <PropertyGroup>
-    <TargetFramework>net462</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -26,7 +26,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>portable</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\Debug\net462\plugins\</OutputPath>
+    <OutputPath>..\..\bin\Debug\net48\plugins\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -70,15 +70,15 @@
       <Private>false</Private>
     </Reference>
     <Reference Include="System.Reflection">
-      <HintPath>..\..\packages\System.Reflection.4.3.0\lib\net462\System.Reflection.dll</HintPath>
+      <HintPath>..\..\packages\System.Reflection.4.3.0\lib\net48\System.Reflection.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="System.Runtime.Extensions">
-      <HintPath>..\..\packages\System.Runtime.Extensions.4.3.0\lib\net462\System.Runtime.Extensions.dll</HintPath>
+      <HintPath>..\..\packages\System.Runtime.Extensions.4.3.0\lib\net48\System.Runtime.Extensions.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="System.Security.Cryptography.Algorithms">
-      <HintPath>..\..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net462\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <HintPath>..\..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net48\System.Security.Cryptography.Algorithms.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="System.Security.Cryptography.Encoding">
@@ -90,7 +90,7 @@
       <Private>false</Private>
     </Reference>
     <Reference Include="System.Security.Cryptography.X509Certificates">
-      <HintPath>..\..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net462\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <HintPath>..\..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net48\System.Security.Cryptography.X509Certificates.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="System.Windows.Forms">

@@ -224,20 +224,20 @@ namespace MissionPlanner
 
         Controls.MainSwitcher MyView;
 
-        private static DisplayView _displayConfiguration = new DisplayView().Advanced();
+//        private static DisplayView _displayConfiguration = new DisplayView().Advanced();
 
         public static event EventHandler LayoutChanged;
 
-        public static DisplayView DisplayConfiguration
-        {
-            get { return _displayConfiguration; }
-            set
-            {
-                _displayConfiguration = value;
-                Settings.Instance["displayview"] = _displayConfiguration.ConvertToString();
-                LayoutChanged?.Invoke(null, EventArgs.Empty);
-            }
-        }
+        //public static DisplayView DisplayConfiguration
+        //{
+        //    get { return _displayConfiguration; }
+        //    set
+        //    {
+        //        _displayConfiguration = value;
+        //        Settings.Instance["displayview"] = _displayConfiguration.ConvertToString();
+        //        LayoutChanged?.Invoke(null, EventArgs.Empty);
+        //    }
+        //}
 
 
         public static bool ShowAirports { get; set; }
@@ -375,7 +375,7 @@ namespace MissionPlanner
 
         bool joystickthreadrun = false;
 
-        Thread httpthread;
+//        Thread httpthread;
         Thread joystickthread;
         Thread serialreaderthread;
         Thread pluginthread;
@@ -432,15 +432,15 @@ namespace MissionPlanner
             //MenuTerminal.Visible = DisplayConfiguration.displayTerminal;
             //MenuHelp.Visible = DisplayConfiguration.displayHelp;
             //MenuDonate.Visible = DisplayConfiguration.displayDonate;
-            MissionPlanner.Controls.BackstageView.BackstageView.Advanced = DisplayConfiguration.isAdvancedMode;
+            //MissionPlanner.Controls.BackstageView.BackstageView.Advanced = DisplayConfiguration.isAdvancedMode;
 
-            if (Settings.Instance.GetBoolean("menu_autohide") != DisplayConfiguration.autoHideMenuForce)
-            {
-                AutoHideMenu(DisplayConfiguration.autoHideMenuForce);
-                Settings.Instance["menu_autohide"] = DisplayConfiguration.autoHideMenuForce.ToString();
-            }
+            //if (Settings.Instance.GetBoolean("menu_autohide") != DisplayConfiguration.autoHideMenuForce)
+            //{
+            //    AutoHideMenu(DisplayConfiguration.autoHideMenuForce);
+            //    Settings.Instance["menu_autohide"] = DisplayConfiguration.autoHideMenuForce.ToString();
+            //}
 
-            autoHideToolStripMenuItem.Visible = !DisplayConfiguration.autoHideMenuForce;
+            //autoHideToolStripMenuItem.Visible = !DisplayConfiguration.autoHideMenuForce;
 
             /*
             //Flight data page
@@ -710,8 +710,6 @@ namespace MissionPlanner
                     (Firmwares)Enum.Parse(typeof(Firmwares), _connectionControl.TOOL_APMFirmware.Text);
             }
 
-            MissionPlanner.Utilities.Tracking.cid = new Guid(Settings.Instance["guid"].ToString());
-
             // setup guids for droneshare
             if (!Settings.Instance.ContainsKey("plane_guid"))
                 Settings.Instance["plane_guid"] = Guid.NewGuid().ToString();
@@ -848,32 +846,32 @@ namespace MissionPlanner
             }
 
             //set first instance display configuration
-            if (DisplayConfiguration == null)
-            {
-                DisplayConfiguration = DisplayConfiguration.Advanced();
-            }
+            //if (DisplayConfiguration == null)
+            //{
+            //    DisplayConfiguration = DisplayConfiguration.Advanced();
+            //}
 
             // load old config
-            if (Settings.Instance["advancedview"] != null)
-            {
-                if (Settings.Instance.GetBoolean("advancedview") == true)
-                {
-                    DisplayConfiguration = new DisplayView().Advanced();
-                }
-                // remove old config
-                Settings.Instance.Remove("advancedview");
-            }            //// load this before the other screens get loaded
-            if (Settings.Instance["displayview"] != null)
-            {
-                try
-                {
-                    DisplayConfiguration = Settings.Instance.GetDisplayView("displayview");
-                }
-                catch
-                {
-                    DisplayConfiguration = DisplayConfiguration.Advanced();
-                }
-            }
+            //if (Settings.Instance["advancedview"] != null)
+            //{
+            //    if (Settings.Instance.GetBoolean("advancedview") == true)
+            //    {
+            //        DisplayConfiguration = new DisplayView().Advanced();
+            //    }
+            //    // remove old config
+            //    Settings.Instance.Remove("advancedview");
+            //}            //// load this before the other screens get loaded
+            //if (Settings.Instance["displayview"] != null)
+            //{
+            //    try
+            //    {
+            //        DisplayConfiguration = Settings.Instance.GetDisplayView("displayview");
+            //    }
+            //    catch
+            //    {
+            //        DisplayConfiguration = DisplayConfiguration.Advanced();
+            //    }
+            //}
 
             LayoutChanged += updateLayout;
             LayoutChanged(null, EventArgs.Empty);
@@ -942,8 +940,6 @@ namespace MissionPlanner
                 if (Settings.Instance["speechenable"] != null)
                     MainV2.speechEnable = Settings.Instance.GetBoolean("speechenable");
 
-                if (Settings.Instance["analyticsoptout"] != null)
-                    MissionPlanner.Utilities.Tracking.OptOut = Settings.Instance.GetBoolean("analyticsoptout");
 
                 try
                 {
@@ -2144,7 +2140,7 @@ namespace MissionPlanner
             // save config
             SaveConfig();
 
-            Console.WriteLine(httpthread?.IsAlive);
+//            Console.WriteLine(httpthread?.IsAlive);
             Console.WriteLine(joystickthread?.IsAlive);
             Console.WriteLine(serialreaderthread?.IsAlive);
             Console.WriteLine(pluginthread?.IsAlive);
@@ -2938,7 +2934,6 @@ namespace MissionPlanner
                 }
                 catch (Exception e)
                 {
-                    Tracking.AddException(e);
                     log.Error("Serial Reader fail :" + e.ToString());
                     try
                     {
@@ -3017,21 +3012,21 @@ namespace MissionPlanner
             this.SuspendLayout();
 
             // setup http server
-            try
-            {
-                log.Info("start http");
-                httpthread = new Thread(new httpserver().listernforclients)
-                {
-                    Name = "motion jpg stream-network kml",
-                    IsBackground = true
-                };
-                httpthread.Start();
-            }
-            catch (Exception ex)
-            {
-                log.Error("Error starting TCP listener thread: ", ex);
-                CustomMessageBox.Show(ex.ToString());
-            }
+            //try
+            //{
+            //    log.Info("start http");
+            //    httpthread = new Thread(new httpserver().listernforclients)
+            //    {
+            //        Name = "motion jpg stream-network kml",
+            //        IsBackground = true
+            //    };
+            //    httpthread.Start();
+            //}
+            //catch (Exception ex)
+            //{
+            //    log.Error("Error starting TCP listener thread: ", ex);
+            //    CustomMessageBox.Show(ex.ToString());
+            //}
 
             log.Info("start joystick");
             // setup joystick packet sender
@@ -3063,20 +3058,20 @@ namespace MissionPlanner
             };
             pluginthread.Start();
 
-            ThreadPool.QueueUserWorkItem(BGLoadAirports);
+//            ThreadPool.QueueUserWorkItem(BGLoadAirports);
 
-            ThreadPool.QueueUserWorkItem(BGCreateMaps);
+//            ThreadPool.QueueUserWorkItem(BGCreateMaps);
 
             //ThreadPool.QueueUserWorkItem(BGGetAlmanac);
 
-            ThreadPool.QueueUserWorkItem(BGgetTFR);
+//            ThreadPool.QueueUserWorkItem(BGgetTFR);
 
             ThreadPool.QueueUserWorkItem(BGNoFly);
 
-            ThreadPool.QueueUserWorkItem(BGGetKIndex);
+//            ThreadPool.QueueUserWorkItem(BGGetKIndex);
 
             // update firmware version list - only once per day
-            ThreadPool.QueueUserWorkItem(BGFirmwareCheck);
+//            ThreadPool.QueueUserWorkItem(BGFirmwareCheck);
 
             log.Info("start AutoConnect");
             AutoConnect.NewMavlinkConnection += (sender, serial) =>
@@ -3266,7 +3261,7 @@ namespace MissionPlanner
             }
             catch (Exception ex)
             {
-                Tracking.AddException(ex);
+
             }
 
             this.ResumeLayout();
@@ -3274,8 +3269,6 @@ namespace MissionPlanner
             Program.Splash?.Close();
 
             log.Info("appload time");
-            MissionPlanner.Utilities.Tracking.AddTiming("AppLoad", "Load Time",
-                (DateTime.Now - Program.starttime).TotalMilliseconds, "");
 
             bool winXp = Environment.OSVersion.Version.Major == 5;
             if (winXp)
@@ -3463,26 +3456,6 @@ namespace MissionPlanner
             return cmdargs;
         }
 
-        private void BGFirmwareCheck(object state)
-        {
-            try
-            {
-                if (Settings.Instance["fw_check"] != DateTime.Now.ToShortDateString())
-                {
-                    var fw = new Firmware();
-                    var list = fw.getFWList();
-                    if (list.Count > 1)
-                        Firmware.SaveSoftwares(new Firmware.optionsObject() { softwares = list });
-
-                    Settings.Instance["fw_check"] = DateTime.Now.ToShortDateString();
-                }
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex);
-            }
-        }
-
         private void BGGetKIndex(object state)
         {
             try
@@ -3509,15 +3482,15 @@ namespace MissionPlanner
 
         private void BGgetTFR(object state)
         {
-            try
-            {
-                tfr.tfrcache = Settings.GetUserDataDirectory() + "tfr.xml";
-                tfr.GetTFRs();
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex);
-            }
+            //try
+            //{
+            //    tfr.tfrcache = Settings.GetUserDataDirectory() + "tfr.xml";
+            //    tfr.GetTFRs();
+            //}
+            //catch (Exception ex)
+            //{
+            //    log.Error(ex);
+            //}
         }
 
         private void BGNoFly(object state)

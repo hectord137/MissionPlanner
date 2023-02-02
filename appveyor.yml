@@ -18,9 +18,9 @@ build_script:
     
     "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\MSBuild.exe" MissionPlanner.sln /m /p:Configuration=Release /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
     
-    dir c:\mp\bin\Release\net462
+    dir c:\mp\bin\Release\net48
 
-    cd bin\Release\net462
+    cd bin\Release\net48
 
     for /f %%f in ('dir /a-d /b plugins') do if exist .\%%f del .\plugins\%%f
 
@@ -32,7 +32,7 @@ build_script:
 
     cd ..
 
-    md5sum.exe net462 > checksums.txt
+    md5sum.exe net48 > checksums.txt
 
     copy checksums.txt c:\mp\
 
@@ -40,7 +40,7 @@ build_script:
 
     cd msi 
 
-    wix.exe ..\bin\release\net462\ 
+    wix.exe ..\bin\release\net48\ 
 
     "%wix%\bin\candle" installer.wxs -ext WiXNetFxExtension -ext WixDifxAppExtension -ext WixUIExtension.dll -ext WixUtilExtension -ext WixIisExtension 
   

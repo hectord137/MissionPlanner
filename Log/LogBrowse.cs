@@ -196,8 +196,6 @@ namespace MissionPlanner.Log
             myGMAP1.Overlays.Add(markeroverlay);
 
             dataGridView1.RowUnshared += dataGridView1_RowUnshared;
-
-            MissionPlanner.Utilities.Tracking.AddPage(this.GetType().ToString(), this.Text);
         }
 
 

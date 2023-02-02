@@ -20,7 +20,6 @@ namespace MissionPlanner.Joystick
         {
             InitializeComponent();
 
-            MissionPlanner.Utilities.Tracking.AddPage(this.GetType().ToString(), this.Text);
         }
 
         public void Joystick_Load(object sender, EventArgs e)

@@ -37,10 +37,6 @@ namespace MissionPlanner
                 CMB_serialport.Text = comPort.PortName;
                 CMB_updaterate.Text = updaterate.ToString();
             }
-
-            MissionPlanner.Utilities.Tracking.AddPage(
-                System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.ToString(),
-                System.Reflection.MethodBase.GetCurrentMethod().Name);
         }
 
         private void BUT_connect_Click(object sender, EventArgs e)

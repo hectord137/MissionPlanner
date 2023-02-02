@@ -170,9 +170,6 @@ namespace MissionPlanner
             MissionPlanner.Controls.InputBox.ApplyTheme += MissionPlanner.Utilities.ThemeManager.ApplyThemeTo;
             Controls.BackstageView.BackstageViewPage.ApplyTheme += MissionPlanner.Utilities.ThemeManager.ApplyThemeTo;
 
-            Controls.MainSwitcher.Tracking += MissionPlanner.Utilities.Tracking.AddPage;
-            Controls.BackstageView.BackstageView.Tracking += MissionPlanner.Utilities.Tracking.AddPage;
-
             // setup settings provider
             MissionPlanner.Comms.CommsBase.Settings += CommsBase_Settings;
             MissionPlanner.Comms.CommsBase.InputBoxShow += CommsBaseOnInputBoxShow;
@@ -202,12 +199,6 @@ namespace MissionPlanner
 
             GoogleMapProvider.APIKey = "AIzaSyA5nFp39fEHruCezXnG3r8rGyZtuAkmCug";
 
-            Tracking.productName = Application.ProductName;
-            Tracking.productVersion = Application.ProductVersion;
-            Tracking.currentCultureName = Application.CurrentCulture.Name;
-            Tracking.primaryScreenBitsPerPixel = Screen.PrimaryScreen.BitsPerPixel;
-            Tracking.boundsWidth = Screen.PrimaryScreen.Bounds.Width;
-            Tracking.boundsHeight = Screen.PrimaryScreen.Bounds.Height;
 
             Settings.Instance.UserAgent = Application.ProductName + " " + Application.ProductVersion + " (" + Environment.OSVersion.VersionString + ")";
 
@@ -462,8 +453,6 @@ namespace MissionPlanner
 
             if (MainV2.instance != null && MainV2.instance.IsDisposed)
                 return;
-
-            MissionPlanner.Utilities.Tracking.AddException(ex);
 
             log.Debug(ex.ToString());
 

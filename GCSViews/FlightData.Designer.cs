@@ -1393,7 +1393,7 @@
             // 
             // progressBarL_Down
             // 
-            this.progressBarL_Down.AnimationStep = 50;
+            this.progressBarL_Down.AnimationStep = 100;
             resources.ApplyResources(this.progressBarL_Down, "progressBarL_Down");
             this.progressBarL_Down.IgnoreLimits = true;
             this.progressBarL_Down.InvertLimit = true;
@@ -1411,7 +1411,7 @@
             // 
             // progressBarL_Up
             // 
-            this.progressBarL_Up.AnimationStep = 50;
+            this.progressBarL_Up.AnimationStep = 100;
             resources.ApplyResources(this.progressBarL_Up, "progressBarL_Up");
             this.progressBarL_Up.IgnoreLimits = true;
             this.progressBarL_Up.InvertLimit = true;
@@ -1442,7 +1442,7 @@
             // 
             // progressBarR_Down
             // 
-            this.progressBarR_Down.AnimationStep = 50;
+            this.progressBarR_Down.AnimationStep = 100;
             resources.ApplyResources(this.progressBarR_Down, "progressBarR_Down");
             this.progressBarR_Down.IgnoreLimits = true;
             this.progressBarR_Down.InvertLimit = true;
@@ -1460,7 +1460,7 @@
             // 
             // progressBarR_Up
             // 
-            this.progressBarR_Up.AnimationStep = 50;
+            this.progressBarR_Up.AnimationStep = 100;
             resources.ApplyResources(this.progressBarR_Up, "progressBarR_Up");
             this.progressBarR_Up.IgnoreLimits = true;
             this.progressBarR_Up.InvertLimit = true;
