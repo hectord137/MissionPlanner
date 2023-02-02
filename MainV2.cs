@@ -362,11 +362,6 @@ namespace MissionPlanner
         }
 
         /// <summary>
-        /// hud background image grabber from a video stream - not realy that efficent. ie no hardware overlays etc.
-        /// </summary>
-        public static WebCamService.Capture cam { get; set; }
-
-        /// <summary>
         /// controls the main serial reader thread
         /// </summary>
         bool serialThread = false;
@@ -2043,15 +2038,7 @@ namespace MissionPlanner
             log.Info("stop GStreamer");
 //            GStreamer.StopAll();
 
-            log.Info("closing vlcrender");
-            try
-            {
-                while (vlcrender.store.Count > 0)
-                    vlcrender.store[0].Stop();
-            }
-            catch
-            {
-            }
+
 
             log.Info("closing pluginthread");
 
@@ -3195,30 +3182,6 @@ namespace MissionPlanner
             //    }
             //};
 
-            vlcrender.onNewImage += (sender, image) =>
-            {
-                try
-                {
-                    if (image == null)
-                    {
-                        GCSViews.FlightData.myhud.bgimage = null;
-                        return;
-                    }
-
-                    var old = GCSViews.FlightData.myhud.bgimage;
-                    GCSViews.FlightData.myhud.bgimage = new Bitmap(image.Width,
-                        image.Height,
-                        4 * image.Width,
-                        PixelFormat.Format32bppPArgb,
-                        image.LockBits(Rectangle.Empty, null, SKColorType.Bgra8888).Scan0);
-                    if (old != null)
-                        old.Dispose();
-                }
-                catch
-                {
-                }
-            };
-
             //ZeroConf.EnumerateAllServicesFromAllHosts();
 
             //ZeroConf.ProbeForRTSP();
@@ -3286,142 +3249,6 @@ namespace MissionPlanner
                 System.Configuration.ConfigurationManager.AppSettings["BetaUpdateLocationVersion"] = "";
             }
 
-            // play a tlog that was passed to the program/ load a bin log passed
-            if (Program.args.Length > 0)
-            {
-                var cmds = ProcessCommandLine(Program.args);
-
-                if (cmds.ContainsKey("file") && File.Exists(cmds["file"]) && cmds["file"].ToLower().EndsWith(".tlog"))
-                {
-                    FlightData.LoadLogFile(Program.args[0]);
-                    FlightData.BUT_playlog_Click(null, null);
-                }
-                else if (cmds.ContainsKey("file") && File.Exists(cmds["file"]) &&
-                         (cmds["file"].ToLower().EndsWith(".log") || cmds["file"].ToLower().EndsWith(".bin")))
-                {
-                    LogBrowse logbrowse = new LogBrowse();
-                    ThemeManager.ApplyThemeTo(logbrowse);
-                    logbrowse.logfilename = Program.args[0];
-                    logbrowse.Show(this);
-                    logbrowse.BringToFront();
-                }
-
-                
-
-                if (cmds.ContainsKey("joy") && cmds.ContainsKey("type"))
-                {
-                    if (cmds["type"].ToLower() == "plane")
-                    {
-                        MainV2.comPort.MAV.cs.firmware = Firmwares.ArduPlane;
-                    }
-                    else if (cmds["type"].ToLower() == "copter")
-                    {
-                        MainV2.comPort.MAV.cs.firmware = Firmwares.ArduCopter2;
-                    }
-                    else if (cmds["type"].ToLower() == "rover")
-                    {
-                        MainV2.comPort.MAV.cs.firmware = Firmwares.ArduRover;
-                    }
-                    else if (cmds["type"].ToLower() == "sub")
-                    {
-                        MainV2.comPort.MAV.cs.firmware = Firmwares.ArduSub;
-                    }
-
-                    var joy = new Joystick.Joystick(() => MainV2.comPort);
-
-                    if (joy.start(cmds["joy"]))
-                    {
-                        MainV2.joystick = joy;
-                        MainV2.joystick.enabled = true;
-                    }
-                    else
-                    {
-                        CustomMessageBox.Show("Failed to start joystick");
-                    }
-                }
-
-                if (cmds.ContainsKey("cam"))
-                {
-                    try
-                    {
-                        MainV2.cam = new WebCamService.Capture(int.Parse(cmds["cam"]), null);
-
-                        MainV2.cam.Start();
-                    }
-                    catch (Exception ex)
-                    {
-                        CustomMessageBox.Show(ex.ToString());
-                    }
-                }
-
-                //if (cmds.ContainsKey("gstream"))
-                //{
-                //    GStreamer.gstlaunch = GStreamer.LookForGstreamer();
-
-                //    if (!File.Exists(GStreamer.gstlaunch))
-                //    {
-                //        if (CustomMessageBox.Show(
-                //                "A video stream has been detected, but gstreamer has not been configured/installed.\nDo you want to install/config it now?",
-                //                "GStreamer", System.Windows.Forms.MessageBoxButtons.YesNo) ==
-                //            (int)System.Windows.Forms.DialogResult.Yes)
-                //        {
-                //            GStreamerUI.DownloadGStreamer();
-                //        }
-                //    }
-
-                //    try
-                //    {
-                //        new Thread(delegate ()
-                //        {
-                //            // 36 retrys
-                //            for (int i = 0; i < 36; i++)
-                //            {
-                //                try
-                //                {
-                //                    var st = GStreamer.StartA(cmds["gstream"]);
-                //                    if (st == null)
-                //                    {
-                //                        // prevent spam
-                //                        Thread.Sleep(5000);
-                //                    }
-                //                    else
-                //                    {
-                //                        while (st.IsAlive)
-                //                        {
-                //                            Thread.Sleep(1000);
-                //                        }
-                //                    }
-                //                }
-                //                catch (BadImageFormatException ex)
-                //                {
-                //                    // not running on x64
-                //                    log.Error(ex);
-                //                    return;
-                //                }
-                //                catch (DllNotFoundException ex)
-                //                {
-                //                    // missing or failed download
-                //                    log.Error(ex);
-                //                    return;
-                //                }
-                //            }
-                //        })
-                //        { IsBackground = true }.Start();
-                //    }
-                //    catch (Exception ex)
-                //    {
-                //        log.Error(ex);
-                //    }
-                //}
-
-                if (cmds.ContainsKey("port") && cmds.ContainsKey("baud"))
-                {
-                    _connectionControl.CMB_serialport.Text = cmds["port"];
-                    _connectionControl.CMB_baudrate.Text = cmds["baud"];
-
-                    doConnect(MainV2.comPort, cmds["port"], cmds["baud"]);
-                }
-            }
         }
 
         private Dictionary<string, string> ProcessCommandLine(string[] args)
@@ -3510,54 +3337,6 @@ namespace MissionPlanner
         {
             CurrentState.KIndexstatic = (int)sender;
             Settings.Instance["kindex"] = CurrentState.KIndexstatic.ToString();
-        }
-
-        private void BGCreateMaps(object state)
-        {
-            // sort logs
-            try
-            {
-                MissionPlanner.Log.LogSort.SortLogs(Directory.GetFiles(Settings.Instance.LogDir, "*.tlog"));
-
-                MissionPlanner.Log.LogSort.SortLogs(Directory.GetFiles(Settings.Instance.LogDir, "*.rlog"));
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex);
-            }
-
-            try
-            {
-                // create maps
-                Log.LogMap.MapLogs(Directory.GetFiles(Settings.Instance.LogDir, "*.tlog", SearchOption.AllDirectories));
-                Log.LogMap.MapLogs(Directory.GetFiles(Settings.Instance.LogDir, "*.bin", SearchOption.AllDirectories));
-                Log.LogMap.MapLogs(Directory.GetFiles(Settings.Instance.LogDir, "*.log", SearchOption.AllDirectories));
-
-                if (File.Exists(tlogThumbnailHandler.tlogThumbnailHandler.queuefile))
-                {
-                    Log.LogMap.MapLogs(File.ReadAllLines(tlogThumbnailHandler.tlogThumbnailHandler.queuefile));
-
-                    File.Delete(tlogThumbnailHandler.tlogThumbnailHandler.queuefile);
-                }
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex);
-            }
-
-            try
-            {
-                if (File.Exists(tlogThumbnailHandler.tlogThumbnailHandler.queuefile))
-                {
-                    Log.LogMap.MapLogs(File.ReadAllLines(tlogThumbnailHandler.tlogThumbnailHandler.queuefile));
-
-                    File.Delete(tlogThumbnailHandler.tlogThumbnailHandler.queuefile);
-                }
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex);
-            }
         }
 
         private void MainV2_Resize(object sender, EventArgs e)

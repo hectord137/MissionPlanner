@@ -133,11 +133,6 @@
       <Project>{CA6345D3-7A6D-478B-A0ED-A58E50DCAA83}</Project>
       <Name>MissionPlanner.ArduPilot</Name>
     </ProjectReference>
-    <ProjectReference Include="ExtLibs\AviFile\AviFile.csproj">
-      <Project>{ABB32A29-AF50-47FA-B243-5FD75A5ABA54}</Project>
-      <Name>AviFile</Name>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </ProjectReference>
     <ProjectReference Include="ExtLibs\BSE.Windows.Forms\BSE.Windows.Forms.csproj">
       <Project>{9ca367b8-0b98-49d1-84fb-735e612e3ba9}</Project>
       <Name>BSE.Windows.Forms</Name>
@@ -175,12 +170,8 @@
       <Project>{e06def77-f933-42fb-afd7-db2d0d8d6a98}</Project>
       <Name>GMap.NET.WindowsForms</Name>
     </ProjectReference>
-    <ProjectReference Include="ExtLibs\HIL\MissionPlanner.HIL.csproj">
-      <Project>{077E19BA-4129-4AAE-8FCD-34D6FAF85B78}</Project>
-      <Name>MissionPlanner.HIL</Name>
-    </ProjectReference>
     <ProjectReference Include="ExtLibs\ICSharpCode.SharpZipLib\ICSharpCode.SharpZipLib.csproj">
-      <Project>{6D4F97A1-D0A0-44EC-B2A3-F5C954209444}</Project>
+      <Project>{b3bb412d-8536-4d00-abc2-f722279aa530}</Project>
       <Name>ICSharpCode.SharpZipLib</Name>
     </ProjectReference>
     <ProjectReference Include="ExtLibs\Interfaces\Interfaces.csproj">
@@ -194,14 +185,6 @@
     <ProjectReference Include="ExtLibs\LibTessDotNet\LibTessDotNet.csproj">
       <Project>{a7c98a7e-1bcb-4a38-aac4-2eec63a5bc5c}</Project>
       <Name>LibTessDotNet</Name>
-    </ProjectReference>
-    <ProjectReference Include="ExtLibs\LibVLC.NET\LibVLC.NET.csproj">
-      <Project>{bb06dff7-4f41-4b9d-a3c3-3b6d2b8702b6}</Project>
-      <Name>LibVLC.NET</Name>
-    </ProjectReference>
-    <ProjectReference Include="ExtLibs\ManagedNativeWifi.Simple\ManagedNativeWifi.Simple.csproj">
-      <Project>{cce510f7-1da6-40f2-8921-b86ed41bb85e}</Project>
-      <Name>ManagedNativeWifi.Simple</Name>
     </ProjectReference>
     <ProjectReference Include="ExtLibs\Maps\MissionPlanner.Maps.csproj">
       <Project>{6C4FF9C3-7AFF-4274-B8FC-4A93A1FAADEA}</Project>
@@ -228,10 +211,6 @@
       <Project>{993DB853-EC9F-45D5-AD2C-BA008B72995B}</Project>
       <Name>ProjNET</Name>
     </ProjectReference>
-    <ProjectReference Include="ExtLibs\SharpAdbClient\SharpAdbClient.csproj">
-      <Project>{65473257-e70f-410b-9269-d0c0f771ea87}</Project>
-      <Name>SharpAdbClient</Name>
-    </ProjectReference>
     <ProjectReference Include="ExtLibs\SharpKml\SharpKml.csproj">
       <Project>{53F12A60-E9CC-44BC-8366-1AE3AB2B547D}</Project>
       <Name>SharpKml</Name>
@@ -244,29 +223,13 @@
       <Project>{bb4c8021-b5e1-4de2-82cb-14bdfb9837e4}</Project>
       <Name>SvgNet</Name>
     </ProjectReference>
-    <ProjectReference Include="ExtLibs\tlogThumbnailHandler\tlogThumbnailHandler.csproj">
-      <Project>{aba78b2e-77c3-4377-8568-9542ac227971}</Project>
-      <Name>tlogThumbnailHandler</Name>
-    </ProjectReference>
     <ProjectReference Include="ExtLibs\Transitions\Transitions.csproj">
       <Project>{B6054E5B-362C-4298-8F20-6BA5BF1A859E}</Project>
       <Name>Transitions</Name>
     </ProjectReference>
-    <ProjectReference Include="ExtLibs\UAVCAN\UAVCAN.csproj">
-      <Project>{3A413E59-A20E-477C-997E-64B1398E0E80}</Project>
-      <Name>UAVCAN</Name>
-    </ProjectReference>
     <ProjectReference Include="ExtLibs\Utilities\MissionPlanner.Utilities.csproj">
       <Project>{1378A66C-38E4-46F5-A05F-DC04EF7D4D16}</Project>
       <Name>MissionPlanner.Utilities</Name>
-    </ProjectReference>
-    <ProjectReference Include="ExtLibs\WebCamService\WebCamService.csproj">
-      <Project>{78AC6375-28AF-4175-9F20-B5099C92EA2B}</Project>
-      <Name>WebCamService</Name>
-    </ProjectReference>
-    <ProjectReference Include="ExtLibs\Zeroconf\Zeroconf\Zeroconf.csproj">
-      <Project>{F4B60F03-F4C8-42CD-A46D-712838DC184B}</Project>
-      <Name>Zeroconf</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -356,7 +319,6 @@
     <PackageReference Include="zlib.net" version="1.0.4.0" targetFramework="net40" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Antenna\TrackerGeneric.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="Controls\ConnectionOptions.cs">
       <SubType>Form</SubType>
@@ -369,12 +331,6 @@
     </Compile>
     <Compile Include="Controls\Icon\File.cs" />
     <Compile Include="Controls\Icon\Zoom.cs" />
-    <Compile Include="Controls\UAVCANFileUI.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\UAVCANFileUI.Designer.cs">
-      <DependentUpon>UAVCANFileUI.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\RelayOptions.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -386,9 +342,6 @@
     </Compile>
     <Compile Include="Controls\MavFTPUI.Designer.cs">
       <DependentUpon>MavFTPUI.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\UAVCANInspector.cs">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Controls\PropagationSettings.cs">
       <SubType>Form</SubType>
@@ -403,18 +356,6 @@
     <Compile Include="Controls\FollowMe.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GCSViews\ConfigurationView\ConfigTerminal.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GCSViews\ConfigurationView\ConfigTerminal.designer.cs">
-      <DependentUpon>ConfigTerminal.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\UAVCANParams.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\UAVCANParams.Designer.cs">
-      <DependentUpon>UAVCANParams.cs</DependentUpon>
-    </Compile>
     <Compile Include="GCSViews\ConfigurationView\CustomColor.cs" />
     <Compile Include="Grid\camerainfo.cs" />
     <Compile Include="Grid\GridData.cs" />
@@ -428,7 +369,6 @@
     <Compile Include="Joystick\JoystickAxis.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Log\MavlinkLogBase.cs" />
     <Compile Include="MainV2.Designer.cs">
       <DependentUpon>MainV2.cs</DependentUpon>
     </Compile>
@@ -463,9 +403,6 @@
     <Compile Include="Controls\OpenGLtest2.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\OSDVideo.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Controls\paramcompare.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -492,9 +429,6 @@
     <Compile Include="Splash.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Antenna\TrackerUI.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="Controls\AuthKeys.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -519,17 +453,8 @@
     <Compile Include="Controls\LogAnalyzer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Log\LogStrings.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Log\LogStrings.Designer.cs">
-      <DependentUpon>LogStrings.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Controls\DigitalSkyUI.resx">
       <DependentUpon>DigitalSkyUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\UAVCANFileUI.resx">
-      <DependentUpon>UAVCANFileUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\RelayOptions.ar.resx">
       <DependentUpon>RelayOptions.cs</DependentUpon>
@@ -564,114 +489,12 @@
     <EmbeddedResource Include="Controls\MavFTPUI.resx">
       <DependentUpon>MavFTPUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\UAVCANInspector.resx">
-      <DependentUpon>UAVCANInspector.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\PropagationSettings.resx">
       <DependentUpon>PropagationSettings.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ProximityControl.resx">
       <DependentUpon>ProximityControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\UAVCANParams.ar.resx">
-      <DependentUpon>UAVCANParams.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\UAVCANParams.az-Latn-AZ.resx">
-      <DependentUpon>UAVCANParams.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\UAVCANParams.de-DE.resx">
-      <DependentUpon>UAVCANParams.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\UAVCANParams.fr.resx">
-      <DependentUpon>UAVCANParams.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\UAVCANParams.id-ID.resx">
-      <DependentUpon>UAVCANParams.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\UAVCANParams.it-IT.resx">
-      <DependentUpon>UAVCANParams.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\UAVCANParams.ja-JP.resx">
-      <DependentUpon>UAVCANParams.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\UAVCANParams.ko-KR.resx">
-      <DependentUpon>UAVCANParams.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\UAVCANParams.pt.resx">
-      <DependentUpon>UAVCANParams.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\UAVCANParams.resx">
-      <DependentUpon>UAVCANParams.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\UAVCANParams.ru-KZ.resx">
-      <DependentUpon>UAVCANParams.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\UAVCANParams.tr.resx">
-      <DependentUpon>UAVCANParams.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\UAVCANParams.zh-Hans.resx">
-      <DependentUpon>UAVCANParams.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\UAVCANParams.zh-Hant.resx">
-      <DependentUpon>UAVCANParams.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\UAVCANParams.zh-TW.resx">
-      <DependentUpon>UAVCANParams.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.ar.resx">
-      <DependentUpon>ConfigTerminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.az-Latn-AZ.resx">
-      <DependentUpon>ConfigTerminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.de-DE.resx">
-      <DependentUpon>ConfigTerminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.es-ES.resx">
-      <DependentUpon>ConfigTerminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.fr.resx">
-      <DependentUpon>ConfigTerminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.id-ID.resx">
-      <DependentUpon>ConfigTerminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.it-IT.resx">
-      <DependentUpon>ConfigTerminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.ja-JP.resx">
-      <DependentUpon>ConfigTerminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.ko-KR.resx">
-      <DependentUpon>ConfigTerminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.pl.resx">
-      <DependentUpon>ConfigTerminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.pt.resx">
-      <DependentUpon>ConfigTerminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.resx">
-      <DependentUpon>ConfigTerminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.ru-KZ.resx">
-      <DependentUpon>ConfigTerminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.ru-RU.resx">
-      <DependentUpon>ConfigTerminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.tr.resx">
-      <DependentUpon>ConfigTerminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.zh-Hans.resx">
-      <DependentUpon>ConfigTerminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.zh-Hant.resx">
-      <DependentUpon>ConfigTerminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTerminal.zh-TW.resx">
-      <DependentUpon>ConfigTerminal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Grid\GridUI.resx">
       <DependentUpon>GridUI.cs</DependentUpon>
@@ -684,9 +507,6 @@
       <DependentUpon>GridUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Joystick\JoystickAxis.resx" />
-    <EmbeddedResource Include="Log\LogStrings.resx">
-      <DependentUpon>LogStrings.cs</DependentUpon>
-    </EmbeddedResource>
     <Compile Include="Controls\MavlinkCheckBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -695,9 +515,6 @@
     </Compile>
     <Compile Include="Controls\MavlinkComboBox.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\MAVLinkInspector.cs">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Controls\MavlinkNumericUpDown.cs">
       <SubType>Component</SubType>
@@ -745,9 +562,6 @@
     <Compile Include="GCSViews\SoftwareConfig.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GCSViews\Terminal.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="GCSViews\ConfigurationView\ConfigPlanner.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -778,37 +592,12 @@
     <Compile Include="Joystick\Joy_Mount_Mode.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Log\LogBrowse.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Log\LogDownload.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Log\LogDownloadMavLink.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Log\LogDownloadscp.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Log\LogIndex.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Log\MatLabForms.cs" />
-    <Compile Include="Log\MavlinkLog.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="NoFly\NoFly.cs" />
     <Compile Include="Plugin\Plugin.cs" />
     <Compile Include="Plugin\PluginLoader.cs" />
     <Compile Include="Plugin\PluginUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Radio\IHex.cs" />
-    <Compile Include="Radio\Sikradio.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Radio\Uploader.cs" />
-    <Compile Include="Radio\XModem.cs" />
     <Compile Include="Utilities\CircleSurveyMission.cs" />
     <Compile Include="Utilities\ExtensionsMP.cs" />
     <Compile Include="Controls\fftui.cs">
@@ -820,12 +609,6 @@
     <Compile Include="Utilities\POI.cs" />
     <Compile Include="Utilities\ThemeManager.cs" />
     <Compile Include="Utilities\Win32DeviceMgnt.cs" />
-    <Compile Include="Warnings\WarningControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Warnings\WarningsManager.cs">
-      <SubType>Form</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\ConnectionOptions.Designer.cs">
@@ -839,9 +622,6 @@
     </Compile>
     <Compile Include="Controls\MovingBase.Designer.cs">
       <DependentUpon>MovingBase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\OSDVideo.Designer.cs">
-      <DependentUpon>OSDVideo.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\paramcompare.Designer.cs">
       <DependentUpon>paramcompare.cs</DependentUpon>
@@ -860,9 +640,6 @@
     </Compile>
     <Compile Include="Controls\SerialOutputPass.Designer.cs">
       <DependentUpon>SerialOutputPass.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Antenna\TrackerUI.Designer.cs">
-      <DependentUpon>TrackerUI.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\AuthKeys.Designer.cs">
       <DependentUpon>AuthKeys.cs</DependentUpon>
@@ -918,9 +695,6 @@
     <Compile Include="GCSViews\SoftwareConfig.Designer.cs">
       <DependentUpon>SoftwareConfig.cs</DependentUpon>
     </Compile>
-    <Compile Include="GCSViews\Terminal.Designer.cs">
-      <DependentUpon>Terminal.cs</DependentUpon>
-    </Compile>
     <Compile Include="GCSViews\ConfigurationView\ConfigPlanner.Designer.cs">
       <DependentUpon>ConfigPlanner.cs</DependentUpon>
     </Compile>
@@ -951,35 +725,11 @@
     <Compile Include="Joystick\Joy_Mount_Mode.Designer.cs">
       <DependentUpon>Joy_Mount_Mode.cs</DependentUpon>
     </Compile>
-    <Compile Include="Log\LogBrowse.Designer.cs">
-      <DependentUpon>LogBrowse.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Log\LogDownload.Designer.cs">
-      <DependentUpon>LogDownload.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Log\LogDownloadMavLink.Designer.cs">
-      <DependentUpon>LogDownloadMavLink.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Log\LogDownloadscp.Designer.cs">
-      <DependentUpon>LogDownloadscp.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Log\LogIndex.Designer.cs">
-      <DependentUpon>LogIndex.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Log\MavlinkLog.Designer.cs">
-      <DependentUpon>MavlinkLog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Plugin\PluginUI.Designer.cs">
       <DependentUpon>PluginUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="Radio\Sikradio.Designer.cs">
-      <DependentUpon>Sikradio.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\fftui.Designer.cs">
       <DependentUpon>fftui.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Warnings\WarningsManager.Designer.cs">
-      <DependentUpon>WarningsManager.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -1165,9 +915,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\OpenGLtest2.resx">
       <DependentUpon>OpenGLtest2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\OSDVideo.resx">
-      <DependentUpon>OSDVideo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\paramcompare.resx">
       <DependentUpon>paramcompare.cs</DependentUpon>
@@ -1363,53 +1110,6 @@
     <EmbeddedResource Include="Splash.resx">
       <DependentUpon>Splash.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Antenna\TrackerUI.resx">
-      <DependentUpon>TrackerUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Antenna\TrackerUI.ar.resx">
-      <DependentUpon>TrackerUI.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Antenna\TrackerUI.az-Latn-AZ.resx">
-      <DependentUpon>TrackerUI.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Antenna\TrackerUI.de-DE.resx">
-      <DependentUpon>TrackerUI.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Antenna\TrackerUI.fr.resx">
-      <DependentUpon>TrackerUI.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Antenna\TrackerUI.id-ID.resx">
-      <DependentUpon>TrackerUI.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Antenna\TrackerUI.it-IT.resx">
-      <DependentUpon>TrackerUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Antenna\TrackerUI.ko-KR.resx">
-      <DependentUpon>TrackerUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Antenna\TrackerUI.pt.resx">
-      <DependentUpon>TrackerUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Antenna\TrackerUI.ru-KZ.resx">
-      <DependentUpon>TrackerUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Antenna\TrackerUI.tr.resx">
-      <DependentUpon>TrackerUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Antenna\TrackerUI.zh-Hans.resx">
-      <DependentUpon>TrackerUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Antenna\TrackerUI.zh-Hant.resx">
-      <DependentUpon>TrackerUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Antenna\TrackerUI.zh-TW.resx">
-      <DependentUpon>TrackerUI.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\AuthKeys.resx">
       <DependentUpon>AuthKeys.cs</DependentUpon>
     </EmbeddedResource>
@@ -1517,9 +1217,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\MavlinkCheckBoxBitMask.resx">
       <DependentUpon>MavlinkCheckBoxBitMask.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\MAVLinkInspector.resx">
-      <DependentUpon>MAVLinkInspector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ModifyandSet.resx">
       <DependentUpon>ModifyandSet.cs</DependentUpon>
@@ -1700,60 +1397,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\SoftwareConfig.resx">
       <DependentUpon>SoftwareConfig.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\Terminal.resx">
-      <DependentUpon>Terminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\Terminal.ar.resx">
-      <DependentUpon>Terminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\Terminal.az-Latn-AZ.resx">
-      <DependentUpon>Terminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\Terminal.de-DE.resx">
-      <DependentUpon>Terminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\Terminal.es-ES.resx">
-      <DependentUpon>Terminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\Terminal.fr.resx">
-      <DependentUpon>Terminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\Terminal.id-ID.resx">
-      <DependentUpon>Terminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\Terminal.it-IT.resx">
-      <DependentUpon>Terminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\Terminal.ja-JP.resx">
-      <DependentUpon>Terminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\Terminal.ko-KR.resx">
-      <DependentUpon>Terminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\Terminal.pl.resx">
-      <DependentUpon>Terminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\Terminal.pt.resx">
-      <DependentUpon>Terminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\Terminal.ru-KZ.resx">
-      <DependentUpon>Terminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\Terminal.ru-RU.resx">
-      <DependentUpon>Terminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\Terminal.tr.resx">
-      <DependentUpon>Terminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\Terminal.zh-Hans.resx">
-      <DependentUpon>Terminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\Terminal.zh-Hant.resx">
-      <DependentUpon>Terminal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GCSViews\Terminal.zh-TW.resx">
-      <DependentUpon>Terminal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigPlanner.resx">
       <DependentUpon>ConfigPlanner.cs</DependentUpon>
@@ -1941,261 +1584,11 @@
     <EmbeddedResource Include="Joystick\Joy_Mount_Mode.tr.resx">
       <DependentUpon>Joy_Mount_Mode.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogBrowse.resx">
-      <DependentUpon>LogBrowse.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogBrowse.ar.resx">
-      <DependentUpon>LogBrowse.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogBrowse.az-Latn-AZ.resx">
-      <DependentUpon>LogBrowse.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogBrowse.de-DE.resx">
-      <DependentUpon>LogBrowse.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogBrowse.es-ES.resx">
-      <DependentUpon>LogBrowse.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogBrowse.fr.resx">
-      <DependentUpon>LogBrowse.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogBrowse.id-ID.resx">
-      <DependentUpon>LogBrowse.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogBrowse.it-IT.resx">
-      <DependentUpon>LogBrowse.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogBrowse.ja-JP.resx">
-      <DependentUpon>LogBrowse.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogBrowse.ko-KR.resx">
-      <DependentUpon>LogBrowse.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogBrowse.pl.resx">
-      <DependentUpon>LogBrowse.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogBrowse.pt.resx">
-      <DependentUpon>LogBrowse.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogBrowse.ru-KZ.resx">
-      <DependentUpon>LogBrowse.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogBrowse.tr.resx">
-      <DependentUpon>LogBrowse.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogBrowse.zh-Hans.resx">
-      <DependentUpon>LogBrowse.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogBrowse.zh-TW.resx">
-      <DependentUpon>LogBrowse.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownload.resx">
-      <DependentUpon>LogDownload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownload.ar.resx">
-      <DependentUpon>LogDownload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownload.az-Latn-AZ.resx">
-      <DependentUpon>LogDownload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownload.de-DE.resx">
-      <DependentUpon>LogDownload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownload.es-ES.resx">
-      <DependentUpon>LogDownload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownload.fr.resx">
-      <DependentUpon>LogDownload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownload.id-ID.resx">
-      <DependentUpon>LogDownload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownload.it-IT.resx">
-      <DependentUpon>LogDownload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownload.ja-JP.resx">
-      <DependentUpon>LogDownload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownload.ko-KR.resx">
-      <DependentUpon>LogDownload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownload.pl.resx">
-      <DependentUpon>LogDownload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownload.pt.resx">
-      <DependentUpon>LogDownload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownload.ru-KZ.resx">
-      <DependentUpon>LogDownload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownload.tr.resx">
-      <DependentUpon>LogDownload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownload.zh-Hans.resx">
-      <DependentUpon>LogDownload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownload.zh-TW.resx">
-      <DependentUpon>LogDownload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownloadMavLink.resx">
-      <DependentUpon>LogDownloadMavLink.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownloadMavLink.ar.resx">
-      <DependentUpon>LogDownloadMavLink.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownloadMavLink.az-Latn-AZ.resx">
-      <DependentUpon>LogDownloadMavLink.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownloadMavLink.de-DE.resx">
-      <DependentUpon>LogDownloadMavLink.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownloadMavLink.es-ES.resx">
-      <DependentUpon>LogDownloadMavLink.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownloadMavLink.fr.resx">
-      <DependentUpon>LogDownloadMavLink.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownloadMavLink.id-ID.resx">
-      <DependentUpon>LogDownloadMavLink.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownloadMavLink.it-IT.resx">
-      <DependentUpon>LogDownloadMavLink.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownloadMavLink.ja-JP.resx">
-      <DependentUpon>LogDownloadMavLink.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownloadMavLink.ko-KR.resx">
-      <DependentUpon>LogDownloadMavLink.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownloadMavLink.pl.resx">
-      <DependentUpon>LogDownloadMavLink.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownloadMavLink.pt.resx">
-      <DependentUpon>LogDownloadMavLink.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownloadMavLink.ru-KZ.resx">
-      <DependentUpon>LogDownloadMavLink.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownloadMavLink.tr.resx">
-      <DependentUpon>LogDownloadMavLink.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownloadMavLink.zh-Hans.resx">
-      <DependentUpon>LogDownloadMavLink.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownloadMavLink.zh-TW.resx">
-      <DependentUpon>LogDownloadMavLink.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownloadscp.resx">
-      <DependentUpon>LogDownloadscp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownloadscp.az-Latn-AZ.resx">
-      <DependentUpon>LogDownloadscp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownloadscp.de-DE.resx">
-      <DependentUpon>LogDownloadscp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownloadscp.pt.resx">
-      <DependentUpon>LogDownloadscp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownloadscp.ru-KZ.resx">
-      <DependentUpon>LogDownloadscp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogDownloadscp.tr.resx">
-      <DependentUpon>LogDownloadscp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\LogIndex.resx">
-      <DependentUpon>LogIndex.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\MavlinkLog.resx">
-      <DependentUpon>MavlinkLog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\MavlinkLog.ar.resx">
-      <DependentUpon>MavlinkLog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\MavlinkLog.az-Latn-AZ.resx">
-      <DependentUpon>MavlinkLog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\MavlinkLog.de-DE.resx">
-      <DependentUpon>MavlinkLog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\MavlinkLog.es-ES.resx">
-      <DependentUpon>MavlinkLog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\MavlinkLog.fr.resx">
-      <DependentUpon>MavlinkLog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\MavlinkLog.id-ID.resx">
-      <DependentUpon>MavlinkLog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\MavlinkLog.it-IT.resx">
-      <DependentUpon>MavlinkLog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\MavlinkLog.ja-JP.resx">
-      <DependentUpon>MavlinkLog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\MavlinkLog.ko-KR.resx">
-      <DependentUpon>MavlinkLog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\MavlinkLog.pl.resx">
-      <DependentUpon>MavlinkLog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\MavlinkLog.pt.resx">
-      <DependentUpon>MavlinkLog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\MavlinkLog.ru-KZ.resx">
-      <DependentUpon>MavlinkLog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\MavlinkLog.tr.resx">
-      <DependentUpon>MavlinkLog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Log\MavlinkLog.zh-Hans.resx">
-      <DependentUpon>MavlinkLog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Plugin\PluginUI.resx">
       <DependentUpon>PluginUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Radio\Sikradio.resx">
-      <DependentUpon>Sikradio.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Radio\Sikradio.ar.resx">
-      <DependentUpon>Sikradio.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Radio\Sikradio.az-Latn-AZ.resx">
-      <DependentUpon>Sikradio.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Radio\Sikradio.de-DE.resx">
-      <DependentUpon>Sikradio.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Radio\Sikradio.fr.resx">
-      <DependentUpon>Sikradio.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Radio\Sikradio.it-IT.resx">
-      <DependentUpon>Sikradio.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Radio\Sikradio.ru-KZ.resx">
-      <DependentUpon>Sikradio.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Radio\Sikradio.tr.resx">
-      <DependentUpon>Sikradio.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Radio\Sikradio.zh-Hans.resx">
-      <DependentUpon>Sikradio.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Radio\Sikradio.zh-Hant.resx">
-      <DependentUpon>Sikradio.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Radio\Sikradio.zh-TW.resx">
-      <DependentUpon>Sikradio.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\fftui.resx">
       <DependentUpon>fftui.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Warnings\WarningControl.resx">
-      <DependentUpon>WarningControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Warnings\WarningsManager.resx">
-      <DependentUpon>WarningsManager.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -2262,9 +1655,6 @@
     <Content Include="Drivers\nxp.inf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="FirmwareHistory.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="graphs\ekf3Graphs.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -2278,9 +1668,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="graphs\mavgraphsMP.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="hud.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="mavcmd.xml">
@@ -2305,12 +1692,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Properties\launchSettings.json" />
-    <None Include="adb.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="AdbWinApi.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="airports.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -2463,9 +1844,6 @@
     <None Include="Drivers\nxp.cat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="libSkiaSharp.so">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="m3u\both.m3u">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -2497,48 +1875,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Properties\app.manifest" />
-    <None Include="Scripts\datetime.py">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Scripts\example1.py">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Scripts\example2.py">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Scripts\example3.py">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Scripts\example4 wp.py">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Scripts\example5 inject data.py">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Scripts\example6.py">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Scripts\example7.py">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Scripts\example8 - speech.py">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Scripts\example9 - sitl.py">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Scripts\PARACHUTE LANDING APPROACH.py">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Scripts\rc - heli.py">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Scripts\rc.py">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Scripts\TAKEOFF.py">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Update="**/*.Designer.cs">

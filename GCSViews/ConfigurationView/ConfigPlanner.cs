@@ -15,7 +15,6 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
-using WebCamService;
 using InputBox = MissionPlanner.Controls.InputBox;
 
 namespace MissionPlanner.GCSViews.ConfigurationView
@@ -102,17 +101,6 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 }
             }
 
-            // setup up camera button states
-            if (MainV2.cam != null)
-            {
-                BUT_videostart.Enabled = false;
-                CHK_hudshow.Checked = FlightData.myhud.hudon;
-            }
-            else
-            {
-                BUT_videostart.Enabled = true;
-            }
-
             // setup speech states
             SetCheckboxFromConfig("speechenable", CHK_enablespeech);
             SetCheckboxFromConfig("speechwaypointenabled", CHK_speechwaypoint);
@@ -176,65 +164,12 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             if (Settings.Instance["altunits"] != null)
                 CMB_altunits.Text = Settings.Instance["altunits"].ToString();
 
-            try
-            {
-                if (Settings.Instance["video_device"] != null)
-                {
-                    CMB_videosources_Click(this, null);
-                    CMB_videosources.SelectedIndex = Settings.Instance.GetInt32("video_device");
 
-                    if (Settings.Instance["video_options"] != "" && CMB_videosources.Text != "")
-                    {
-                        CMB_videoresolutions.SelectedIndex = Settings.Instance.GetInt32("video_options");
-                    }
-                }
-            }
-            catch
-            {
-            }
 
 
             txt_log_dir.Text = Settings.Instance.LogDir;
 
             startup = false;
-        }
-
-        private void BUT_videostart_Click(object sender, EventArgs e)
-        {
-            if (MainV2.MONO)
-                return;
-
-            // stop first
-            BUT_videostop_Click(sender, e);
-
-            var bmp = (GCSBitmapInfo)CMB_videoresolutions.SelectedItem;
-
-            try
-            {
-                MainV2.cam = new Capture(CMB_videosources.SelectedIndex, bmp.Media);
-
-                MainV2.cam.Start();
-
-                Settings.Instance["video_device"] = CMB_videosources.SelectedIndex.ToString();
-
-                Settings.Instance["video_options"] = CMB_videoresolutions.SelectedIndex.ToString();
-
-                BUT_videostart.Enabled = false;
-            }
-            catch (Exception ex)
-            {
-                CustomMessageBox.Show("Camera Fail: " + ex.Message);
-            }
-        }
-
-        private void BUT_videostop_Click(object sender, EventArgs e)
-        {
-            BUT_videostart.Enabled = true;
-            if (MainV2.cam != null)
-            {
-                MainV2.cam.Dispose();
-                MainV2.cam = null;
-            }
         }
 
         private void CMB_videosources_SelectedIndexChanged(object sender, EventArgs e)
@@ -665,20 +600,6 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 brush = SystemBrushes.HighlightText;
             g.DrawString(CMB_osdcolor.Items[e.Index].ToString(),
                 CMB_osdcolor.Font, brush, rect.X + 35, rect.Top + rect.Height - CMB_osdcolor.Font.Height);
-        }
-
-        private void CMB_videosources_Click(object sender, EventArgs e)
-        {
-            if (MainV2.MONO)
-                return;
-            // the reason why i dont populate this list is because on linux/mac this call will fail.
-            var capt = new Capture();
-
-            var devices = WebCamService.Capture.getDevices();
-
-            CMB_videosources.DataSource = devices;
-
-            capt.Dispose();
         }
 
         private void CHK_maprotation_CheckedChanged(object sender, EventArgs e)

@@ -30,7 +30,6 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using WebCamService;
 using ZedGraph;
 using LogAnalyzer = MissionPlanner.Utilities.LogAnalyzer;
 
@@ -282,7 +281,6 @@ namespace MissionPlanner.GCSViews
             gMapControl1.Overlays.Add(poioverlay);
 
 
-            MainV2.comPort.ParamListChanged += FlightData_ParentChanged;
             /* contextMenuStripHud.Visible = false;
              contextMenuStripHud.Items.RemoveByKey("1"); */
 
@@ -1029,13 +1027,6 @@ namespace MissionPlanner.GCSViews
             }
         }
 
-        private void BUT_DFMavlink_Click(object sender, EventArgs e)
-        {
-            var form = new LogDownloadMavLink();
-
-            form.Show();
-        }
-
         private void but_disablejoystick_Click(object sender, EventArgs e)
         {
             if (MainV2.joystick != null && MainV2.joystick.enabled)
@@ -1129,9 +1120,9 @@ namespace MissionPlanner.GCSViews
 
         private void BUT_log2kml_Click(object sender, EventArgs e)
         {
-            Form frm = new MavlinkLog();
+//            Form frm = new MavlinkLog();
 //            ThemeManager.ApplyThemeTo(frm);
-            frm.Show();
+//            frm.Show();
         }
 
         private void BUT_loganalysis_Click(object sender, EventArgs e)
@@ -1204,14 +1195,14 @@ namespace MissionPlanner.GCSViews
 
         private void BUT_logbrowse_Click(object sender, EventArgs e)
         {
-            Form logbrowse = new LogBrowse();
+//            Form logbrowse = new LogBrowse();
 //            ThemeManager.ApplyThemeTo(logbrowse);
-            logbrowse.Show();
+//            logbrowse.Show();
         }
 
         private void BUT_matlab_Click(object sender, EventArgs e)
         {
-            MatLabForms.ProcessLog();
+//            MatLabForms.ProcessLog();
         }
 
         private void BUT_quickauto_Click(object sender, EventArgs e)
@@ -1847,16 +1838,6 @@ namespace MissionPlanner.GCSViews
 
 
 
-        }
-
-        private void FlightData_ParentChanged(object sender, EventArgs e)
-        {
-            if (MainV2.cam != null)
-            {
-                MainV2.cam.camimage += cam_camimage;
-            }
-
-            
         }
 
         private void FlightData_Resize(object sender, EventArgs e)
@@ -3219,27 +3200,6 @@ namespace MissionPlanner.GCSViews
             }
 
             return false;
-        }
-
-        private void startCameraToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (MainV2.MONO)
-                return;
-            if (MainV2.cam == null)
-            {
-                try
-                {
-                    //MainV2.cam = new Capture(Settings.Instance.GetInt32("video_device"), new AMMediaType());
-
-                    MainV2.cam.Start();
-
-                    MainV2.cam.camimage += new CamImage(cam_camimage);
-                }
-                catch (Exception ex)
-                {
-                    CustomMessageBox.Show("Camera Fail: " + ex.ToString(), Strings.ERROR);
-                }
-            }
         }
 
         void tabControl1_DrawItem(object sender, DrawItemEventArgs e)

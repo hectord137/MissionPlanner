@@ -329,7 +329,6 @@
             resources.ApplyResources(this.CMB_videosources, "CMB_videosources");
             this.CMB_videosources.Name = "CMB_videosources";
             this.CMB_videosources.SelectedIndexChanged += new System.EventHandler(this.CMB_videosources_SelectedIndexChanged);
-            this.CMB_videosources.Click += new System.EventHandler(this.CMB_videosources_Click);
             // 
             // label1
             // 
@@ -371,7 +370,6 @@
             this.BUT_videostop.Name = "BUT_videostop";
             this.BUT_videostop.TextColor = System.Drawing.Color.White;
             this.BUT_videostop.UseVisualStyleBackColor = true;
-            this.BUT_videostop.Click += new System.EventHandler(this.BUT_videostop_Click);
             // 
             // BUT_videostart
             // 
@@ -379,7 +377,6 @@
             this.BUT_videostart.Name = "BUT_videostart";
             this.BUT_videostart.TextColor = System.Drawing.Color.White;
             this.BUT_videostart.UseVisualStyleBackColor = true;
-            this.BUT_videostart.Click += new System.EventHandler(this.BUT_videostart_Click);
             // 
             // label4
             // 
