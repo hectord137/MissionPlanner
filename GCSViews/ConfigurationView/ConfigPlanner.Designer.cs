@@ -66,12 +66,9 @@
             this.CMB_theme = new System.Windows.Forms.ComboBox();
             this.BUT_themecustom = new MissionPlanner.Controls.MyButton();
             this.CHK_speecharmdisarm = new System.Windows.Forms.CheckBox();
-            this.BUT_Vario = new MissionPlanner.Controls.MyButton();
             this.chk_analytics = new System.Windows.Forms.CheckBox();
-            this.CHK_Password = new System.Windows.Forms.CheckBox();
             this.CHK_speechlowspeed = new System.Windows.Forms.CheckBox();
             this.CHK_showairports = new System.Windows.Forms.CheckBox();
-            this.chk_ADSB = new System.Windows.Forms.CheckBox();
             this.chk_tfr = new System.Windows.Forms.CheckBox();
             this.chk_temp = new System.Windows.Forms.CheckBox();
             this.chk_norcreceiver = new System.Windows.Forms.CheckBox();
@@ -379,27 +376,12 @@
             this.CHK_speecharmdisarm.UseVisualStyleBackColor = true;
             this.CHK_speecharmdisarm.CheckedChanged += new System.EventHandler(this.CHK_speecharmdisarm_CheckedChanged);
             // 
-            // BUT_Vario
-            // 
-            resources.ApplyResources(this.BUT_Vario, "BUT_Vario");
-            this.BUT_Vario.Name = "BUT_Vario";
-            this.BUT_Vario.TextColor = System.Drawing.Color.White;
-            this.BUT_Vario.UseVisualStyleBackColor = true;
-            this.BUT_Vario.Click += new System.EventHandler(this.BUT_Vario_Click);
-            // 
             // chk_analytics
             // 
             resources.ApplyResources(this.chk_analytics, "chk_analytics");
             this.chk_analytics.Name = "chk_analytics";
             this.chk_analytics.UseVisualStyleBackColor = true;
             this.chk_analytics.CheckedChanged += new System.EventHandler(this.chk_analytics_CheckedChanged);
-            // 
-            // CHK_Password
-            // 
-            resources.ApplyResources(this.CHK_Password, "CHK_Password");
-            this.CHK_Password.Name = "CHK_Password";
-            this.CHK_Password.UseVisualStyleBackColor = true;
-            this.CHK_Password.CheckedChanged += new System.EventHandler(this.CHK_Password_CheckedChanged);
             // 
             // CHK_speechlowspeed
             // 
@@ -416,13 +398,6 @@
             this.CHK_showairports.Name = "CHK_showairports";
             this.CHK_showairports.UseVisualStyleBackColor = true;
             this.CHK_showairports.CheckedChanged += new System.EventHandler(this.CHK_showairports_CheckedChanged);
-            // 
-            // chk_ADSB
-            // 
-            resources.ApplyResources(this.chk_ADSB, "chk_ADSB");
-            this.chk_ADSB.Name = "chk_ADSB";
-            this.chk_ADSB.UseVisualStyleBackColor = true;
-            this.chk_ADSB.CheckedChanged += new System.EventHandler(this.chk_ADSB_CheckedChanged);
             // 
             // chk_tfr
             // 
@@ -726,18 +701,15 @@
             this.Controls.Add(this.CMB_ratestatus);
             this.Controls.Add(this.chk_tfr);
             this.Controls.Add(this.CMB_raterc);
-            this.Controls.Add(this.chk_ADSB);
             this.Controls.Add(this.label107);
             this.Controls.Add(this.CHK_showairports);
             this.Controls.Add(this.label33);
             this.Controls.Add(this.CHK_speechlowspeed);
             this.Controls.Add(this.CHK_resetapmonconnect);
-            this.Controls.Add(this.CHK_Password);
             this.Controls.Add(this.label108);
             this.Controls.Add(this.NUM_tracklength);
             this.Controls.Add(this.chk_analytics);
             this.Controls.Add(this.label23);
-            this.Controls.Add(this.BUT_Vario);
             this.Controls.Add(this.CHK_loadwponconnect);
             this.Controls.Add(this.CHK_speecharmdisarm);
             this.Controls.Add(this.label24);
@@ -811,12 +783,9 @@
         private System.Windows.Forms.ComboBox CMB_theme;
         private Controls.MyButton BUT_themecustom;
         private System.Windows.Forms.CheckBox CHK_speecharmdisarm;
-        private Controls.MyButton BUT_Vario;
         private System.Windows.Forms.CheckBox chk_analytics;
-        private System.Windows.Forms.CheckBox CHK_Password;
         private System.Windows.Forms.CheckBox CHK_speechlowspeed;
         private System.Windows.Forms.CheckBox CHK_showairports;
-        private System.Windows.Forms.CheckBox chk_ADSB;
         private System.Windows.Forms.CheckBox chk_tfr;
         private System.Windows.Forms.CheckBox chk_temp;
         private System.Windows.Forms.CheckBox chk_norcreceiver;

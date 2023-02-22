@@ -323,12 +323,6 @@
     <Compile Include="Controls\ConnectionOptions.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\DigitalSkyUI.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\DigitalSkyUI.Designer.cs">
-      <DependentUpon>DigitalSkyUI.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Icon\File.cs" />
     <Compile Include="Controls\Icon\Zoom.cs" />
     <Compile Include="Controls\RelayOptions.cs">
@@ -390,7 +384,6 @@
     <Compile Include="Utilities\Speech.cs" />
     <Compile Include="Utilities\SSHTerminal.cs" />
     <Compile Include="L10N.cs" />
-    <Compile Include="MagCalib.cs" />
     <Compile Include="MainV2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -453,9 +446,6 @@
     <Compile Include="Controls\LogAnalyzer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <EmbeddedResource Include="Controls\DigitalSkyUI.resx">
-      <DependentUpon>DigitalSkyUI.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\RelayOptions.ar.resx">
       <DependentUpon>RelayOptions.cs</DependentUpon>
     </EmbeddedResource>
@@ -600,9 +590,6 @@
     </Compile>
     <Compile Include="Utilities\CircleSurveyMission.cs" />
     <Compile Include="Utilities\ExtensionsMP.cs" />
-    <Compile Include="Controls\fftui.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Utilities\httpserver.cs" />
     <Compile Include="Utilities\LangUtility.cs" />
     <Compile Include="Utilities\LogAnalyzer.cs" />
@@ -727,9 +714,6 @@
     </Compile>
     <Compile Include="Plugin\PluginUI.Designer.cs">
       <DependentUpon>PluginUI.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\fftui.Designer.cs">
-      <DependentUpon>fftui.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -1586,9 +1570,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Plugin\PluginUI.resx">
       <DependentUpon>PluginUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\fftui.resx">
-      <DependentUpon>fftui.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

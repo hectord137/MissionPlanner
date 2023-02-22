@@ -27,61 +27,7 @@ namespace MissionPlanner.ArduPilot
 
         public static  Dictionary<string, Dictionary<string, string>> MetaData { get; } = new Dictionary<string, Dictionary<string, string>>();
 
-        public static async Task GetMetaData()
-        {
-            List<Task> tlist = new List<Task>();
-
-            vehicles.ForEach(a =>
-            {
-                try
-                {
-                    var newurl = String.Format(url, a);
-                    var file = Path.Combine(Settings.GetDataDirectory(), "LogMessages" + a + ".xml.xz");
-                    if(File.Exists(file))
-                        if (new FileInfo(file).LastWriteTime.AddDays(7) > DateTime.Now)
-                            return;
-                    var dltask = Download.getFilefromNetAsync(newurl, file);
-                    tlist.Add(dltask);
-                }
-                catch (Exception ex) { log.Error(ex); }
-            });
-
-            await Task.WhenAll(tlist);
-
-            vehicles.ForEach(a =>
-            {
-                try
-                {
-                    var fileout = Path.Combine(Settings.GetDataDirectory(), "LogMessages" + a + ".xml");
-                    var file = Path.Combine(Settings.GetDataDirectory(), "LogMessages" + a + ".xml.xz");
-                    if (File.Exists(file))
-                        using (var read = File.OpenRead(file))
-                        {
-                            if (XZStream.IsXZStream(read))
-                            {
-                                read.Position = 0;
-                                var stream = new XZStream(read);
-                                using (var outst = File.OpenWrite(fileout))
-                                {
-                                    try
-                                    {
-                                        outst.SetLength(0);
-                                        stream.CopyTo(outst);
-                                    }
-                                    catch (XZIndexMarkerReachedException)
-                                    {
-                                        // ignore
-                                    }
-                                }
-                            }
-                        }
-                }
-                catch (Exception ex)
-                {
-                    log.Error(ex);
-                }
-            });
-        }
+        
 
         public static void ParseMetaData()
         {

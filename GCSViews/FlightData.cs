@@ -54,7 +54,7 @@ namespace MissionPlanner.GCSViews
         internal string selectedscript = "";
 
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        AviWriter aviwriter;
+
         private bool CameraOverlap;
         GMapMarker center = new GMarkerGoogle(new PointLatLng(0.0, 0.0), GMarkerGoogleType.none);
         /// <summary>
@@ -647,8 +647,6 @@ namespace MissionPlanner.GCSViews
                 route.Dispose();
             if (marker != null)
                 marker.Dispose();
-            if (aviwriter != null)
-                aviwriter.Dispose();
 
 //            if (prop != null)
 //                prop.Stop();
@@ -1965,15 +1963,7 @@ namespace MissionPlanner.GCSViews
 
             if (gMapControl1.IsMouseOverMarker)
             {
-                if (CurrentGMapMarker is GMapMarkerADSBPlane)
-                {
-                    var marker = CurrentGMapMarker as GMapMarkerADSBPlane;
-                    if (marker.Tag is adsb.PointLatLngAltHdg)
-                    {
-                        var plla = marker.Tag as adsb.PointLatLngAltHdg;
-                        plla.DisplayICAO = !plla.DisplayICAO;
-                    }
-                }
+
             }
         }
 
@@ -2197,26 +2187,6 @@ namespace MissionPlanner.GCSViews
                     break;
                 }
 
-                try
-                {
-                    if (aviwriter != null && vidrec.AddMilliseconds(1000 / 25.0) <= DateTime.Now)
-                    {
-                        vidrec = DateTime.Now;
-
-                        hud1.streamjpgenable = true;
-
-                        //aviwriter.avi_start("test.avi");
-                        // add a frame
-                        aviwriter.avi_add(hud1.streamjpg.ToArray(), (uint)hud1.streamjpg.Length);
-                        // write header - so even partial files will play
-                        aviwriter.avi_end(hud1.Width, hud1.Height, 25);
-                    }
-                }
-                catch
-                {
-                    log.Error("Failed to write avi");
-                }
-
                 // log playback
                 if (MainV2.comPort.logreadmode && MainV2.comPort.logplaybackfile != null)
                 {
@@ -2400,9 +2370,6 @@ namespace MissionPlanner.GCSViews
                         OpenGLtest2.instance.WPs = MainV2.comPort.MAV.wps.Values.Select(a => (Locationwp)a).ToList();
                     }
 
-                    // update vario info
-                    Vario.SetValue(MainV2.comPort.MAV.cs.climbrate);
-
                     // udpate tunning tab
                     if (tunning.AddMilliseconds(50) < DateTime.Now && CB_tuning.Checked)
                     {
@@ -2458,8 +2425,6 @@ namespace MissionPlanner.GCSViews
                                 but_disablejoystick.Visible = true;
                             });
                         }
-
-                        adsb.CurrentPosition = MainV2.comPort.MAV.cs.HomeLocation;
 
                         // show proximity screen
                         if (MainV2.comPort.MAV?.Proximity != null && MainV2.comPort.MAV.Proximity.DataAvailable)
@@ -2601,16 +2566,16 @@ namespace MissionPlanner.GCSViews
 
 
                                 //Actualizar la tabla de Mission Status
-                                LBL_TotalDist.Invoke(delegate() { LBL_TotalDist.Text = distanceBar1.totaldist.ToString("N0") + " m"; });
+                                LBL_TotalDist.Invoke((Action)delegate { LBL_TotalDist.Text = distanceBar1.totaldist.ToString("N0") + " m"; });
 
 
 
-                                LBL_TraveledDist.Invoke(delegate () { LBL_TraveledDist.Text = distanceBar1.traveleddist.ToString("N0") + " m"; });
+                                LBL_TraveledDist.Invoke((Action)delegate { LBL_TraveledDist.Text = distanceBar1.traveleddist.ToString("N0") + " m"; });
                                 
                                 double progress = ((double)distanceBar1.traveleddist / (double)distanceBar1.totaldist * 100.0);
                                 progress = MathHelper.constrain(progress, 0, 100);
 
-                                LBL_MissionCompleted.Invoke(delegate () { LBL_MissionCompleted.Text = progress.ToString("N0") + " %"; });
+                                LBL_MissionCompleted.Invoke((Action)delegate { LBL_MissionCompleted.Text = progress.ToString("N0") + " %"; });
 
                                 //El Mission Status Time Remain solo se actualiza en modo Auto
                                 if (MainV2.comPort.MAV.cs.mode.ToUpper() == "AUTO")
@@ -2625,11 +2590,11 @@ namespace MissionPlanner.GCSViews
                                     //Tiempo de mision restante estimado
                                     TimeSpan t = TimeSpan.FromSeconds(timeRemain);
 
-                                    LBL_TimeRemain.Invoke(delegate () { LBL_TimeRemain.Text = t.ToString(@"hh\:mm\:ss"); });
+                                    LBL_TimeRemain.Invoke((Action)delegate { LBL_TimeRemain.Text = t.ToString(@"hh\:mm\:ss"); });
                                 }
                                 else
                                 {
-                                    LBL_TimeRemain.Invoke(delegate () { LBL_TimeRemain.Text = "--:--:--"; });
+                                    LBL_TimeRemain.Invoke((Action)delegate { LBL_TimeRemain.Text = "--:--:--"; });
                                 }
                                     
                             }
@@ -2807,58 +2772,7 @@ namespace MissionPlanner.GCSViews
                             log.Error(ex);
                         }
 
-                        lock (MainV2.instance.adsblock)
-                        {
-                            foreach (adsb.PointLatLngAltHdg plla in MainV2.instance.adsbPlanes.Values)
-                            {
-                                if (plla.Raw != null)
-                                {
-                                    var msg = ((MAVLink.mavlink_adsb_vehicle_t)plla.Raw);
-                                    if (msg.emitter_type == 255 && ASCIIEncoding.ASCII.GetString(msg.callsign).Trim('\0') == "OA_DB")
-                                    {
-                                        // cm
-                                        var radius = msg.squawk;
-
-                                        addMissionRouteMarker(new GMapMarkerDistance(plla, radius / 100.0, 0)
-                                        { Pen = new Pen(Color.Red, 3) });
-                                        continue;
-                                    }
-                                }
-
-                                // 30 seconds history
-                                if (((DateTime)plla.Time) > DateTime.Now.AddSeconds(-30))
-                                {
-                                    var adsbplane = new GMapMarkerADSBPlane(plla, plla.Heading)
-                                    {
-                                        ToolTipText = "ICAO: " + plla.Tag + "\n" +
-                                        "Alt: " + plla.Alt.ToString("0") + "\n" +
-                                        "Speed: " + plla.Speed.ToString("0") + "\n" +
-                                        "Heading: " + plla.Heading.ToString("0")
-                                        ,
-                                        ToolTipMode = MarkerTooltipMode.OnMouseOver,
-                                        Tag = plla
-                                    };
-
-                                    if (plla.DisplayICAO)
-                                        adsbplane.ToolTipMode = MarkerTooltipMode.Always;
-
-                                    switch (plla.ThreatLevel)
-                                    {
-                                        case MAVLink.MAV_COLLISION_THREAT_LEVEL.NONE:
-                                            adsbplane.AlertLevel = GMapMarkerADSBPlane.AlertLevelOptions.Green;
-                                            break;
-                                        case MAVLink.MAV_COLLISION_THREAT_LEVEL.LOW:
-                                            adsbplane.AlertLevel = GMapMarkerADSBPlane.AlertLevelOptions.Orange;
-                                            break;
-                                        case MAVLink.MAV_COLLISION_THREAT_LEVEL.HIGH:
-                                            adsbplane.AlertLevel = GMapMarkerADSBPlane.AlertLevelOptions.Red;
-                                            break;
-                                    }
-
-                                    addMissionRouteMarker(adsbplane);
-                                }
-                            }
-                        }
+                        
 
 
                         if (route.Points.Count > 0)
@@ -3162,28 +3076,6 @@ namespace MissionPlanner.GCSViews
         private void setMapBearing()
         {
             Invoke((Action)delegate { gMapControl1.Bearing = (int)((MainV2.comPort.MAV.cs.yaw + 360) % 360); });
-        }
-
-        private void setMJPEGSourceToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string url = Settings.Instance["mjpeg_url"] != null
-                ? Settings.Instance["mjpeg_url"]
-                : @"http://127.0.0.1:56781/map.jpg";
-
-            if (DialogResult.OK == InputBox.Show("Mjpeg url", "Enter the url to the mjpeg source url", ref url))
-            {
-                Settings.Instance["mjpeg_url"] = url;
-
-                CaptureMJPEG.Stop();
-
-                CaptureMJPEG.URL = url;
-
-                CaptureMJPEG.runAsync();
-            }
-            else
-            {
-                CaptureMJPEG.Stop();
-            }
         }
 
         bool setupPropertyInfo(ref PropertyInfo input, string name, object source)
@@ -4402,8 +4294,11 @@ namespace MissionPlanner.GCSViews
         {
             Ping ping = new Ping();
             ping.PingCompleted += OnPingCompleted;
-            ping.SendAsync("192.168.4.1", 500, null);
-            
+            try
+            {
+                ping.SendAsync("192.168.4.1", 500, null);
+            }
+            catch { }
         }
 
         private void OnPingCompleted(object sender, PingCompletedEventArgs e)

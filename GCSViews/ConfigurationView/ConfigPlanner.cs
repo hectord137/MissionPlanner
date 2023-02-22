@@ -107,9 +107,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             SetCheckboxFromConfig("speechaltenabled", CHK_speechaltwarning);
             SetCheckboxFromConfig("speecharmenabled", CHK_speecharmdisarm);
             SetCheckboxFromConfig("speechlowspeedenabled", CHK_speechlowspeed);
-            SetCheckboxFromConfig("password_protect", CHK_Password);
             SetCheckboxFromConfig("showairports", CHK_showairports);
-            SetCheckboxFromConfig("enableadsb", chk_ADSB);
             SetCheckboxFromConfig("norcreceiver", chk_norcreceiver);
             SetCheckboxFromConfig("showtfr", chk_tfr);
             SetCheckboxFromConfig("autoParamCommit", CHK_AutoParamCommit);
@@ -654,38 +652,9 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             }
         }
 
-        private void BUT_Vario_Click(object sender, EventArgs e)
-        {
-            if (Vario.run)
-            {
-                Vario.Stop();
-            }
-            else
-            {
-                Vario.Start();
-            }
-        }
-
         private void chk_analytics_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Instance["analyticsoptout"] = chk_analytics.Checked.ToString();
-        }
-
-        private void CHK_Password_CheckedChanged(object sender, EventArgs e)
-        {
-            if (startup)
-                return;
-
-            Settings.Instance["password_protect"] = CHK_Password.Checked.ToString();
-            if (CHK_Password.Checked)
-            {
-                // keep this one local
-                string pw = "";
-
-                InputBox.Show("Enter Password", "Please enter a password", ref pw, true);
-
-                Password.EnterPassword(pw);
-            }
         }
 
         private void CHK_speechlowspeed_CheckedChanged(object sender, EventArgs e)
@@ -733,32 +702,6 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         {
             Settings.Instance["showairports"] = CHK_showairports.Checked.ToString();
             MainV2.ShowAirports = CHK_showairports.Checked;
-        }
-
-        private void chk_ADSB_CheckedChanged(object sender, EventArgs e)
-        {
-            if (startup)
-                return;
-
-            if (((CheckBox)sender).Checked)
-            {
-                var server = "127.0.0.1";
-                if (Settings.Instance["adsbserver"] != null)
-                    server = Settings.Instance["adsbserver"];
-                if (DialogResult.Cancel == InputBox.Show("Server", "Server IP?", ref server))
-                    return;
-                Settings.Instance["adsbserver"] = server;
-
-                var port = "30003";
-                if (Settings.Instance["adsbport"] != null)
-                    port = Settings.Instance["adsbport"];
-                if (DialogResult.Cancel == InputBox.Show("Server port", "Server port?", ref port))
-                    return;
-                Settings.Instance["adsbport"] = port;
-            }
-
-            Settings.Instance["enableadsb"] = chk_ADSB.Checked.ToString();
-            MainV2.instance.EnableADSB = chk_ADSB.Checked;
         }
 
         private void chk_tfr_CheckedChanged(object sender, EventArgs e)

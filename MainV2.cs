@@ -243,29 +243,8 @@ namespace MissionPlanner
         public static bool ShowAirports { get; set; }
         public static bool ShowTFR { get; set; }
 
-        private Utilities.adsb _adsb;
 
-        public bool EnableADSB
-        {
-            get { return _adsb != null; }
-            set
-            {
-                if (value == true)
-                {
-                    _adsb = new Utilities.adsb();
-
-                    if (Settings.Instance["adsbserver"] != null)
-                        Utilities.adsb.server = Settings.Instance["adsbserver"];
-                    if (Settings.Instance["adsbport"] != null)
-                        Utilities.adsb.serverport = int.Parse(Settings.Instance["adsbport"].ToString());
-                }
-                else
-                {
-                    Utilities.adsb.Stop();
-                    _adsb = null;
-                }
-            }
-        }
+        
 
         //public static event EventHandler LayoutChanged;
 
@@ -300,12 +279,6 @@ namespace MissionPlanner
 
         public event WMDeviceChangeEventHandler DeviceChanged;
 
-        /// <summary>
-        /// other planes in the area from adsb
-        /// </summary>
-        public object adsblock = new object();
-
-        public ConcurrentDictionary<string, adsb.PointLatLngAltHdg> adsbPlanes = new ConcurrentDictionary<string, adsb.PointLatLngAltHdg>();
 
         string titlebar;
 
@@ -542,11 +515,7 @@ namespace MissionPlanner
                 MainV2.instance.FlightPlanner.updateDisplayView();
             }
 
-            // MenuSimulation.Visible = false;
-            MenuHelp.Visible = false;
-            MenuTerminal.Visible = false;
-            MenuHelp.Visible = false;
-            MenuInitConfig.Visible = false;
+
             
         }
 
@@ -776,11 +745,6 @@ namespace MissionPlanner
             if (Settings.Instance["showtfr"] != null)
             {
                 MainV2.ShowTFR = Settings.Instance.GetBoolean("showtfr", ShowTFR);
-            }
-
-            if (Settings.Instance["enableadsb"] != null)
-            {
-                MainV2.instance.EnableADSB = Settings.Instance.GetBoolean("enableadsb");
             }
 
             try
@@ -1092,22 +1056,20 @@ namespace MissionPlanner
 
             MenuFlightData.Image = displayicons.fd;
             MenuFlightPlanner.Image = displayicons.fp;
-            MenuInitConfig.Image = displayicons.initsetup;
             MenuSimulation.Image = displayicons.sim;
             MenuConfigTune.Image = displayicons.config_tuning;
-            MenuTerminal.Image = displayicons.terminal;
+
             MenuConnect.Image = displayicons.connect;
-            MenuHelp.Image = displayicons.help;
+
 
 
             MenuFlightData.ForeColor = ThemeManager.TextColor;
             MenuFlightPlanner.ForeColor = ThemeManager.TextColor;
-            MenuInitConfig.ForeColor = ThemeManager.TextColor;
             MenuSimulation.ForeColor = ThemeManager.TextColor;
             MenuConfigTune.ForeColor = ThemeManager.TextColor;
-            MenuTerminal.ForeColor = ThemeManager.TextColor;
+
             MenuConnect.ForeColor = ThemeManager.TextColor;
-            MenuHelp.ForeColor = ThemeManager.TextColor;
+
         }
 
         
@@ -1184,33 +1146,6 @@ namespace MissionPlanner
             MyView.ShowScreen("FlightPlanner");
         }
 
-        public void MenuSetup_Click(object sender, EventArgs e)
-        {
-            if (Settings.Instance.GetBoolean("password_protect") == false)
-            {
-                MyView.ShowScreen("HWConfig");
-            }
-            else
-            {
-                var pw = "";
-                if (InputBox.Show("Enter Password", "Please enter your password", ref pw, true) ==
-    System.Windows.Forms.DialogResult.OK)
-                {
-                    bool ans = Password.ValidatePassword(pw);
-
-                    if (ans == false)
-                    {
-                        CustomMessageBox.Show("Bad Password", "Bad Password");
-                    }
-                }
-
-                if (Password.VerifyPassword(pw))
-                {
-                    MyView.ShowScreen("HWConfig");
-                }
-            }
-        }
-
         private void MenuSimulation_Click(object sender, EventArgs e)
         {
             MyView.ShowScreen("Simulation");
@@ -1228,24 +1163,19 @@ namespace MissionPlanner
                 if (InputBox.Show("Enter Password", "Please enter your password", ref pw, true) ==
     System.Windows.Forms.DialogResult.OK)
                 {
-                    bool ans = Password.ValidatePassword(pw);
+                   
 
-                    if (ans == false)
+                    
                     {
                         CustomMessageBox.Show("Bad Password", "Bad Password");
                     }
                 }
 
-                if (Password.VerifyPassword(pw))
+                
                 {
                     MyView.ShowScreen("SWConfig");
                 }
             }
-        }
-
-        private void MenuTerminal_Click(object sender, EventArgs e)
-        {
-            MyView.ShowScreen("Terminal");
         }
 
         public void doDisconnect(MAVLinkInterface comPort)
@@ -1891,9 +1821,6 @@ namespace MissionPlanner
                 {
                 }
             }
-
-            log.Info("stop adsb");
-            Utilities.adsb.Stop();
 
             log.Info("stop WarningEngine");
             Warnings.WarningEngine.Stop();
@@ -3199,11 +3126,6 @@ namespace MissionPlanner
             log.Info("this   width " + this.Width + " height " + this.Height);
         }
 
-        private void MenuHelp_Click(object sender, EventArgs e)
-        {
-            MyView.ShowScreen("Help");
-        }
-
 
         /// <summary>
         /// keyboard shortcuts override
@@ -3270,12 +3192,6 @@ namespace MissionPlanner
 
                 //ftp.test();
 
-            }
-            if (keyData == (Keys.Control | Keys.L)) // limits
-            {
-                new DigitalSkyUI().ShowUserControl();
-
-                return true;
             }
             if (keyData == (Keys.Control | Keys.W)) // test ac config
             {

@@ -100,19 +100,6 @@ namespace MissionPlanner
             }
         }
 
-        public static event EventHandler<adsb.PointLatLngAltHdg> UpdateADSBPlanePosition
-        {
-            add
-            {
-                log.Info("Subscribed " + new StackTrace(1, true)?.GetFrame(0)?.ToString() + " " + value.Method.Name + " " + value.Target.GetType().Name +
-                         " " + value); _UpdateADSBPlanePosition += value;
-            }
-            remove
-            {
-                log.Info("UnSubscribed " + new StackTrace(1, true)?.GetFrame(0)?.ToString() + " " + value.Method.Name + " " + value.Target.GetType().Name +
-                         " " + value); _UpdateADSBPlanePosition -= value;
-            }
-        }
         public static event EventHandler<(string id, MAV_COLLISION_THREAT_LEVEL threat_level)> UpdateADSBCollision
         {
             add
@@ -4420,52 +4407,7 @@ Mission Planner waits for 2 valid heartbeat packets before connecting");
                     MAVlist[sysid, compid].packetspersecondbuild[msgid] = DateTime.Now;
 
                     //Console.WriteLine("Packet {0}",temp[5]);
-                    // store packet history
-                    lock (objlock)
-                    {
-                        MAVlist[sysid, compid].addPacket(message);
 
-                        // adsb packets are forwarded and can be from any sysid/compid
-                        if (msgid == (byte)MAVLINK_MSG_ID.ADSB_VEHICLE)
-                        {
-                            var adsb = message.ToStructure<mavlink_adsb_vehicle_t>();
-
-                            var id = adsb.ICAO_address.ToString("X5");
-
-                            if (_UpdateADSBPlanePosition != null)
-                                _UpdateADSBPlanePosition(this, new adsb.PointLatLngAltHdg(adsb.lat / 1e7,
-                                        adsb.lon / 1e7,
-                                        adsb.altitude / 1000.0, adsb.heading * 0.01f, adsb.hor_velocity * 0.01f, id,
-                                        DateTime.Now)
-                                    {
-                                        CallSign = Encoding.ASCII.GetString(adsb.callsign),
-                                        Squawk = adsb.squawk,
-                                        Raw = adsb
-                                    }
-                                );
-                        }
-
-                        if (msgid == (byte)MAVLINK_MSG_ID.COLLISION)
-                        {
-                            var coll = message.ToStructure<mavlink_collision_t>();
-
-                            var id = coll.id.ToString("X5");
-
-                            var coll_type = (MAV_COLLISION_SRC)coll.src;
-
-                            var action = (MAV_COLLISION_ACTION)coll.action;
-
-                            if (action > MAV_COLLISION_ACTION.REPORT)
-                            {
-                                // we are reacting to a threat
-
-                            }
-
-                            var threat_level = (MAV_COLLISION_THREAT_LEVEL)coll.threat_level;
-
-                            _UpdateADSBCollision?.Invoke(this, (id, threat_level));
-                        }
-                    }
 
                     // set seens sysid's based on hb packet - this will hide 3dr radio packets
                     if (msgid == (uint)MAVLINK_MSG_ID.UAVCAN_NODE_STATUS)
@@ -5590,7 +5532,7 @@ Mission Planner waits for 2 valid heartbeat packets before connecting");
         Dictionary<Stream, Tuple<string, long>> streamfncache = new Dictionary<Stream, Tuple<string, long>>();
         private EventHandler<MAVLinkMessage> _OnPacketReceived;
         private EventHandler<MAVLinkMessage> _OnPacketSent;
-        private static EventHandler<adsb.PointLatLngAltHdg> _UpdateADSBPlanePosition;
+
         private static EventHandler<(string id, MAV_COLLISION_THREAT_LEVEL threat_level)> _UpdateADSBCollision;
         private EventHandler _ParamListChanged;
         private EventHandler _MavChanged;
