@@ -4294,9 +4294,11 @@ namespace MissionPlanner.GCSViews
         {
             Ping ping = new Ping();
             ping.PingCompleted += OnPingCompleted;
+            string data = "abcdefghijklmnop";
+            byte[] buffer = Encoding.ASCII.GetBytes(data);
             try
             {
-                ping.SendAsync("192.168.4.1", 500, null);
+                ping.SendAsync("192.168.4.1", 1000, buffer, null);
             }
             catch { }
         }
@@ -4497,9 +4499,8 @@ namespace MissionPlanner.GCSViews
                 catch { }
 
             }
-            catch (Exception e)
+            catch
             {
-                CustomMessageBox.Show("Error Getting Data\n\n" + e.Message);
                 if (formProgressReporter != null)
                 {
                     formProgressReporter.doWorkArgs.CancelRequested = true;
@@ -4509,7 +4510,12 @@ namespace MissionPlanner.GCSViews
 
         private void BUT_ClearEchoData_Click(object sender, EventArgs e)
         {
-            udpClient.Close();
+            try
+            {
+                udpClient.Close();
+            }
+            catch { }
+
             udpClient = new System.Net.Sockets.UdpClient();
             udpClient.Connect("192.168.4.1", 8080);
 
