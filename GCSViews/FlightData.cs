@@ -159,9 +159,6 @@ namespace MissionPlanner.GCSViews
 
             mymap.Paint += mymap_Paint;
 
-            // populate the unmodified base list
-            tabControlactions.TabPages.ForEach(i => { TabListOriginal.Add((TabPage)i); });
-
             //  mymap.Manager.UseMemoryCache = false;
 
             log.Info("Tunning Graph Settings");
@@ -663,89 +660,6 @@ namespace MissionPlanner.GCSViews
             updateBindingSourceWork();
         }
 
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if (keyData == (Keys.Control | Keys.D1))
-            {
-                tabControlactions.SelectedIndex = 0;
-                return true;
-            }
-            else if (keyData == (Keys.Control | Keys.D2))
-            {
-                tabControlactions.SelectedIndex = 1;
-                return true;
-            }
-            else if (keyData == (Keys.Control | Keys.D3))
-            {
-                tabControlactions.SelectedIndex = 2;
-                return true;
-            }
-            else if (keyData == (Keys.Control | Keys.D4))
-            {
-                tabControlactions.SelectedIndex = 3;
-                return true;
-            }
-            else if (keyData == (Keys.Control | Keys.D5))
-            {
-                tabControlactions.SelectedIndex = 4;
-                return true;
-            }
-            else if (keyData == (Keys.Control | Keys.D6))
-            {
-                tabControlactions.SelectedIndex = 5;
-                return true;
-            }
-            else if (keyData == (Keys.Control | Keys.D7))
-            {
-                tabControlactions.SelectedIndex = 6;
-                return true;
-            }
-            else if (keyData == (Keys.Control | Keys.D8))
-            {
-                tabControlactions.SelectedIndex = 7;
-                return true;
-            }
-            else if (keyData == (Keys.Control | Keys.D9))
-            {
-                tabControlactions.SelectedIndex = 8;
-                return true;
-            }
-            else if (keyData == (Keys.Control | Keys.D0))
-            {
-                tabControlactions.SelectedIndex = 9;
-                return true;
-            }
-
-            if (keyData == (Keys.Space))
-            {
-                if (MainV2.comPort.logplaybackfile != null)
-                {
-                    BUT_playlog_Click(null, null);
-                    return true;
-                }
-            }
-            else if (keyData == (Keys.Subtract))
-            {
-                if (LogPlayBackSpeed > 1)
-                    LogPlayBackSpeed--;
-                else
-                    LogPlayBackSpeed /= 2;
-
-                updateLogPlayPosition();
-            }
-            else if (keyData == (Keys.Add))
-            {
-                if (LogPlayBackSpeed > 1)
-                    LogPlayBackSpeed++;
-                else
-                    LogPlayBackSpeed *= 2;
-
-                updateLogPlayPosition();
-            }
-
-            return false;
-        }
-
         void addHudUserItem(ref HUD.Custom cust, string name)
         {
             setupPropertyInfo(ref cust.Item, name, MainV2.comPort.MAV.cs);
@@ -1114,13 +1028,6 @@ namespace MissionPlanner.GCSViews
                 string file = fd.FileName;
                 LoadLogFile(file);
             }
-        }
-
-        private void BUT_log2kml_Click(object sender, EventArgs e)
-        {
-//            Form frm = new MavlinkLog();
-//            ThemeManager.ApplyThemeTo(frm);
-//            frm.Show();
         }
 
         private void BUT_loganalysis_Click(object sender, EventArgs e)
@@ -2985,31 +2892,9 @@ namespace MissionPlanner.GCSViews
            });
         }
 
-        private void resetToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Refresh();
-        }
-
-        private void russianHudToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            hud1.Russian = !hud1.Russian;
-            Settings.Instance["russian_hud"] = hud1.Russian.ToString();
-        }
-
         private void saveFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             POI.POISave();
-        }
-        private void saveTabControlActions()
-        {
-            string answer = "";
-
-            foreach (TabPage tabPage in tabControlactions.TabPages)
-            {
-                answer += tabPage.Name + ";";
-            }
-
-            Settings.Instance["tabcontrolactions"] = answer;
         }
 
         private void setEKFHomeHereToolStripMenuItem_Click(object sender, EventArgs e)
