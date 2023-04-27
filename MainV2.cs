@@ -1,4 +1,5 @@
-﻿using GMap.NET.WindowsForms;
+﻿using AutoUpdaterDotNET;
+using GMap.NET.WindowsForms;
 using log4net;
 using MissionPlanner.ArduPilot;
 using MissionPlanner.Comms;
@@ -13,6 +14,7 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
@@ -519,9 +521,33 @@ namespace MissionPlanner
             
         }
 
+        private void AutoUpdater_CheckForUpdateEvent(UpdateInfoEventArgs args)
+        {
+            if (args != null)
+            {
+                if (args.IsUpdateAvailable)
+                {
+                    Program.Splash?.Close();
+                    AutoUpdater.ShowUpdateForm(args); 
+                }
+            }
+        }
+
 
         public MainV2()
         {
+
+            // Configurar AutoUpdater.NET
+            string updatePath = Path.Combine(Path.GetTempPath(), "MP_Update");
+            AutoUpdater.DownloadPath = updatePath;
+            AutoUpdater.UpdateMode = Mode.Normal;
+            AutoUpdater.RunUpdateAsAdmin = true;
+            AutoUpdater.ShowRemindLaterButton = false;
+            AutoUpdater.ShowSkipButton = false;
+            AutoUpdater.CheckForUpdateEvent += AutoUpdater_CheckForUpdateEvent;
+            AutoUpdater.Start("https://github.com/hectord137/MissionPlanner/releases/latest/download/updateinfo.xml");
+
+
             log.Info("Mainv2 ctor");
 
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);

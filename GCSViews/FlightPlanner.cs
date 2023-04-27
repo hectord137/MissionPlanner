@@ -7323,7 +7323,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             if (MainV2.comPort.MAV.cs.Location.Lat == 0 && MainV2.comPort.MAV.cs.Location.Lng == 0)
             {
-                CustomMessageBox.Show(Strings.Invalid_Location, Strings.ERROR);
+                CustomMessageBox.Show("Invalid_Location", Strings.ERROR);
                 return;
             }
 

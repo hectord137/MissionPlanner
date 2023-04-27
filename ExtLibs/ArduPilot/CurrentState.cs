@@ -2343,15 +2343,15 @@ namespace MissionPlanner
                             }
                             else if (!sensors_health.battery && sensors_enabled.battery && sensors_present.battery)
                             {
-                                messageHigh = Strings.Bad_Battery;
+                                messageHigh = "Bad_Battery";
                             }
                             else if (!sensors_health.proximity && sensors_enabled.proximity && sensors_present.proximity)
                             {
-                                messageHigh = Strings.Bad_Proximity;
+                                messageHigh = "Bad_Proximity";
                             }
                             else if (!sensors_health.satcom && sensors_enabled.satcom && sensors_present.satcom)
                             {
-                                messageHigh = Strings.Bad_SatCom;
+                                messageHigh = "Bad_SatCom";
                             }
                         }
 
