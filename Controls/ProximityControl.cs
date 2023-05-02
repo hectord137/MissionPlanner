@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using static MAVLink;
+using Timer = System.Windows.Forms.Timer;
 
 namespace MissionPlanner.Controls
 {
@@ -17,7 +18,7 @@ namespace MissionPlanner.Controls
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         MAVState _parent;
-        private Proximity.directionState _dS => _parent.Proximity.DirectionState;
+        private Proximity.directionState _dS => _parent?.Proximity?.DirectionState;
 
         private Timer timer1;
         private IContainer components;
@@ -27,6 +28,8 @@ namespace MissionPlanner.Controls
         public ProximityControl(MAVState state)
         {
             InitializeComponent();
+
+            this.DoubleBuffered = true;
 
             _parent = state;
 
@@ -88,8 +91,6 @@ namespace MissionPlanner.Controls
 
         private void Temp_Paint(object sender, PaintEventArgs e)
         {
-            var rawdata = _dS.GetRaw();
-
             e.Graphics.Clear(BackColor);
 
             var midx = e.ClipRectangle.Width / 2.0f;
@@ -111,7 +112,41 @@ namespace MissionPlanner.Controls
                     e.Graphics.DrawImage(Resources.quadicon, midx - imw, midy - imw, size, size);
                     break;
             }
+            
+            if (_dS == null)
+                return;
 
+            Pen redpen = new Pen(Color.Red, 3);
+            Pen yellowpen = new Pen(Color.Yellow, 3);
+            var font = new Font(SystemFonts.DefaultFont.FontFamily, SystemFonts.DefaultFont.Size + 2, FontStyle.Bold);
+                 
+            float move = 5;
+
+            for (float x = 50f; x <= screenradius; x+=50f)
+            {
+                Vector3 location = new Vector3(0, (x) / scale, 0);
+                var doublelength = location.length() * 2.0f;
+                var length = location.length();
+
+                e.Graphics.DrawArc(Pens.DimGray, (float) (midx - length), (float) (midy - length),
+                    (float) doublelength, (float) doublelength, 0f,
+                    (float) 360);
+                e.Graphics.DrawString((x / 100).ToString("0.0m"), font, System.Drawing.Brushes.Green, midx - (float)location.x + move, midy - (float)location.y);
+            }
+
+            for (float x = 0; x < 360; x+=45f)
+            {
+                Vector3 location = new Vector3(0, screenradius / scale, 0);
+                var doublelength = location.length() * 2.0f;
+                var length = location.length();
+
+                location.rotate(x);
+                e.Graphics.DrawString((x).ToString("0"), font, System.Drawing.Brushes.DimGray, midx - (float)location.x - move * 2, midy - (float)location.y + move);
+                e.Graphics.DrawLine(Pens.DimGray, (float) (midx), (float) (midy),  midx-(float)location.X,
+                     midy-(float)location.Y);
+            }
+
+            var rawdata = _dS.GetRaw();
             foreach (var temp in rawdata.ToList())
             {
                 Vector3 location = new Vector3(0, Math.Min(temp.Distance / scale, (screenradius) / scale), 0);
@@ -119,10 +154,6 @@ namespace MissionPlanner.Controls
                 var halflength = location.length() / 2.0f;
                 var doublelength = location.length() * 2.0f;
                 var length = location.length();
-
-                Pen redpen = new Pen(Color.Red, 3);
-                float move = 5;
-                var font = new Font(SystemFonts.DefaultFont.FontFamily, SystemFonts.DefaultFont.Size + 2, FontStyle.Bold);
 
                 switch (temp.Orientation)
                 {
@@ -166,6 +197,13 @@ namespace MissionPlanner.Controls
                         e.Graphics.DrawString((temp.Distance / 100).ToString("0.0m"), font, System.Drawing.Brushes.Green, midx - (float)location.x + move, midy - (float)location.y);
                         e.Graphics.DrawArc(redpen, (float)(midx - length), (float)(midy - length), (float)doublelength, (float)doublelength, 292.5f - 90f, 45f);
                         break;
+                    case MAV_SENSOR_ORIENTATION.MAV_SENSOR_ROTATION_CUSTOM:
+                        location.rotate(temp.Angle);
+                        //e.Graphics.DrawString((temp.Distance / 100).ToString("0.0m"), font, System.Drawing.Brushes.Green, midx - (float)location.x + move, midy - (float)location.y);
+                        e.Graphics.DrawArc(yellowpen, (float) (midx - length), (float) (midy - length),
+                            (float) doublelength, (float) doublelength, (float)temp.Angle - ((float)temp.Size / 2.0f) - 90f,
+                            (float)temp.Size);
+                        break;
                 }
             }
         }
@@ -182,7 +220,8 @@ namespace MissionPlanner.Controls
             else
             {
                 Dispose();
-                _parent.Proximity = new Proximity(_parent);
+                _parent.Proximity = new Proximity(_parent, (byte)MainV2.comPort.sysidcurrent,
+                    (byte)MainV2.comPort.compidcurrent);
                 base.Show();
             }
         }

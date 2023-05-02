@@ -21,7 +21,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 {
     public partial class ConfigPlanner : MyUserControl, IActivate
     {
-        private List<CultureInfo> _languages;
+        //private List<CultureInfo> _languages;
         private bool startup;
 //        static temp temp;
     
@@ -67,36 +67,6 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
             num_gcsid.Value = MAVLinkInterface.gcssysid;
 
-            // setup language selection
-            var cultureCodes = new[]
-            {
-                "en-US", "zh-Hans", "zh-TW", "ru-RU", "Fr", "Pl", "it-IT", "es-ES", "de-DE", "ja-JP", "id-ID", "ko-KR",
-                "ar", "pt", "tr", "ru-KZ"
-            };
-
-            _languages = cultureCodes
-                .Select(CultureInfoEx.GetCultureInfo)
-                .Where(c => c != null)
-                .ToList();
-
-            CMB_language.DisplayMember = "DisplayName";
-            CMB_language.DataSource = _languages;
-            var currentUiCulture = Thread.CurrentThread.CurrentUICulture;
-
-            for (var i = 0; i < _languages.Count; i++)
-            {
-                if (currentUiCulture.IsChildOf(_languages[i]))
-                {
-                    try
-                    {
-                        CMB_language.SelectedIndex = i;
-                    }
-                    catch
-                    {
-                    }
-                    break;
-                }
-            }
 
             // setup speech states
             SetCheckboxFromConfig("speechenable", CHK_enablespeech);
@@ -274,14 +244,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         private void CMB_language_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (startup)
-                return;
-            MainV2.instance.changelanguage((CultureInfo)CMB_language.SelectedItem);
 
-            MessageBox.Show("Please Restart the Planner");
-
-            MainV2.instance.Close();
-            //Application.Exit();
         }
 
         private void CMB_osdcolor_SelectedIndexChanged(object sender, EventArgs e)
@@ -408,9 +371,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         private void BUT_Joystick_Click(object sender, EventArgs e)
         {
-            Form joy = new JoystickSetup();
-            ThemeManager.ApplyThemeTo(joy);
-            joy.Show();
+            new JoystickSetup().ShowUserControl();
         }
 
         private void CMB_rateattitude_SelectedIndexChanged(object sender, EventArgs e)

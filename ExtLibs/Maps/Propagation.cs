@@ -21,17 +21,8 @@ namespace MissionPlanner.Maps
         public PointLatLngAlt center = PointLatLngAlt.Zero;
         private float clearance;
 
-        //Releif Shading Parameters
-        private readonly byte[] colors = {220, 226, 232, 233, 244, 250, 214, 142, 106}; //Colors: Red - Yellow - Green
-
-        private readonly byte[] colors2 =
-        {
-            195, 189, 123, 80, 81, 45, 51, 57, 105, 111, 75, 74, 70, 72, 106, 108, 142, 178, 214, 215, 250, 244, 239,
-            238, 233, 232, 226, 220
-        }; //Colors: Blue - Green - Yellow - Red
 
         public GMapOverlay distance;
-        private readonly Thread elevation; //Map Overlay Thread
 
         public GMapOverlay elevationoverlay;
         private readonly int extend = 384; //elevation extention in pixels
@@ -68,10 +59,7 @@ namespace MissionPlanner.Maps
             distance = new GMapOverlay("distance");
             gMapControl1.Overlays.Insert(0, distance);
 
-            elevation = new Thread(elevation_calc);
-            elevation.Name = "elevation";
-            elevation.IsBackground = true;
-            elevation.Start();
+            elevation_calc();
 
             need_rf_redraw = true;
         }
@@ -127,7 +115,8 @@ namespace MissionPlanner.Maps
         {
             this.HomeLocation = HomeLocation;
             DroneLocation = Location;
-            distance.Markers.Clear();
+            if(distance.Markers.Count > 0)
+                distance.Markers.Clear();
 
             if (connected && home_kmleft)
             {
@@ -146,7 +135,7 @@ namespace MissionPlanner.Maps
             }
         }
 
-        private void elevation_calc()
+        private async void elevation_calc()
         {
             ele_enabled = true;
 
@@ -167,7 +156,7 @@ namespace MissionPlanner.Maps
                     if (center == PointLatLngAlt.Zero)
                     {
                         // center has not been set yet
-                        Thread.Sleep(100);
+                        await Task.Delay(250).ConfigureAwait(false);
                         continue;
                     }
 
@@ -199,8 +188,11 @@ namespace MissionPlanner.Maps
 
                                 imageDataCenter = center;
                                 var tl = gMapControl1.FromLocalToLatLng(-extend / 2, -extend / 2);
-                                var rb = gMapControl1.FromLocalToLatLng(width + extend / 2,
-                                    height + extend / 2);
+                                // FromLocalToLatLng trims off anything out of bounds, this handles that
+                                var tloffset = gMapControl1.FromLatLngToLocal(tl);
+                                // get the trimmed rb
+                                var rb = gMapControl1.FromLocalToLatLng((int)tloffset.X + width + extend, (int)tloffset.Y + height + extend);
+                                // set the capture area
                                 imageDataRect = RectLatLng.FromLTRB(tl.Lng, tl.Lat, rb.Lng, rb.Lat);
 
                                 CancellationTokenSource cts = new CancellationTokenSource();
@@ -220,10 +212,11 @@ namespace MissionPlanner.Maps
                                         for (var x = res / 2; x < width + extend - res; x += res)
                                         {
                                             if (cts.IsCancellationRequested) return;
-                                            var lnglat = gMapControl1.FromLocalToLatLng(x - extend / 2, y - extend / 2);
+                                            // take into account our negative extent plus the current pixel
+                                            var lnglat = gMapControl1.FromLocalToLatLng((int)tloffset.X + x, (int)tloffset.Y + y);
                                             var altresponce = srtm.getAltitude(lnglat.Lat, lnglat.Lng, zoom);
                                             if (altresponce != srtm.altresponce.Invalid &&
-                                                altresponce != srtm.altresponce.Ocean)
+                                                altresponce != srtm.altresponce.Ocean && altresponce.alt != 0)
                                             {
                                                 alts[x, y] = altresponce.alt;
 
@@ -264,15 +257,7 @@ namespace MissionPlanner.Maps
 
                                             var normvalue = normalize(rel);
 
-                                            /*
-                                            //diagonal pattern
-                                            for (int i = -res / 2; i <= res / 2; i++)
-                                            {
-                                                imageData[x + i, y + i] = Gradient_byte(normvalue,colors);
-                                            }
-                                            */
-
-                                            var gradcolor = Gradient_byte(normvalue, colors);
+                                            var gradcolor = (byte)(((1-normvalue) * 254));
 
                                             if (alts[x, y] < -999)
                                                 gradcolor = 0;
@@ -285,15 +270,9 @@ namespace MissionPlanner.Maps
                                         else if (ter_run)
                                         {
                                             var normvalue = normalize(alts[x, y]);
-                                            /*
-                                            //diagonal pattern
-                                            for (int i = -res / 2; i <= res / 2; i++)
-                                            {
-                                                imageData[x + i, y + i] = Gradient_byte(normvalue,colors2);
-                                            }
-                                            */
 
-                                            var gradcolor = Gradient_byte(normvalue, colors2);
+
+                                            var gradcolor = (byte)(normvalue * 255);
 
                                             if (alts[x, y] < -999)
                                                 gradcolor = 0;
@@ -308,7 +287,11 @@ namespace MissionPlanner.Maps
 
                             start2 = DateTime.Now;
 
-                            var gMapMarkerElevation = new GMapMarkerElevation(imageData,
+                            var tlfinal = gMapControl1.FromLatLngToLocal(imageDataRect.LocationTopLeft);
+                            var rbfinal = gMapControl1.FromLatLngToLocal(imageDataRect.LocationRightBottom);
+                            
+                            var gMapMarkerElevation = new GMapMarkerElevation(imageData, 
+                                (int)Math.Min(rbfinal.X - tlfinal.X, imageData.GetLength(0)), (int)Math.Min(rbfinal.Y - tlfinal.Y, imageData.GetLength(1)),
                                 new RectLatLng(imageDataRect.LocationTopLeft, imageDataRect.Size),
                                 new PointLatLngAlt(imageDataCenter));
 
@@ -384,7 +367,7 @@ namespace MissionPlanner.Maps
                     log.Error(ex);
                 }
 
-                Thread.Sleep(100);
+                await Task.Delay(333).ConfigureAwait(false);
             }
         }
 

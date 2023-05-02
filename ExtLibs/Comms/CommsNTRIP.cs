@@ -3,6 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Net.Security;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -20,6 +21,7 @@ namespace MissionPlanner.Comms
         private DateTime _lastnmea = DateTime.MinValue;
         public double alt = 0;
         public TcpClient client = new TcpClient();
+        private Stream st;
 
         private string host;
 
@@ -41,7 +43,7 @@ namespace MissionPlanner.Comms
         public int WriteTimeout { get; set; }
         public bool RtsEnable { get; set; }
 
-        public Stream BaseStream => client.GetStream();
+        public Stream BaseStream => st;
 
         public void toggleDTR()
         {
@@ -108,6 +110,32 @@ namespace MissionPlanner.Comms
 
             OnSettings("NTRIP_url", url, true);
 
+            Open(url);
+        }
+
+        public static string PercentEncode(string value)
+        {
+            StringBuilder retval = new StringBuilder();
+            foreach (char c in value)
+            {
+                if ((c >= 48 && c <= 57) || //0-9  
+                    (c >= 65 && c <= 90) || //a-z  
+                    (c >= 97 && c <= 122) || //A-Z                    
+                    (c == 45 || c == 46 || c == 95 || c == 126 || c == 64 || c== 47 || c==58)) // period, hyphen, underscore, tilde, @, :, /
+                {
+                    retval.Append(c);
+                }
+                else
+                {
+                    retval.AppendFormat("%{0:X2}", ((byte)c));
+                }
+            }
+            return retval.ToString();
+        }
+
+        public void Open(string url)
+        {
+            // Need to ensure URI is % encoded, except the first "@", colons and backslashes
             var count = url.Split('@').Length - 1;
 
             if (count > 1)
@@ -115,6 +143,8 @@ namespace MissionPlanner.Comms
                 var regex = new Regex("@");
                 url = regex.Replace(url, "%40", 1);
             }
+
+            url = PercentEncode(url);
 
             url = url.Replace("ntrip://", "http://");
 
@@ -133,14 +163,7 @@ namespace MissionPlanner.Comms
             {
                 if (length < 1) return 0;
 
-                return client.Client.Receive(readto, offset, length, SocketFlags.Partial);
-                /*
-                                byte[] temp = new byte[length];
-                                clientbuf.Read(temp, 0, length);
-
-                                temp.CopyTo(readto, offset);
-
-                                return length;*/
+                return st.Read(readto, offset, length);
             }
             catch
             {
@@ -201,7 +224,7 @@ namespace MissionPlanner.Comms
             VerifyConnected();
             try
             {
-                client.Client.Send(write, length, SocketFlags.None);
+                st.Write(write, offset, length);
             }
             catch
             {
@@ -308,25 +331,45 @@ namespace MissionPlanner.Comms
             Port = remoteUri.Port.ToString();
 
             client = new TcpClient(host, int.Parse(Port));
-            client.Client.IOControl(IOControlCode.KeepAliveValues, TcpKeepAlive(true, 36000000, 3000), null);
+            try
+            {
+                // fails under mono
+                client.Client.IOControl(IOControlCode.KeepAliveValues, TcpKeepAlive(true, 36000000, 3000), null);
+            } catch
+            {
+            }
 
-            var ns = client.GetStream();
+            if (Port == "443" || remoteUri.Scheme == "https")
+            {
+                var ssl = new SslStream(client.GetStream(), false);
+                ssl.AuthenticateAsClient(host);
+                st = ssl;
+            }
+            else
+                st = client.GetStream();
 
-            var sw = new StreamWriter(ns);
-            var sr = new StreamReader(ns);
+            var sw = new StreamWriter(st);
+            var sr = new StreamReader(st);
 
-            var line = "GET " + remoteUri.PathAndQuery + " HTTP/1.0\r\n"
+            var linev1 = "GET " + remoteUri.PathAndQuery + " HTTP/1.0\r\n"
+                        + "User-Agent: NTRIP MissionPlanner/1.0\r\n"
+                        + auth
+                        + "Connection: close\r\n\r\n";
+
+            var linev2 = "GET " + remoteUri.PathAndQuery + " HTTP/1.1\r\n"
+                       + "Host: " + remoteUri.Host + ":" + remoteUri.Port + "\r\n"
+                       + "Ntrip-Version: Ntrip/2.0\r\n"
                        + "User-Agent: NTRIP MissionPlanner/1.0\r\n"
                        + auth
                        + "Connection: close\r\n\r\n";
 
-            sw.Write(line);
+            sw.Write(linev2);
 
-            log.Info(line);
+            log.Info(linev2);
 
             sw.Flush();
 
-            line = sr.ReadLine();
+            var line = sr.ReadLine();
 
             log.Info(line);
 
@@ -337,6 +380,17 @@ namespace MissionPlanner.Comms
                 client = new TcpClient();
 
                 throw new Exception("Bad ntrip Responce\n\n" + line);
+            }
+
+            if (line.Contains("SOURCETABLE"))
+            {
+                log.Info(sr.ReadToEnd());
+
+                client.Dispose();
+
+                client = new TcpClient();
+
+                throw new Exception("Got SOURCETABLE - Bad ntrip mount point\n\n" + line);
             }
 
             // vrs may take up to 60+ seconds to respond

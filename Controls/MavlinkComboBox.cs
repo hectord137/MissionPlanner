@@ -148,7 +148,7 @@ namespace MissionPlanner.Controls
 
                     if (!MainV2.comPort.setParam(ParamName, (float)(Int32)Enum.Parse(_source, this.Text)))
                     {
-                        CustomMessageBox.Show(String.Format(Strings.ErrorSetValueFailed, ParamName), Strings.ERROR);
+                        CustomMessageBox.Show(String.Format("ErrorSetValueFailed", ParamName), "ERROR");
                     }
 
                     if (paramname2 != "")
@@ -157,13 +157,13 @@ namespace MissionPlanner.Controls
                             !MainV2.comPort.setParam(paramname2,
                                 (float)(Int32)Enum.Parse(_source, this.Text) > 0 ? 1 : 0))
                         {
-                            CustomMessageBox.Show(String.Format(Strings.ErrorSetValueFailed, paramname2), Strings.ERROR);
+                            CustomMessageBox.Show(String.Format("ErrorSetValueFailed", paramname2), "ERROR");
                         }
                     }
                 }
                 catch
                 {
-                    CustomMessageBox.Show(String.Format(Strings.ErrorSetValueFailed, ParamName), Strings.ERROR);
+                    CustomMessageBox.Show(String.Format("ErrorSetValueFailed", ParamName), "ERROR");
                 }
             }
             else if (_source2 != null)
@@ -179,7 +179,7 @@ namespace MissionPlanner.Controls
 
                     if (!MainV2.comPort.setParam(ParamName, (float)(int)((MavlinkComboBox)sender).SelectedValue))
                     {
-                        CustomMessageBox.Show("Set " + ParamName + " Failed!", Strings.ERROR);
+                        CustomMessageBox.Show("Set " + ParamName + " Failed!", "ERROR");
                     }
 
                     if (paramname2 != "")
@@ -188,13 +188,13 @@ namespace MissionPlanner.Controls
                             !MainV2.comPort.setParam(paramname2,
                                 (float)(int)((MavlinkComboBox)sender).SelectedValue > 0 ? 1 : 0))
                         {
-                            CustomMessageBox.Show("Set " + paramname2 + " Failed!", Strings.ERROR);
+                            CustomMessageBox.Show("Set " + paramname2 + " Failed!", "ERROR");
                         }
                     }
                 }
                 catch
                 {
-                    CustomMessageBox.Show("Set " + ParamName + " Failed!", Strings.ERROR);
+                    CustomMessageBox.Show("Set " + ParamName + " Failed!", "ERROR");
                 }
             }
         }

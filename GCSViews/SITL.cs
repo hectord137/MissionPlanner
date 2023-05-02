@@ -132,7 +132,7 @@ namespace MissionPlanner.GCSViews
 
             if (markeroverlay.Markers.Count == 0)
             {
-                CustomMessageBox.Show(Strings.Invalid_home_location);
+                CustomMessageBox.Show("Invalid_home_location");
                 return;
             }
 
@@ -152,7 +152,7 @@ namespace MissionPlanner.GCSViews
         {
             if (markeroverlay.Markers.Count == 0)
             {
-                CustomMessageBox.Show(Strings.Invalid_home_location);
+                CustomMessageBox.Show("Invalid_home_location");
                 return;
             }
 
@@ -173,7 +173,7 @@ namespace MissionPlanner.GCSViews
         {
             if (markeroverlay.Markers.Count == 0)
             {
-                CustomMessageBox.Show(Strings.Invalid_home_location);
+                CustomMessageBox.Show("Invalid_home_location");
                 return;
             }
 
@@ -194,7 +194,7 @@ namespace MissionPlanner.GCSViews
         {
             if (markeroverlay.Markers.Count == 0)
             {
-                CustomMessageBox.Show(Strings.Invalid_home_location);
+                CustomMessageBox.Show("Invalid_home_location");
                 return;
             }
 
@@ -411,13 +411,13 @@ namespace MissionPlanner.GCSViews
         {
             if (String.IsNullOrEmpty(homelocation))
             {
-                CustomMessageBox.Show(Strings.Invalid_home_location, Strings.ERROR);
+                CustomMessageBox.Show("Invalid_home_location", "ERROR");
                 return;
             }
 
             if (!File.Exists(exepath))
             {
-                CustomMessageBox.Show(Strings.Failed_to_download_the_SITL_image, Strings.ERROR);
+                CustomMessageBox.Show("Failed_to_download_the_SITL_image", "ERROR");
                 return;
             }
 
@@ -476,7 +476,7 @@ namespace MissionPlanner.GCSViews
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show("Failed to start the simulator\n" + ex.ToString(), Strings.ERROR);
+                CustomMessageBox.Show("Failed to start the simulator\n" + ex.ToString(), "ERROR");
                 return;
             }
 
@@ -500,7 +500,7 @@ namespace MissionPlanner.GCSViews
             }
             catch
             {
-                CustomMessageBox.Show(Strings.Failed_to_connect_to_SITL_instance, Strings.ERROR);
+                CustomMessageBox.Show("Failed_to_connect_to_SITL_instance", "ERROR");
                 return;
             }
         }
@@ -707,7 +707,7 @@ SIM_DRIFT_TIME=0
             }
             catch
             {
-                CustomMessageBox.Show(Strings.Failed_to_connect_to_SITL_instance, Strings.ERROR);
+                CustomMessageBox.Show("Failed_to_connect_to_SITL_instance", "ERROR");
                 return;
             }
         }
@@ -834,7 +834,7 @@ SIM_DRIFT_TIME=0
             }
             catch
             {
-                CustomMessageBox.Show(Strings.Failed_to_connect_to_SITL_instance, Strings.ERROR);
+                CustomMessageBox.Show("Failed_to_connect_to_SITL_instance", "ERROR");
                 return;
             }
         }

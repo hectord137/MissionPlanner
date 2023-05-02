@@ -20,7 +20,7 @@ namespace MissionPlanner.Controls
 
             if (threadrun)
             {
-                BUT_connect.Text = Strings.Stop;
+                BUT_connect.Text = "Stop";
             }
 
         }
@@ -31,7 +31,7 @@ namespace MissionPlanner.Controls
             {
                 threadrun = false;
                 comPort.Close();
-                BUT_connect.Text = Strings.Connect;
+                BUT_connect.Text = "Connect";
             }
             else
             {
@@ -41,7 +41,7 @@ namespace MissionPlanner.Controls
                 }
                 catch
                 {
-                    CustomMessageBox.Show(Strings.InvalidPortName);
+                    CustomMessageBox.Show("InvalidPortName");
                     return;
                 }
                 try
@@ -50,7 +50,7 @@ namespace MissionPlanner.Controls
                 }
                 catch
                 {
-                    CustomMessageBox.Show(Strings.InvalidBaudRate);
+                    CustomMessageBox.Show("InvalidBaudRate");
                     return;
                 }
                 try

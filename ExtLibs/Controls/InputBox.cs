@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MissionPlanner.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -64,7 +65,24 @@ namespace MissionPlanner.Controls
             Label label = new Label();
             TextBox textBox = new TextBox();
             if (password)
+            {
                 textBox.UseSystemPasswordChar = true;
+            }            
+            else 
+            {
+                if (title != "")
+                {
+                    var oldlist = Settings.Instance.GetList("InputBox" + title.CleanString() + promptText.CleanString()).Where(a => a == null || a == "").ToArray();
+                    try
+                    {
+                        textBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                        textBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                        textBox.AutoCompleteCustomSource = new AutoCompleteStringCollection();
+                        textBox.AutoCompleteCustomSource.AddRange(oldlist);
+                    } catch (Exception ex) { Console.WriteLine(ex); }
+                }
+            }
+
             if (multiline)
             {
                 textBox.Multiline = true;
@@ -97,7 +115,7 @@ namespace MissionPlanner.Controls
             //
             textBox.Size = new Size(372, 20);
             textBox.Text = value;
-            textBox.TextChanged += textBox_TextChanged;
+            textBox.TextChanged += TextBox_TextChanged;
 
             if (multiline)
             {
@@ -146,13 +164,10 @@ namespace MissionPlanner.Controls
             // Increase the size of the form.
             form.ClientSize = new Size(396, y + buttonOk.Height + yMargin);
 
-            if (ApplyTheme != null)
-                ApplyTheme(form);
-            
+            ApplyTheme?.Invoke(form);
+
 
             Console.WriteLine("Input Box " + System.Threading.Thread.CurrentThread.Name);
-
-            Application.DoEvents();
 
             form.ShowDialog();
 
@@ -162,23 +177,30 @@ namespace MissionPlanner.Controls
 
             if (dialogResult == DialogResult.OK)
             {
+                if (textBox.AutoCompleteCustomSource != null)
+                {
+                    textBox.AutoCompleteCustomSource.Add(textBox.Text);
+                    Settings.Instance.SetList("InputBox" + title.CleanString() + promptText.CleanString(), textBox.AutoCompleteCustomSource.OfType<string>());
+                }
+                Console.WriteLine("Input Box 3 " + System.Threading.Thread.CurrentThread.Name);
                 value = textBox.Text;
                 InputBox.value = value;
             }
 
+            Console.WriteLine("Input Box 4 " + System.Threading.Thread.CurrentThread.Name);
             form.Dispose();
 
             TextChanged = null;
 
             form = null;
 
+            Console.WriteLine("Input Box 5 " + System.Threading.Thread.CurrentThread.Name);
             return dialogResult;
         }
 
-        static void textBox_TextChanged(object sender, EventArgs e)
+        static void TextBox_TextChanged(object sender, EventArgs e)
         {
-            if (TextChanged != null)
-                TextChanged(sender, e);
+            TextChanged?.Invoke(sender, e);
         }
     }
 }

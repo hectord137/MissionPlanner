@@ -50,8 +50,6 @@
             // 
             // ekfvel
             // 
-            this.ekfvel.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(255)))));
-            this.ekfvel.BorderColor = System.Drawing.SystemColors.ActiveBorder;
             this.ekfvel.DisplayScale = 0.01F;
             resources.ApplyResources(this.ekfvel, "ekfvel");
             this.ekfvel.DrawLabel = false;
@@ -63,12 +61,9 @@
             this.ekfvel.Name = "ekfvel";
             this.tableLayoutPanel1.SetRowSpan(this.ekfvel, 4);
             this.ekfvel.Value = 10;
-            this.ekfvel.ValueColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             // 
             // ekfposv
             // 
-            this.ekfposv.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(255)))));
-            this.ekfposv.BorderColor = System.Drawing.SystemColors.ActiveBorder;
             this.ekfposv.DisplayScale = 0.01F;
             resources.ApplyResources(this.ekfposv, "ekfposv");
             this.ekfposv.DrawLabel = false;
@@ -80,12 +75,9 @@
             this.ekfposv.Name = "ekfposv";
             this.tableLayoutPanel1.SetRowSpan(this.ekfposv, 4);
             this.ekfposv.Value = 10;
-            this.ekfposv.ValueColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             // 
             // ekfposh
             // 
-            this.ekfposh.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(255)))));
-            this.ekfposh.BorderColor = System.Drawing.SystemColors.ActiveBorder;
             this.ekfposh.DisplayScale = 0.01F;
             resources.ApplyResources(this.ekfposh, "ekfposh");
             this.ekfposh.DrawLabel = false;
@@ -97,7 +89,6 @@
             this.ekfposh.Name = "ekfposh";
             this.tableLayoutPanel1.SetRowSpan(this.ekfposh, 4);
             this.ekfposh.Value = 10;
-            this.ekfposh.ValueColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             // 
             // tableLayoutPanel1
             // 
@@ -132,8 +123,6 @@
             // 
             // ekfcompass
             // 
-            this.ekfcompass.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(255)))));
-            this.ekfcompass.BorderColor = System.Drawing.SystemColors.ActiveBorder;
             this.ekfcompass.DisplayScale = 0.01F;
             resources.ApplyResources(this.ekfcompass, "ekfcompass");
             this.ekfcompass.DrawLabel = false;
@@ -145,12 +134,9 @@
             this.ekfcompass.Name = "ekfcompass";
             this.tableLayoutPanel1.SetRowSpan(this.ekfcompass, 4);
             this.ekfcompass.Value = 10;
-            this.ekfcompass.ValueColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             // 
             // ekfterrain
             // 
-            this.ekfterrain.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(255)))));
-            this.ekfterrain.BorderColor = System.Drawing.SystemColors.ActiveBorder;
             this.ekfterrain.DisplayScale = 0.01F;
             resources.ApplyResources(this.ekfterrain, "ekfterrain");
             this.ekfterrain.DrawLabel = false;
@@ -162,7 +148,6 @@
             this.ekfterrain.Name = "ekfterrain";
             this.tableLayoutPanel1.SetRowSpan(this.ekfterrain, 4);
             this.ekfterrain.Value = 10;
-            this.ekfterrain.ValueColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             // 
             // label2
             // 

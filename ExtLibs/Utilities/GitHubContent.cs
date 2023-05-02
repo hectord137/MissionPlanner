@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using log4net;
@@ -24,7 +25,7 @@ namespace MissionPlanner.Utilities
 
         public class FileInfo
         {
-            public string type = "";
+            public TypeEnum type;
             public string encoding = "";
             public long size = 0;
             public string name { get; set; }
@@ -34,7 +35,16 @@ namespace MissionPlanner.Utilities
             public string url = "";
             public string git_url = "";
             public string html_url = "";
-            public Dictionary<string, object> _links = new Dictionary<string, object>();
+            public Links _links { get; set; }
+
+            public partial class Links
+            {
+                public Uri Self { get; set; }
+                public Uri Git { get; set; }
+                public Uri Html { get; set; }
+            }
+
+            public enum TypeEnum { Dir, File };
         }
 
         static T GetObject<T>(Dictionary<string, object> dict)
@@ -69,18 +79,13 @@ namespace MissionPlanner.Utilities
 
             string url = String.Format("{0}/{1}/{2}{3}", githubapiurl, owner, repo, path);
 
-            WebRequest wr = WebRequest.Create(url);
-            ((HttpWebRequest) wr).AllowAutoRedirect = true;
-            ((HttpWebRequest) wr).UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko";
-            var response = wr.GetResponse();
-            var respstream = response.GetResponseStream();
-
-            string content = new StreamReader(respstream).ReadToEnd();
-
-            respstream.Close();
-
-            //WebClient wc = new WebClient();
-            //string content = wc.DownloadString(url);
+            var handler = new HttpClientHandler()
+            {
+                AllowAutoRedirect = true
+            };
+            var client = new HttpClient(handler);
+            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko");
+            string content = client.GetStringAsync(url).GetAwaiter().GetResult();
 
             var output = JsonConvert.DeserializeObject<object[]>(content);
 
@@ -110,26 +115,22 @@ namespace MissionPlanner.Utilities
 
             string url = String.Format("{0}/{1}/{2}{3}", githubapiurl, owner, repo, path);
 
-            WebRequest wr = WebRequest.Create(url);
-            ((HttpWebRequest) wr).AllowAutoRedirect = true;
-            ((HttpWebRequest) wr).UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko";
-            using (var response = wr.GetResponse())
+            var handler = new HttpClientHandler()
             {
-                var respstream = response.GetResponseStream();
+                AllowAutoRedirect = true
+            };
+            var client = new HttpClient(handler);
+            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko");
+            string content = client.GetStringAsync(url).GetAwaiter().GetResult();
 
-                string content = new StreamReader(respstream).ReadToEnd();
+            Dictionary<string, object> output = JsonConvert.DeserializeObject<Dictionary<string, object>>(content);
 
-                respstream.Close();
+            if (output == null)
+                return null;
 
-                Dictionary<string, object> output = JsonConvert.DeserializeObject<Dictionary<string, object>>(content);
+            byte[] filecontent = Convert.FromBase64String(output["content"].ToString());
 
-                if (output == null)
-                    return null;
-
-                byte[] filecontent = Convert.FromBase64String(output["content"].ToString());
-
-                return filecontent;
-            }
+            return filecontent;
         }
     }
 }

@@ -73,12 +73,12 @@ namespace MissionPlanner.Controls
                 }
                 else
                 {
-                    CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+                    CustomMessageBox.Show("CommandFailed", "ERROR");
                 }
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(Strings.CommandFailed + ex.ToString(), Strings.ERROR);
+                CustomMessageBox.Show("CommandFailed " + ex.ToString(), "ERROR");
             }
         }
 
@@ -93,12 +93,12 @@ namespace MissionPlanner.Controls
                 }
                 else
                 {
-                    CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+                    CustomMessageBox.Show("CommandFailed", "ERROR");
                 }
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(Strings.CommandFailed + ex.ToString(), Strings.ERROR);
+                CustomMessageBox.Show("CommandFailed " + ex.ToString(), "ERROR");
             }
         }
 
@@ -132,7 +132,7 @@ namespace MissionPlanner.Controls
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(Strings.CommandFailed + ex.ToString(), Strings.ERROR);
+                CustomMessageBox.Show("CommandFailed " + ex.ToString(), "ERROR");
             }
             // MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, int.Parse(TXT_rcchannel.Text), int.Parse(TXT_pwm_high.Text), 10, 1000, 0, 0, 0);         
         }
@@ -180,12 +180,12 @@ namespace MissionPlanner.Controls
                 }
                 else
                 {
-                    CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+                    CustomMessageBox.Show("CommandFailed", "ERROR");
                 }
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(Strings.CommandFailed + ex.ToString(), Strings.ERROR);
+                CustomMessageBox.Show("CommandFailed " + ex.ToString(), "ERROR");
             }
         }
     }

@@ -94,9 +94,11 @@ namespace MissionPlanner.MsgBox
 
             // ensure we are always in a known state
             _state = DialogResult.None;
-
+            
+            SizeF sz = TextRenderer.MeasureText ("The quick brown Fox", SystemFonts.DefaultFont);
+            var perchar = sz.Width / 20;
             // convert to nice wrapped lines.
-            text = AddNewLinesToText(text);
+            text = AddNewLinesToText(text, Screen.PrimaryScreen.Bounds.Width / (int)perchar);
             // get pixel width and height
             Size textSize = TextRenderer.MeasureText(text, SystemFonts.DefaultFont);
             // allow for icon
@@ -149,7 +151,17 @@ namespace MissionPlanner.MsgBox
                         Tag = link,
                         AutoSize = true
                     };
-                    linklbl.Click += linklbl_Click;
+                    linklbl.Click += (sender, args) =>
+                    {
+                        try
+                        {
+                            System.Diagnostics.Process.Start(((LinkLabel)sender).Tag.ToString());
+                        }
+                        catch (Exception)
+                        {
+                            Show("Failed to open link " + ((LinkLabel)sender).Tag.ToString());
+                        }
+                    };
 
                     msgBoxFrm.Controls.Add(linklbl);
 
@@ -194,19 +206,13 @@ namespace MissionPlanner.MsgBox
             return answer;
         }
 
-        static void linklbl_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start(((LinkLabel)sender).Tag.ToString());
-        }
-
         // from http://stackoverflow.com/questions/2512781/winforms-big-paragraph-tooltip/2512895#2512895
-        private static int maximumSingleLineTooltipLength = 85;
 
-        private static string AddNewLinesToText(string text)
+        private static string AddNewLinesToText(string text, int length = 85)
         {
-            if (text.Length < maximumSingleLineTooltipLength)
+            if (text.Length < length)
                 return text;
-            int lineLength = maximumSingleLineTooltipLength;
+            int lineLength = length;
             StringBuilder sb = new StringBuilder();
             int currentLinePosition = 0;
             for (int textIndex = 0; textIndex < text.Length; textIndex++)

@@ -151,11 +151,11 @@ namespace MissionPlanner.Controls
             {
                 bool ans = MainV2.comPort.setParam(ParamName, Value);
                 if (ans == false)
-                    CustomMessageBox.Show(String.Format(Strings.ErrorSetValueFailed, ParamName), Strings.ERROR);
+                    CustomMessageBox.Show(String.Format("ErrorSetValueFailed", ParamName), "ERROR");
             }
             catch
             {
-                CustomMessageBox.Show(String.Format(Strings.ErrorSetValueFailed, ParamName), Strings.ERROR);
+                CustomMessageBox.Show(String.Format("ErrorSetValueFailed", ParamName), "ERROR");
             }
         }
 

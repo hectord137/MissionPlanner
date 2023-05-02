@@ -1,144 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C27C8B66-9963-4947-B062-FA3505A701DD}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CodeArtEng.Gauge</RootNamespace>
-    <AssemblyName>CodeArtEng.Gauge</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <TargetFrameworks>net6.0-windows</TargetFrameworks>
+    <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <OutputType>Library</OutputType>
+	<UseWindowsForms>true</UseWindowsForms>
+	<ImplicitUsings>enable</ImplicitUsings>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+
+
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Freeware|AnyCPU'">
-    <OutputPath>bin\Freeware\</OutputPath>
-    <DefineConstants>TRACE;Freeware</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>7.3</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Design" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="CircularGauge.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="CircularGaugeDesigner.cs" />
-    <Compile Include="CircularGaugeScaleLabel.cs" />
-    <Compile Include="CircularGaugeScaleMarker.cs" />
-    <Compile Include="GaugeFillMode.cs" />
-    <Compile Include="PanelGauges\PanelGaugePerformanceChart.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PanelGauges\GaugeDataCollectionEditor.cs" />
-    <Compile Include="Themes\DefaultTheme.cs" />
-    <Compile Include="DrawingEx.cs" />
-    <Compile Include="GaugeData.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="GaugePaintEventArgs.cs" />
-    <Compile Include="GaugeTheme.cs" />
-    <Compile Include="GaugeValueState.cs" />
-    <Compile Include="HSVColor.cs" />
-    <Compile Include="GaugeThemeBase.cs" />
-    <Compile Include="ImageProcessing\Adjustment.cs" />
-    <Compile Include="ImageProcessing\ColorImage.cs" />
-    <Compile Include="ImageProcessing\GrayScaleImage.cs" />
-    <Compile Include="LinearGauge.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PanelGauges\GaugeDataListConverter.cs" />
-    <Compile Include="PanelGauges\GaugePanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PanelGauges\PanelGaugeCircularIndicator.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PanelGauges\PanelGaugeComponentBase.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GaugeIndicatorStyle.cs" />
-    <Compile Include="PanelGauges\PanelGaugeLabel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PanelGauges\PanelGaugeLinearIndicator.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PanelGauges\PanelGaugeShape.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PanelGauges\PanelGaugeSymbol.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PanelGauges\PanelGaugeValue.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PointerPaintMode.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GaugeBase.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="RectangleIndicator.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SymbolicGauge.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Themes\DarkBlueTheme.cs" />
-    <Compile Include="Themes\DarkGreyTheme.cs" />
-    <Compile Include="Themes\LightThemeDarkBackground.cs" />
-    <Compile Include="Themes\DarkTheme.cs" />
-    <Compile Include="Themes\LightTheme.cs" />
-    <Compile Include="Themes\ThemeColors.cs" />
-    <Compile Include="Themes\ThemeManager.cs" />
-    <Compile Include="Themes\VntageTheme.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="PanelGauges\GaugePanel.resx">
-      <DependentUpon>GaugePanel.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
+
 </Project>

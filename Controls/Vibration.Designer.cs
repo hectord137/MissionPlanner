@@ -51,8 +51,6 @@
             // 
             // VibBarX
             // 
-            this.VibBarX.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(255)))));
-            this.VibBarX.BorderColor = System.Drawing.SystemColors.ActiveBorder;
             this.VibBarX.DisplayScale = 1F;
             resources.ApplyResources(this.VibBarX, "VibBarX");
             this.VibBarX.DrawLabel = false;
@@ -64,12 +62,9 @@
             this.VibBarX.Name = "VibBarX";
             this.tableLayoutPanel1.SetRowSpan(this.VibBarX, 4);
             this.VibBarX.Value = 10;
-            this.VibBarX.ValueColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             // 
             // VibBarZ
             // 
-            this.VibBarZ.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(255)))));
-            this.VibBarZ.BorderColor = System.Drawing.SystemColors.ActiveBorder;
             this.VibBarZ.DisplayScale = 1F;
             resources.ApplyResources(this.VibBarZ, "VibBarZ");
             this.VibBarZ.DrawLabel = false;
@@ -81,12 +76,9 @@
             this.VibBarZ.Name = "VibBarZ";
             this.tableLayoutPanel1.SetRowSpan(this.VibBarZ, 4);
             this.VibBarZ.Value = 10;
-            this.VibBarZ.ValueColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             // 
             // VibBarY
             // 
-            this.VibBarY.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(255)))));
-            this.VibBarY.BorderColor = System.Drawing.SystemColors.ActiveBorder;
             this.VibBarY.DisplayScale = 1F;
             resources.ApplyResources(this.VibBarY, "VibBarY");
             this.VibBarY.DrawLabel = false;
@@ -98,7 +90,6 @@
             this.VibBarY.Name = "VibBarY";
             this.tableLayoutPanel1.SetRowSpan(this.VibBarY, 4);
             this.VibBarY.Value = 10;
-            this.VibBarY.ValueColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             // 
             // tableLayoutPanel1
             // 

@@ -18,15 +18,27 @@ namespace System.Windows.Forms
         /// </summary>
         public event FormClosingEventHandler FormClosing;
 
+        public event FormClosedEventHandler FormClosed;
+
         public void Close(object sender, FormClosingEventArgs e)
         {
             if (FormClosing != null)
                 FormClosing(sender,e);
-        }
 
+            if (FormClosed != null)
+                FormClosed(sender, new FormClosedEventArgs(e.CloseReason));
+        }
+        
         public void Close()
         {
             Close(this, new FormClosingEventArgs(CloseReason.UserClosing, false));
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            if (e.ClipRectangle.IsEmpty)
+                return;
+            base.OnPaint(e);
         }
 
         protected override void WndProc(ref Message m)

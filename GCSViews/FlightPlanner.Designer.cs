@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using MissionPlanner.Controls;
+using Timer = System.Windows.Forms.Timer;
 
 namespace MissionPlanner.GCSViews
 {
@@ -1000,7 +1001,6 @@ namespace MissionPlanner.GCSViews
             this.BUT_Load_KML.ImageList = this.imageList1;
             this.BUT_Load_KML.Name = "BUT_Load_KML";
             this.BUT_Load_KML.UseVisualStyleBackColor = false;
-            this.BUT_Load_KML.Click += new System.EventHandler(this.kMLOverlayToolStripMenuItem_Click);
             // 
             // panel3
             // 
@@ -1546,7 +1546,6 @@ namespace MissionPlanner.GCSViews
             // 
             this.kMLOverlayToolStripMenuItem.Name = "kMLOverlayToolStripMenuItem";
             resources.ApplyResources(this.kMLOverlayToolStripMenuItem, "kMLOverlayToolStripMenuItem");
-            this.kMLOverlayToolStripMenuItem.Click += new System.EventHandler(this.kMLOverlayToolStripMenuItem_Click);
             // 
             // elevationGraphToolStripMenuItem
             // 

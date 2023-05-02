@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-//using System.Drawing.Imaging;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
+using SkiaSharp;
 using Color = System.Drawing.Color;
 using Point = System.Drawing.Point;
 using Rectangle = System.Drawing.Rectangle;
-using MissionPlanner.Drawing;
+
+
 
 namespace MissionPlanner.Utilities
 {
@@ -22,8 +24,8 @@ namespace MissionPlanner.Utilities
         // data from handshake
         MAVLink.mavlink_encapsulated_data_t msgEncapsulatedData;
 
-        private KeyValuePair<MAVLink.MAVLINK_MSG_ID, Func<MAVLink.MAVLinkMessage, bool>> subDataTrans;
-        private KeyValuePair<MAVLink.MAVLINK_MSG_ID, Func<MAVLink.MAVLinkMessage, bool>> subEncapData;
+        private int subDataTrans;
+        private int subEncapData;
 
         MAVLinkInterface _mav;
 
@@ -33,20 +35,22 @@ namespace MissionPlanner.Utilities
 
         public class ImageEventHandle : EventArgs
         {
-            public Image Image { get; set; }
+            public System.Drawing.Image Image { get; set; }
 
-            public ImageEventHandle(Image bmp)
+            public ImageEventHandle(System.Drawing.Image bmp)
             {
                 Image = bmp;
             }
         }
 
-        public OpticalFlow(MAVLinkInterface mav)
+        public OpticalFlow(MAVLinkInterface mav, byte sysid, byte compid)
         {
             _mav = mav;
-             
-            subDataTrans = mav.SubscribeToPacketType(MAVLink.MAVLINK_MSG_ID.DATA_TRANSMISSION_HANDSHAKE, ReceviedPacket);
-            subEncapData = mav.SubscribeToPacketType(MAVLink.MAVLINK_MSG_ID.ENCAPSULATED_DATA, ReceviedPacket);
+
+            subDataTrans = mav.SubscribeToPacketType(MAVLink.MAVLINK_MSG_ID.DATA_TRANSMISSION_HANDSHAKE, ReceviedPacket,
+                sysid, compid);
+            subEncapData =
+                mav.SubscribeToPacketType(MAVLink.MAVLINK_MSG_ID.ENCAPSULATED_DATA, ReceviedPacket, sysid, compid);
         }
 
         public void CalibrationMode(bool on_off = false)
@@ -81,21 +85,22 @@ namespace MissionPlanner.Utilities
                 if ((msgEncapsulatedData.seqnr+1) == msgDataTransmissionHandshake.packets)
                 {
                     using (
-                        Bitmap bmp = new Bitmap(msgDataTransmissionHandshake.width, msgDataTransmissionHandshake.height,
-                            PixelFormat.Format8bppIndexed))
+                        Bitmap bmp = new Bitmap(msgDataTransmissionHandshake.width, msgDataTransmissionHandshake.height))
                     {
-                        SetGrayscalePalette(bmp);
 
-                        var bitmapData = bmp.LockBits(new Rectangle(Point.Empty, bmp.Size), ImageLockMode.ReadWrite,
-                            bmp.PixelFormat);
+                        SetGrayscalePalette(bmp);
 
                         if (imageBuffer.Length > msgDataTransmissionHandshake.size)
                             return true;
 
-                        var buffer = imageBuffer.GetBuffer();
+                        var buffer = imageBuffer.ToArray();
 
-                        Marshal.Copy(buffer, 0, bitmapData.Scan0, buffer.Length);
-                        bmp.UnlockBits(bitmapData);
+                        int a = 0;
+                        foreach (var b in buffer)
+                        {
+                            bmp.SetPixel(a % bmp.Width, (int)(a/bmp.Width), bmp.Palette.Entries[b]);
+                            a++;
+                        }
 
                         if (newImage != null)
                             newImage(this, new ImageEventHandle(bmp));

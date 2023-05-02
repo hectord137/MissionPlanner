@@ -59,7 +59,7 @@ namespace MissionPlanner.Antenna
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(Strings.ErrorConnecting + ex.Message, Strings.ERROR);
+                CustomMessageBox.Show("ErrorConnecting " + ex.Message, "ERROR");
                 return false;
             }
 

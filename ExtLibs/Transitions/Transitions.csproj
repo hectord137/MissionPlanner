@@ -1,17 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
-    <ApplicationIcon />
+    <TargetFrameworks>net6.0-windows</TargetFrameworks>
     <OutputTypeEx>library</OutputTypeEx>
-    <StartupObject />
-
     <DebugType>portable</DebugType>
     <DebugSymbols>True</DebugSymbols>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 
   </PropertyGroup>
-
-
 
 </Project>

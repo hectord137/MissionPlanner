@@ -82,7 +82,7 @@ namespace MissionPlanner.Controls
                 }
                 catch
                 {
-                    CustomMessageBox.Show(Strings.ErrorSettingParameter, Strings.ERROR);
+                    CustomMessageBox.Show("ErrorSettingParameter", "ERROR");
                     return;
                 }
             }

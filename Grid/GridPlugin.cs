@@ -42,7 +42,7 @@ namespace MissionPlanner.Grid
             int index = col.Count;
             foreach (ToolStripItem item in col)
             {
-                if (item.Text.Equals(Strings.AutoWP))
+                if (item.Text.Equals("AutoWP"))
                 {
                     index = col.IndexOf(item);
                     ((ToolStripMenuItem)item).DropDownItems.Add(but);

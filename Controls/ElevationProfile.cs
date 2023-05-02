@@ -43,7 +43,7 @@ namespace MissionPlanner.Controls
 
             if (planlocs.Count <= 1)
             {
-                CustomMessageBox.Show("Please plan something first", Strings.ERROR);
+                CustomMessageBox.Show("Please plan something first", "ERROR");
                 return;
             }
 
@@ -229,7 +229,7 @@ namespace MissionPlanner.Controls
 
             if (list.Count < 2 || coords.Length > (2048 - 256))
             {
-                CustomMessageBox.Show("Too many/few WP's or to Big a Distance " + (distance / 1000) + "km", Strings.ERROR);
+                CustomMessageBox.Show("Too many/few WP's or to Big a Distance " + (distance / 1000) + "km", "ERROR");
                 return answer;
             }
 
@@ -267,7 +267,7 @@ namespace MissionPlanner.Controls
             }
             catch
             {
-                CustomMessageBox.Show("Error getting GE data", Strings.ERROR);
+                CustomMessageBox.Show("Error getting GE data", "ERROR");
             }
 
             return answer;

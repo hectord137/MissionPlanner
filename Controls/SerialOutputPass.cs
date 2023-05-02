@@ -26,7 +26,7 @@ namespace MissionPlanner.Controls
 
             if (MainV2.comPort.MirrorStream != null && MainV2.comPort.MirrorStream.IsOpen || listener != null)
             {
-                BUT_connect.Text = Strings.Stop;
+                BUT_connect.Text = "Stop";
             }
         }
 
@@ -35,7 +35,7 @@ namespace MissionPlanner.Controls
             if (MainV2.comPort.MirrorStream != null && MainV2.comPort.MirrorStream.IsOpen || listener != null)
             {
                 MainV2.comPort.MirrorStream.Close();
-                BUT_connect.Text = Strings.Connect;
+                BUT_connect.Text = "Connect";
             }
             else
             {
@@ -54,7 +54,7 @@ namespace MissionPlanner.Controls
                                 listener = new TcpListener(System.Net.IPAddress.Any, port);
                                 listener.Start(0);
                                 listener.BeginAcceptTcpClient(new AsyncCallback(DoAcceptTcpClientCallback), listener);
-                                BUT_connect.Text = Strings.Stop;
+                                BUT_connect.Text = "Stop";
                                 return;
                             }
 
@@ -86,7 +86,7 @@ namespace MissionPlanner.Controls
                 }
                 catch
                 {
-                    CustomMessageBox.Show(Strings.InvalidPortName);
+                    CustomMessageBox.Show("InvalidPortName");
                     return;
                 }
 
@@ -96,7 +96,7 @@ namespace MissionPlanner.Controls
                 }
                 catch
                 {
-                    CustomMessageBox.Show(Strings.InvalidBaudRate);
+                    CustomMessageBox.Show("InvalidBaudRate");
                     return;
                 }
                 try

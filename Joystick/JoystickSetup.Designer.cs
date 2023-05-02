@@ -1,4 +1,6 @@
 ﻿using MissionPlanner.Controls;
+using System.Windows.Forms;
+
 namespace MissionPlanner.Joystick
 {
     partial class JoystickSetup
@@ -92,18 +94,17 @@ namespace MissionPlanner.Joystick
             // 
             // BUT_enable
             // 
+            this.BUT_enable.DialogResult = System.Windows.Forms.DialogResult.None;
             resources.ApplyResources(this.BUT_enable, "BUT_enable");
             this.BUT_enable.Name = "BUT_enable";
-            this.BUT_enable.TextColor = System.Drawing.Color.White;
             this.BUT_enable.UseVisualStyleBackColor = true;
             this.BUT_enable.Click += new System.EventHandler(this.BUT_enable_Click);
             // 
             // BUT_save
             // 
-            this.BUT_save.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
+            this.BUT_save.DialogResult = System.Windows.Forms.DialogResult.None;
             resources.ApplyResources(this.BUT_save, "BUT_save");
             this.BUT_save.Name = "BUT_save";
-            this.BUT_save.TextColor = System.Drawing.Color.White;
             this.BUT_save.UseVisualStyleBackColor = true;
             this.BUT_save.Click += new System.EventHandler(this.BUT_save_Click);
             // 
@@ -155,5 +156,7 @@ namespace MissionPlanner.Joystick
         private System.Windows.Forms.CheckBox CHK_elevons;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.CheckBox chk_manualcontrol;
+
+        
     }
 }

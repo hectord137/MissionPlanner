@@ -427,7 +427,7 @@ namespace MissionPlanner.Controls
                 if (!_mavftp.kCmdCreateDirectory(treeView1.SelectedNode.FullPath + "/" + folder,
                     new CancellationTokenSource()))
                 {
-                    CustomMessageBox.Show("Failed to create directory", Strings.ERROR);
+                    CustomMessageBox.Show("Failed to create directory", "ERROR");
                 }
 
             TreeView1_NodeMouseClick(null,

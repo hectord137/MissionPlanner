@@ -31,7 +31,7 @@ namespace MissionPlanner.Controls
 
             if (threadrun)
             {
-                BUT_connect.Text = Strings.Stop;
+                BUT_connect.Text = "Stop";
             }
         }
 
@@ -47,7 +47,7 @@ namespace MissionPlanner.Controls
             {
                 threadrun = false;
                 NmeaStream.Close();
-                BUT_connect.Text = Strings.Connect;
+                BUT_connect.Text = "Connect";
             }
             else
             {
@@ -62,7 +62,7 @@ namespace MissionPlanner.Controls
                             listener = new TcpListener(System.Net.IPAddress.Any, 14551);
                             listener.Start(0);
                             listener.BeginAcceptTcpClient(new AsyncCallback(DoAcceptTcpClientCallback), listener);
-                            BUT_connect.Text = Strings.Stop;
+                            BUT_connect.Text = "Stop";
                             break;
                         case "TCP Client":
                             NmeaStream = new TcpSerial() { retrys = 999999, autoReconnect = true };
@@ -84,7 +84,7 @@ namespace MissionPlanner.Controls
                 }
                 catch
                 {
-                    CustomMessageBox.Show(Strings.InvalidPortName);
+                    CustomMessageBox.Show("InvalidPortName");
                     return;
                 }
                 try
@@ -93,7 +93,7 @@ namespace MissionPlanner.Controls
                 }
                 catch
                 {
-                    CustomMessageBox.Show(Strings.InvalidBaudRate);
+                    CustomMessageBox.Show("InvalidBaudRate");
                     return;
                 }
                 try
@@ -114,7 +114,7 @@ namespace MissionPlanner.Controls
                 };
                 t12.Start();
 
-                BUT_connect.Text = Strings.Stop;
+                BUT_connect.Text = "Stop";
             }
         }
 
@@ -260,7 +260,7 @@ namespace MissionPlanner.Controls
             }
             catch
             {
-                CustomMessageBox.Show(Strings.InvalidUpdateRate, Strings.ERROR);
+                CustomMessageBox.Show("InvalidUpdateRate", "ERROR");
             }
         }
 

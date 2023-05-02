@@ -35,6 +35,8 @@ namespace MissionPlanner.Controls.BackstageView
 
         public BackstageViewPage SelectedPage { get { return _activePage; } }
 
+        public delegate void TrackingEventHandler(string page, string title);
+        public static event TrackingEventHandler Tracking;
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public BackstageViewCollection Pages { get { return _items; } }
@@ -439,6 +441,7 @@ namespace MissionPlanner.Controls.BackstageView
                 return;
             }
 
+            Tracking?.Invoke(associatedPage.Page.GetType().ToString(), associatedPage.LinkText);
 
             var start = DateTime.Now;
 
@@ -491,7 +494,14 @@ namespace MissionPlanner.Controls.BackstageView
             // so plain old user controls can be added
             if (associatedPage.Page is IActivate)
             {
-                ((IActivate)(associatedPage.Page)).Activate();
+                try
+                {
+                    ((IActivate) (associatedPage.Page)).Activate();
+                }
+                catch (Exception ex)
+                {
+                    log.Error(ex);
+                }
             }
 
             try

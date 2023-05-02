@@ -495,7 +495,6 @@
             this.zg1.ScrollMinX = 0D;
             this.zg1.ScrollMinY = 0D;
             this.zg1.ScrollMinY2 = 0D;
-            this.zg1.UseExtendedPrintDialog = true;
             this.zg1.DoubleClick += new System.EventHandler(this.zg1_DoubleClick);
             // 
             // BUT_ClearEchoData
@@ -1716,7 +1715,6 @@
             this.hud1.lowgroundspeed = false;
             this.hud1.lowvoltagealert = true;
             this.hud1.message = "";
-            this.hud1.messagetime = new System.DateTime(((long)(0)));
             this.hud1.mode = "Unknown";
             this.hud1.Name = "hud1";
             this.hud1.navpitch = 0F;

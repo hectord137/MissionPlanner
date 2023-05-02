@@ -1,11 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <ApplicationIcon />
+    <TargetFramework>net6.0-windows</TargetFramework>
     <OutputTypeEx>library</OutputTypeEx>
-    <StartupObject />
-
     <DebugType>portable</DebugType>
     <DebugSymbols>True</DebugSymbols>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

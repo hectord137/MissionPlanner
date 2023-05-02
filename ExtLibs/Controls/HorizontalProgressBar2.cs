@@ -26,16 +26,18 @@ using System.IO;
 
 using System.Drawing.Drawing2D;
 
+
+
 namespace MissionPlanner.Controls
 {
-    public class HorizontalProgressBar2:  BSE.Windows.Forms.ProgressBar
+    public class HorizontalProgressBar2:  ProgressBar
     {
         private string m_Text;
         int offset = 0;
         int _min = 0;
         int _max = 0;
         int _value = 0;
-        public bool reverse { set; get; }
+        public bool reverse = false;
         int displayvalue = 0;
         bool _drawlabel = true;
 
@@ -56,7 +58,7 @@ System.ComponentModel.Description("draw text under Bar")]
             }
         }
 
-        internal class proxyvpb: BSE.Windows.Forms.ProgressBar
+        internal class proxyvpb: ProgressBar
         {
             protected override void OnPaint(PaintEventArgs e)
             {
@@ -247,6 +249,10 @@ System.ComponentModel.Description("values scaled for display")]
         {
             base.OnPaint(e);
             drawlbl(e.Graphics);
+        }
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
         }
     }
 }

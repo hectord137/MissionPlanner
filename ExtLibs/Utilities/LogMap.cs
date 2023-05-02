@@ -6,11 +6,10 @@ using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-//using System.Drawing.Drawing2D;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using MissionPlanner.Drawing;
 
 namespace MissionPlanner.Log
 {
@@ -159,7 +158,7 @@ namespace MissionPlanner.Log
                             a++;
                         }
 
-                        map.Save(logfile + ".jpg", SKEncodedImageFormat.Jpeg);
+                        map.Save(logfile + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
 
                         File.SetLastWriteTime(logfile + ".jpg", new FileInfo(logfile).LastWriteTime);
                     }
@@ -186,7 +185,7 @@ namespace MissionPlanner.Log
 
             AddTextToMap(grap, text);
 
-            map.Save(jpgname, SKEncodedImageFormat.Jpeg);
+            map.Save(jpgname, System.Drawing.Imaging.ImageFormat.Jpeg);
 
             map.Dispose();
 
@@ -266,7 +265,7 @@ namespace MissionPlanner.Log
                                                 tile.Data.Position = 0;
                                                 gfx.DrawImage(Image.FromStream(tile.Data), x, y, prj.TileSize.Width,
                                                     prj.TileSize.Height);
-                                            } catch (Exception ex2) {  }
+                                            } catch (Exception) {  }
                                         }
                                     }
                                 }

@@ -116,9 +116,19 @@ namespace MissionPlanner.Controls
                 // Examine the work args, if there is an error, then display that and the exception details
                 // Otherwise display 'Unexpected error' and exception details
                 timer1.Stop();
-                ShowDoneWithError(e, doWorkArgs.ErrorMessage);
-                Running = false;
-                return;
+                if (doWorkArgs.CancelRequested && doWorkArgs.CancelAcknowledged)
+                {
+                    // must be actioned inside the catch, as this thread was just aborted
+                    Running = false;
+                    this.BeginInvoke((MethodInvoker)this.Close);
+                    return;
+                }
+                else
+                {
+                    ShowDoneWithError(e, doWorkArgs.ErrorMessage);
+                    Running = false;
+                    return;
+                }
             }
 
             // stop the timer
@@ -196,9 +206,10 @@ namespace MissionPlanner.Controls
                     this.progressBar1.Value = 100;
                     this.btnCancel.Visible = false;
                     this.btnClose.Visible = false;
+                    this.ControlBox = true;
                 });
 
-            Thread.Sleep(100);
+            Thread.Sleep(100);         
 
             this.BeginInvoke((MethodInvoker)this.Close);
         }
@@ -212,7 +223,7 @@ namespace MissionPlanner.Controls
         // - Change the Cancel button to 'Close', so that the user can look at the exception message a bit
         private void ShowDoneWithError(Exception exception, string doWorkArgs)
         {
-            var errMessage = doWorkArgs ?? "There was an unexpected error";
+            var errMessage = doWorkArgs ?? "There was an unexpected error (" + exception.Message + ")";
 
             if (this.Disposing || this.IsDisposed)
                 return;
@@ -340,6 +351,10 @@ namespace MissionPlanner.Controls
             this.Focus();
         }
 
+        void IProgressReporterDialogue.BeginInvoke(Delegate method)
+        {
+            this.BeginInvoke(method);
+        }
     }
 
 }

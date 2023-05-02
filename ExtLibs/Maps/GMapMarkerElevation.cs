@@ -18,7 +18,7 @@ namespace MissionPlanner.Maps
 
         private RectLatLng rect;
 
-        public GMapMarkerElevation(byte [,] imageData, RectLatLng rect, PointLatLng currentloc)
+        public GMapMarkerElevation(byte [,] imageData, int idx, int idy, RectLatLng rect, PointLatLng currentloc)
         : base(currentloc)
         {
             this.rect = rect;
@@ -26,7 +26,7 @@ namespace MissionPlanner.Maps
             IsHitTestVisible = false;
 
             //create a new Bitmap
-            Bitmap bmp = new Bitmap(imageData.GetLength(0), imageData.GetLength(1), PixelFormat.Format32bppArgb);
+            Bitmap bmp = new Bitmap(idx,idy, PixelFormat.Format32bppArgb);
             
             //lock it to get the BitmapData Object
             BitmapData bmData =
@@ -35,9 +35,9 @@ namespace MissionPlanner.Maps
             //now we have to convert the 2 dimensional array into a one dimensional byte-array for use with 8bpp bitmaps
             // use stride and height to prevent stride mod 4 issues
             int[] pixels = new int[(bmData.Stride/4) * bmData.Height];
-            for (int y = 0; y < imageData.GetLength(1); y++)
+            for (int y = 0; y < idy; y++)
             {
-                for (int x = 0; x < imageData.GetLength(0); x++)
+                for (int x = 0; x < idx; x++)
                 {
                     pixels[(y * (bmData.Stride/4) + x)] = ConvertColor(imageData[x, y]);
                 }
@@ -62,10 +62,35 @@ namespace MissionPlanner.Maps
             //create grayscale palette
             for (int i = 0; i < 256; i++)
             {
-                pal.Entries[i] = Color.FromArgb((int)100, bmp.Palette.Entries[i].R, bmp.Palette.Entries[i].G, bmp.Palette.Entries[i].B);
+                pal.Entries[i] =
+                    Rainbow(1.0f -
+                            (i / 256.0f));
             }
 
             transparent = Color.Transparent.ToArgb();
+        }
+
+        public static Color Rainbow(float progress)
+        {
+            float div = (Math.Abs(progress % 1) * 5); // 5 not 6 - dont want back to red
+            int ascending = (int)((div % 1) * 255);
+            int descending = 255 - ascending;
+
+            switch ((int)div)
+            {
+                case 0:
+                    return Color.FromArgb(100, 255, ascending, 0);//red - yellow
+                case 1:
+                    return Color.FromArgb(100, descending, 255, 0); //yellow - green
+                case 2:
+                    return Color.FromArgb(100, 0, 255, ascending); //green - cyan
+                case 3:
+                    return Color.FromArgb(100, 0, descending, 255); //  cyan -  blue
+                case 4:
+                    return Color.FromArgb(100, ascending, 0, 255); // blue - pink
+                default: // case 5:
+                    return Color.FromArgb(100, 255, 0, descending); // pink - red
+            }
         }
 
         private static ColorPalette pal;
@@ -74,7 +99,7 @@ namespace MissionPlanner.Maps
 
         int ConvertColor(byte incol)
         {
-            if (incol == 0)
+            if (incol == 0 || incol == 255)
                 return transparent;
 
             return pal.Entries[incol].ToArgb();
@@ -85,7 +110,7 @@ namespace MissionPlanner.Maps
             base.OnRender(g);
 
             var tlll = Overlay.Control.FromLatLngToLocal(rect.LocationTopLeft);
-            var brll = Overlay.Control.FromLatLngToLocal(rect.LocationRightBottom);
+            var brll = Overlay.Control.FromLatLngToLocal(rect.LocationRightBottom);            
 
             var old = g.Transform;
 

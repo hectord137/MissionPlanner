@@ -1,28 +1,56 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace MissionPlanner.Comms
 {
+    /// <summary>
+    /// use AppendBuffer to populate the Read buffer, and WriteCallback to send
+    /// </summary>
     public class CommsInjection : ICommsSerial
     {
-        private readonly CircularBuffer<byte> _buffer = new CircularBuffer<byte>(1024 * 100);
+        private readonly CircularBuffer<byte> _bufferRX = new CircularBuffer<byte>(1024 * 100);
+
+        public CommsInjection()
+        {
+            BaseStream = new CommsStream(this, 0);
+        }
+        public void AppendBuffer(byte[] indata)
+        {
+            lock (_bufferRX)
+            {
+                foreach (var b in indata)
+                {
+                    _bufferRX.Add(b);
+                }
+
+                BaseStream.SetLength(BaseStream.Length + indata.Length);
+            }
+        }
+
+        public EventHandler<int> ReadBufferUpdate;
+        public EventHandler<IEnumerable<byte>> WriteCallback;
 
         public void Close()
         {
-            _buffer.Clear();
+            lock (_bufferRX)
+                _bufferRX.Clear();
         }
 
         public void DiscardInBuffer()
         {
-            _buffer.Clear();
+            lock (_bufferRX)
+                _bufferRX.Clear();
         }
 
         public void Open()
         {
-            _buffer.Clear();
+            lock (_bufferRX)
+                _bufferRX.Clear();
         }
 
         public int Read(byte[] buffer, int offset, int count)
@@ -36,10 +64,13 @@ namespace MissionPlanner.Comms
                 counttimeout++;
             }
 
-            var read = Math.Min(count, _buffer.Length());
-            for (var i = 0; i < read; i++) buffer[offset + i] = _buffer.Read();
+            lock (_bufferRX)
+            {
+                var read = Math.Min(count, _bufferRX.Length());
+                for (var i = 0; i < read; i++) buffer[offset + i] = _bufferRX.Read();
 
-            return read;
+                return read;
+            }
         }
 
         public int ReadByte()
@@ -114,7 +145,7 @@ namespace MissionPlanner.Comms
 
         public void Write(byte[] buffer, int offset, int count)
         {
-            foreach (var b in buffer.Skip(offset).Take(count)) _buffer.Add(b);
+            WriteCallback?.Invoke(this, buffer.Skip(offset).Take(count));
         }
 
         public void toggleDTR()
@@ -129,7 +160,15 @@ namespace MissionPlanner.Comms
         public Stream BaseStream { get; }
         public int BaudRate { get; set; }
 
-        public int BytesToRead => _buffer.Length();
+        public int BytesToRead
+        {
+            get
+            {
+                ReadBufferUpdate?.Invoke(this, 0);
+                lock (_bufferRX)
+                    return _bufferRX.Length();
+            }
+        }
 
         public int BytesToWrite { get; }
         public int DataBits { get; set; }

@@ -597,7 +597,7 @@ namespace MissionPlanner.GCSViews
                 }
                 catch
                 {
-                    CustomMessageBox.Show(Strings.PleaseLoadValidFile, Strings.ERROR);
+                    CustomMessageBox.Show("PleaseLoadValidFile", "ERROR");
                 }
             }
         }
@@ -772,7 +772,7 @@ namespace MissionPlanner.GCSViews
             }
             catch
             {
-                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+                CustomMessageBox.Show("CommandFailed", "ERROR");
             }
         }
 
@@ -796,24 +796,24 @@ namespace MissionPlanner.GCSViews
                 {
                     sb.AppendLine(ASCIIEncoding.ASCII.GetString(((MAVLink.mavlink_statustext_t)message.data).text).TrimEnd('\0'));
                     return true;
-                });
+                }, (byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent);
                 bool ans = MainV2.comPort.doARM(!isitarmed);
                 MainV2.comPort.UnSubscribeToPacketType(sub);
                 if (ans == false)
                 {
-                    if (CustomMessageBox.Show(action + " failed.\n" + sb.ToString() + "\nForce " + action + " can bypass safety checks,\nwhich can lead to the vehicle crashing\nand causing serious injuries.\n\nDo you wish to Force " + action + "?", Strings.ERROR, CustomMessageBox.MessageBoxButtons.YesNo, CustomMessageBox.MessageBoxIcon.Exclamation, "Force " + action, "Cancel") == CustomMessageBox.DialogResult.Yes)
+                    if (CustomMessageBox.Show(action + " failed.\n" + sb.ToString() + "\nForce " + action + " can bypass safety checks,\nwhich can lead to the vehicle crashing\nand causing serious injuries.\n\nDo you wish to Force " + action + "?", "ERROR", CustomMessageBox.MessageBoxButtons.YesNo, CustomMessageBox.MessageBoxIcon.Exclamation, "Force " + action, "Cancel") == CustomMessageBox.DialogResult.Yes)
                     {
                         ans = MainV2.comPort.doARM(!isitarmed, true);
                         if (ans == false)
                         {
-                            CustomMessageBox.Show(Strings.ErrorRejectedByMAV, Strings.ERROR);
+                            CustomMessageBox.Show("ErrorRejectedByMAV", "ERROR");
                         }
                     }
                 }
             }
             catch
             {
-                CustomMessageBox.Show(Strings.ErrorNoResponce, Strings.ERROR);
+                CustomMessageBox.Show("ErrorNoResponce", "ERROR");
             }
         }
 
@@ -976,31 +976,6 @@ namespace MissionPlanner.GCSViews
             }
         }
 
-        bool stateJoys = false;
-        private void activatedjoy(object sender, EventArgs e)
-        {
-            if (stateJoys == false) {
-                stateJoys = !stateJoys;
-                JoystickSetup JoystickSetup = new JoystickSetup();
-                JoystickSetup.Joystick_Load(sender, e);
-
-                JoystickSetup.BUT_enable_Click(sender, e);
-                Thread.Sleep(100);
-                if (JoystickSetup.hay_joystick == false)
-                {
-                    CustomColor.RestoreColor(BUT_EchoGrab);
-                }
-                else {
-                    CustomColor.SetActiveMode(BUT_EchoGrab);
-                }
-            }
-            else
-            {
-               CustomColor.RestoreColor(BUT_EchoGrab);
-                stateJoys = !stateJoys;
-                but_disablejoystick_Click(sender, e);
-            }
-        }
 
         private void BUT_loadtelem_Click(object sender, EventArgs e)
         {
@@ -1051,7 +1026,7 @@ namespace MissionPlanner.GCSViews
                         }
                         catch (IOException ex)
                         {
-                            CustomMessageBox.Show("File access issue: " + ex.Message, Strings.ERROR);
+                            CustomMessageBox.Show("File access issue: " + ex.Message, "ERROR");
                             return;
                         }
 
@@ -1119,7 +1094,7 @@ namespace MissionPlanner.GCSViews
             }
             catch
             {
-                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+                CustomMessageBox.Show("CommandFailed", "ERROR");
             }
             ((Control)sender).Enabled = true;
         }
@@ -1138,7 +1113,7 @@ namespace MissionPlanner.GCSViews
             }
             catch
             {
-                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+                CustomMessageBox.Show("CommandFailed", "ERROR");
             }
             ((Control)sender).Enabled = true;
         }
@@ -1152,7 +1127,7 @@ namespace MissionPlanner.GCSViews
             }
             catch
             {
-                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+                CustomMessageBox.Show("CommandFailed", "ERROR");
             }
             ((Control)sender).Enabled = true;
         }
@@ -1248,7 +1223,7 @@ namespace MissionPlanner.GCSViews
 
                                 if (timeout > 30)
                                 {
-                                    CustomMessageBox.Show(Strings.ErrorNoResponce, Strings.ERROR);
+                                    CustomMessageBox.Show("ErrorNoResponce", "ERROR");
                                     return;
                                 }
                             }
@@ -1263,7 +1238,7 @@ namespace MissionPlanner.GCSViews
 
                                 if (timeout > 30)
                                 {
-                                    CustomMessageBox.Show(Strings.ErrorNoResponce, Strings.ERROR);
+                                    CustomMessageBox.Show("ErrorNoResponce", "ERROR");
                                     return;
                                 }
                             }
@@ -1278,7 +1253,7 @@ namespace MissionPlanner.GCSViews
 
                                 if (timeout > 40)
                                 {
-                                    CustomMessageBox.Show(Strings.ErrorNoResponce, Strings.ERROR);
+                                    CustomMessageBox.Show("ErrorNoResponce", "ERROR");
                                     return;
                                 }
                             }
@@ -1294,7 +1269,7 @@ namespace MissionPlanner.GCSViews
 
                             if (timeout > 30)
                             {
-                                CustomMessageBox.Show(Strings.ErrorNoResponce, Strings.ERROR);
+                                CustomMessageBox.Show("ErrorNoResponce", "ERROR");
                                 return;
                             }
                         }
@@ -1303,7 +1278,7 @@ namespace MissionPlanner.GCSViews
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(Strings.CommandFailed + "\n" + ex.ToString(), Strings.ERROR);
+                CustomMessageBox.Show("CommandFailed" + "\n" + ex.ToString(), "ERROR");
             }
         }
 
@@ -1317,7 +1292,7 @@ namespace MissionPlanner.GCSViews
             }
             catch
             {
-                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+                CustomMessageBox.Show("CommandFailed", "ERROR");
             }
             ((Control)sender).Enabled = true;
         }
@@ -1338,7 +1313,7 @@ namespace MissionPlanner.GCSViews
             }
             catch
             {
-                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+                CustomMessageBox.Show("CommandFailed", "ERROR");
             }
             ((Control)sender).Enabled = true;
         }
@@ -1971,7 +1946,7 @@ namespace MissionPlanner.GCSViews
         {
             if (!MainV2.comPort.BaseStream.IsOpen)
             {
-                CustomMessageBox.Show(Strings.PleaseConnect, Strings.ERROR);
+                CustomMessageBox.Show("PleaseConnect", "ERROR");
                 return;
             }
 
@@ -1987,7 +1962,7 @@ namespace MissionPlanner.GCSViews
 
             if (MouseDownStart.Lat == 0 || MouseDownStart.Lng == 0)
             {
-                CustomMessageBox.Show(Strings.BadCoords, Strings.ERROR);
+                CustomMessageBox.Show("BadCoords", "ERROR");
                 return;
             }
 
@@ -2004,7 +1979,7 @@ namespace MissionPlanner.GCSViews
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(Strings.CommandFailed + ex.Message, Strings.ERROR);
+                CustomMessageBox.Show("CommandFailed " + ex.Message, "ERROR");
             }
         }
 
@@ -2802,7 +2777,7 @@ namespace MissionPlanner.GCSViews
             }
             else
             {
-                CustomMessageBox.Show(Strings.InvalidField, Strings.ERROR);
+                CustomMessageBox.Show("InvalidField", "ERROR");
             }
         }
 
@@ -2840,7 +2815,7 @@ namespace MissionPlanner.GCSViews
             }
             catch
             {
-                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+                CustomMessageBox.Show("CommandFailed", "ERROR");
             }
         }
 
@@ -2906,7 +2881,7 @@ namespace MissionPlanner.GCSViews
 
             if (alt.currenttype != srtm.tiletype.valid)
             {
-                CustomMessageBox.Show("No SRTM data for this area", Strings.ERROR);
+                CustomMessageBox.Show("No SRTM data for this area", "ERROR");
                 return;
             }
 
@@ -3020,7 +2995,7 @@ namespace MissionPlanner.GCSViews
                 }
                 catch
                 {
-                    CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+                    CustomMessageBox.Show("CommandFailed", "ERROR");
                 }
             }
         }
@@ -3117,7 +3092,7 @@ namespace MissionPlanner.GCSViews
             }
             catch
             {
-                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+                CustomMessageBox.Show("CommandFailed", "ERROR");
             }
         }
 
@@ -3554,118 +3529,12 @@ namespace MissionPlanner.GCSViews
 //            FlightPlanner.instance.sethomeh(homealt, homelat, homelng);
         }
 
-        public void modifybutton()
-        {
-            Joystick.Joystick joystick = new Joystick.Joystick(() => MainV2.comPort);
-            //joy.elevons = CHK_elevons.Checked;
-
-            if (!joystick.start(COMBJOY.Text))
-            {
-
-                BUT_EchoGrab.Enabled = false;
-            }
-
-        }
 
 
-        public void ButJoyOn_Click(object sender, EventArgs e)
-        {
-            activatedjoy(sender, e);
 
+        
 
-            /*if (MainV2.joystick == null || MainV2.joystick.enabled == false)
-            {
-                try
-                {
-                    if (MainV2.joystick != null)
-                        MainV2.joystick.UnAcquireJoyStick();
-                }
-                catch
-                {
-                }
-
-                // all config is loaded from the xmls
-                Joystick.Joystick joystick = new Joystick.Joystick(() => MainV2.comPort);
-                //joy.elevons = CHK_elevons.Checked;
-
-                if (!joystick.start(COMBJOY.Text))
-                {
-                    CustomMessageBox.Show("Please Connect a Joystick", "No Joystick");
-                    joystick.Dispose();
-                    return;
-                }
-
-                //Settings.Instance["joystick_name"] = CMB_joysticks.Text;
-
-                MainV2.joystick = joystick;
-                MainV2.joystick.enabled = true;
-
-               // BUT_enable.Text = "Disable";
-
-                //timer1.Start();
-            }
-            else
-            {
-                MainV2.joystick.enabled = false;
-
-                MainV2.joystick.clearRCOverride();
-
-                MainV2.joystick = null;
-
-
-                //timer1.Stop();
-
-              //  BUT_enable.Text = "Enable";
-            }
-            */
-        }
-
-        private void loadjoy()
-        {
-            try
-            {
-                var joysticklist = Joystick.Joystick.getDevices();
-
-                foreach (DeviceInstance device in joysticklist)
-                {
-                    COMBJOY.Items.Add(device.ProductName.TrimUnPrintable());
-                }
-            }
-            catch
-            {
-                CustomMessageBox.Show("Error geting joystick list: do you have the directx redist installed?");
-                this.Close();
-                return;
-            }
-
-            if (COMBJOY.Items.Count > 0 && COMBJOY.SelectedIndex == -1)
-                COMBJOY.SelectedIndex = 0;
-
-            try
-            {
-                if (Settings.Instance.ContainsKey("joystick_name") && Settings.Instance["joystick_name"].ToString() != "")
-                    COMBJOY.Text = Settings.Instance["joystick_name"].ToString();
-            }
-            catch
-            {
-            }
-
-            try
-            {
-
-            }
-            catch
-            {
-                if (Settings.Instance.ContainsKey("joy_elevons")) ;
-
-            } // IF 1 DOESNT EXIST NONE WILL
-
-            var tempjoystick = new Joystick.Joystick(() => MainV2.comPort);
-
-            // label14.Text += " " + MainV2.comPort.MAV.cs.firmware.ToString();
-
-            modifybutton();
-        }
+        
 
         int[] getButtonNumbers()
         {
@@ -3748,7 +3617,7 @@ namespace MissionPlanner.GCSViews
             }
             catch
             {
-                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+                CustomMessageBox.Show("CommandFailed", "ERROR");
             }
             ((Control)sender).Enabled = true;
         }

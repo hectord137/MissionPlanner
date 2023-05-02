@@ -7,6 +7,7 @@ using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using System.ComponentModel;
 using CodeArtEng.Gauge.Themes;
+using Timer = System.Windows.Forms.Timer;
 
 namespace CodeArtEng.Gauge.PanelGauges
 {

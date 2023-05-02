@@ -316,8 +316,8 @@ namespace MissionPlanner
         /// <summary>
         /// joystick static class
         /// </summary>
-        public static Joystick.Joystick joystick { get; set; }
-
+        public static Joystick.JoystickBase joystick { get; set; }
+        
         /// <summary>
         /// track last joystick packet sent. used to control rate
         /// </summary>
@@ -545,7 +545,7 @@ namespace MissionPlanner
             AutoUpdater.ShowRemindLaterButton = false;
             AutoUpdater.ShowSkipButton = false;
             AutoUpdater.CheckForUpdateEvent += AutoUpdater_CheckForUpdateEvent;
-            AutoUpdater.Start("https://github.com/hectord137/MissionPlanner/releases/latest/download/updateinfo.xml");
+//            AutoUpdater.Start("https://github.com/hectord137/MissionPlanner/releases/latest/download/updateinfo.xml");
 
 
             log.Info("Mainv2 ctor");
@@ -557,9 +557,6 @@ namespace MissionPlanner
 
             // load config
             LoadConfig();
-
-            // force language to be loaded
-            L10N.GetConfigLang();
 
             ShowAirports = true;
 
@@ -607,13 +604,13 @@ namespace MissionPlanner
             var t = Type.GetType("Mono.Runtime");
             MONO = (t != null);
 
-            try
-            {
-                speechEngine = new Speech();
-                MAVLinkInterface.Speech = speechEngine;
-                CurrentState.Speech = speechEngine;
-            }
-            catch { }
+//            try
+            //{
+            //    speechEngine = new Speech();
+            //    MAVLinkInterface.Speech = speechEngine;
+            //    CurrentState.Speech = speechEngine;
+            //}
+            //catch { }
 
             Warnings.CustomWarning.defaultsrc = comPort.MAV.cs;
             Warnings.WarningEngine.Start(speechEnable ? speechEngine : null);
@@ -692,15 +689,6 @@ namespace MissionPlanner
             if (!Settings.Instance.ContainsKey("rover_guid"))
                 Settings.Instance["rover_guid"] = Guid.NewGuid().ToString();
 
-            if (Settings.Instance.ContainsKey("language") && !string.IsNullOrEmpty(Settings.Instance["language"]))
-            {
-                changelanguage(CultureInfoEx.GetCultureInfo(Settings.Instance["language"]));
-            }
-            else
-            {
-                //Esto es para que inicie en Ingles desde la primera vez.
-                changelanguage(CultureInfoEx.GetCultureInfo("en-US"));
-            }
 
             if (splash != null)
             {
@@ -1130,7 +1118,7 @@ namespace MissionPlanner
                     MaximizeBox = false,
                     MinimizeBox = false,
                     FormBorderStyle = FormBorderStyle.FixedDialog,
-                    Text = Strings.LinkStats
+                    Text = "LinkStats"
                 };
                 // Change the connection stats control, so that when/if the connection stats form is showing,
                 // there will be something to see
@@ -1305,7 +1293,7 @@ namespace MissionPlanner
 
                         if (DateTime.Now > deadline)
                         {
-                            CustomMessageBox.Show(Strings.Timeout);
+                            CustomMessageBox.Show("Timeout");
                             _connectionControl.IsConnected(false);
                             return;
                         }
@@ -1401,7 +1389,7 @@ namespace MissionPlanner
                 catch (Exception exp2)
                 {
                     log.Error(exp2);
-                    CustomMessageBox.Show(Strings.Failclog);
+                    CustomMessageBox.Show("Failclog");
                 } // soft fail
 
                 // reset connect time - for timeout functions
@@ -1571,7 +1559,7 @@ namespace MissionPlanner
                         if (comPort.MAV.param.ContainsKey("RALLY_LIMIT_KM") &&
                             (maxdist / 1000.0) > (float)comPort.MAV.param["RALLY_LIMIT_KM"])
                         {
-                            CustomMessageBox.Show(Strings.Warningrallypointdistance + " " +
+                            CustomMessageBox.Show("Warningrallypointdistance" + " " +
                                                   (maxdist / 1000.0).ToString("0.00") + " > " +
                                                   (float)comPort.MAV.param["RALLY_LIMIT_KM"]);
                         }
@@ -1629,7 +1617,7 @@ namespace MissionPlanner
             if (comPort.BaseStream.IsOpen && comPort.MAV.cs.groundspeed > 4)
             {
                 if ((int)DialogResult.No ==
-                    CustomMessageBox.Show(Strings.Stillmoving, Strings.Disconnect, MessageBoxButtons.YesNo))
+                    CustomMessageBox.Show("Stillmoving", "Disconnect", MessageBoxButtons.YesNo))
                 {
                     return;
                 }
@@ -1647,7 +1635,7 @@ namespace MissionPlanner
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(Strings.ErrorClosingLogFile + ex.Message, Strings.ERROR);
+                CustomMessageBox.Show("ErrorClosingLogFile " + ex.Message, "ERROR");
             }
 
             comPort.logfile = null;
@@ -1685,7 +1673,7 @@ namespace MissionPlanner
                     {
                         CustomMessageBox.Show(
                             "Your board has a Critical service bulletin please see [link;http://discuss.ardupilot.org/t/sb-0000001-critical-service-bulletin-for-beta-cube-2-1/14711;Click here]",
-                            Strings.ERROR);
+                            "ERROR");
 
                         Settings.Instance[comPort.MAV.SerialString.Replace(" ", "")] = true.ToString();
                     }
@@ -1877,10 +1865,6 @@ namespace MissionPlanner
             if (joystickthread != null)
                 joystickthread.Join();
 
-            log.Info("closing httpthread");
-
-            // if we are waiting on a socket we need to force an abort
-            httpserver.Stop();
 
             log.Info("sorting tlogs");
             try
@@ -2019,7 +2003,7 @@ namespace MissionPlanner
         /// <summary>
         /// thread used to send joystick packets to the MAV
         /// </summary>
-        private void joysticksend()
+        private async void joysticksend()
         {
             float rate = 50; // 1000 / 50 = 20 hz
             int count = 0;
@@ -2031,7 +2015,7 @@ namespace MissionPlanner
             while (joystickthreadrun)
             {
                 joysendThreadExited = false;
-                //so we know this thread is stil alive.           
+                //so we know this thread is stil alive.
                 try
                 {
                     if (MONO)
@@ -2048,29 +2032,85 @@ namespace MissionPlanner
                         {
                             if (!joystick.manual_control)
                             {
-                                MAVLink.mavlink_rc_channels_override_t rc = new MAVLink.mavlink_rc_channels_override_t();
+                                MAVLink.mavlink_rc_channels_override_t
+                                    rc = new MAVLink.mavlink_rc_channels_override_t();
 
                                 rc.target_component = comPort.MAV.compid;
                                 rc.target_system = comPort.MAV.sysid;
 
-                                if (joystick.getJoystickAxis(1) != Joystick.Joystick.joystickaxis.None) rc.chan1_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech1;
-                                if (joystick.getJoystickAxis(2) != Joystick.Joystick.joystickaxis.None) rc.chan2_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech2;
-                                if (joystick.getJoystickAxis(3) != Joystick.Joystick.joystickaxis.None) rc.chan3_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech3;
-                                if (joystick.getJoystickAxis(4) != Joystick.Joystick.joystickaxis.None) rc.chan4_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech4;
-                                if (joystick.getJoystickAxis(5) != Joystick.Joystick.joystickaxis.None) rc.chan5_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech5;
-                                if (joystick.getJoystickAxis(6) != Joystick.Joystick.joystickaxis.None) rc.chan6_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech6;
-                                if (joystick.getJoystickAxis(7) != Joystick.Joystick.joystickaxis.None) rc.chan7_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech7;
-                                if (joystick.getJoystickAxis(8) != Joystick.Joystick.joystickaxis.None) rc.chan8_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech8;
-                                if (joystick.getJoystickAxis(9) != Joystick.Joystick.joystickaxis.None) rc.chan9_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech9;
-                                if (joystick.getJoystickAxis(10) != Joystick.Joystick.joystickaxis.None) rc.chan10_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech10;
-                                if (joystick.getJoystickAxis(11) != Joystick.Joystick.joystickaxis.None) rc.chan11_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech11;
-                                if (joystick.getJoystickAxis(12) != Joystick.Joystick.joystickaxis.None) rc.chan12_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech12;
-                                if (joystick.getJoystickAxis(13) != Joystick.Joystick.joystickaxis.None) rc.chan13_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech13;
-                                if (joystick.getJoystickAxis(14) != Joystick.Joystick.joystickaxis.None) rc.chan14_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech14;
-                                if (joystick.getJoystickAxis(15) != Joystick.Joystick.joystickaxis.None) rc.chan15_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech15;
-                                if (joystick.getJoystickAxis(16) != Joystick.Joystick.joystickaxis.None) rc.chan16_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech16;
-                                if (joystick.getJoystickAxis(17) != Joystick.Joystick.joystickaxis.None) rc.chan17_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech17;
-                                if (joystick.getJoystickAxis(18) != Joystick.Joystick.joystickaxis.None) rc.chan18_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech18;
+                                if (joystick.getJoystickAxis(1) == Joystick.joystickaxis.None)
+                                    rc.chan1_raw = ushort.MaxValue;
+                                if (joystick.getJoystickAxis(2) == Joystick.joystickaxis.None)
+                                    rc.chan2_raw = ushort.MaxValue;
+                                if (joystick.getJoystickAxis(3) == Joystick.joystickaxis.None)
+                                    rc.chan3_raw = ushort.MaxValue;
+                                if (joystick.getJoystickAxis(4) == Joystick.joystickaxis.None)
+                                    rc.chan4_raw = ushort.MaxValue;
+                                if (joystick.getJoystickAxis(5) == Joystick.joystickaxis.None)
+                                    rc.chan5_raw = ushort.MaxValue;
+                                if (joystick.getJoystickAxis(6) == Joystick.joystickaxis.None)
+                                    rc.chan6_raw = ushort.MaxValue;
+                                if (joystick.getJoystickAxis(7) == Joystick.joystickaxis.None)
+                                    rc.chan7_raw = ushort.MaxValue;
+                                if (joystick.getJoystickAxis(8) == Joystick.joystickaxis.None)
+                                    rc.chan8_raw = ushort.MaxValue;
+                                if (joystick.getJoystickAxis(9) == Joystick.joystickaxis.None)
+                                    rc.chan9_raw = (ushort)0;
+                                if (joystick.getJoystickAxis(10) == Joystick.joystickaxis.None)
+                                    rc.chan10_raw = (ushort)0;
+                                if (joystick.getJoystickAxis(11) == Joystick.joystickaxis.None)
+                                    rc.chan11_raw = (ushort)0;
+                                if (joystick.getJoystickAxis(12) == Joystick.joystickaxis.None)
+                                    rc.chan12_raw = (ushort)0;
+                                if (joystick.getJoystickAxis(13) == Joystick.joystickaxis.None)
+                                    rc.chan13_raw = (ushort)0;
+                                if (joystick.getJoystickAxis(14) == Joystick.joystickaxis.None)
+                                    rc.chan14_raw = (ushort)0;
+                                if (joystick.getJoystickAxis(15) == Joystick.joystickaxis.None)
+                                    rc.chan15_raw = (ushort)0;
+                                if (joystick.getJoystickAxis(16) == Joystick.joystickaxis.None)
+                                    rc.chan16_raw = (ushort)0;
+                                if (joystick.getJoystickAxis(17) == Joystick.joystickaxis.None)
+                                    rc.chan17_raw = (ushort)0;
+                                if (joystick.getJoystickAxis(18) == Joystick.joystickaxis.None)
+                                    rc.chan18_raw = (ushort)0;
+
+                                if (joystick.getJoystickAxis(1) != Joystick.joystickaxis.None)
+                                    rc.chan1_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech1;
+                                if (joystick.getJoystickAxis(2) != Joystick.joystickaxis.None)
+                                    rc.chan2_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech2;
+                                if (joystick.getJoystickAxis(3) != Joystick.joystickaxis.None)
+                                    rc.chan3_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech3;
+                                if (joystick.getJoystickAxis(4) != Joystick.joystickaxis.None)
+                                    rc.chan4_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech4;
+                                if (joystick.getJoystickAxis(5) != Joystick.joystickaxis.None)
+                                    rc.chan5_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech5;
+                                if (joystick.getJoystickAxis(6) != Joystick.joystickaxis.None)
+                                    rc.chan6_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech6;
+                                if (joystick.getJoystickAxis(7) != Joystick.joystickaxis.None)
+                                    rc.chan7_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech7;
+                                if (joystick.getJoystickAxis(8) != Joystick.joystickaxis.None)
+                                    rc.chan8_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech8;
+                                if (joystick.getJoystickAxis(9) != Joystick.joystickaxis.None)
+                                    rc.chan9_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech9;
+                                if (joystick.getJoystickAxis(10) != Joystick.joystickaxis.None)
+                                    rc.chan10_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech10;
+                                if (joystick.getJoystickAxis(11) != Joystick.joystickaxis.None)
+                                    rc.chan11_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech11;
+                                if (joystick.getJoystickAxis(12) != Joystick.joystickaxis.None)
+                                    rc.chan12_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech12;
+                                if (joystick.getJoystickAxis(13) != Joystick.joystickaxis.None)
+                                    rc.chan13_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech13;
+                                if (joystick.getJoystickAxis(14) != Joystick.joystickaxis.None)
+                                    rc.chan14_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech14;
+                                if (joystick.getJoystickAxis(15) != Joystick.joystickaxis.None)
+                                    rc.chan15_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech15;
+                                if (joystick.getJoystickAxis(16) != Joystick.joystickaxis.None)
+                                    rc.chan16_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech16;
+                                if (joystick.getJoystickAxis(17) != Joystick.joystickaxis.None)
+                                    rc.chan17_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech17;
+                                if (joystick.getJoystickAxis(18) != Joystick.joystickaxis.None)
+                                    rc.chan18_raw = (ushort)MainV2.comPort.MAV.cs.rcoverridech18;
 
                                 if (lastjoystick.AddMilliseconds(rate) < DateTime.Now)
                                 {
@@ -2097,7 +2137,7 @@ namespace MissionPlanner
 
                                         lastratechange = DateTime.Now;
                                     }
-                                 
+
                                 }
                                 */
                                     //                                Console.WriteLine(DateTime.Now.Millisecond + " {0} {1} {2} {3} {4}", rc.chan1_raw, rc.chan2_raw, rc.chan3_raw, rc.chan4_raw,rate);
@@ -2117,6 +2157,7 @@ namespace MissionPlanner
                                         {
                                             comPort.sendPacket(rc, rc.target_system, rc.target_component);
                                         }
+
                                         count++;
                                         lastjoystick = DateTime.Now;
                                     }
@@ -2128,13 +2169,13 @@ namespace MissionPlanner
 
                                 rc.target = comPort.MAV.compid;
 
-                                if (joystick.getJoystickAxis(1) != Joystick.Joystick.joystickaxis.None)
+                                if (joystick.getJoystickAxis(1) != Joystick.joystickaxis.None)
                                     rc.x = MainV2.comPort.MAV.cs.rcoverridech1;
-                                if (joystick.getJoystickAxis(2) != Joystick.Joystick.joystickaxis.None)
+                                if (joystick.getJoystickAxis(2) != Joystick.joystickaxis.None)
                                     rc.y = MainV2.comPort.MAV.cs.rcoverridech2;
-                                if (joystick.getJoystickAxis(3) != Joystick.Joystick.joystickaxis.None)
+                                if (joystick.getJoystickAxis(3) != Joystick.joystickaxis.None)
                                     rc.z = MainV2.comPort.MAV.cs.rcoverridech3;
-                                if (joystick.getJoystickAxis(4) != Joystick.Joystick.joystickaxis.None)
+                                if (joystick.getJoystickAxis(4) != Joystick.joystickaxis.None)
                                     rc.r = MainV2.comPort.MAV.cs.rcoverridech4;
 
                                 if (lastjoystick.AddMilliseconds(rate) < DateTime.Now)
@@ -2152,6 +2193,7 @@ namespace MissionPlanner
                                         {
                                             comPort.sendPacket(rc, comPort.MAV.sysid, comPort.MAV.compid);
                                         }
+
                                         count++;
                                         lastjoystick = DateTime.Now;
                                     }
@@ -2159,13 +2201,15 @@ namespace MissionPlanner
                             }
                         }
                     }
-                    Thread.Sleep(20);
+
+                    await Task.Delay(40).ConfigureAwait(false);
                 }
                 catch
                 {
                 } // cant fall out
             }
-            joysendThreadExited = true; //so we know this thread exited.    
+
+            joysendThreadExited = true; //so we know this thread exited.
         }
 
         /// <summary>
@@ -2184,7 +2228,7 @@ namespace MissionPlanner
                        {
                            this.MenuConnect.Image = displayicons.disconnect;
                            this.MenuConnect.Image.Tag = "Disconnect";
-                           this.MenuConnect.Text = Strings.DISCONNECTc;
+                           this.MenuConnect.Text = "DISCONNECT";
                            _connectionControl.IsConnected(true);
                        });
                     }
@@ -2197,7 +2241,7 @@ namespace MissionPlanner
                        {
                            this.MenuConnect.Image = displayicons.connect;
                            this.MenuConnect.Image.Tag = "Connect";
-                           this.MenuConnect.Text = Strings.CONNECTc;
+                           this.MenuConnect.Text = "CONNECT";
                            _connectionControl.IsConnected(false);
                            if (_connectionStats != null)
                            {
@@ -3277,41 +3321,11 @@ namespace MissionPlanner
 
         public event ProcessCmdKeyHandler ProcessCmdKeyCallback;
 
-        public void changelanguage(CultureInfo ci)
-        {
-            log.Info("change lang to " + ci.ToString() + " current " + Thread.CurrentThread.CurrentUICulture.ToString());
-
-            if (ci != null && !Thread.CurrentThread.CurrentUICulture.Equals(ci))
-            {
-                Thread.CurrentThread.CurrentUICulture = ci;
-                Settings.Instance["language"] = ci.Name;
-                //System.Threading.Thread.CurrentThread.CurrentCulture = ci;
-
-                HashSet<Control> views = new HashSet<Control> { this, FlightData, FlightPlanner, Simulation };
-
-                foreach (Control view in MyView.Controls)
-                    views.Add(view);
-
-                foreach (Control view in views)
-                {
-                    if (view != null)
-                    {
-                        ComponentResourceManager rm = new ComponentResourceManager(view.GetType());
-                        foreach (Control ctrl in view.Controls)
-                        {
-                            rm.ApplyResource(ctrl);
-                        }
-                        rm.ApplyResources(view, "$this");
-                    }
-                }
-            }
-        }
-
         private void CMB_baudrate_TextChanged(object sender, EventArgs e)
         {
             if (!int.TryParse(_connectionControl.CMB_baudrate.Text, out comPortBaud))
             {
-                CustomMessageBox.Show(Strings.InvalidBaudRate, Strings.ERROR);
+                CustomMessageBox.Show("InvalidBaudRate", "ERROR");
                 return;
             }
             var sb = new StringBuilder();

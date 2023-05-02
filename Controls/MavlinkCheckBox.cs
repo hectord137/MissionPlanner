@@ -112,11 +112,11 @@ namespace MissionPlanner.Controls
                 {
                     bool ans = MainV2.comPort.setParam(ParamName, OnValue);
                     if (ans == false)
-                        CustomMessageBox.Show(String.Format(Strings.ErrorSetValueFailed, ParamName), Strings.ERROR);
+                        CustomMessageBox.Show(String.Format("ErrorSetValueFailed", ParamName), "ERROR");
                 }
                 catch
                 {
-                    CustomMessageBox.Show(String.Format(Strings.ErrorSetValueFailed, ParamName), Strings.ERROR);
+                    CustomMessageBox.Show(String.Format("ErrorSetValueFailed", ParamName), "ERROR");
                 }
             }
             else
@@ -126,11 +126,11 @@ namespace MissionPlanner.Controls
                 {
                     bool ans = MainV2.comPort.setParam(ParamName, OffValue);
                     if (ans == false)
-                        CustomMessageBox.Show(String.Format(Strings.ErrorSetValueFailed, ParamName), Strings.ERROR);
+                        CustomMessageBox.Show(String.Format("ErrorSetValueFailed", ParamName), "ERROR");
                 }
                 catch
                 {
-                    CustomMessageBox.Show(String.Format(Strings.ErrorSetValueFailed, ParamName), Strings.ERROR);
+                    CustomMessageBox.Show(String.Format("ErrorSetValueFailed", ParamName), "ERROR");
                 }
             }
         }

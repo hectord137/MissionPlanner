@@ -557,7 +557,7 @@ mc:Ignorable=""d""
 
                     st.WriteLine(@"</Grid>");
                 }
-                else if (ctl is Panel || ctl is BSE.Windows.Forms.Panel)
+                else if (ctl is Panel)
                 {
                     st.WriteLine(@"<Grid Name=""" + ctl.Name +
                                  @""" HorizontalAlignment=""Left"" VerticalAlignment=""Top"" Margin=""" + ctl.Location.X +
@@ -698,7 +698,7 @@ mc:Ignorable=""d""
                     zg1.GraphPane.Legend.Fill = new ZedGraph.Fill(ControlBGColor);
                     zg1.GraphPane.Legend.FontSpec.FontColor = TextColor;
                 }
-                else if (ctl.GetType() == typeof(BSE.Windows.Forms.Panel) || ctl.GetType() == typeof(SplitterPanel))
+                else if (ctl.GetType() == typeof(SplitterPanel))
                 {
                     ctl.BackColor = BGColor;
                     ctl.ForeColor = TextColor; // Color.FromArgb(0xe6, 0xe8, 0xea);
@@ -830,8 +830,8 @@ mc:Ignorable=""d""
                 else if (ctl.GetType() == typeof(HorizontalProgressBar2) ||
                          ctl.GetType() == typeof(VerticalProgressBar2))
                 {
-                    ((HorizontalProgressBar2)ctl).BackgroundColor = ControlBGColor;
-                    ((HorizontalProgressBar2)ctl).ValueColor = Color.FromArgb(148, 193, 31);
+//                    ((HorizontalProgressBar2)ctl).BackgroundColor = ControlBGColor;
+//                    ((HorizontalProgressBar2)ctl).ValueColor = Color.FromArgb(148, 193, 31);
                 }
                 else if (ctl.GetType() == typeof(MyProgressBar))
                 {
@@ -1090,7 +1090,7 @@ mc:Ignorable=""d""
                     zg1.GraphPane.Legend.Fill = new ZedGraph.Fill(ZedGraphLegendFill);
                     zg1.GraphPane.Legend.FontSpec.FontColor = TextColor;
                 }
-                else if (ctl.GetType() == typeof(BSE.Windows.Forms.Panel) || ctl.GetType() == typeof(SplitterPanel))
+                else if (ctl.GetType() == typeof(SplitterPanel))
                 {
                     ctl.BackColor = BGColor;
                     ctl.ForeColor = TextColor;
@@ -1223,8 +1223,8 @@ mc:Ignorable=""d""
                 else if (ctl.GetType() == typeof(HorizontalProgressBar2) ||
                          ctl.GetType() == typeof(VerticalProgressBar2))
                 {
-                    ((HorizontalProgressBar2)ctl).BackgroundColor = ControlBGColor;
-                    ((HorizontalProgressBar2)ctl).ValueColor = HorizontalPBValueColor;
+//                    ((HorizontalProgressBar2)ctl).BackgroundColor = ControlBGColor;
+//                    ((HorizontalProgressBar2)ctl).ValueColor = HorizontalPBValueColor;
                 }
                 else if (ctl.GetType() == typeof(MyProgressBar))
                 {

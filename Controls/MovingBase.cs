@@ -39,7 +39,7 @@ namespace MissionPlanner
 
             if (threadrun)
             {
-                BUT_connect.Text = Strings.Stop;
+                BUT_connect.Text = "Stop";
                 CMB_baudrate.Text = comPort.BaudRate.ToString();
                 CMB_serialport.Text = comPort.PortName;
                 CMB_updaterate.Text = updaterate.ToString();
@@ -53,7 +53,7 @@ namespace MissionPlanner
             {
                 threadrun = false;
                 comPort.Close();
-                BUT_connect.Text = Strings.Connect;
+                BUT_connect.Text = "Connect";
             }
             else
             {
@@ -68,7 +68,7 @@ namespace MissionPlanner
                             listener = new TcpListener(System.Net.IPAddress.Any, 14551);
                             listener.Start(0);
                             listener.BeginAcceptTcpClient(new AsyncCallback(DoAcceptTcpClientCallback), listener);
-                            BUT_connect.Text = Strings.Stop;
+                            BUT_connect.Text = "Stop";
                             break;
                         case "TCP Client":
                             comPort = new TcpSerial() { retrys = 999999, autoReconnect = true };
@@ -90,7 +90,7 @@ namespace MissionPlanner
                 }
                 catch
                 {
-                    CustomMessageBox.Show(Strings.InvalidPortName);
+                    CustomMessageBox.Show("InvalidPortName");
                     return;
                 }
                 try
@@ -99,7 +99,7 @@ namespace MissionPlanner
                 }
                 catch
                 {
-                    CustomMessageBox.Show(Strings.InvalidBaudRate, Strings.ERROR);
+                    CustomMessageBox.Show("InvalidBaudRate", "ERROR");
                     return;
                 }
                 try
@@ -109,7 +109,7 @@ namespace MissionPlanner
                 }
                 catch (Exception ex)
                 {
-                    CustomMessageBox.Show(Strings.ErrorConnecting + "\n" + ex.ToString(), Strings.ERROR);
+                    CustomMessageBox.Show("ErrorConnecting" + "\n" + ex.ToString(), "ERROR");
                     return;
                 }
 
@@ -120,7 +120,7 @@ namespace MissionPlanner
                 };
                 t12.Start();
 
-                BUT_connect.Text = Strings.Stop;
+                BUT_connect.Text = "Stop";
             }
         }
 
@@ -318,7 +318,7 @@ namespace MissionPlanner
             }
             catch
             {
-                CustomMessageBox.Show(Strings.InvalidUpdateRate, Strings.ERROR);
+                CustomMessageBox.Show("InvalidUpdateRate", "ERROR");
             }
         }
 

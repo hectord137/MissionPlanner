@@ -1,6 +1,6 @@
-﻿using com.drew.imaging.jpg;
-using com.drew.metadata;
-using com.drew.metadata.exif;
+﻿//using com.drew.imaging.jpg;
+//using com.drew.metadata;
+//using com.drew.metadata.exif;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
@@ -514,16 +514,21 @@ namespace MissionPlanner.Grid
                     (double)NUM_Distance.Value, /*(double)NUM_spacing.Value*/ 50, (double)NUM_angle.Value,
                     (double)NUM_overshoot.Value, (double)NUM_overshoot2.Value,
                     (Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), CMB_startfrom.Text), false,
-                    (float)NUM_Lane_Dist.Value, (float)NUM_leadin.Value, MainV2.comPort.MAV.cs.PlannedHomeLocation).ConfigureAwait(true);
+                    (float)NUM_Lane_Dist.Value, (float)NUM_leadin.Value, MainV2.comPort.MAV.cs.PlannedHomeLocation,
+                    /*(int)NUM_clockwise_laps.Value*/ 0, /*CHK_match_spiral_perimeter.Checked*/ false, /*(int)NUM_laps.Value*/ 0).ConfigureAwait(true);
             }
             else
             {
-                grid = await Utilities.Grid.CreateGridAsync(list, CurrentState.fromDistDisplayUnit((double)NUM_altitude.Value),
-                    (double)NUM_Distance.Value, /*(double)NUM_spacing.Value*/ 50, (double)NUM_angle.Value,
+                grid = await Utilities.Grid.CreateGridAsync(list,
+                    CurrentState.fromDistDisplayUnit((double)NUM_altitude.Value),
+                    (double)NUM_Distance.Value, /*(double)NUM_spacing.Valu^*/ 50, (double)NUM_angle.Value,
                     (double)NUM_overshoot.Value, (double)NUM_overshoot2.Value,
-                    (Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), CMB_startfrom.Text), false,
-                    (float)NUM_Lane_Dist.Value, (float)NUM_leadin.Value, MainV2.comPort.MAV.cs.PlannedHomeLocation).ConfigureAwait(true);
+                    (Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), CMB_startfrom.Text),
+                    false, (float)NUM_Lane_Dist.Value, (float)NUM_leadin.Value, /*(float)NUM_leadin2.Value*/ 0,
+                    MainV2.comPort.MAV.cs.PlannedHomeLocation, /*chk_optimize_for_distance.Checked*/ false).ConfigureAwait(true);
             }
+
+
 
             map.HoldInvalidation = true;
 
@@ -544,11 +549,13 @@ namespace MissionPlanner.Grid
                 // add crossover
                 Utilities.Grid.StartPointLatLngAlt = grid[grid.Count - 1];
 
-                grid.AddRange(await Utilities.Grid.CreateGridAsync(list, CurrentState.fromDistDisplayUnit((double)NUM_altitude.Value),
+                grid.AddRange(await Utilities.Grid.CreateGridAsync(list,
+                    CurrentState.fromDistDisplayUnit((double)NUM_altitude.Value),
                     (double)NUM_Distance.Value, /*(double)NUM_spacing.Value*/ 50, (double)NUM_angle.Value + 90.0,
                     (double)NUM_overshoot.Value, (double)NUM_overshoot2.Value,
                     Utilities.Grid.StartPosition.Point, false,
-                    (float)NUM_Lane_Dist.Value, (float)NUM_leadin.Value, MainV2.comPort.MAV.cs.PlannedHomeLocation).ConfigureAwait(true));
+                    (float)NUM_Lane_Dist.Value, (float)NUM_leadin.Value, /*(float)NUM_leadin2.Value*/ 0,
+                    MainV2.comPort.MAV.cs.PlannedHomeLocation, /*chk_optimize_for_distance.Checked*/ false).ConfigureAwait(true));
             }
 
             if (CHK_boundary.Checked)

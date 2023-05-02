@@ -120,11 +120,11 @@ namespace MissionPlanner.GCSViews
                     //    AddBackstageViewPage(typeof(ConfigAteryx), "Ateryx Pids");
                     //}
 
-                    AddBackstageViewPage(typeof(ConfigPlanner), Strings.Planner);
+                    AddBackstageViewPage(typeof(ConfigPlanner), "Planner");
                 }
                 else
                 {
-                    start = AddBackstageViewPage(typeof(ConfigPlanner), Strings.Planner);
+                    start = AddBackstageViewPage(typeof(ConfigPlanner), "Planner");
                 }
 
                 // apply theme before trying to display it

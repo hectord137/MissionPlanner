@@ -328,7 +328,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_enable.Location" type="System.Drawing.Point, System.Drawing">
-    <value>361, 12</value>
+    <value>280, 12</value>
   </data>
   <data name="BUT_enable.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -338,9 +338,6 @@
   </data>
   <data name="BUT_enable.Text" xml:space="preserve">
     <value>Enable</value>
-  </data>
-  <data name="BUT_enable.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="&gt;&gt;BUT_enable.Name" xml:space="preserve">
     <value>BUT_enable</value>
@@ -358,7 +355,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_save.Location" type="System.Drawing.Point, System.Drawing">
-    <value>280, 12</value>
+    <value>361, 12</value>
   </data>
   <data name="BUT_save.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>

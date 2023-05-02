@@ -22,7 +22,20 @@ namespace MissionPlanner.Controls
         double _number = -9999;
 
         [System.ComponentModel.Browsable(true)]
-        public double number { get { return _number; } set { if (_number == value) return; _number = value; Invalidate(); } }
+        public double number
+        {
+            get { return _number; }
+            set
+            {
+                lock (this)
+                {
+                    if (_number.Equals(value))
+                        return;
+                    _number = value;
+                    Invalidate();
+                }
+            }
+        }
 
         string _numberformat = "0.00";
         private string _desc = "";
@@ -37,6 +50,8 @@ namespace MissionPlanner.Controls
             }
             set
             {
+                if (_numberformat.Equals(value))
+                    return;
                 _numberformat = value;
                 this.Invalidate();
             }
@@ -44,6 +59,9 @@ namespace MissionPlanner.Controls
 
         [System.ComponentModel.Browsable(true)]
         public Color numberColor { get { return _numbercolor; } set { if (_numbercolor == value) return; _numbercolor = value; Invalidate(); } }
+
+        //We use this property as a backup store for the numberColor, so it is possible to change numberColor temporary.
+        public Color numberColorBackup { get; set; }
 
         public QuickView()
         {
@@ -62,7 +80,7 @@ namespace MissionPlanner.Controls
 
                 var mid = extent.Width / 2;
 
-                e.DrawString(desc, this.Font, new SolidBrush(this.ForeColor), this.Width / 2 - mid, 0);
+                e.DrawString(desc, this.Font, new SolidBrush(this.ForeColor), this.Width / 2 - mid, 5);
 
                 y = extent.Height;
             }
@@ -70,7 +88,7 @@ namespace MissionPlanner.Controls
             {
                 var numb = number.ToString(numberformat);
 
-                Size extent = e.MeasureString("0".PadLeft(numb.Length,'0') + (numb.Contains('-') ? "" : "-"), new Font(this.Font.FontFamily, (float)newSize, this.Font.Style)).ToSize();
+                Size extent = e.MeasureString("0".PadLeft(numb.Length+1,'0'), new Font(this.Font.FontFamily, (float)newSize, this.Font.Style)).ToSize();
 
                 float hRatio = (this.Height - y) / (float)(extent.Height);
                 float wRatio = this.Width / (float)extent.Width;
@@ -93,6 +111,15 @@ namespace MissionPlanner.Controls
         {
             if (this.Visible)
                 base.Refresh();
+        }
+
+        protected override void WndProc(ref Message m) // seems to crash here on linux... so try ignore it
+        {
+            try
+            {
+                base.WndProc(ref m);
+            }
+            catch { }
         }
 
         protected override void OnInvalidated(InvalidateEventArgs e)

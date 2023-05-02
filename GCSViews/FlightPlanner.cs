@@ -1,6 +1,5 @@
 ﻿using DotSpatial.Data;
 using DotSpatial.Projections;
-using GDAL;
 using GeoUtility.GeoSystem;
 using GeoUtility.GeoSystem.Base;
 using GMap.NET;
@@ -124,7 +123,7 @@ namespace MissionPlanner.GCSViews
         private string mobileGpsLog = string.Empty;
         private PointLatLng MouseDownStart;
         private PointLatLngAlt mouseposdisplay = new PointLatLngAlt(0, 0);
-        private WPOverlay overlay;
+        private WPOverlay wpOverlay;
         private bool polygongridmode;
         //private MissionPlanner.Controls.Icon.Polygon polyicon = new MissionPlanner.Controls.Icon.Polygon();
         //private MissionPlanner.Controls.Icon.Zoom zoomicon = new MissionPlanner.Controls.Icon.Zoom();
@@ -147,6 +146,8 @@ namespace MissionPlanner.GCSViews
 
         //Capa utilizada para dibujar la traza de la ecosonda
         GMapOverlay echoSounderOverlay;
+
+        private string startupWPradius = "5.0";
 
 
         public void Init()
@@ -666,7 +667,7 @@ namespace MissionPlanner.GCSViews
             }
             catch
             {
-                CustomMessageBox.Show("Your home location is invalid", Strings.ERROR);
+                CustomMessageBox.Show("Your home location is invalid", "ERROR");
                 return;
             }
 
@@ -828,7 +829,7 @@ namespace MissionPlanner.GCSViews
             {
                 if (!MainV2.comPort.BaseStream.IsOpen)
                 {
-                    CustomMessageBox.Show(Strings.PleaseConnect);
+                    CustomMessageBox.Show("PleaseConnect");
                     return;
                 }
                 try
@@ -837,7 +838,7 @@ namespace MissionPlanner.GCSViews
                 }
                 catch
                 {
-                    CustomMessageBox.Show("Failed to get fence point", Strings.ERROR);
+                    CustomMessageBox.Show("Failed to get fence point", "ERROR");
                 }
                 return;
             }
@@ -868,7 +869,7 @@ namespace MissionPlanner.GCSViews
                 }
                 catch
                 {
-                    CustomMessageBox.Show("Failed to get fence point", Strings.ERROR);
+                    CustomMessageBox.Show("Failed to get fence point", "ERROR");
                     return;
                 }
             }
@@ -912,7 +913,7 @@ namespace MissionPlanner.GCSViews
             {
                 if (!MainV2.comPort.BaseStream.IsOpen)
                 {
-                    CustomMessageBox.Show(Strings.PleaseConnect);
+                    CustomMessageBox.Show("PleaseConnect");
                     return;
                 }
                 mav_mission.download(MainV2.comPort, MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid, MAVLink.MAV_MISSION_TYPE.RALLY).AwaitSync();
@@ -950,7 +951,7 @@ namespace MissionPlanner.GCSViews
                 }
                 catch
                 {
-                    CustomMessageBox.Show("Failed to get rally point", Strings.ERROR);
+                    CustomMessageBox.Show("Failed to get rally point", "ERROR");
                     return;
                 }
             }
@@ -1062,7 +1063,7 @@ namespace MissionPlanner.GCSViews
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show("A invalid entry has been detected\n" + ex.Message, Strings.ERROR);
+                CustomMessageBox.Show("A invalid entry has been detected\n" + ex.Message, "ERROR");
             }
 
             // remove more than 40 revisions
@@ -1349,7 +1350,7 @@ namespace MissionPlanner.GCSViews
                 }
                 catch (Exception ex)
                 {
-                    CustomMessageBox.Show(Strings.Invalid_home_location, Strings.ERROR);
+                    CustomMessageBox.Show("Invalid_home_location", "ERROR");
                     log.Error(ex);
                 }
             }
@@ -1360,52 +1361,49 @@ namespace MissionPlanner.GCSViews
 
                 if ((MAVLink.MAV_MISSION_TYPE)cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.MISSION)
                 {
-                    overlay = new WPOverlay();
-                    overlay.overlay.Id = "WPOverlay";
+                    wpOverlay = new WPOverlay();
+                    wpOverlay.overlay.Id = "WPOverlay";
 
                     try
                     {
-                        if (TXT_WPRad.Text == "") TXT_WPRad.Text = "3";
+                        if (TXT_WPRad.Text == "") TXT_WPRad.Text = startupWPradius;
                         if (TXT_loiterrad.Text == "") TXT_loiterrad.Text = "30";
 
-                        overlay.CreateOverlay(home,
+                        wpOverlay.CreateOverlay(home,
                             commandlist,
                             double.Parse(TXT_WPRad.Text) / CurrentState.multiplieralt,
                             double.Parse(TXT_loiterrad.Text) / CurrentState.multiplieralt, CurrentState.multiplieralt);
                     }
-                    catch (FormatException ex)
+                    catch (FormatException)
                     {
-                        CustomMessageBox.Show(Strings.InvalidNumberEntered + "\n" + "WP Radius or Loiter Radius",
-                            Strings.ERROR);
+                        CustomMessageBox.Show("InvalidNumberEntered" + "\n" + "WP Radius or Loiter Radius",
+                            "ERROR");
                     }
 
                     MainMap.HoldInvalidation = true;
 
-                    var existing = MainMap.Overlays.Where(a => a.Id == overlay.overlay.Id).ToList();
+                    var existing = MainMap.Overlays.Where(a => a.Id == wpOverlay.overlay.Id).ToList();
                     foreach (var b in existing)
                     {
                         MainMap.Overlays.Remove(b);
                     }
 
-                    //MainMap.Overlays.Insert(1, overlay.overlay);
-                    //La capa 0 y 1 se utiliza para el Geotiff y para la Echosounder.
-                    MainMap.Overlays.Insert(3, overlay.overlay);
+                    MainMap.Overlays.Insert(1, wpOverlay.overlay);
 
-                    overlay.overlay.ForceUpdate();
+                    wpOverlay.overlay.ForceUpdate();
 
                     lbl_distance.Text = rm.GetString("lbl_distance.Text") + ": " +
-                                                       FormatDistance((
-                                                                          overlay.route.Points.Select(a => (PointLatLngAlt)a)
-                                                                              .Aggregate(0.0, (d, p1, p2) => d + p1.GetDistance(p2)) +
-                                                                          overlay.homeroute.Points.Select(a => (PointLatLngAlt)a)
-                                                                              .Aggregate(0.0, (d, p1, p2) => d + p1.GetDistance(p2))) /
-                                                                      1000.0, false);
+                                        FormatDistance((
+                                            wpOverlay.overlay.Routes.SelectMany(a => a.Points)
+                                                .Select(a => (PointLatLngAlt)a)
+                                                .Aggregate(0.0, (d, p1, p2) => d + p1.GetDistance(p2))
+                                        ) / 1000.0, false);
 
-                    setgradanddistandaz(overlay.pointlist, home);
+                    setgradanddistandaz(wpOverlay.pointlist, home);
 
-                    if (overlay.pointlist.Count <= 1)
+                    if (wpOverlay.pointlist.Count <= 1)
                     {
-                        RectLatLng? rect = MainMap.GetRectOfAllMarkers(overlay.overlay.Id);
+                        RectLatLng? rect = MainMap.GetRectOfAllMarkers(wpOverlay.overlay.Id);
                         if (rect.HasValue)
                         {
                             MainMap.Position = rect.Value.LocationMiddle;
@@ -1414,7 +1412,7 @@ namespace MissionPlanner.GCSViews
                         MainMap_OnMapZoomChanged();
                     }
 
-                    pointlist = overlay.pointlist;
+                    pointlist = wpOverlay.pointlist;
 
                     {
                         foreach (var pointLatLngAlt in pointlist.PrevNowNext())
@@ -1431,7 +1429,7 @@ namespace MissionPlanner.GCSViews
 
                             var pnt = new GMapMarkerPlus(mid);
                             pnt.Tag = new midline() { now = now, next = next };
-                            overlay.overlay.Markers.Add(pnt);
+                            wpOverlay.overlay.Markers.Add(pnt);
                         }
                     }
 
@@ -1442,12 +1440,14 @@ namespace MissionPlanner.GCSViews
                         try
                         {
                             fenceoverlay.CreateOverlay(PointLatLngAlt.Zero,
-                            MainV2.comPort.MAV.fencepoints.Values.Select(a => (Locationwp)a).ToList(), 0, 0, CurrentState.multiplieralt);
+                                MainV2.comPort.MAV.fencepoints.Values.Select(a => (Locationwp)a).ToList(), 0, 0,
+                                CurrentState.multiplieralt);
                         }
                         catch
                         {
 
                         }
+
                         fenceoverlay.overlay.Markers.Select(a => a.IsHitTestVisible = false).ToArray();
                         var fence = MainMap.Overlays.Where(a => a.Id == "fence");
                         if (fence.Count() > 0)
@@ -1462,36 +1462,34 @@ namespace MissionPlanner.GCSViews
 
                 if ((MAVLink.MAV_MISSION_TYPE)cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.FENCE)
                 {
-                    var overlay = new WPOverlay();
-                    overlay.overlay.Id = "fence";
+                    var fenceoverlay = new WPOverlay();
+                    fenceoverlay.overlay.Id = "fence";
 
                     try
                     {
-                        overlay.CreateOverlay(PointLatLngAlt.Zero,
+                        fenceoverlay.CreateOverlay(PointLatLngAlt.Zero,
                             commandlist, 0, 0, CurrentState.multiplieralt);
                     }
-                    catch (FormatException ex)
+                    catch (FormatException)
                     {
-                        CustomMessageBox.Show(Strings.InvalidNumberEntered, Strings.ERROR);
+                        CustomMessageBox.Show("InvalidNumberEntered", "ERROR");
                     }
 
                     MainMap.HoldInvalidation = true;
 
-                    var existing = MainMap.Overlays.Where(a => a.Id == overlay.overlay.Id).ToList();
+                    var existing = MainMap.Overlays.Where(a => a.Id == fenceoverlay.overlay.Id).ToList();
                     foreach (var b in existing)
                     {
                         MainMap.Overlays.Remove(b);
                     }
 
-                    //MainMap.Overlays.Insert(1, overlay.overlay);
-                    //La capa 0 y 1 se utiliza para el Geotiff y para la Echosounder.
-                    MainMap.Overlays.Insert(3, overlay.overlay);
+                    MainMap.Overlays.Insert(1, fenceoverlay.overlay);
 
-                    overlay.overlay.ForceUpdate();
+                    fenceoverlay.overlay.ForceUpdate();
 
                     if (true)
                     {
-                        foreach (var poly in overlay.overlay.Polygons)
+                        foreach (var poly in fenceoverlay.overlay.Polygons)
                         {
                             var startwp = int.Parse(poly.Name);
                             var a = 1;
@@ -1509,7 +1507,7 @@ namespace MissionPlanner.GCSViews
                                 pnt.Tag = new midline() { now = now, next = next };
                                 ((midline)pnt.Tag).now.Tag = (startwp + a).ToString();
                                 ((midline)pnt.Tag).next.Tag = (startwp + a + 1).ToString();
-                                overlay.overlay.Markers.Add(pnt);
+                                fenceoverlay.overlay.Markers.Add(pnt);
 
                                 a++;
                             }
@@ -1521,39 +1519,37 @@ namespace MissionPlanner.GCSViews
 
                 if ((MAVLink.MAV_MISSION_TYPE)cmb_missiontype.SelectedValue == MAVLink.MAV_MISSION_TYPE.RALLY)
                 {
-                    var overlay = new WPOverlay();
-                    overlay.overlay.Id = "rally";
+                    var rallyoverlay = new WPOverlay();
+                    rallyoverlay.overlay.Id = "rally";
 
                     try
                     {
-                        overlay.CreateOverlay(PointLatLngAlt.Zero,
+                        rallyoverlay.CreateOverlay(PointLatLngAlt.Zero,
                             commandlist, 0, 0, CurrentState.multiplieralt);
                     }
-                    catch (FormatException ex)
+                    catch (FormatException)
                     {
-                        CustomMessageBox.Show(Strings.InvalidNumberEntered, Strings.ERROR);
+                        CustomMessageBox.Show("InvalidNumberEntered", "ERROR");
                     }
 
                     MainMap.HoldInvalidation = true;
 
-                    var existing = MainMap.Overlays.Where(a => a.Id == overlay.overlay.Id).ToList();
+                    var existing = MainMap.Overlays.Where(a => a.Id == rallyoverlay.overlay.Id).ToList();
                     foreach (var b in existing)
                     {
                         MainMap.Overlays.Remove(b);
                     }
 
-                    //MainMap.Overlays.Insert(1, overlay.overlay);
-                    //La capa 0 y 1 se utiliza para el Geotiff y para la Echosounder.
-                    MainMap.Overlays.Insert(3, overlay.overlay);
+                    MainMap.Overlays.Insert(1, rallyoverlay.overlay);
 
-                    overlay.overlay.ForceUpdate();
+                    rallyoverlay.overlay.ForceUpdate();
 
                     MainMap.Refresh();
                 }
             }
             catch (FormatException ex)
             {
-                CustomMessageBox.Show(Strings.InvalidNumberEntered + "\n" + ex.Message, Strings.ERROR);
+                CustomMessageBox.Show("InvalidNumberEntered" + "\n" + ex.Message, "ERROR");
             }
         }
 
@@ -1738,7 +1734,7 @@ namespace MissionPlanner.GCSViews
                         }
                         catch
                         {
-                            CustomMessageBox.Show("Error opening File", Strings.ERROR);
+                            CustomMessageBox.Show("Error opening File", "ERROR");
                             return;
                         }
                     }
@@ -1812,7 +1808,7 @@ namespace MissionPlanner.GCSViews
             }
             catch
             {
-                CustomMessageBox.Show("Your home location is invalid", Strings.ERROR);
+                CustomMessageBox.Show("Your home location is invalid", "ERROR");
                 return;
             }
 
@@ -2107,7 +2103,7 @@ namespace MissionPlanner.GCSViews
                     }
                     else
                     {
-                        CustomMessageBox.Show(Strings.InvalidField, Strings.ERROR);
+                        CustomMessageBox.Show("InvalidField", "ERROR");
                         return;
                     }
                 }
@@ -2192,7 +2188,7 @@ namespace MissionPlanner.GCSViews
                 catch (Exception ex)
                 {
                     log.Error(ex);
-                    CustomMessageBox.Show("Invalid Lat/Long, please fix", Strings.ERROR);
+                    CustomMessageBox.Show("Invalid Lat/Long, please fix", "ERROR");
                 }
             }
 
@@ -2205,7 +2201,7 @@ namespace MissionPlanner.GCSViews
             }
             catch (FormatException)
             {
-                CustomMessageBox.Show(Strings.InvalidNumberEntered, Strings.ERROR);
+                CustomMessageBox.Show("InvalidNumberEntered", "ERROR");
             }
         }
 
@@ -3131,7 +3127,7 @@ namespace MissionPlanner.GCSViews
             int maxzoom = 20;
             if (!int.TryParse(maxzoomstring, out maxzoom))
             {
-                CustomMessageBox.Show(Strings.InvalidNumberEntered, Strings.ERROR);
+                CustomMessageBox.Show("InvalidNumberEntered", "ERROR");
                 return;
             }
 
@@ -3399,7 +3395,7 @@ namespace MissionPlanner.GCSViews
                     }
                     catch (Exception ex)
                     {
-                        CustomMessageBox.Show(Strings.ERROR + "\n" + ex, Strings.ERROR);
+                        CustomMessageBox.Show("ERROR" + "\n" + ex, "ERROR");
                     }
                 }
             }
@@ -3582,7 +3578,7 @@ namespace MissionPlanner.GCSViews
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show("Failed to send new fence points " + ex, Strings.ERROR);
+                CustomMessageBox.Show("Failed to send new fence points " + ex, "ERROR");
             }
         }
 
@@ -3700,7 +3696,7 @@ namespace MissionPlanner.GCSViews
                 }
                 catch
                 {
-                    CustomMessageBox.Show(Strings.InvalidNumberEntered, Strings.ERROR);
+                    CustomMessageBox.Show("InvalidNumberEntered", "ERROR");
                     return;
                 }
 
@@ -3734,7 +3730,7 @@ namespace MissionPlanner.GCSViews
                 }
                 catch
                 {
-                    CustomMessageBox.Show("Invalid insert position", Strings.ERROR);
+                    CustomMessageBox.Show("Invalid insert position", "ERROR");
                     return;
                 }
 
@@ -3783,144 +3779,7 @@ namespace MissionPlanner.GCSViews
             writeKML();
         }
 
-        public void kMLOverlayToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (OpenFileDialog fd = new OpenFileDialog())
-            {
-                fd.Filter = "All Supported|*.kml;*.kmz;*.dxf;*.gpkg|Google Earth KML|*.kml;*.kmz|AutoCad DXF|*.dxf|GeoPackage|*.gpkg";
-                DialogResult result = fd.ShowDialog();
-                string file = fd.FileName;
-                if (file != "")
-                {
-                    kmlpolygonsoverlay.Polygons.Clear();
-                    kmlpolygonsoverlay.Routes.Clear();
-
-                    FlightData.kmlpolygons.Routes.Clear();
-                    FlightData.kmlpolygons.Polygons.Clear();
-                    if (file.ToLower().EndsWith("gpkg"))
-                    {
-                        using (var ogr = OGR.Open(file))
-                        {
-                            ogr.NewPoint += pnt =>
-                            {
-                                var mark = new GMarkerGoogle(new PointLatLngAlt(pnt), GMarkerGoogleType.brown_small);
-                                FlightData.kmlpolygons.Markers.Add(mark);
-                                kmlpolygonsoverlay.Markers.Add(mark);
-                            };
-                            ogr.NewLineString += ls =>
-                            {
-                                var route =
-                                    new GMapRoute(ls.Select(a => new PointLatLngAlt(a.y, a.x, a.z).Point()), "")
-                                    {
-                                        IsHitTestVisible = false,
-                                        Stroke = new Pen(Color.Red)
-                                    };
-                                FlightData.kmlpolygons.Routes.Add(route);
-                                kmlpolygonsoverlay.Routes.Add(route);
-                            };
-                            ogr.NewPolygon += ls =>
-                            {
-                                var polygon =
-                                    new GMapPolygon(ls.Select(a => new PointLatLngAlt(a.y, a.x, a.z).Point()).ToList(), "")
-                                    {
-                                        Fill = Brushes.Transparent,
-                                        IsHitTestVisible = false,
-                                        Stroke = new Pen(Color.Red)
-                                    };
-                                FlightData.kmlpolygons.Polygons.Add(polygon);
-                                kmlpolygonsoverlay.Polygons.Add(polygon);
-                            };
-
-                            ogr.Process();
-                        }
-                    }
-                    else if (file.ToLower().EndsWith("dxf"))
-                    {
-                        string zone = "-99";
-                        InputBox.Show("Zone", "Please enter the UTM zone, or cancel to not change", ref zone);
-
-                        dxf dxf = new dxf();
-                        if (zone != "-99")
-                            dxf.Tag = zone;
-
-                        dxf.newLine += Dxf_newLine;
-                        dxf.newPolyLine += Dxf_newPolyLine;
-                        dxf.newLwPolyline += Dxf_newLwPolyline;
-                        dxf.newMLine += Dxf_newMLine;
-                        dxf.Read(file);
-                    }
-                    else
-                    {
-                        try
-                        {
-                            string kml = "";
-                            string tempdir = "";
-                            if (file.ToLower().EndsWith("kmz"))
-                            {
-                                ZipFile input = new ZipFile(file);
-
-                                tempdir = Path.GetTempPath() + Path.DirectorySeparatorChar + Path.GetRandomFileName();
-                                input.ExtractAll(tempdir, ExtractExistingFileAction.OverwriteSilently);
-
-                                string[] kmls = Directory.GetFiles(tempdir, "*.kml");
-
-                                if (kmls.Length > 0)
-                                {
-                                    file = kmls[0];
-
-                                    input.Dispose();
-                                }
-                                else
-                                {
-                                    input.Dispose();
-                                    return;
-                                }
-                            }
-
-                            var sr = new StreamReader(File.OpenRead(file));
-                            kml = sr.ReadToEnd();
-                            sr.Close();
-
-                            // cleanup after out
-                            if (tempdir != "")
-                                Directory.Delete(tempdir, true);
-
-                            kml = kml.Replace("<Snippet/>", "");
-
-                            var parser = new Parser();
-
-                            parser.ElementAdded += parser_ElementAdded;
-                            parser.ParseString(kml, false);
-
-                            if ((int)DialogResult.Yes ==
-                                CustomMessageBox.Show(Strings.Do_you_want_to_load_this_into_the_flight_data_screen, Strings.Load_data,
-                                    MessageBoxButtons.YesNo))
-                            {
-                                foreach (var temp in kmlpolygonsoverlay.Polygons)
-                                {
-                                    FlightData.kmlpolygons.Polygons.Add(temp);
-                                }
-                                foreach (var temp in kmlpolygonsoverlay.Routes)
-                                {
-                                    FlightData.kmlpolygons.Routes.Add(temp);
-                                }
-                            }
-
-                            if (
-                                CustomMessageBox.Show(Strings.Zoom_To, Strings.Zoom_to_the_center_or_the_loaded_file, MessageBoxButtons.YesNo) ==
-                                (int)DialogResult.Yes)
-                            {
-                                MainMap.SetZoomToFitRect(GetBoundingLayer(kmlpolygonsoverlay));
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            CustomMessageBox.Show(Strings.Bad_KML_File + ex);
-                        }
-                    }
-                }
-            }
-        }
+        
 
         public void label4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -4156,7 +4015,7 @@ namespace MissionPlanner.GCSViews
                     }
                     catch (Exception ex)
                     {
-                        CustomMessageBox.Show(Strings.Bad_KML_File + ex);
+                        CustomMessageBox.Show("Bad_KML_File " + ex);
                     }
                 }
             }
@@ -4366,7 +4225,7 @@ namespace MissionPlanner.GCSViews
                 }
                 catch
                 {
-                    CustomMessageBox.Show("Error opening File", Strings.ERROR);
+                    CustomMessageBox.Show("Error opening File", "ERROR");
                     return;
                 }
             }
@@ -4548,7 +4407,7 @@ namespace MissionPlanner.GCSViews
             }
             catch
             {
-                CustomMessageBox.Show(Strings.InvalidNumberEntered, Strings.ERROR);
+                CustomMessageBox.Show("InvalidNumberEntered", "ERROR");
                 return;
             }
 
@@ -4663,7 +4522,7 @@ namespace MissionPlanner.GCSViews
                 int maxzoom = 20;
                 if (!int.TryParse(maxzoomstring, out maxzoom))
                 {
-                    CustomMessageBox.Show(Strings.InvalidNumberEntered, Strings.ERROR);
+                    CustomMessageBox.Show("InvalidNumberEntered", "ERROR");
                     return;
                 }
 
@@ -5151,7 +5010,7 @@ namespace MissionPlanner.GCSViews
                 }
                 catch
                 {
-                    CustomMessageBox.Show("Failed to save rally point", Strings.ERROR);
+                    CustomMessageBox.Show("Failed to save rally point", "ERROR");
                     return;
                 }
             }
@@ -5363,7 +5222,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     }
                     catch (Exception)
                     {
-                        CustomMessageBox.Show(Strings.ERROR);
+                        CustomMessageBox.Show("ERROR");
                     }
                 }
             }
@@ -5515,7 +5374,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     result = ans;
                     Console.WriteLine("MISSION_ACK " + ans + " " + data.ToJSON(Formatting.None));
                     return true;
-                });
+                }, (byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent);
 
             var sub2 = MainV2.comPort.SubscribeToPacketType(MAVLink.MAVLINK_MSG_ID.MISSION_REQUEST,
                 message =>
@@ -5532,7 +5391,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     reqno = data.seq;
                     Console.WriteLine("MISSION_REQUEST " + reqno + " " + data.ToJSON(Formatting.None));
                     return true;
-                });
+                }, (byte)MainV2.comPort.sysidcurrent, (byte)MainV2.comPort.compidcurrent);
 
             ((ProgressReporterDialogue)sender).UpdateProgressAndStatus(0, "Set total wps ");
             MainV2.comPort.setWPTotal(totalwpcountforupload);
@@ -5774,7 +5633,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
             else
             {
-                CustomMessageBox.Show(Strings.InvalidAlt, Strings.ERROR);
+                CustomMessageBox.Show("InvalidAlt", "ERROR");
             }
 
             isMouseClickOffMenu = false;
@@ -5794,7 +5653,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             if (!cmdParamNames.ContainsKey("DO_SET_ROI"))
             {
-                CustomMessageBox.Show(Strings.ErrorFeatureNotEnabled, Strings.ERROR);
+                CustomMessageBox.Show("FeatureNotEnabled", "ERROR");
                 return;
             }
 
@@ -5964,7 +5823,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 }
                 catch (ArgumentException ex)
                 {
-                    CustomMessageBox.Show("Bad input options, please try again\n" + ex.ToString(), Strings.ERROR);
+                    CustomMessageBox.Show("Bad input options, please try again\n" + ex.ToString(), "ERROR");
                 }
 
                 quickadd = false;
@@ -6300,24 +6159,24 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
             else
             {
-                if (L10N.ConfigLang.IsChildOf(CultureInfo.GetCultureInfo("zh-Hans")))
-                {
-                    CustomMessageBox.Show(
-                        "亲爱的中国用户，为保证地图使用正常，已为您将默认地图自动切换到具有中国特色的【谷歌中国卫星地图】！\r\n与默认【谷歌卫星地图】的区别：使用.cn服务器，加入火星坐标修正\r\n如果您所在的地区仍然无法使用，天书同时推荐必应或高德地图，其它地图由于没有加入坐标修正功能，为确保飞行安全，请谨慎选择",
-                        "默认地图已被切换");
+                //if (L10N.ConfigLang.IsChildOf(CultureInfo.GetCultureInfo("zh-Hans")))
+                //{
+                //    CustomMessageBox.Show(
+                //        "亲爱的中国用户，为保证地图使用正常，已为您将默认地图自动切换到具有中国特色的【谷歌中国卫星地图】！\r\n与默认【谷歌卫星地图】的区别：使用.cn服务器，加入火星坐标修正\r\n如果您所在的地区仍然无法使用，天书同时推荐必应或高德地图，其它地图由于没有加入坐标修正功能，为确保飞行安全，请谨慎选择",
+                //        "默认地图已被切换");
 
-                    try
-                    {
-                        var index = GMapProviders.List.FindIndex(x => (x.Name == "谷歌中国卫星地图"));
+                //    try
+                //    {
+                //        var index = GMapProviders.List.FindIndex(x => (x.Name == "谷歌中国卫星地图"));
 
-                        if (index != -1) comboBoxMapType.SelectedIndex = index;
-                    }
-                    catch (Exception ex)
-                    {
-                        log.Error(ex);
-                    }
-                }
-                else
+                //        if (index != -1) comboBoxMapType.SelectedIndex = index;
+                //    }
+                //    catch (Exception ex)
+                //    {
+                //        log.Error(ex);
+                //    }
+                //}
+                //else
                 {
                     mapType = "GoogleSatelliteMap";
                     // set default
@@ -7323,7 +7182,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             if (MainV2.comPort.MAV.cs.Location.Lat == 0 && MainV2.comPort.MAV.cs.Location.Lng == 0)
             {
-                CustomMessageBox.Show("Invalid_Location", Strings.ERROR);
+                CustomMessageBox.Show("Invalid_Location", "ERROR");
                 return;
             }
 

@@ -203,8 +203,8 @@ namespace MissionPlanner
             Settings.Instance.UserAgent = Application.ProductName + " " + Application.ProductVersion + " (" + Environment.OSVersion.VersionString + ")";
 
             // optionally add gdal support
-            if (Directory.Exists(Application.StartupPath + Path.DirectorySeparatorChar + "gdal"))
-                GMap.NET.MapProviders.GMapProviders.List.Add(GDAL.GDALProvider.Instance);
+            //if (Directory.Exists(Application.StartupPath + Path.DirectorySeparatorChar + "gdal"))
+            //    GMap.NET.MapProviders.GMapProviders.List.Add(GDAL.GDALProvider.Instance);
 
             // add proxy settings
             GMap.NET.MapProviders.GMapProvider.WebProxy = WebRequest.GetSystemWebProxy();

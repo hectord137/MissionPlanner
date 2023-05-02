@@ -3,6 +3,7 @@ using MissionPlanner.Utilities;
 using System;
 using System.Reflection;
 using System.Windows.Forms;
+using Timer = System.Windows.Forms.Timer;
 
 namespace MissionPlanner.Controls
 {
@@ -170,11 +171,11 @@ namespace MissionPlanner.Controls
                 {
                     bool ans = MainV2.comPort.setParam(ParamName, (float)base.Value * (float)_scale);
                     if (ans == false)
-                        CustomMessageBox.Show(String.Format(Strings.ErrorSetValueFailed, ParamName), Strings.ERROR);
+                        CustomMessageBox.Show(String.Format("ErrorSetValueFailed", ParamName), "ERROR");
                 }
                 catch
                 {
-                    CustomMessageBox.Show(String.Format(Strings.ErrorSetValueFailed, ParamName), Strings.ERROR);
+                    CustomMessageBox.Show(String.Format("ErrorSetValueFailed", ParamName), "ERROR");
                 }
 
                 timer.Stop();

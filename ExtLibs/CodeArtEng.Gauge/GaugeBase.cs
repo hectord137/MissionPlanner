@@ -10,6 +10,7 @@ using CodeArtEng.Gauge.Themes;
 using System.Runtime.CompilerServices;
 using CodeArtEng.Gauge.PanelGauges;
 using System.Diagnostics.Eventing.Reader;
+using Timer = System.Windows.Forms.Timer;
 
 namespace CodeArtEng.Gauge
 {

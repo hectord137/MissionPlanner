@@ -32,7 +32,7 @@ namespace MissionPlanner
 
             if (threadrun)
             {
-                BUT_connect.Text = Strings.Stop;
+                BUT_connect.Text = "Stop";
                 CMB_baudrate.Text = comPort.BaudRate.ToString();
                 CMB_serialport.Text = comPort.PortName;
                 CMB_updaterate.Text = updaterate.ToString();
@@ -45,7 +45,7 @@ namespace MissionPlanner
             {
                 threadrun = false;
                 comPort.Close();
-                BUT_connect.Text = Strings.Connect;
+                BUT_connect.Text = "Connect";
             }
             else
             {
@@ -55,7 +55,7 @@ namespace MissionPlanner
                 }
                 catch
                 {
-                    CustomMessageBox.Show(Strings.InvalidPortName, Strings.ERROR);
+                    CustomMessageBox.Show("InvalidPortName", "ERROR");
                     return;
                 }
                 try
@@ -64,7 +64,7 @@ namespace MissionPlanner
                 }
                 catch
                 {
-                    CustomMessageBox.Show(Strings.InvalidBaudRate, Strings.ERROR);
+                    CustomMessageBox.Show("InvalidBaudRate", "ERROR");
                     return;
                 }
                 try
@@ -73,7 +73,7 @@ namespace MissionPlanner
                 }
                 catch (Exception ex)
                 {
-                    CustomMessageBox.Show(Strings.ErrorConnecting + "\n" + ex.ToString(), Strings.ERROR);
+                    CustomMessageBox.Show("ErrorConnecting" + "\n" + ex.ToString(), "ERROR");
                     return;
                 }
 
@@ -94,7 +94,7 @@ namespace MissionPlanner
                 intalt = (int)(100 * CurrentState.multiplierdist);
                 if (!int.TryParse(alt, out intalt))
                 {
-                    CustomMessageBox.Show(Strings.InvalidAlt, Strings.ERROR);
+                    CustomMessageBox.Show("InvalidAlt", "ERROR");
                     return;
                 }
 
@@ -107,7 +107,7 @@ namespace MissionPlanner
                 };
                 t12.Start();
 
-                BUT_connect.Text = Strings.Stop;
+                BUT_connect.Text = "Stop";
             }
         }
 
@@ -268,7 +268,7 @@ namespace MissionPlanner
             }
             catch
             {
-                CustomMessageBox.Show(Strings.InvalidUpdateRate, Strings.ERROR);
+                CustomMessageBox.Show("InvalidUpdateRate", "ERROR");
             }
         }
     }

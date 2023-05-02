@@ -61,12 +61,12 @@ namespace MissionPlanner.Controls
                 }
                 else
                 {
-                    CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+                    CustomMessageBox.Show("CommandFailed", "ERROR");
                 }
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(Strings.CommandFailed + ex.ToString(), Strings.ERROR);
+                CustomMessageBox.Show("CommandFailed " + ex.ToString(), "ERROR");
             }
         }
 
@@ -81,12 +81,12 @@ namespace MissionPlanner.Controls
                 }
                 else
                 {
-                    CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+                    CustomMessageBox.Show("CommandFailed", "ERROR");
                 }
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(Strings.CommandFailed + ex.ToString(), Strings.ERROR);
+                CustomMessageBox.Show("CommandFailed " + ex.ToString(), "ERROR");
             }
         }
 
@@ -120,7 +120,7 @@ namespace MissionPlanner.Controls
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(Strings.CommandFailed + ex.ToString(), Strings.ERROR);
+                CustomMessageBox.Show("CommandFailed " + ex.ToString(), "ERROR");
             }
         }
 
