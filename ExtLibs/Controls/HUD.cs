@@ -2090,7 +2090,7 @@ namespace MissionPlanner.Controls
 
                     this._redPen.Width = 2;
 
-                    int[] array = new int[] {-60, -45, -30, -20, -10, 0, 10, 20, 30, 45, 60};
+                    int[] array = new int[] {-60, -40, -20, 0, 20, 40, 60};
 
                     foreach (int a in array)
                     {
@@ -2098,7 +2098,7 @@ namespace MissionPlanner.Controls
                         graphicsObject.TranslateTransform(this.Width / 2, this.Height / 2);
                         graphicsObject.RotateTransform(a - _roll);
                         drawstring(String.Format("{0,2}", Math.Abs(a)), font, fontsize, _whiteBrush,
-                            0 - 6 - fontoffset, -lengthlong * 8 - extra);
+                            0 - 10 - fontoffset, -lengthlong * 10 - extra);
                         graphicsObject.DrawLine(this._whitePen, 0, -lengthlong * 3 - extra, 0,
                             -lengthlong * 3 - extra - lengthlong);
                     }
@@ -2500,6 +2500,7 @@ namespace MissionPlanner.Controls
 
                 if (displayalt)
                 {
+                    /*
                     graphicsObject.DrawRectangle(this._whitePen, scrollbg);
 
                     graphicsObject.FillRectangle(SolidBrush, scrollbg);
@@ -2647,17 +2648,17 @@ namespace MissionPlanner.Controls
                     drawstring(((int) _alt).ToString("0 ") + altunit, font, 10, (SolidBrush) Brushes.AliceBlue,
                         scrollbg.Left + 10, -9);
                     graphicsObject.ResetTransform();
-
+                    */
                     // mode and wp dist and wp
                     if (_modechanged.AddSeconds(2) > datetime)
                     {
                         drawstring(_mode, font, fontsize, _redBrush, scrollbg.Left - 30,
-                            scrollbg.Bottom + 5);
+                            scrollbg.Bottom - 10);
                     }
                     else
                     {
                         drawstring(_mode, font, fontsize, _whiteBrush, scrollbg.Left - 30,
-                            scrollbg.Bottom + 5);
+                            scrollbg.Bottom - 10);
                     }
 
                     var newdist = _disttowp;
@@ -2681,7 +2682,7 @@ namespace MissionPlanner.Controls
                     }
 
                     drawstring(newdist + newdistunit + ">" + _wpno, font, fontsize, _whiteBrush,
-                        scrollbg.Left - 30, scrollbg.Bottom + fontsize + 2 + 10);
+                        scrollbg.Left - 30, scrollbg.Bottom + fontsize + 0 );
                 }
 
                 if (displayconninfo)
@@ -2920,7 +2921,7 @@ namespace MissionPlanner.Controls
                         else
                         {
 
-                            drawstring(gps, font, fontsize, col, this.Width - 13 * fontsize, yPos[textIdx]);
+                            drawstring(gps, font, fontsize, col, this.Width - 15 * fontsize, yPos[textIdx]);
                         }
 
                         a++;

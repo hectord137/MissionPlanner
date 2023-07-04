@@ -49,7 +49,7 @@ namespace MissionPlanner
         {
             AppDomain.CurrentDomain.AssemblyLoad += CurrentDomain_AssemblyLoad;
 
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+//            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
             AppDomain.CurrentDomain.TypeResolve += CurrentDomain_TypeResolve;
 
@@ -93,7 +93,7 @@ namespace MissionPlanner
 
             ServicePointManager.DefaultConnectionLimit = 10;
 
-            System.Windows.Forms.Application.ThreadException += Application_ThreadException;
+//            System.Windows.Forms.Application.ThreadException += Application_ThreadException;
 
             // fix ssl on mono
             ServicePointManager.ServerCertificateValidationCallback =
@@ -101,7 +101,7 @@ namespace MissionPlanner
                     (sender, certificate, chain, policyErrors) => { return true; });
 
 
-            name = "Mission Planner by SBY";
+            name = "Mission Planner SBY";
 
             if (File.Exists(Settings.GetRunningDirectory() + "logo.png"))
                 Logo = new Bitmap(Settings.GetRunningDirectory() + "logo.png");
@@ -413,37 +413,38 @@ namespace MissionPlanner
             return "";
         }
 
-        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
-            var list = AppDomain.CurrentDomain.ReflectionOnlyGetAssemblies();
+        //static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        //{
+        //    var list = AppDomain.CurrentDomain.ReflectionOnlyGetAssemblies();
 
-            log.Error(list);
+        //    log.Error(list);
 
-            handleException((Exception)e.ExceptionObject);
-        }
+        //    handleException((Exception)e.ExceptionObject);
+        //}
 
-        static string GetStackTrace(Exception e)
-        {
-            string stackTrace = "";
-            try
-            {
-                StackTrace st = new System.Diagnostics.StackTrace(e);
-                foreach (StackFrame frame in st.GetFrames())
-                {
-                    stackTrace = "at " + frame.GetMethod().Module.Name + "." +
-                                 frame.GetMethod().ReflectedType.Name + "."
-                                 + frame.GetMethod().Name
-                                 + "  (IL offset: 0x" + frame.GetILOffset().ToString("x") + ")\n" + stackTrace;
-                }
-                Console.Write(stackTrace);
-                Console.WriteLine("Message: " + e.Message);
-            }
-            catch
-            {
-            }
-            return stackTrace;
-        }
+        //static string GetStackTrace(Exception e)
+        //{
+        //    string stackTrace = "";
+        //    try
+        //    {
+        //        StackTrace st = new System.Diagnostics.StackTrace(e);
+        //        foreach (StackFrame frame in st.GetFrames())
+        //        {
+        //            stackTrace = "at " + frame.GetMethod().Module.Name + "." +
+        //                         frame.GetMethod().ReflectedType.Name + "."
+        //                         + frame.GetMethod().Name
+        //                         + "  (IL offset: 0x" + frame.GetILOffset().ToString("x") + ")\n" + stackTrace;
+        //        }
+        //        Console.Write(stackTrace);
+        //        Console.WriteLine("Message: " + e.Message);
+        //    }
+        //    catch
+        //    {
+        //    }
+        //    return stackTrace;
+        //}
 
+        /*
         static void handleException(Exception ex)
         {
             if (ex.Message == "Safe handle has been closed")
@@ -588,12 +589,13 @@ namespace MissionPlanner
                 }
             }
         }
+        */
 
-        static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
-        {
-            Exception ex = e.Exception;
+        //static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
+        //{
+        //    Exception ex = e.Exception;
 
-            handleException(ex);
-        }
+        //    handleException(ex);
+        //}
     }
 }

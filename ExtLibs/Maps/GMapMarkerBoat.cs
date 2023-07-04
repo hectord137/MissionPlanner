@@ -69,9 +69,14 @@ namespace MissionPlanner.Maps
             {
             }
 
-            g.DrawImageUnscaled(global::MissionPlanner.Maps.Resources.boat,
-                Size.Width / -2,
-                Size.Height / -2);
+            //g.DrawImageUnscaled(global::MissionPlanner.Maps.Resources.boat,
+            //    Size.Width / -2,
+            //    Size.Height / -2, 30, 100);
+
+            int w = 28;
+            double factor = Size.Width / w;
+            int h = (int)(Size.Height / factor+1);
+            g.DrawImage(global::MissionPlanner.Maps.Resources.boat, w/-2, h/-2, w, h);
 
             g.Transform = temp;
         }

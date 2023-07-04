@@ -11,8 +11,8 @@
             CodeArtEng.Gauge.Themes.ThemeColors themeColors1 = new CodeArtEng.Gauge.Themes.ThemeColors();
             CodeArtEng.Gauge.Themes.ThemeColors themeColors2 = new CodeArtEng.Gauge.Themes.ThemeColors();
             CodeArtEng.Gauge.Themes.ThemeColors themeColors3 = new CodeArtEng.Gauge.Themes.ThemeColors();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bindingSourceHud = new System.Windows.Forms.BindingSource(this.components);
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
@@ -74,8 +74,8 @@
             this.coords1 = new MissionPlanner.Controls.Coords();
             this.tableLayoutPaneltlogs = new System.Windows.Forms.TableLayoutPanel();
             this.BUT_loadtelem = new MissionPlanner.Controls.MyButton();
-            this.tracklog = new System.Windows.Forms.TrackBar();
             this.BUT_playlog = new MissionPlanner.Controls.MyButton();
+            this.tracklog = new System.Windows.Forms.TrackBar();
             this.panel2 = new System.Windows.Forms.Panel();
             this.BUT_speed10 = new MissionPlanner.Controls.MyButton();
             this.BUT_speed5 = new MissionPlanner.Controls.MyButton();
@@ -179,6 +179,7 @@
             // 
             // imageList2
             // 
+            this.imageList2.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
             this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
             this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList2.Images.SetKeyName(0, "siren.png");
@@ -186,6 +187,7 @@
             // 
             // imageList1
             // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "mute6.png");
@@ -426,16 +428,16 @@
             // 
             // dataGridViewImageColumn1
             // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle1;
             resources.ApplyResources(this.dataGridViewImageColumn1, "dataGridViewImageColumn1");
             this.dataGridViewImageColumn1.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
             this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
             // 
             // dataGridViewImageColumn2
             // 
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewImageColumn2.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewImageColumn2.DefaultCellStyle = dataGridViewCellStyle2;
             resources.ApplyResources(this.dataGridViewImageColumn2, "dataGridViewImageColumn2");
             this.dataGridViewImageColumn2.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
             this.dataGridViewImageColumn2.Name = "dataGridViewImageColumn2";
@@ -507,6 +509,7 @@
             this.BUT_ClearEchoData.Name = "BUT_ClearEchoData";
             this.BUT_ClearEchoData.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(50)))));
             this.BUT_ClearEchoData.TextColor = System.Drawing.Color.Black;
+            this.BUT_ClearEchoData.TextColorNotEnabled = System.Drawing.Color.Black;
             this.BUT_ClearEchoData.Click += new System.EventHandler(this.BUT_ClearEchoData_Click);
             // 
             // BUT_DownloadEchoData
@@ -519,6 +522,7 @@
             this.BUT_DownloadEchoData.Name = "BUT_DownloadEchoData";
             this.BUT_DownloadEchoData.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(50)))));
             this.BUT_DownloadEchoData.TextColor = System.Drawing.Color.Black;
+            this.BUT_DownloadEchoData.TextColorNotEnabled = System.Drawing.Color.Black;
             this.BUT_DownloadEchoData.Click += new System.EventHandler(this.BUT_DownloadEchoData_Click);
             // 
             // tableLayoutPanel12
@@ -613,6 +617,7 @@
             resources.ApplyResources(this.but_disablejoystick, "but_disablejoystick");
             this.but_disablejoystick.Name = "but_disablejoystick";
             this.but_disablejoystick.TextColor = System.Drawing.Color.Empty;
+            this.but_disablejoystick.TextColorNotEnabled = System.Drawing.Color.Empty;
             this.but_disablejoystick.UseVisualStyleBackColor = true;
             this.but_disablejoystick.Click += new System.EventHandler(this.but_disablejoystick_Click);
             // 
@@ -756,17 +761,9 @@
             this.BUT_loadtelem.Name = "BUT_loadtelem";
             this.BUT_loadtelem.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(50)))));
             this.BUT_loadtelem.TextColor = System.Drawing.Color.Black;
+            this.BUT_loadtelem.TextColorNotEnabled = System.Drawing.Color.Black;
             this.BUT_loadtelem.UseVisualStyleBackColor = true;
             this.BUT_loadtelem.Click += new System.EventHandler(this.BUT_loadtelem_Click);
-            // 
-            // tracklog
-            // 
-            this.tableLayoutPaneltlogs.SetColumnSpan(this.tracklog, 2);
-            resources.ApplyResources(this.tracklog, "tracklog");
-            this.tracklog.Maximum = 100;
-            this.tracklog.Name = "tracklog";
-            this.tracklog.TickFrequency = 5;
-            this.tracklog.Scroll += new System.EventHandler(this.tracklog_Scroll);
             // 
             // BUT_playlog
             // 
@@ -778,8 +775,18 @@
             this.BUT_playlog.Name = "BUT_playlog";
             this.BUT_playlog.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(50)))));
             this.BUT_playlog.TextColor = System.Drawing.Color.Black;
+            this.BUT_playlog.TextColorNotEnabled = System.Drawing.Color.Black;
             this.BUT_playlog.UseVisualStyleBackColor = true;
             this.BUT_playlog.Click += new System.EventHandler(this.BUT_playlog_Click);
+            // 
+            // tracklog
+            // 
+            this.tableLayoutPaneltlogs.SetColumnSpan(this.tracklog, 2);
+            resources.ApplyResources(this.tracklog, "tracklog");
+            this.tracklog.Maximum = 100;
+            this.tracklog.Name = "tracklog";
+            this.tracklog.TickFrequency = 5;
+            this.tracklog.Scroll += new System.EventHandler(this.tracklog_Scroll);
             // 
             // panel2
             // 
@@ -805,6 +812,7 @@
             this.BUT_speed10.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(50)))));
             this.BUT_speed10.Tag = "10";
             this.BUT_speed10.TextColor = System.Drawing.Color.Black;
+            this.BUT_speed10.TextColorNotEnabled = System.Drawing.Color.Black;
             this.BUT_speed10.UseVisualStyleBackColor = true;
             this.BUT_speed10.Click += new System.EventHandler(this.BUT_speed1_Click);
             // 
@@ -819,6 +827,7 @@
             this.BUT_speed5.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(50)))));
             this.BUT_speed5.Tag = "5";
             this.BUT_speed5.TextColor = System.Drawing.Color.Black;
+            this.BUT_speed5.TextColorNotEnabled = System.Drawing.Color.Black;
             this.BUT_speed5.UseVisualStyleBackColor = true;
             this.BUT_speed5.Click += new System.EventHandler(this.BUT_speed1_Click);
             // 
@@ -833,6 +842,7 @@
             this.BUT_speed2.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(50)))));
             this.BUT_speed2.Tag = "2";
             this.BUT_speed2.TextColor = System.Drawing.Color.Black;
+            this.BUT_speed2.TextColorNotEnabled = System.Drawing.Color.Black;
             this.BUT_speed2.UseVisualStyleBackColor = true;
             this.BUT_speed2.Click += new System.EventHandler(this.BUT_speed1_Click);
             // 
@@ -847,6 +857,7 @@
             this.BUT_speed1.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(50)))));
             this.BUT_speed1.Tag = "1";
             this.BUT_speed1.TextColor = System.Drawing.Color.Black;
+            this.BUT_speed1.TextColorNotEnabled = System.Drawing.Color.Black;
             this.BUT_speed1.UseVisualStyleBackColor = true;
             this.BUT_speed1.Click += new System.EventHandler(this.BUT_speed1_Click);
             // 
@@ -861,6 +872,7 @@
             this.BUT_speed1_2.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(50)))));
             this.BUT_speed1_2.Tag = "0.5";
             this.BUT_speed1_2.TextColor = System.Drawing.Color.Black;
+            this.BUT_speed1_2.TextColorNotEnabled = System.Drawing.Color.Black;
             this.BUT_speed1_2.UseVisualStyleBackColor = true;
             this.BUT_speed1_2.Click += new System.EventHandler(this.BUT_speed1_Click);
             // 
@@ -875,6 +887,7 @@
             this.BUT_speed1_4.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(50)))));
             this.BUT_speed1_4.Tag = "0.25";
             this.BUT_speed1_4.TextColor = System.Drawing.Color.Black;
+            this.BUT_speed1_4.TextColorNotEnabled = System.Drawing.Color.Black;
             this.BUT_speed1_4.UseVisualStyleBackColor = true;
             this.BUT_speed1_4.Click += new System.EventHandler(this.BUT_speed1_Click);
             // 
@@ -889,6 +902,7 @@
             this.BUT_speed1_10.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(50)))));
             this.BUT_speed1_10.Tag = "0.1";
             this.BUT_speed1_10.TextColor = System.Drawing.Color.Black;
+            this.BUT_speed1_10.TextColorNotEnabled = System.Drawing.Color.Black;
             this.BUT_speed1_10.UseVisualStyleBackColor = true;
             this.BUT_speed1_10.Click += new System.EventHandler(this.BUT_speed1_Click);
             // 
@@ -967,6 +981,7 @@
             this.BUT_setwp.Name = "BUT_setwp";
             this.BUT_setwp.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(50)))));
             this.BUT_setwp.TextColor = System.Drawing.Color.Black;
+            this.BUT_setwp.TextColorNotEnabled = System.Drawing.Color.Black;
             this.BUT_setwp.Click += new System.EventHandler(this.BUT_setwp_Click);
             // 
             // groupBox1
@@ -994,6 +1009,7 @@
             this.BUT_EchoGrab.Outline = System.Drawing.Color.Black;
             this.BUT_EchoGrab.Tag = "";
             this.BUT_EchoGrab.TextColor = System.Drawing.Color.Black;
+            this.BUT_EchoGrab.TextColorNotEnabled = System.Drawing.Color.Black;
             this.BUT_EchoGrab.Click += new System.EventHandler(this.BUT_EchoGrab_Click);
             // 
             // BUT_StopGrab
@@ -1005,6 +1021,7 @@
             this.BUT_StopGrab.ColorNotEnabled = System.Drawing.Color.Empty;
             this.BUT_StopGrab.Name = "BUT_StopGrab";
             this.BUT_StopGrab.TextColor = System.Drawing.Color.Black;
+            this.BUT_StopGrab.TextColorNotEnabled = System.Drawing.Color.Black;
             this.BUT_StopGrab.Click += new System.EventHandler(this.BUT_StopGrab_Click);
             // 
             // tableLayoutPanel8
@@ -1508,6 +1525,7 @@
             this.BUT_manual.Name = "BUT_manual";
             this.BUT_manual.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(50)))));
             this.BUT_manual.TextColor = System.Drawing.Color.Black;
+            this.BUT_manual.TextColorNotEnabled = System.Drawing.Color.Black;
             this.BUT_manual.Click += new System.EventHandler(this.BUT_manual_Click);
             // 
             // BUT_quickrtl
@@ -1520,6 +1538,7 @@
             this.BUT_quickrtl.Name = "BUT_quickrtl";
             this.BUT_quickrtl.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(50)))));
             this.BUT_quickrtl.TextColor = System.Drawing.Color.Black;
+            this.BUT_quickrtl.TextColorNotEnabled = System.Drawing.Color.Black;
             this.BUT_quickrtl.Click += new System.EventHandler(this.BUT_quickrtl_Click);
             // 
             // BUTrestartmission
@@ -1532,6 +1551,7 @@
             this.BUTrestartmission.Name = "BUTrestartmission";
             this.BUTrestartmission.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(50)))));
             this.BUTrestartmission.TextColor = System.Drawing.Color.Black;
+            this.BUTrestartmission.TextColorNotEnabled = System.Drawing.Color.Black;
             this.BUTrestartmission.Click += new System.EventHandler(this.BUTrestartmission_Click);
             // 
             // BUT_clear_track
@@ -1544,6 +1564,7 @@
             this.BUT_clear_track.Name = "BUT_clear_track";
             this.BUT_clear_track.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(50)))));
             this.BUT_clear_track.TextColor = System.Drawing.Color.Black;
+            this.BUT_clear_track.TextColorNotEnabled = System.Drawing.Color.Black;
             this.BUT_clear_track.Click += new System.EventHandler(this.BUT_clear_track_Click);
             // 
             // BUT_quickauto
@@ -1554,10 +1575,11 @@
             this.BUT_quickauto.ColorMouseDown = System.Drawing.Color.Empty;
             this.BUT_quickauto.ColorMouseOver = System.Drawing.Color.Empty;
             this.BUT_quickauto.ColorNotEnabled = System.Drawing.Color.Empty;
-            this.BUT_quickauto.ForeColor = System.Drawing.Color.White;
+            this.BUT_quickauto.ForeColor = System.Drawing.SystemColors.ControlText;
             this.BUT_quickauto.Name = "BUT_quickauto";
             this.BUT_quickauto.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(50)))));
             this.BUT_quickauto.TextColor = System.Drawing.Color.Black;
+            this.BUT_quickauto.TextColorNotEnabled = System.Drawing.Color.Black;
             this.BUT_quickauto.UseVisualStyleBackColor = true;
             this.BUT_quickauto.Click += new System.EventHandler(this.BUT_quickauto_Click);
             // 
@@ -1572,6 +1594,7 @@
             this.BUT_ARM.Name = "BUT_ARM";
             this.BUT_ARM.Outline = System.Drawing.Color.Black;
             this.BUT_ARM.TextColor = System.Drawing.Color.Black;
+            this.BUT_ARM.TextColorNotEnabled = System.Drawing.Color.Black;
             this.BUT_ARM.Click += new System.EventHandler(this.BUT_ARM_Click);
             // 
             // Storage_Gauge
@@ -1644,14 +1667,20 @@
             this.hud1.AOA = 0F;
             resources.ApplyResources(this.hud1, "hud1");
             this.hud1.BackColor = System.Drawing.Color.Black;
+            this.hud1.batterycellcount = 0;
             this.hud1.batterylevel = 0F;
+            this.hud1.batterylevel2 = 0F;
             this.hud1.batteryon = false;
+            this.hud1.batteryon2 = false;
             this.hud1.batteryremaining = 50F;
+            this.hud1.batteryremaining2 = 0F;
             this.hud1.bgimage = null;
             this.hud1.connected = false;
             this.hud1.critAOA = 25F;
+            this.hud1.criticalvoltagealert = false;
             this.hud1.critSSA = 30F;
             this.hud1.current = 0F;
+            this.hud1.current2 = 0F;
             this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("airspeed", this.bindingSourceHud, "airspeed", true));
             this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("alt", this.bindingSourceHud, "alt", true));
             this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("AOA", this.bindingSourceHud, "AOA", true));
@@ -1692,13 +1721,15 @@
             this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("xtrack_error", this.bindingSourceHud, "xtrack_error", true));
             this.hud1.datetime = new System.DateTime(((long)(0)));
             this.hud1.displayAOASSA = false;
+            this.hud1.displayCellVoltage = false;
             this.hud1.displayconninfo = false;
             this.hud1.displayheading = false;
+            this.hud1.displayicons = true;
             this.hud1.displayspeed = false;
             this.hud1.displayvibe = false;
             this.hud1.displayxtrack = false;
             this.hud1.disttowp = 0F;
-            this.hud1.distunit = null;
+            this.hud1.distunit = "m";
             this.hud1.ekfstatus = 0F;
             this.hud1.failsafe = false;
             this.hud1.gpsfix = 0F;
@@ -1711,15 +1742,18 @@
             this.hud1.heading = 0F;
             this.hud1.hudcolor = System.Drawing.Color.LightGray;
             this.hud1.linkqualitygcs = 0F;
+            this.hud1.load = 0F;
             this.hud1.lowairspeed = false;
             this.hud1.lowgroundspeed = false;
             this.hud1.lowvoltagealert = true;
             this.hud1.message = "";
+            this.hud1.messageSeverity = MAVLink.MAV_SEVERITY.EMERGENCY;
             this.hud1.mode = "Unknown";
             this.hud1.Name = "hud1";
             this.hud1.navpitch = 0F;
             this.hud1.navroll = 0F;
             this.hud1.pitch = 0F;
+            this.hud1.prearmstatus = false;
             this.hud1.roll = 0F;
             this.hud1.Russian = true;
             this.hud1.skyColor1 = System.Drawing.Color.Blue;
@@ -1727,7 +1761,6 @@
             this.hud1.speedunit = null;
             this.hud1.SSA = 0F;
             this.hud1.status = false;
-            this.hud1.streamjpg = null;
             this.hud1.targetalt = 0F;
             this.hud1.targetheading = 0F;
             this.hud1.targetspeed = 0F;

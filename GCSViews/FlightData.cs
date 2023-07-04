@@ -3,7 +3,6 @@ using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
 using log4net;
-using Microsoft.WindowsAPICodePack.Dialogs;
 using MissionPlanner.ArduPilot;
 using MissionPlanner.Controls;
 using MissionPlanner.GCSViews.ConfigurationView;
@@ -3177,7 +3176,7 @@ namespace MissionPlanner.GCSViews
                 }
                 lastscreenupdate = DateTime.Now;
             }
-            catch (Exception ex)
+            catch
             {
             }
         }
@@ -4059,16 +4058,20 @@ namespace MissionPlanner.GCSViews
 
         private void OnPingCompleted(object sender, PingCompletedEventArgs e)
         {
-            if(e.Reply.Status == IPStatus.Success)
+            try
             {
-                BUT_DownloadEchoData.Visible = true;
-                BUT_ClearEchoData.Visible = true;
-            }
-            else
-            {
-                BUT_DownloadEchoData.Visible = false;
-                BUT_ClearEchoData.Visible = false;
-            }
+                if(e.Reply.Status == IPStatus.Success)
+                {
+                    BUT_DownloadEchoData.Visible = true;
+                    BUT_ClearEchoData.Visible = true;
+                }
+                else
+                {
+                    BUT_DownloadEchoData.Visible = false;
+                    BUT_ClearEchoData.Visible = false;
+                }
+
+            } catch { }
         }
 
 
@@ -4086,13 +4089,15 @@ namespace MissionPlanner.GCSViews
             receivedBytes = 0;
             receivedRAW = "";
 
-            var dialog = new CommonSaveFileDialog();
-            dialog.EnsurePathExists = true;
-            dialog.AlwaysAppendDefaultExtension = true;
-            dialog.DefaultFileName = "MisionData_" + DateTime.Now.ToString("yyyy-MM-dd_HH'h'mm'm'ss's'");
-            dialog.DefaultExtension = ".txt";
-            dialog.Filters.Add(new CommonFileDialogFilter("XYZ File", "*.txt"));
-            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            var dialog = new SaveFileDialog();
+            dialog.AddExtension = true;
+            dialog.CheckPathExists = true;
+            dialog.DefaultExt = ".txt";
+            dialog.ValidateNames = true;
+            dialog.FileName = "MisionData_" + DateTime.Now.ToString("yyyy-MM-dd_HH'h'mm'm'ss's'");
+            dialog.Filter = "XYZ Files (*.txt)|*.txt";
+            
+            if (dialog.ShowDialog() == DialogResult.OK)
             {
                 fileOut = dialog.FileName;
 
@@ -4378,7 +4383,7 @@ namespace MissionPlanner.GCSViews
                     tiffMarker.IsVisible = true;
                 }
             }
-            catch(Exception ex)
+            catch
             { }
         }
 

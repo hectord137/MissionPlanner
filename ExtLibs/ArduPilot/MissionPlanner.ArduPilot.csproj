@@ -7,13 +7,13 @@
 
 
   <ItemGroup>
-    <PackageReference Include="AsyncFixer" Version="1.5.1">
+    <PackageReference Include="AsyncFixer" Version="1.6.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Asyncify" Version="0.9.7" />
-    <PackageReference Include="SharpCompress" Version="0.29.0" />
-    <PackageReference Include="SharpDX.DirectInput" Version="4.1.0" />
+    <PackageReference Include="SharpCompress" Version="0.33.0" />
+    <PackageReference Include="SharpDX.DirectInput" Version="4.2.0" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
   </ItemGroup>
 

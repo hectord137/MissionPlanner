@@ -545,7 +545,7 @@ namespace MissionPlanner
             AutoUpdater.ShowRemindLaterButton = false;
             AutoUpdater.ShowSkipButton = false;
             AutoUpdater.CheckForUpdateEvent += AutoUpdater_CheckForUpdateEvent;
-//            AutoUpdater.Start("https://github.com/hectord137/MissionPlanner/releases/latest/download/updateinfo.xml");
+            AutoUpdater.Start("https://github.com/hectord137/MissionPlanner/releases/latest/download/updateinfo.xml");
 
 
             log.Info("Mainv2 ctor");

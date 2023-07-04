@@ -35,11 +35,10 @@ namespace MissionPlanner.Utilities
         private double yscale;
         private double zscale;
 
-        public void LoadImageTiff(string filename)
+        public bool LoadImageTiff(string filename)
         {
             try
             {
-
                 tiff = Tiff.Open(filename, "r");
                 
                 Width_px = tiff.GetField(TiffTag.IMAGEWIDTH)[0].ToDouble();              
@@ -73,14 +72,13 @@ namespace MissionPlanner.Utilities
                 Width_m = p.GetDistance(new PointLatLngAlt(Latitude, Longitude + (PixelSizeXdeg * Width_px)));
                 Height_m = p.GetDistance(new PointLatLngAlt(Latitude - (PixelSizeYdeg * Height_px), Longitude));
 
-                
 
-                
+                return true;
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show("Geotiff Error. " + ex.Message, "Load Fail");
-
+                //CustomMessageBox.Show("Geotiff Error. " + ex.Message, " Load Fail");
+                return false;
             }
 
 

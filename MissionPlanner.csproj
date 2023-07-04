@@ -7,22 +7,20 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <StartupObject>MissionPlanner.Program</StartupObject>
-    <Authors>Michael Oborne</Authors>
+    <Authors>Michael Oborne, Hector</Authors>
     <DebugType>portable</DebugType>
-    <Company>Michael Oborne</Company>
-    <Product>Mission Planner</Product>
+    <Company>SBY</Company>
+    <Product>Mission Planner SBY</Product>
     <Description>Mission Planner ground control station for ardupilot</Description>
-    <Copyright>Copyright © Michael Oborne 2010-2018</Copyright>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+	<Version>1.4.6</Version>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -31,6 +29,7 @@
   <PropertyGroup>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <SignAssembly>False</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="ExtLibs\**" />
@@ -677,13 +676,6 @@
     <None Remove="C:\Users\hector\.nuget\packages\ironpython.stdlib\3.4.0\contentFiles\any\any\lib\__future__.py" />
     <None Remove="C:\Users\hector\.nuget\packages\ironpython.stdlib\3.4.0\contentFiles\any\any\lib\__phello__.foo.py" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="BitMiracle.LibTiff.NetStandard">
-      <HintPath>.\extlibs\BitMiracle.LibTiff.NetStandard.dll</HintPath>
-      <Private>true</Private>
-    </Reference>
-  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="ExtLibs\alglibnet\alglibnet.csproj" />
 
@@ -739,35 +731,22 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autoupdater.NET.Official">
-      <Version>1.8.0</Version>
+      <Version>1.8.1</Version>
     </PackageReference>
     <PackageReference Include="Crc32.NET">
       <Version>1.2.0</Version>
     </PackageReference>
     <PackageReference Include="CSMatIO" version="1.0.20" requireReinstallation="true" />
-    <PackageReference Include="DirectShowLib" Version="1.0.0" />
     <PackageReference Include="DotNetZip.NetStandard">
       <Version>1.12.0</Version>
     </PackageReference>
-    <PackageReference Include="DotSpatial.Data" version="1.9" />
-    <PackageReference Include="DotSpatial.Data.Forms" version="1.9" />
-    <PackageReference Include="DotSpatial.Extensions" version="1.9" />
-    <PackageReference Include="DotSpatial.Modeling.Forms" version="1.9" />
-    <PackageReference Include="DotSpatial.Mono" version="1.9" />
-    <PackageReference Include="DotSpatial.Positioning" Version="1.9.0" />
-    <PackageReference Include="DotSpatial.Projections" version="1.9" />
-    <PackageReference Include="DotSpatial.Projections.Forms" version="1.9" />
-    <PackageReference Include="DotSpatial.Serialization" version="1.9" />
-    <PackageReference Include="DotSpatial.Symbology" version="1.9" />
-    <PackageReference Include="DotSpatial.Symbology.Forms" version="1.9" />
-    <PackageReference Include="DotSpatial.Topology" version="1.9" />
     <PackageReference Include="Flurl" version="3.0.7" />
     <PackageReference Include="Flurl.Http" version="3.2.4" />
     <PackageReference Include="GDAL" Version="3.6.3" />
     <PackageReference Include="GeoidHeightsDotNet">
       <Version>1.0.4</Version>
     </PackageReference>
-    <PackageReference Include="GeoJSON.Net" version="1.1.64" />
+    <PackageReference Include="GeoJSON.Net" version="1.2.19" />
     <PackageReference Include="Internal.AspNetCore.Analyzers">
       <Version>5.0.0-alpha1.19578.1</Version>
     </PackageReference>
@@ -780,22 +759,17 @@
     <PackageReference Include="MathNet.Filtering">
       <Version>0.7.0</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
     <PackageReference Include="MP.GDAL.Native" Version="2.2.3" />
     <PackageReference Include="NETStandard.Library">
       <Version>2.0.3</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" version="13.0.3" />
-    <PackageReference Include="OpenTK.GLControl">
-      <Version>3.3.3</Version>
-    </PackageReference>
     <PackageReference Include="SharpDX" version="4.2.0" />
     <PackageReference Include="SharpDX.DirectInput" version="4.2.0" />
     <PackageReference Include="SkiaSharp" Version="2.88.3" />
     <PackageReference Include="SkiaSharp.NativeAssets.Linux">
       <Version>2.88.3</Version>
     </PackageReference>
-    <PackageReference Include="SkiaSharp.Views" Version="2.88.3" />
     <PackageReference Include="SSH.NET" version="2020.0.2" />
     <PackageReference Include="System.CodeDom">
       <Version>7.0.0</Version>
@@ -809,14 +783,6 @@
     <PackageReference Include="System.Resources.Extensions">
       <Version>7.0.0</Version>
     </PackageReference>
-    <PackageReference Include="Unofficial.ObjectListView" version="2.6.0" />
-    <PackageReference Include="WindowsAPICodePack-Shell">
-      <Version>1.1.1</Version>
-    </PackageReference>
-    <PackageReference Include="ZedGraph">
-      <Version>5.1.7</Version>
-    </PackageReference>
-    <PackageReference Include="zlib.net" version="1.0.4.0" />
   </ItemGroup>
   <ItemGroup>
     <None Update="mavcmd.xml">

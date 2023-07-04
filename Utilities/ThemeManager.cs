@@ -1,5 +1,4 @@
-﻿using BrightIdeasSoftware;
-using log4net;
+﻿using log4net;
 using MissionPlanner.Controls;
 using MissionPlanner.Controls.BackstageView;
 using MissionPlanner.Controls.PreFlight;
@@ -1051,8 +1050,7 @@ mc:Ignorable=""d""
                     DomainUpDown txt = (DomainUpDown)ctl;
                     txt.BorderStyle = BorderStyle.None;
                 }
-                else if (ctl.GetType() == typeof(GroupBox) || ctl.GetType() == typeof(UserControl) ||
-                         ctl.GetType() == typeof(DataTreeListView))
+                else if (ctl.GetType() == typeof(GroupBox) || ctl.GetType() == typeof(UserControl))
                 {
                     ctl.BackColor = BGColor;
                     ctl.ForeColor = TextColor;
