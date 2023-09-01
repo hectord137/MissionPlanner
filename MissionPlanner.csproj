@@ -20,7 +20,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-	<Version>1.4.6</Version>
+	<Version>1.4.7</Version>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -752,7 +752,7 @@
     </PackageReference>
     <PackageReference Include="IronPython" version="3.4.0" />
     <PackageReference Include="IronPython.StdLib" version="3.4.0" />
-    <PackageReference Include="log4net" version="2.0.15" />
+    <PackageReference Include="log4net" Version="2.0.15" />
     <PackageReference Include="Magick.NET-Q16-AnyCPU">
       <Version>13.1.0</Version>
     </PackageReference>
@@ -786,6 +786,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Update="mavcmd.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="app.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
