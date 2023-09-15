@@ -1716,7 +1716,7 @@ namespace MissionPlanner.GCSViews
         {
             using (OpenFileDialog fd = new OpenFileDialog())
             {
-                fd.Filter = "All Supported Types|*.txt;*.waypoints;*.plan";
+                fd.Filter = "All Supported Types|*.txt;*.waypoints";
                 if (Directory.Exists(Settings.Instance["WPFileDirectory"] ?? ""))
                     fd.InitialDirectory = Settings.Instance["WPFileDirectory"];
                 DialogResult result = fd.ShowDialog();
@@ -1725,32 +1725,30 @@ namespace MissionPlanner.GCSViews
                 if (File.Exists(file))
                 {
                     Settings.Instance["WPFileDirectory"] = Path.GetDirectoryName(file);
-                    if (file.ToLower().EndsWith(".shp"))
+
+                    string line = "";
+                    using (var fstream = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    using (var fs = new StreamReader(fstream))
                     {
-                        string line = "";
-                        using (var fstream = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                        using (var fs = new StreamReader(fstream))
-                        {
-                            line = fs.ReadLine();
-                        }
+                        line = fs.ReadLine();
+                    }
 
-                        if (line.StartsWith("{"))
-                        {
-                            var format = MissionFile.ReadFile(file);
+                    if (line.StartsWith("{"))
+                    {
+                        var format = MissionFile.ReadFile(file);
 
-                            var cmds = MissionFile.ConvertToLocationwps(format);
+                        var cmds = MissionFile.ConvertToLocationwps(format);
 
-                            processToScreen(cmds);
+                        processToScreen(cmds);
 
-                            writeKML();
+                        writeKML();
 
-                            MainMap.ZoomAndCenterMarkers("WPOverlay");
-                        }
-                        else
-                        {
-                            wpfilename = file;
-                            readQGC110wpfile(file);
-                        }
+                        MainMap.ZoomAndCenterMarkers("WPOverlay");
+                    }
+                    else
+                    {
+                        wpfilename = file;
+                        readQGC110wpfile(file);
                     }
 
                     lbl_wpfile.Text = "Loaded " + Path.GetFileName(file);
@@ -1837,7 +1835,7 @@ namespace MissionPlanner.GCSViews
                     }
                 }
             }
-    
+
 
             IProgressReporterDialogue frmProgressReporter = new ProgressReporterDialogue
             {
@@ -2492,12 +2490,12 @@ namespace MissionPlanner.GCSViews
                 if ((MainV2.comPort.MAV.cs.capabilities & (int)MAVLink.MAV_PROTOCOL_CAPABILITY.MISSION_FENCE) > 0)
                 {
                     geoFenceToolStripMenuItem.Visible = false;
-//                    rallyPointsToolStripMenuItem.Visible = false;
+                    //                    rallyPointsToolStripMenuItem.Visible = false;
                 }
                 else
                 {
                     geoFenceToolStripMenuItem.Visible = true;
-//                    rallyPointsToolStripMenuItem.Visible = true;
+                    //                    rallyPointsToolStripMenuItem.Visible = true;
                 }
             }
 
@@ -3475,7 +3473,7 @@ namespace MissionPlanner.GCSViews
 
 
 
-        
+
 
         public void label4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -4203,7 +4201,7 @@ namespace MissionPlanner.GCSViews
                     // not home
                     if (i != 0)
                     {
-//                        CMB_altmode.SelectedValue = temp.frame;
+                        //                        CMB_altmode.SelectedValue = temp.frame;
                     }
                 }
 
@@ -5121,14 +5119,14 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                 if (param.ContainsKey("WP_RADIUS"))
                 {
-//                    TXT_WPRad.Text = (((double)param["WP_RADIUS"] * CurrentState.multiplierdist)).ToString();
+                    //                    TXT_WPRad.Text = (((double)param["WP_RADIUS"] * CurrentState.multiplierdist)).ToString();
                 }
                 if (param.ContainsKey("WPNAV_RADIUS"))
                 {
-//                    TXT_WPRad.Text = (((double)param["WPNAV_RADIUS"] * CurrentState.multiplierdist / 100.0)).ToString();
+                    //                    TXT_WPRad.Text = (((double)param["WPNAV_RADIUS"] * CurrentState.multiplierdist / 100.0)).ToString();
                 }
 
-//                log.Info("param WP_RADIUS " + TXT_WPRad.Text);
+                //                log.Info("param WP_RADIUS " + TXT_WPRad.Text);
 
                 //try
                 //{
@@ -5223,11 +5221,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 if (isMouseDown || CurentRectMarker != null)
                     return;
 
-//                prop.alt = MainV2.comPort.MAV.cs.alt;
-//                prop.altasl = MainV2.comPort.MAV.cs.altasl;
-//                prop.center = MainMap.Position;
-//                prop.Update(MainV2.comPort.MAV.cs.PlannedHomeLocation, MainV2.comPort.MAV.cs.Location,
-//                    MainV2.comPort.MAV.cs.battery_kmleft);
+                //                prop.alt = MainV2.comPort.MAV.cs.alt;
+                //                prop.altasl = MainV2.comPort.MAV.cs.altasl;
+                //                prop.center = MainMap.Position;
+                //                prop.Update(MainV2.comPort.MAV.cs.PlannedHomeLocation, MainV2.comPort.MAV.cs.Location,
+                //                    MainV2.comPort.MAV.cs.battery_kmleft);
 
                 routesoverlay.Markers.Clear();
 
@@ -6589,7 +6587,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             sender.UpdateProgressAndStatus(-1, "Loading MetaData");
             bool metaOK = geoTiffMetaData.LoadImageTiff(_tiffPath);
 
-            if(!metaOK)
+            if (!metaOK)
             {
                 CustomMessageBox.Show("Geotiff matadata error.");
                 return;
@@ -6620,7 +6618,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         index++;
                     }
 
-                    sender.UpdateProgressAndStatus((int)(index*100/buff32.Length), "Creating Bitmap Image " + index.ToString());
+                    sender.UpdateProgressAndStatus((int)(index * 100 / buff32.Length), "Creating Bitmap Image " + index.ToString());
                 }
 
             }
@@ -6767,7 +6765,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 return;
             }
 
-            
+
             List<PointLatLng> points = new List<PointLatLng>();
             List<double> depthList = new List<double>();
 
@@ -6778,7 +6776,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             {
                 if (string.IsNullOrEmpty(line))
                 {
-                    continue; 
+                    continue;
                 }
 
                 //Falta por implementar
@@ -6813,13 +6811,13 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             double maxDepth = depthBackward.Max();
             LBL_Max_Depth.Text = maxDepth.ToString("N1") + "m";
-            for (int i = 3; i < points.Count; i+=3)
+            for (int i = 3; i < points.Count; i += 3)
             {
                 GMapRoute route = new GMapRoute(i.ToString());
-                route.Points.Add(points[i-3]);
+                route.Points.Add(points[i - 3]);
                 route.Points.Add(points[i]);
 
-                double off = depthBackward[i-3] / maxDepth;
+                double off = depthBackward[i - 3] / maxDepth;
                 System.Windows.Media.Color res = GetRelativeColor(grad, off);
 
                 route.Stroke = new Pen(Color.FromArgb(res.A, res.R, res.G, res.B), 10);
@@ -6835,7 +6833,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 m.ToolTipText = "Depth: " + depthBackward[i].ToString("N1");
                 m.IsVisible = false;
                 m.IsHitTestVisible = false;
-                
+
                 echoSounderOverlay.Markers.Add(m);
                 echoSounderOverlay.Routes.Add(route);
             }
@@ -6881,7 +6879,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         private void MainMap_OnRouteEnter_1(GMapRoute item)
         {
-            foreach(var r in echoSounderOverlay.Markers)
+            foreach (var r in echoSounderOverlay.Markers)
             {
                 r.IsVisible = false;
             }

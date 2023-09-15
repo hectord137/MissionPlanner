@@ -4117,6 +4117,24 @@ namespace MissionPlanner.GCSViews
             if (formProgressReporter != null)
                 this.formProgressReporter.UpdateProgressAndStatus(1, "Connecting...");
 
+
+
+            //Prueba de descarga con FTP
+
+
+            //FluentFTP.FtpClient ftpClient = new FluentFTP.FtpClient("ftp://ftp.dlptest.com", "dlpuser", "rNrKYTX9g7z3RgJRmxWuGHbeu");
+
+            //ftpClient.AutoConnect();
+
+            //byte[] buffer = new byte[1024 * 1024 * 2];
+            //ftpClient.DownloadBytes(out buffer, "/testscr_34573421.dat");
+
+            //CustomMessageBox.Show("Data Len:" + buffer.Length.ToString());
+
+
+
+
+            
             udpClient = new System.Net.Sockets.UdpClient();
             udpClient.Connect("192.168.4.1", 8080);
 
@@ -4218,7 +4236,7 @@ namespace MissionPlanner.GCSViews
                     formProgressReporter.doWorkArgs.ErrorMessage = e.Message;
                 return;
             }
-
+            
 
         }
 
@@ -4327,6 +4345,14 @@ namespace MissionPlanner.GCSViews
             byte[] sendBuff = Encoding.ASCII.GetBytes("/delete");
 
             udpClient.Send(sendBuff, sendBuff.Length);
+        }
+
+
+        private void DescargarArchivoFTP(string url, string usuario, string contraseña, string destino)
+        {
+            
+
+            
         }
 
         private void Speed_Gauge_ErrorLimitReached(object sender, EventArgs e)
