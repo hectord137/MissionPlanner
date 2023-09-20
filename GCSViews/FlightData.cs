@@ -1,4 +1,5 @@
-﻿using GMap.NET;
+﻿using FluentFTP;
+using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
@@ -132,13 +133,13 @@ namespace MissionPlanner.GCSViews
 
         public FlightData()
         {
-            
+
             log.Info("Ctor Start");
 
             InitializeComponent();
 
             CustomColor.SetDisarmColor(BUT_ARM);
-            
+
             gMapControl1.RoutesEnabled = true;
             //load mapa
 
@@ -451,7 +452,7 @@ namespace MissionPlanner.GCSViews
             myhud.bgimage = (Image)sender;
         }
 
-        
+
         /*
         public void CheckBatteryShow()
         {
@@ -644,8 +645,8 @@ namespace MissionPlanner.GCSViews
             if (marker != null)
                 marker.Dispose();
 
-//            if (prop != null)
-//                prop.Stop();
+            //            if (prop != null)
+            //                prop.Stop();
 
             if (disposing && (components != null))
             {
@@ -757,7 +758,7 @@ namespace MissionPlanner.GCSViews
 
         private void altitudeAngelSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-//            new Utilities.AltitudeAngel.AASettings().Show(this);
+            //            new Utilities.AltitudeAngel.AASettings().Show(this);
         }
 
         private void BUT_abortland_Click(object sender, EventArgs e)
@@ -1044,7 +1045,7 @@ namespace MissionPlanner.GCSViews
 
                             Controls.LogAnalyzer frm = new Controls.LogAnalyzer(out1);
 
-//                            ThemeManager.ApplyThemeTo(frm);
+                            //                            ThemeManager.ApplyThemeTo(frm);
 
                             frm.Show();
                         }
@@ -1074,14 +1075,14 @@ namespace MissionPlanner.GCSViews
 
         private void BUT_logbrowse_Click(object sender, EventArgs e)
         {
-//            Form logbrowse = new LogBrowse();
-//            ThemeManager.ApplyThemeTo(logbrowse);
-//            logbrowse.Show();
+            //            Form logbrowse = new LogBrowse();
+            //            ThemeManager.ApplyThemeTo(logbrowse);
+            //            logbrowse.Show();
         }
 
         private void BUT_matlab_Click(object sender, EventArgs e)
         {
-//            MatLabForms.ProcessLog();
+            //            MatLabForms.ProcessLog();
         }
 
         private void BUT_quickauto_Click(object sender, EventArgs e)
@@ -1108,7 +1109,7 @@ namespace MissionPlanner.GCSViews
                     MainV2.comPort.MAV.cs.firmware == Firmwares.ArduRover)
                     MainV2.comPort.setMode("Loiter");
                 if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
-                    MainV2.comPort.setMode("Loiter"); 
+                    MainV2.comPort.setMode("Loiter");
             }
             catch
             {
@@ -1134,7 +1135,7 @@ namespace MissionPlanner.GCSViews
         private void BUT_RAWSensor_Click(object sender, EventArgs e)
         {
             Form temp = new RAW_Sensor();
-//            ThemeManager.ApplyThemeTo(temp);
+            //            ThemeManager.ApplyThemeTo(temp);
             temp.Show();
         }
 
@@ -1355,7 +1356,7 @@ namespace MissionPlanner.GCSViews
 
         void chk_box_CheckedChanged(object sender, EventArgs e)
         {
-//            ThemeManager.ApplyThemeTo((Control)sender);
+            //            ThemeManager.ApplyThemeTo((Control)sender);
 
             if (((CheckBox)sender).Checked)
             {
@@ -1687,7 +1688,7 @@ namespace MissionPlanner.GCSViews
         {
             POI.POIModified += POI_POIModified;
 
-//            tfr.GotTFRs += tfr_GotTFRs;
+            //            tfr.GotTFRs += tfr_GotTFRs;
 
             if (!Settings.Instance.ContainsKey("ShowNoFly") || Settings.Instance.GetBoolean("ShowNoFly"))
                 NoFly.NoFly.NoFlyEvent += NoFly_NoFlyEvent;
@@ -1708,7 +1709,7 @@ namespace MissionPlanner.GCSViews
 
             hud1.doResize();
 
-//            prop = new Propagation(gMapControl1);
+            //            prop = new Propagation(gMapControl1);
 
             thisthread = new Thread(mainloop);
             thisthread.Name = "FD Mainloop";
@@ -1747,8 +1748,8 @@ namespace MissionPlanner.GCSViews
 
                     splitContainer1.Panel2.Controls.Add(but);
                     splitContainer1.Panel2.Controls.Add(sc.Control);
-//                    ThemeManager.ApplyThemeTo(sc.Control);
-//                    ThemeManager.ApplyThemeTo(this);
+                    //                    ThemeManager.ApplyThemeTo(sc.Control);
+                    //                    ThemeManager.ApplyThemeTo(this);
 
                     sc.Control.Dock = DockStyle.Fill;
                     sc.Control.Visible = true;
@@ -2420,10 +2421,10 @@ namespace MissionPlanner.GCSViews
 
                                 //Algoritmo mio para calcular la distancia de punto a punto en la mision
                                 var travdist = 0.0;
-                                for (int i = 0; i < overlay.pointlist.Count-1; i++)
+                                for (int i = 0; i < overlay.pointlist.Count - 1; i++)
                                 {
                                     var p1 = overlay.pointlist.ElementAt(i);
-                                    var p2 = overlay.pointlist.ElementAt(i+1);
+                                    var p2 = overlay.pointlist.ElementAt(i + 1);
 
                                     if (p1 == null || p2 == null)
                                         continue;
@@ -2431,7 +2432,7 @@ namespace MissionPlanner.GCSViews
                                     var dist = p1.GetDistance(p2);
                                     distanceBar1.AddWPDist((float)dist);
 
-                                    if (i+1 <= MainV2.comPort.MAV.cs.wpno)
+                                    if (i + 1 <= MainV2.comPort.MAV.cs.wpno)
                                     {
                                         travdist += dist;
                                     }
@@ -2452,7 +2453,7 @@ namespace MissionPlanner.GCSViews
 
 
                                 LBL_TraveledDist.Invoke((Action)delegate { LBL_TraveledDist.Text = distanceBar1.traveleddist.ToString("N0") + " m"; });
-                                
+
                                 double progress = ((double)distanceBar1.traveleddist / (double)distanceBar1.totaldist * 100.0);
                                 progress = MathHelper.constrain(progress, 0, 100);
 
@@ -2477,7 +2478,7 @@ namespace MissionPlanner.GCSViews
                                 {
                                     LBL_TimeRemain.Invoke((Action)delegate { LBL_TimeRemain.Text = "--:--:--"; });
                                 }
-                                    
+
                             }
 
                             RegeneratePolygon();
@@ -2653,7 +2654,7 @@ namespace MissionPlanner.GCSViews
                             log.Error(ex);
                         }
 
-                        
+
 
 
                         if (route.Points.Count > 0)
@@ -2698,12 +2699,12 @@ namespace MissionPlanner.GCSViews
                             }
                         }
 
-//                        prop.Update(MainV2.comPort.MAV.cs.HomeLocation, MainV2.comPort.MAV.cs.Location,
-//                            MainV2.comPort.MAV.cs.battery_kmleft);
+                        //                        prop.Update(MainV2.comPort.MAV.cs.HomeLocation, MainV2.comPort.MAV.cs.Location,
+                        //                            MainV2.comPort.MAV.cs.battery_kmleft);
 
-//                        prop.alt = MainV2.comPort.MAV.cs.alt;
-//                        prop.altasl = MainV2.comPort.MAV.cs.altasl;
-//                        prop.center = gMapControl1.Position;
+                        //                        prop.alt = MainV2.comPort.MAV.cs.alt;
+                        //                        prop.altasl = MainV2.comPort.MAV.cs.altasl;
+                        //                        prop.center = gMapControl1.Position;
 
                         gMapControl1.HoldInvalidation = false;
 
@@ -3001,23 +3002,23 @@ namespace MissionPlanner.GCSViews
 
         void tfr_GotTFRs(object sender, EventArgs e)
         {
-           // Invoke((Action)delegate
-           //{
-           //    foreach (var item in tfr.tfrs)
-           //    {
-           //        List<List<PointLatLng>> points = item.GetPaths();
+            // Invoke((Action)delegate
+            //{
+            //    foreach (var item in tfr.tfrs)
+            //    {
+            //        List<List<PointLatLng>> points = item.GetPaths();
 
-           //        foreach (var list in points)
-           //        {
-           //            GMapPolygon poly = new GMapPolygon(list, item.NAME);
+            //        foreach (var list in points)
+            //        {
+            //            GMapPolygon poly = new GMapPolygon(list, item.NAME);
 
-           //            poly.Fill = new SolidBrush(Color.FromArgb(30, Color.Blue));
+            //            poly.Fill = new SolidBrush(Color.FromArgb(30, Color.Blue));
 
-           //            tfrpolygons.Polygons.Add(poly);
-           //        }
-           //    }
-           //    tfrpolygons.IsVisibile = MainV2.ShowTFR;
-           //});
+            //            tfrpolygons.Polygons.Add(poly);
+            //        }
+            //    }
+            //    tfrpolygons.IsVisibile = MainV2.ShowTFR;
+            //});
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -3368,7 +3369,7 @@ namespace MissionPlanner.GCSViews
                 selectform.Controls.Add(chk_box);
             }
 
-//            ThemeManager.ApplyThemeTo(selectform);
+            //            ThemeManager.ApplyThemeTo(selectform);
 
             y += 20;
 
@@ -3405,7 +3406,7 @@ namespace MissionPlanner.GCSViews
             {
                 CheckBox chk_box = new CheckBox();
 
-//                ThemeManager.ApplyThemeTo(chk_box);
+                //                ThemeManager.ApplyThemeTo(chk_box);
 
                 if (list1item != null && list1item.Name == field)
                 {
@@ -3525,15 +3526,15 @@ namespace MissionPlanner.GCSViews
             object homelat = MouseDownStart.Lat.ToString();
             object homelng = MouseDownStart.Lng.ToString();
 
-//            FlightPlanner.instance.sethomeh(homealt, homelat, homelng);
+            //            FlightPlanner.instance.sethomeh(homealt, homelat, homelng);
         }
 
 
 
 
-        
 
-        
+
+
 
         int[] getButtonNumbers()
         {
@@ -3556,7 +3557,7 @@ namespace MissionPlanner.GCSViews
             {
                 bool res = MainV2.comPort.doCommand(200, (byte)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL,
                                                                MAVLink.MAV_CMD.USER_3, 1, 0, 0, 0, 0, 0, 0);
-                if(!res)
+                if (!res)
                 {
                     CustomMessageBox.Show("Error executing command.");
                 }
@@ -3687,7 +3688,7 @@ namespace MissionPlanner.GCSViews
             UpdateButColorMode();
 
             //Inicializar los filtros speedMedianFilter y distRemainMedianFilter al pasar a modo Auto
-            
+
             if (MainV2.comPort.MAV.cs.mode == "Auto" && _lastMode != "Auto")
             {
 
@@ -3698,7 +3699,8 @@ namespace MissionPlanner.GCSViews
 
                 System.Timers.Timer t = new System.Timers.Timer(6000);
                 t.AutoReset = false;
-                t.Elapsed += (sender2, e2) => {
+                t.Elapsed += (sender2, e2) =>
+                {
                     for (int i = 0; i < 10; i++)
                     {
                         distRemainMedianFilter.ProcessSample(distanceBar1.totaldist - distanceBar1.traveleddist);
@@ -3708,7 +3710,7 @@ namespace MissionPlanner.GCSViews
                 t.Start();
 
             }
-            
+
 
             _lastMode = MainV2.comPort.MAV.cs.mode;
         }
@@ -3751,25 +3753,25 @@ namespace MissionPlanner.GCSViews
 
             // Vmin_Floater                 = ch13out
             // Vmax_Floater                 = ch14out
-            
+
 
 
             double depth = 0;
-            if(MainV2.comPort.MAVlist.Contains(200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL))
+            if (MainV2.comPort.MAVlist.Contains(200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL))
             {
                 //Actualizar la etiqueta de la ecosonda solo si hay datos nuevos.
                 if (MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch2in > lastSequenceEchosounder)
                 {
                     depth = (double)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch1in / 100.0;
                     depth = depthFilter.ProcessSample(depth);
-                    
+
                     if (Depth_Gauge.Theme != CodeArtEng.Gauge.GaugeTheme.Dark)
                     {
                         Depth_Gauge.Theme = CodeArtEng.Gauge.GaugeTheme.Dark;
                         Depth_Gauge.IgnoreLimits = false;
                     }
                     Depth_Gauge.Value = depth;
-                    if(Depth_Gauge.Value > Depth_Gauge.Maximum)
+                    if (Depth_Gauge.Value > Depth_Gauge.Maximum)
                     {
                         Depth_Gauge.Maximum = Math.Ceiling(Depth_Gauge.Value * 1.3);
                         Depth_Gauge.Maximum = Math.Truncate(Depth_Gauge.Maximum);
@@ -3884,9 +3886,9 @@ namespace MissionPlanner.GCSViews
 
                 //Para parpadear el color del BUT_EchoGrab cuando se capturen datos de la ecosonda
                 int echosounderGrabStatus = (int)MainV2.comPort.MAVlist[200, (int)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL].cs.ch3in;
-                if(echosounderGrabStatus > 0)
+                if (echosounderGrabStatus > 0)
                 {
-                    if(!BUT_EchoGrab_BlinkTimer.Enabled)
+                    if (!BUT_EchoGrab_BlinkTimer.Enabled)
                         BUT_EchoGrab_BlinkTimer.Start();
                 }
                 else
@@ -4015,7 +4017,7 @@ namespace MissionPlanner.GCSViews
                 depthAlertTimer.Enabled = false;
             }
 
-            
+
         }
 
 
@@ -4042,7 +4044,7 @@ namespace MissionPlanner.GCSViews
             Settings.Instance["depthAlarmSound"] = depthAlarmSound.ToString();
         }
 
-        
+
         private void PingTimer_Tick(object sender, EventArgs e)
         {
             Ping ping = new Ping();
@@ -4060,7 +4062,7 @@ namespace MissionPlanner.GCSViews
         {
             try
             {
-                if(e.Reply.Status == IPStatus.Success)
+                if (e.Reply.Status == IPStatus.Success)
                 {
                     BUT_DownloadEchoData.Visible = true;
                     BUT_ClearEchoData.Visible = true;
@@ -4071,7 +4073,8 @@ namespace MissionPlanner.GCSViews
                     BUT_ClearEchoData.Visible = false;
                 }
 
-            } catch { }
+            }
+            catch { }
         }
 
 
@@ -4096,7 +4099,7 @@ namespace MissionPlanner.GCSViews
             dialog.ValidateNames = true;
             dialog.FileName = "MisionData_" + DateTime.Now.ToString("yyyy-MM-dd_HH'h'mm'm'ss's'");
             dialog.Filter = "XYZ Files (*.txt)|*.txt";
-            
+
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 fileOut = dialog.FileName;
@@ -4115,71 +4118,83 @@ namespace MissionPlanner.GCSViews
         private void ReceiverBackGround(IProgressReporterDialogue sender)
         {
             if (formProgressReporter != null)
-                this.formProgressReporter.UpdateProgressAndStatus(1, "Connecting...");
+                this.formProgressReporter.UpdateProgressAndStatus(1, "Try Connecting... FTP");
 
-
+            bool ftpDowloadResult = false;
+            byte[] buffer = new byte[1024 * 1024 * 5];
 
             //Prueba de descarga con FTP
-
-
-            //FluentFTP.FtpClient ftpClient = new FluentFTP.FtpClient("ftp://ftp.dlptest.com", "dlpuser", "rNrKYTX9g7z3RgJRmxWuGHbeu");
-
-            //ftpClient.AutoConnect();
-
-            //byte[] buffer = new byte[1024 * 1024 * 2];
-            //ftpClient.DownloadBytes(out buffer, "/testscr_34573421.dat");
-
-            //CustomMessageBox.Show("Data Len:" + buffer.Length.ToString());
-
-
-
-
-            
-            udpClient = new System.Net.Sockets.UdpClient();
-            udpClient.Connect("192.168.4.1", 8080);
-
             try
             {
-                udpClient.BeginReceive(new AsyncCallback(ReceiverCallback), null);
-            }
-            catch (Exception e)
-            {
-                CustomMessageBox.Show("Error Getting Data\n\n" + e.Message);
-            }
+                FluentFTP.FtpClient ftpClient = new FluentFTP.FtpClient("192.168.4.1", "anonymous", "");
 
-            byte[] sendBuff = Encoding.ASCII.GetBytes("/download");
+                ftpClient.AutoConnect();
 
-            udpClient.Send(sendBuff, sendBuff.Length);
-
-            //Esperamos a recibir todos los bytes
-            while (receivedBytes < totalBytes)
-            {
-                //Si el usuario cancela el dialogo
-                if (formProgressReporter != null && formProgressReporter.doWorkArgs.CancelRequested)
+                // define the progress tracking callback
+                Action<FtpProgress> progress = delegate (FtpProgress p)
                 {
-                    formProgressReporter.doWorkArgs.CancelAcknowledged = true;
-                    formProgressReporter.doWorkArgs.ErrorMessage = "User Canceled.";
 
-                    udpClient.Close();
+                    this.formProgressReporter.UpdateProgressAndStatus((int)(p.Progress), "Downloading... FTP");
+                };
 
-                    return;
-                }
+                ftpDowloadResult = ftpClient.DownloadBytes(out buffer, "/Data/SavedFile.txt", 0, progress);
+                receivedRAW = Encoding.ASCII.GetString(buffer);
+                ftpClient.Disconnect();
+            }
+            catch
+            {
+                ftpDowloadResult = false;
             }
 
-            udpClient.Close();
+            // Si no se puede descargar por FTP se intenta por Socket. En el futuro solo existirá FTP.
+            if (!ftpDowloadResult)
+            {
+                if (formProgressReporter != null)
+                    this.formProgressReporter.UpdateProgressAndStatus(1, "Try Connecting... Socket");
 
+                udpClient = new System.Net.Sockets.UdpClient();
+                udpClient.Connect("192.168.4.1", 8080);
+
+                try
+                {
+                    udpClient.BeginReceive(new AsyncCallback(ReceiverCallback), null);
+                }
+                catch (Exception e)
+                {
+                    CustomMessageBox.Show("Error Getting Data\n\n" + e.Message);
+                }
+
+                byte[] sendBuff = Encoding.ASCII.GetBytes("/download");
+                udpClient.Send(sendBuff, sendBuff.Length);
+
+                //Esperamos a recibir todos los bytes
+                while (receivedBytes < totalBytes)
+                {
+                    //Si el usuario cancela el dialogo
+                    if (formProgressReporter != null && formProgressReporter.doWorkArgs.CancelRequested)
+                    {
+                        formProgressReporter.doWorkArgs.CancelAcknowledged = true;
+                        formProgressReporter.doWorkArgs.ErrorMessage = "User Canceled.";
+
+                        udpClient.Close();
+
+                        return;
+                    }
+                }
+
+                udpClient.Close();
+            }
+
+            //Ya se han recibido todos los bytes. Aplicar Filtrado.
             if (formProgressReporter != null)
-                this.formProgressReporter.UpdateProgressAndStatus(100, "Applying Filtering.");
-
+                this.formProgressReporter.UpdateProgressAndStatus(100, "Applying Filtering...");
 
             List<string> lines = new List<string>();
             List<Tuple<double, double>> latLonList = new List<Tuple<double, double>>();
             List<double> depthList = new List<double>();
 
-
             //Aplicando filtrado
             lines.AddRange(receivedRAW.Split("\r\n".ToArray(), StringSplitOptions.RemoveEmptyEntries));
-
             foreach (string line in lines)
             {
                 string[] items = line.Split(',');
@@ -4199,12 +4214,12 @@ namespace MissionPlanner.GCSViews
 
             //Crear el Filtro - orden 30, determinado experimental
             MathNet.Filtering.OnlineFilter filter = MathNet.Filtering.OnlineFilter.CreateDenoise(30);
-
             //Filtrar Forward y Backward
             double[] depthForward = filter.ProcessSamples(depthList.ToArray());
             filter.Reset();
             double[] depthBackward = filter.ProcessSamples(depthForward.Reverse().ToArray());
             depthBackward = depthBackward.Reverse().ToArray();
+
 
             //Crear la lista string Lat,Lon,Depth
             List<string> listOut = new List<string>();
@@ -4215,6 +4230,7 @@ namespace MissionPlanner.GCSViews
                             latLonList[i].Item2.ToString("F3", culture) + "," + // Lon
                             depthBackward[i].ToString("F3", culture));          // Depth
             }
+
 
             //Escribir el archivo XYZ final
             try
@@ -4236,7 +4252,8 @@ namespace MissionPlanner.GCSViews
                     formProgressReporter.doWorkArgs.ErrorMessage = e.Message;
                 return;
             }
-            
+
+
 
         }
 
@@ -4287,6 +4304,62 @@ namespace MissionPlanner.GCSViews
 
         private void BUT_ClearEchoData_Click(object sender, EventArgs e)
         {
+            //Prueba de eliminar con FTP
+            try
+            {
+                FluentFTP.FtpClient ftpClient = new FluentFTP.FtpClient("192.168.4.1", "anonymous", "");
+
+                ftpClient.AutoConnect();
+
+                if (ftpClient.IsConnected)
+                {
+                    bool fileExist = false;
+                    FtpListItem[] list = ftpClient.GetListing();
+                    foreach (FtpListItem item in list)
+                    {
+                        if (item.Name.Contains("SavedFile"))
+                            fileExist = true;
+                    }
+                    if (fileExist)
+                    {
+                        ftpClient.DeleteFile("/Data/SavedFile.txt");
+                        fileExist = false;
+                        list = ftpClient.GetListing();
+                        foreach (FtpListItem item in list)
+                        {
+                            if (item.Name.Contains("SavedFile"))
+                                fileExist = true;
+                        }
+                        if (!fileExist)
+                        {
+                            CustomMessageBox.Show("Recorder Data Clear OK");
+                            ftpClient.Disconnect();
+                            return;
+                        }
+                        else
+                        {
+                            CustomMessageBox.Show("Error Deleting Data");
+                            ftpClient.Disconnect();
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        CustomMessageBox.Show("File Not Exist. Recorder Data Clear OK");
+                        ftpClient.Disconnect();
+                        return;
+                    }
+
+                }
+
+            }
+            catch
+            {
+            }
+
+
+
+
             try
             {
                 udpClient.Close();
@@ -4297,7 +4370,8 @@ namespace MissionPlanner.GCSViews
             udpClient.Connect("192.168.4.1", 8080);
 
             // Si no hay respuesta en 3s, se dispara un timeout
-            System.Threading.Timer timer = new System.Threading.Timer(new TimerCallback((object obj) => {
+            System.Threading.Timer timer = new System.Threading.Timer(new TimerCallback((object obj) =>
+            {
 
                 udpClient.Close();
                 CustomMessageBox.Show("Timeout waiting for response");
@@ -4307,7 +4381,8 @@ namespace MissionPlanner.GCSViews
 
             try
             {
-                udpClient.BeginReceive(new AsyncCallback((IAsyncResult res) => {
+                udpClient.BeginReceive(new AsyncCallback((IAsyncResult res) =>
+                {
 
                     try
                     {
@@ -4345,14 +4420,6 @@ namespace MissionPlanner.GCSViews
             byte[] sendBuff = Encoding.ASCII.GetBytes("/delete");
 
             udpClient.Send(sendBuff, sendBuff.Length);
-        }
-
-
-        private void DescargarArchivoFTP(string url, string usuario, string contraseña, string destino)
-        {
-            
-
-            
         }
 
         private void Speed_Gauge_ErrorLimitReached(object sender, EventArgs e)
@@ -4403,7 +4470,7 @@ namespace MissionPlanner.GCSViews
                 double m2pixelheight = height / gMapControl1.Height;
 
                 //Calcular el nuevo tamaño del Marker segun la nueva res del mapa.
-                if(tiffMarker != null)
+                if (tiffMarker != null)
                 {
                     tiffMarker.Size = new Size((int)(FlightPlanner.instance.geoTiffMetaData.Width_m / m2pixelwidth), (int)(FlightPlanner.instance.geoTiffMetaData.Height_m / m2pixelheight));
                     tiffMarker.IsVisible = true;
@@ -4415,6 +4482,6 @@ namespace MissionPlanner.GCSViews
 
 
     }
-    }
+}
 
 

@@ -20,7 +20,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-	<Version>1.4.8</Version>
+	<Version>1.4.9</Version>
   </PropertyGroup>
 
   <PropertyGroup>
