@@ -1681,7 +1681,6 @@
             hud1.displayCellVoltage = false;
             hud1.displayconninfo = false;
             hud1.displayheading = false;
-            hud1.displayicons = false;
             hud1.displayspeed = false;
             hud1.displayvibe = false;
             hud1.displayxtrack = false;

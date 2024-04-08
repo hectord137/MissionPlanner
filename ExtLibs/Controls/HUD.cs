@@ -203,7 +203,7 @@ namespace MissionPlanner.Controls
         public bool displaygps { get; set; }
 
         [System.ComponentModel.Browsable(true), DefaultValue(true)]
-        public bool displayicons { get; set; }
+        public bool displayicons { get; }
 
         [System.ComponentModel.Browsable(true), DefaultValue(true)]
         public bool bgon { get; set; }
@@ -255,6 +255,8 @@ namespace MissionPlanner.Controls
                                                 displayrollpitch = displaygps = bgon = hudon = batteryon = batteryon2 = true;
 
             displayAOASSA = false;
+
+            displayicons = true;
 
             this.Name = "Hud";
 
