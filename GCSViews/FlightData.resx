@@ -128,7 +128,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA/AgAAAJNU0Z0AUkBTAIBAQIB
-        AAEQAQsBEAELASABAAEgAQAE/wEJAQAI/wFCAU0BNgEEBgABNgEEAgABKAMAAYADAAEgAwABAQEAAQgG
+        AAEgAQsBIAELASABAAEgAQAE/wEJAQAI/wFCAU0BNgEEBgABNgEEAgABKAMAAYADAAEgAwABAQEAAQgG
         AAEQGAABgAIAAYADAAKAAQABgAMAAYABAAGAAQACgAIAA8ABAAHAAdwBwAEAAfABygGmAQABMwUAATMB
         AAEzAQABMwEAAjMCAAMWAQADHAEAAyIBAAMpAQADVQEAA00BAANCAQADOQEAAYABfAH/AQACUAH/AQAB
         kwEAAdYBAAH/AewBzAEAAcYB1gHvAQAB1gLnAQABkAGpAa0CAAH/ATMDAAFmAwABmQMAAcwCAAEzAwAC
@@ -177,7 +177,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAVgoAAAJNU0Z0AUkBTAIBAQIB
-        AAEIAQsBCAELASABAAEgAQAE/wEJAQAI/wFCAU0BNgEEBgABNgEEAgABKAMAAYADAAEgAwABAQEAAQgG
+        AAEYAQsBGAELASABAAEgAQAE/wEJAQAI/wFCAU0BNgEEBgABNgEEAgABKAMAAYADAAEgAwABAQEAAQgG
         AAEQGAABgAIAAYADAAKAAQABgAMAAYABAAGAAQACgAIAA8ABAAHAAdwBwAEAAfABygGmAQABMwUAATMB
         AAEzAQABMwEAAjMCAAMWAQADHAEAAyIBAAMpAQADVQEAA00BAANCAQADOQEAAYABfAH/AQACUAH/AQAB
         kwEAAdYBAAH/AewBzAEAAcYB1gHvAQAB1gLnAQABkAGpAa0CAAH/ATMDAAFmAwABmQMAAcwCAAEzAwAC
@@ -244,19 +244,19 @@
     <value>False</value>
   </data>
   <data name="deleteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="deleteToolStripMenuItem.Text" xml:space="preserve">
     <value>Delete</value>
   </data>
   <data name="saveFileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="saveFileToolStripMenuItem.Text" xml:space="preserve">
     <value>Save File</value>
   </data>
   <data name="loadFileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="loadFileToolStripMenuItem.Text" xml:space="preserve">
     <value>Load File</value>
@@ -266,6 +266,9 @@
   </data>
   <data name="addPoiToolStripMenuItem.Text" xml:space="preserve">
     <value>Add Poi</value>
+  </data>
+  <data name="addPoiToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="pointCameraHereToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>195, 22</value>
@@ -359,6 +362,9 @@
   </data>
   <data name="setHomeHereToolStripMenuItem2.Text" xml:space="preserve">
     <value>Set Home Here</value>
+  </data>
+  <data name="setHomeHereToolStripMenuItem2.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="contextMenuStripMap.Size" type="System.Drawing.Size, System.Drawing">
     <value>196, 268</value>
@@ -600,7 +606,7 @@
     <value>86</value>
   </data>
   <data name="BUT_ClearEchoData.Text" xml:space="preserve">
-    <value>Clear Echosounder Recorder Data</value>
+    <value>Borrar datos grabados</value>
   </data>
   <data name="BUT_ClearEchoData.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -636,7 +642,7 @@
     <value>85</value>
   </data>
   <data name="BUT_DownloadEchoData.Text" xml:space="preserve">
-    <value>Download Echosounder Data From WiFi</value>
+    <value>Descargar datos de ecosonda (WIFI)</value>
   </data>
   <data name="BUT_DownloadEchoData.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -753,7 +759,7 @@
     <value>101</value>
   </data>
   <data name="label17.Text" xml:space="preserve">
-    <value>Estimated Time Remaining</value>
+    <value>Tiempo Estimado Restante</value>
   </data>
   <data name="label17.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
@@ -792,7 +798,7 @@
     <value>94</value>
   </data>
   <data name="label7.Text" xml:space="preserve">
-    <value>Mission Status</value>
+    <value>Resumen de Navegación</value>
   </data>
   <data name="label7.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
@@ -831,7 +837,7 @@
     <value>96</value>
   </data>
   <data name="label9.Text" xml:space="preserve">
-    <value>Traveled</value>
+    <value>Recorrido</value>
   </data>
   <data name="label9.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
@@ -909,7 +915,7 @@
     <value>95</value>
   </data>
   <data name="label8.Text" xml:space="preserve">
-    <value>Completed</value>
+    <value>Completado</value>
   </data>
   <data name="label8.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
@@ -2049,7 +2055,7 @@
     <value>79</value>
   </data>
   <data name="groupBox2.Text" xml:space="preserve">
-    <value>Change WP</value>
+    <value>Saltar al WP</value>
   </data>
   <data name="&gt;&gt;groupBox2.Name" xml:space="preserve">
     <value>groupBox2</value>
@@ -2091,7 +2097,7 @@
     <value>86</value>
   </data>
   <data name="BUT_EchoGrab.Text" xml:space="preserve">
-    <value>Grab Data</value>
+    <value>Grabar</value>
   </data>
   <data name="&gt;&gt;BUT_EchoGrab.Name" xml:space="preserve">
     <value>BUT_EchoGrab</value>
@@ -2127,7 +2133,7 @@
     <value>77</value>
   </data>
   <data name="BUT_StopGrab.Text" xml:space="preserve">
-    <value>Stop Grab</value>
+    <value>Detener</value>
   </data>
   <data name="BUT_StopGrab.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
@@ -2187,7 +2193,7 @@
     <value>87</value>
   </data>
   <data name="groupBox1.Text" xml:space="preserve">
-    <value>Echosounder Capture</value>
+    <value>Grabar Datos</value>
   </data>
   <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
     <value>groupBox1</value>
@@ -2994,7 +3000,7 @@
     <value>75</value>
   </data>
   <data name="BUT_quickrtl.Text" xml:space="preserve">
-    <value>RTL</value>
+    <value>Al Origen</value>
   </data>
   <data name="&gt;&gt;BUT_quickrtl.Name" xml:space="preserve">
     <value>BUT_quickrtl</value>
@@ -3030,7 +3036,7 @@
     <value>63</value>
   </data>
   <data name="BUTrestartmission.Text" xml:space="preserve">
-    <value>Restart Mission</value>
+    <value>Reiniciar Misión</value>
   </data>
   <data name="&gt;&gt;BUTrestartmission.Name" xml:space="preserve">
     <value>BUTrestartmission</value>
@@ -3066,7 +3072,7 @@
     <value>52</value>
   </data>
   <data name="BUT_clear_track.Text" xml:space="preserve">
-    <value>Clear Track</value>
+    <value>Limpiar Trayecto</value>
   </data>
   <data name="&gt;&gt;BUT_clear_track.Name" xml:space="preserve">
     <value>BUT_clear_track</value>
@@ -3138,7 +3144,7 @@
     <value>79</value>
   </data>
   <data name="BUT_ARM.Text" xml:space="preserve">
-    <value>Arm / Disarm</value>
+    <value>Arm / Desarmar</value>
   </data>
   <data name="&gt;&gt;BUT_ARM.Name" xml:space="preserve">
     <value>BUT_ARM</value>

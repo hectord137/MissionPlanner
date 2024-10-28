@@ -742,7 +742,7 @@ namespace MissionPlanner.Grid
                 }
 
                 lbl_distbetweenlines.Text = (NUM_Distance.Value * 3.2808399m).ToString("0.##") + " ft";
-                
+
             }
             else
             {
@@ -806,9 +806,9 @@ namespace MissionPlanner.Grid
             //        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.SPLINE_WAYPOINT, 0, 0, 0, 0, Lng, Lat, (int)(Alt * CurrentState.multiplierdist), gridobject);
             //    }
             //    else
-                {
-                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.WAYPOINT, 0, 0, 0, 0, Lng, Lat, (int)(Alt * CurrentState.multiplierdist), gridobject);
-                }
+            {
+                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.WAYPOINT, 0, 0, 0, 0, Lng, Lat, (int)(Alt * CurrentState.multiplierdist), gridobject);
+            }
             //}
         }
 
@@ -1699,15 +1699,15 @@ namespace MissionPlanner.Grid
 
                     //if (CHK_toandland.Checked)
                     //{
-                        if (CHK_toandland_RTL.Checked)
-                        {
-                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.RETURN_TO_LAUNCH, 0, 0, 0, 0, 0, 0, 0, gridobject);
-                        }
-                        //else
-                        //{
-                        //    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.LAND, 0, 0, 0, 0, plugin.Host.cs.PlannedHomeLocation.Lng,
-                        //        plugin.Host.cs.PlannedHomeLocation.Lat, 0, gridobject);
-                        //}
+                    if (CHK_toandland_RTL.Checked)
+                    {
+                        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.RETURN_TO_LAUNCH, 0, 0, 0, 0, 0, 0, 0, gridobject);
+                    }
+                    //else
+                    //{
+                    //    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.LAND, 0, 0, 0, 0, plugin.Host.cs.PlannedHomeLocation.Lng,
+                    //        plugin.Host.cs.PlannedHomeLocation.Lat, 0, gridobject);
+                    //}
                     //}
                 }
 

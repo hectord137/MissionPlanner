@@ -54,7 +54,6 @@ namespace MissionPlanner.GCSViews
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            but_writewpfast = new MyButton();
             BUT_write = new MyButton();
             BUT_read = new MyButton();
             panel1 = new Panel();
@@ -98,12 +97,9 @@ namespace MissionPlanner.GCSViews
             panelAction = new Panel();
             panel2 = new Panel();
             GP_MapOptions = new GroupBox();
-            label4 = new Label();
             panel3 = new Panel();
-            LBL_Map_origin = new Label();
             chk_grid = new CheckBox();
             comboBoxMapType = new ComboBox();
-            lnk_kml = new LinkLabel();
             GP_Zoom_Options = new GroupBox();
             tableLayoutPanel2 = new TableLayoutPanel();
             BUT_Zoom_Vehicle = new Button();
@@ -214,18 +210,6 @@ namespace MissionPlanner.GCSViews
             contextMenuStripPoly.SuspendLayout();
             contextMenuStripZoom.SuspendLayout();
             SuspendLayout();
-            // 
-            // but_writewpfast
-            // 
-            but_writewpfast.BGGradBot = Color.FromArgb(255, 128, 128);
-            but_writewpfast.BGGradTop = Color.FromArgb(255, 192, 192);
-            resources.ApplyResources(but_writewpfast, "but_writewpfast");
-            but_writewpfast.Name = "but_writewpfast";
-            but_writewpfast.Outline = Color.Black;
-            but_writewpfast.TextColor = Color.Black;
-            but_writewpfast.TextColorNotEnabled = Color.Black;
-            but_writewpfast.UseVisualStyleBackColor = true;
-            but_writewpfast.Click += but_writewpfast_Click;
             // 
             // BUT_write
             // 
@@ -558,32 +542,19 @@ namespace MissionPlanner.GCSViews
             // 
             // GP_MapOptions
             // 
-            GP_MapOptions.Controls.Add(label4);
-            GP_MapOptions.Controls.Add(coords1);
             GP_MapOptions.Controls.Add(panel3);
             resources.ApplyResources(GP_MapOptions, "GP_MapOptions");
             GP_MapOptions.Name = "GP_MapOptions";
             GP_MapOptions.TabStop = false;
             // 
-            // label4
-            // 
-            resources.ApplyResources(label4, "label4");
-            label4.Name = "label4";
-            // 
             // panel3
             // 
             resources.ApplyResources(panel3, "panel3");
-            panel3.Controls.Add(LBL_Map_origin);
             panel3.Controls.Add(chk_grid);
+            panel3.Controls.Add(coords1);
             panel3.Controls.Add(lbl_status);
             panel3.Controls.Add(comboBoxMapType);
-            panel3.Controls.Add(lnk_kml);
             panel3.Name = "panel3";
-            // 
-            // LBL_Map_origin
-            // 
-            resources.ApplyResources(LBL_Map_origin, "LBL_Map_origin");
-            LBL_Map_origin.Name = "LBL_Map_origin";
             // 
             // chk_grid
             // 
@@ -599,13 +570,6 @@ namespace MissionPlanner.GCSViews
             comboBoxMapType.FormattingEnabled = true;
             comboBoxMapType.Name = "comboBoxMapType";
             toolTip1.SetToolTip(comboBoxMapType, resources.GetString("comboBoxMapType.ToolTip"));
-            // 
-            // lnk_kml
-            // 
-            resources.ApplyResources(lnk_kml, "lnk_kml");
-            lnk_kml.Name = "lnk_kml";
-            lnk_kml.TabStop = true;
-            lnk_kml.LinkClicked += lnk_kml_LinkClicked;
             // 
             // GP_Zoom_Options
             // 
@@ -679,6 +643,7 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(BUT_Set_Home_On_Map, "BUT_Set_Home_On_Map");
             BUT_Set_Home_On_Map.ImageList = imageList1;
             BUT_Set_Home_On_Map.Name = "BUT_Set_Home_On_Map";
+            toolTip1.SetToolTip(BUT_Set_Home_On_Map, resources.GetString("BUT_Set_Home_On_Map.ToolTip"));
             BUT_Set_Home_On_Map.UseVisualStyleBackColor = false;
             BUT_Set_Home_On_Map.Click += TXT_homelat_Enter;
             // 
@@ -688,6 +653,7 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(BTU_Set_Home_On_Vehicle, "BTU_Set_Home_On_Vehicle");
             BTU_Set_Home_On_Vehicle.ImageList = imageList1;
             BTU_Set_Home_On_Vehicle.Name = "BTU_Set_Home_On_Vehicle";
+            toolTip1.SetToolTip(BTU_Set_Home_On_Vehicle, resources.GetString("BTU_Set_Home_On_Vehicle.ToolTip"));
             BTU_Set_Home_On_Vehicle.UseVisualStyleBackColor = false;
             BTU_Set_Home_On_Vehicle.Click += BTU_Set_Home_On_Vehicle_Click;
             // 
@@ -704,7 +670,6 @@ namespace MissionPlanner.GCSViews
             // 
             resources.ApplyResources(tableLayoutPanel5, "tableLayoutPanel5");
             tableLayoutPanel5.Controls.Add(BUT_read, 2, 0);
-            tableLayoutPanel5.Controls.Add(but_writewpfast, 1, 0);
             tableLayoutPanel5.Controls.Add(BUT_write, 0, 0);
             tableLayoutPanel5.Name = "tableLayoutPanel5";
             // 
@@ -890,6 +855,7 @@ namespace MissionPlanner.GCSViews
             BUT_Load_KML.ImageList = imageList1;
             BUT_Load_KML.Name = "BUT_Load_KML";
             BUT_Load_KML.UseVisualStyleBackColor = false;
+            BUT_Load_KML.Click += BUT_Load_KML_Click;
             // 
             // splitter2
             // 
@@ -1037,8 +1003,8 @@ namespace MissionPlanner.GCSViews
             // geoFenceToolStripMenuItem
             // 
             geoFenceToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { GeoFenceuploadToolStripMenuItem, GeoFencedownloadToolStripMenuItem, setReturnLocationToolStripMenuItem, loadFromFileToolStripMenuItem, saveToFileToolStripMenuItem, clearToolStripMenuItem });
-            geoFenceToolStripMenuItem.Name = "geoFenceToolStripMenuItem";
             resources.ApplyResources(geoFenceToolStripMenuItem, "geoFenceToolStripMenuItem");
+            geoFenceToolStripMenuItem.Name = "geoFenceToolStripMenuItem";
             // 
             // GeoFenceuploadToolStripMenuItem
             // 
@@ -1079,8 +1045,8 @@ namespace MissionPlanner.GCSViews
             // pOIToolStripMenuItem
             // 
             pOIToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { poiaddToolStripMenuItem, poideleteToolStripMenuItem, poieditToolStripMenuItem });
-            pOIToolStripMenuItem.Name = "pOIToolStripMenuItem";
             resources.ApplyResources(pOIToolStripMenuItem, "pOIToolStripMenuItem");
+            pOIToolStripMenuItem.Name = "pOIToolStripMenuItem";
             // 
             // poiaddToolStripMenuItem
             // 
@@ -1102,8 +1068,8 @@ namespace MissionPlanner.GCSViews
             // 
             // enterUTMCoordToolStripMenuItem
             // 
-            enterUTMCoordToolStripMenuItem.Name = "enterUTMCoordToolStripMenuItem";
             resources.ApplyResources(enterUTMCoordToolStripMenuItem, "enterUTMCoordToolStripMenuItem");
+            enterUTMCoordToolStripMenuItem.Name = "enterUTMCoordToolStripMenuItem";
             enterUTMCoordToolStripMenuItem.Click += enterUTMCoordToolStripMenuItem_Click;
             // 
             // setHomeHereToolStripMenuItem
@@ -1245,7 +1211,6 @@ namespace MissionPlanner.GCSViews
             panelAction.ResumeLayout(false);
             panel2.ResumeLayout(false);
             GP_MapOptions.ResumeLayout(false);
-            GP_MapOptions.PerformLayout();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             GP_Zoom_Options.ResumeLayout(false);
@@ -1313,7 +1278,6 @@ namespace MissionPlanner.GCSViews
         public ToolStripMenuItem savePolygonToolStripMenuItem;
         public ToolStripMenuItem loadPolygonToolStripMenuItem;
         public CheckBox chk_grid;
-        public LinkLabel lnk_kml;
         public ToolStripMenuItem pOIToolStripMenuItem;
         public ToolStripMenuItem poiaddToolStripMenuItem;
         public ToolStripMenuItem poideleteToolStripMenuItem;
@@ -1326,7 +1290,6 @@ namespace MissionPlanner.GCSViews
         public Label lbl_wpfile;
         public ToolStripMenuItem areaToolStripMenuItem;
         public ToolStripMenuItem setHomeHereToolStripMenuItem;
-        public MyButton but_writewpfast;
         public ComboBox cmb_missiontype;
         public ContextMenuStrip contextMenuStripPoly;
         public ToolStripMenuItem drawAPolygonToolStripMenuItem;
@@ -1396,8 +1359,6 @@ namespace MissionPlanner.GCSViews
         private Button BUT_Clear_KML;
         private Button BUT_Load_GeoTiff;
         private ImageList imageList1;
-        public Label LBL_Map_origin;
-        public Label label4;
         private Panel panel2;
         private PictureBox IMG_Tiff_Loading;
         private Timer Timer_Update_Button_State;

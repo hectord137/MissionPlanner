@@ -53,6 +53,8 @@ using GMap.NET.WindowsForms.ToolTips;
 
 using BitMiracle.LibTiff.Classic;
 using MissionPlanner.ArduPilot.Mavlink;
+using OSGeo.OGR;
+using SharpKml.Engine;
 
 namespace MissionPlanner.GCSViews
 {
@@ -343,6 +345,8 @@ namespace MissionPlanner.GCSViews
             updateCMDParams();
 
             updateDisplayView();
+
+            //kmlpolygonsoverlay.ForceUpdate();
 
             //try
             //{
@@ -2868,68 +2872,6 @@ namespace MissionPlanner.GCSViews
             writeKML();
         }
 
-        private void Dxf_newLine(dxf sender, netDxf.Entities.Line line)
-        {
-            var route = new GMapRoute(line.Handle);
-            route.Points.Add(new PointLatLng(line.StartPoint.Y, line.StartPoint.X));
-            route.Points.Add(new PointLatLng(line.EndPoint.Y, line.EndPoint.X));
-
-            route.Stroke = new Pen(Color.FromArgb(line.Color.R, line.Color.G, line.Color.B));
-
-            if (sender.Tag != null)
-                ConvertUTMCoords(route, int.Parse(sender.Tag.ToString()));
-
-            kmlpolygonsoverlay.Routes.Add(route);
-        }
-
-        private void Dxf_newLwPolyline(dxf sender, netDxf.Entities.LwPolyline pline)
-        {
-            var route = new GMapRoute(pline.Handle);
-            foreach (var item in pline.Vertexes)
-            {
-                route.Points.Add(new PointLatLng(item.Position.Y, item.Position.X));
-            }
-
-            route.Stroke = new Pen(Color.FromArgb(pline.Color.R, pline.Color.G, pline.Color.B));
-
-            if (sender.Tag != null)
-                ConvertUTMCoords(route, int.Parse(sender.Tag.ToString()));
-
-            kmlpolygonsoverlay.Routes.Add(route);
-        }
-
-        private void Dxf_newMLine(dxf sender, netDxf.Entities.MLine pline)
-        {
-            var route = new GMapRoute(pline.Handle);
-            foreach (var item in pline.Vertexes)
-            {
-                route.Points.Add(new PointLatLng(item.Location.Y, item.Location.X));
-            }
-
-            route.Stroke = new Pen(Color.FromArgb(pline.Color.R, pline.Color.G, pline.Color.B));
-
-            if (sender.Tag != null)
-                ConvertUTMCoords(route, int.Parse(sender.Tag.ToString()));
-
-            kmlpolygonsoverlay.Routes.Add(route);
-        }
-
-        private void Dxf_newPolyLine(dxf sender, netDxf.Entities.Polyline pline)
-        {
-            var route = new GMapRoute(pline.Handle);
-            foreach (var item in pline.Vertexes)
-            {
-                route.Points.Add(new PointLatLng(item.Position.Y, item.Position.X));
-            }
-
-            route.Stroke = new Pen(Color.FromArgb(pline.Color.R, pline.Color.G, pline.Color.B));
-
-            if (sender.Tag != null)
-                ConvertUTMCoords(route, int.Parse(sender.Tag.ToString()));
-
-            kmlpolygonsoverlay.Routes.Add(route);
-        }
-
         public void enterUTMCoordToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string easting = "578994";
@@ -3509,18 +3451,6 @@ namespace MissionPlanner.GCSViews
             writeKML();
         }
 
-        public void lnk_kml_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            try
-            {
-                Process.Start("http://127.0.0.1:56781/network.kml");
-            }
-            catch
-            {
-                CustomMessageBox.Show("Failed to open url http://127.0.0.1:56781/network.kml");
-            }
-        }
-
         public void loadAndAppendToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog fd = new OpenFileDialog())
@@ -3657,15 +3587,24 @@ namespace MissionPlanner.GCSViews
             }
         }
 
-        public void loadKMLFileToolStripMenuItem_Click(object sender, EventArgs e)
+        public void kMLOverlayToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog fd = new OpenFileDialog())
             {
-                fd.Filter = "Google Earth KML |*.kml;*.kmz";
+                fd.Filter =
+                    "Google Earth KML|*.kml;*.kmz";
                 DialogResult result = fd.ShowDialog();
                 string file = fd.FileName;
                 if (file != "")
                 {
+                    kmlpolygonsoverlay.Polygons.Clear();
+                    kmlpolygonsoverlay.Routes.Clear();
+                    kmlpolygonsoverlay.Markers.Clear();
+
+                    FlightData.kmlpolygons.Routes.Clear();
+                    FlightData.kmlpolygons.Polygons.Clear();
+                    FlightData.kmlpolygons.Markers.Clear();
+
                     try
                     {
                         string kml = "";
@@ -3704,13 +3643,55 @@ namespace MissionPlanner.GCSViews
 
                         var parser = new Parser();
 
-                        parser.ElementAdded += processKMLMission;
                         parser.ParseString(kml, false);
+
+                        Kml rootnode = parser.Root as Kml;
+
+                        processKML(rootnode.Feature);
+
+                        if ((int)DialogResult.Yes ==
+                            CustomMessageBox.Show("Desea que este archivo también se vea en la pantalla de navegación",
+                                "Confirmación",
+                                MessageBoxButtons.YesNo))
+                        {
+                            foreach (var temp in kmlpolygonsoverlay.Polygons)
+                            {
+                                GMapPolygon p2 = new GMapPolygon(temp.Points, temp.Name);
+                                p2.Stroke = temp.Stroke;
+                                p2.Fill = temp.Fill;
+                                FlightData.kmlpolygons.Polygons.Add(p2);
+                            }
+
+                            foreach (var temp in kmlpolygonsoverlay.Routes)
+                            {
+                                GMapRoute r2 = new GMapRoute(temp.Points, temp.Name);
+                                r2.Stroke = temp.Stroke;
+                                FlightData.kmlpolygons.Routes.Add(r2);
+                            }
+
+                            foreach (var temp in kmlpolygonsoverlay.Markers)
+                            {
+                                GMarkerGoogle m2 = new GMarkerGoogle(temp.Position, ((GMarkerGoogle)temp).Type);
+                                m2.ToolTipText = temp.ToolTipText;
+                                m2.ToolTipMode = temp.ToolTipMode;
+                                FlightData.kmlpolygons.Markers.Add(m2);
+                            }
+
+                        }
+
+                        //if (
+                        //    CustomMessageBox.Show(Strings.Zoom_To, Strings.Zoom_to_the_center_or_the_loaded_file,
+                        //        MessageBoxButtons.YesNo) ==
+                        //    (int)DialogResult.Yes)
+                        {
+                            MainMap.SetZoomToFitRect(GetBoundingLayer(kmlpolygonsoverlay));
+                        }
                     }
                     catch (Exception ex)
                     {
-                        CustomMessageBox.Show("Bad_KML_File " + ex);
+                        CustomMessageBox.Show("Bad KML File");
                     }
+
                 }
             }
         }
@@ -3900,10 +3881,12 @@ namespace MissionPlanner.GCSViews
             Commands.AutoResizeColumns();
         }
 
+        /*
         private void parser_ElementAdded(object sender, ElementEventArgs e)
         {
             processKML(e.Element);
         }
+        */
 
         public void Planner_Resize(object sender, EventArgs e)
         {
@@ -4014,123 +3997,113 @@ namespace MissionPlanner.GCSViews
             FetchPath();
         }
 
-        private void processKML(Element Element)
+        private void processKML(Element Element, Document root = null)
         {
-            Document doc = Element as Document;
-            Placemark pm = Element as Placemark;
-            Folder folder = Element as Folder;
-            Polygon polygon = Element as Polygon;
-            LineString ls = Element as LineString;
-            MultipleGeometry geom = Element as MultipleGeometry;
-
-            if (doc != null)
+            if (Element is Document)
             {
-                foreach (var feat in doc.Features)
+                foreach (var feat in ((Document)Element).Features)
                 {
-                    //Console.WriteLine("feat " + feat.GetType());
-                    //processKML((Element)feat);
-                }
-            }
-            else if (folder != null)
-            {
-                foreach (Feature feat in folder.Features)
-                {
-                    //Console.WriteLine("feat "+feat.GetType());
-                    //processKML(feat);
-                }
-            }
-            else if (pm != null)
-            {
-            }
-            else if (polygon != null)
-            {
-                GMapPolygon kmlpolygon = new GMapPolygon(new List<PointLatLng>(), "kmlpolygon");
-
-                kmlpolygon.Stroke.Color = Color.Purple;
-                kmlpolygon.Fill = Brushes.Transparent;
-
-                foreach (var loc in polygon.OuterBoundary.LinearRing.Coordinates)
-                {
-                    kmlpolygon.Points.Add(new PointLatLng(loc.Latitude, loc.Longitude));
+                    processKML(feat, (Document)Element);
                 }
 
-                kmlpolygonsoverlay.Polygons.Add(kmlpolygon);
+                return;
             }
-            else if (ls != null)
+            else if (Element is Folder)
             {
-                GMapRoute kmlroute = new GMapRoute(new List<PointLatLng>(), "kmlroute");
-
-                kmlroute.Stroke.Color = Color.Purple;
-
-                foreach (var loc in ls.Coordinates)
+                foreach (var feat in ((Folder)Element).Features)
                 {
-                    kmlroute.Points.Add(new PointLatLng(loc.Latitude, loc.Longitude));
+                    processKML(feat, root);
                 }
-
-                kmlpolygonsoverlay.Routes.Add(kmlroute);
             }
-            else if (geom != null)
+            else if (Element is Placemark)
             {
-                foreach (var geometry in geom.Geometry)
+                var styleurl = ((Placemark)Element).StyleUrl;
+
+                if (((Placemark)Element).Geometry != null)
                 {
-                    processKML(geometry);
+                    var Element2 = ((Placemark)Element).Geometry;
+                    if (Element2 is Polygon)
+                    {
+                        GMapPolygon kmlpolygon = new GMapPolygon(new List<PointLatLng>(), "kmlpolygon");
+
+                        var colorwidth = GetKMLLineColor(styleurl.OriginalString.TrimStart('#'), root);
+                        kmlpolygon.Stroke = new Pen(colorwidth.Item1, colorwidth.Item2);
+                        kmlpolygon.Fill = Brushes.Transparent;
+
+                        foreach (var loc in ((Polygon)Element2).OuterBoundary.LinearRing.Coordinates)
+                        {
+                            kmlpolygon.Points.Add(new PointLatLng(loc.Latitude, loc.Longitude));
+                        }
+
+                        kmlpolygonsoverlay.Polygons.Add(kmlpolygon);
+                    }
+                    else if (Element2 is LineString)
+                    {
+                        GMapRoute kmlroute = new GMapRoute(new List<PointLatLng>(), "kmlroute");
+
+                        var colorwidth = GetKMLLineColor(styleurl.OriginalString.TrimStart('#'), root);
+                        kmlroute.Stroke = new Pen(colorwidth.Item1, colorwidth.Item2);
+
+                        foreach (var loc in ((LineString)Element2).Coordinates)
+                        {
+                            kmlroute.Points.Add(new PointLatLng(loc.Latitude, loc.Longitude));
+                        }
+
+                        kmlpolygonsoverlay.Routes.Add(kmlroute);
+                    }
+                    else if (Element2 is MultipleGeometry)
+                    {
+                        foreach (var geometry in ((MultipleGeometry)Element2).Geometry)
+                        {
+                            processKML(new Placemark() { Geometry = geometry, StyleUrl = ((Placemark)Element).StyleUrl }, root);
+                        }
+                    }
+                    else if (Element2 is SharpKml.Dom.Point)
+                    {
+
+                        // its a label
+                        var placemark = (Placemark)Element;
+                        var text = placemark.Name ?? "";
+                        var lookat = placemark.CalculateLookAt();
+                        var point = new PointLatLng(lookat.Latitude.Value, lookat.Longitude.Value);
+
+                        GMarkerGoogle m2 = new GMarkerGoogle(point, GMarkerGoogleType.red);
+                        m2.ToolTipText = text;
+                        m2.ToolTipMode = MarkerTooltipMode.OnMouseOver;
+
+                        kmlpolygonsoverlay.Markers.Add(m2);
+
+                    }
                 }
             }
         }
 
-        private void processKMLMission(object sender, ElementEventArgs e)
+        private (Color, int) GetKMLLineColor(string styleurl, Document root)
         {
-            Element element = e.Element;
-            try
+            var style2 = root.Styles.Where(a => a.Id == styleurl.TrimStart('#')).First();
+            /*
+            if (style2 is StyleMapCollection)
             {
-                //  log.Info(Element.ToString() + " " + Element.Parent);
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex);
-            }
 
-            Document doc = element as Document;
-            Placemark pm = element as Placemark;
-            Folder folder = element as Folder;
-            Polygon polygon = element as Polygon;
-            LineString ls = element as LineString;
+                var styleurl2 = ((StyleMapCollection)(style2)).First().StyleUrl;
 
-            if (doc != null)
-            {
-                foreach (var feat in doc.Features)
+                var qwe = root.Styles.Where(a => a.Id == styleurl2.OriginalString.TrimStart('#'));
+
+                var style = root.Styles.Where(a => a.Id == styleurl2.OriginalString.TrimStart('#')).First();
+                if (style != null)
                 {
-                    //Console.WriteLine("feat " + feat.GetType());
-                    //processKML((Element)feat);
+                    if (((Style)style).Line != null)
+                    {
+                        int color = ((Style)style).Line.Color.Value.Abgr;
+                        // convert color from ABGR to ARGB
+                        color = (int)((color & 0xFF00FF00) | ((color & 0x00FF0000) >> 16) | ((color & 0x000000FF) << 16));
+
+                        // ABGR
+                        return (Color.FromArgb(color), (int)((Style)style).Line.Width.Value);
+                    }
                 }
-            }
-            else if (folder != null)
-            {
-                foreach (Feature feat in folder.Features)
-                {
-                    //Console.WriteLine("feat "+feat.GetType());
-                    //processKML(feat);
-                }
-            }
-            else if (pm != null)
-            {
-                if (pm.Geometry is SharpKml.Dom.Point)
-                {
-                    var point = ((SharpKml.Dom.Point)pm.Geometry).Coordinate;
-                    POI.POIAdd(new PointLatLngAlt(point.Latitude, point.Longitude), pm.Name);
-                }
-            }
-            else if (polygon != null)
-            {
-            }
-            else if (ls != null)
-            {
-                foreach (var loc in ls.Coordinates)
-                {
-                    selectedrow = Commands.Rows.Add();
-                    setfromMap(loc.Latitude, loc.Longitude, (int)loc.Altitude);
-                }
-            }
+            }*/
+            return (Color.White, 2);
         }
 
         /// <summary>
@@ -6544,9 +6517,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             kmlpolygonsoverlay.Polygons.Clear();
             kmlpolygonsoverlay.Routes.Clear();
+            kmlpolygonsoverlay.Markers.Clear();
 
-            FlightData.kmlpolygons.Routes.Clear();
             FlightData.kmlpolygons.Polygons.Clear();
+            FlightData.kmlpolygons.Routes.Clear();
+            FlightData.kmlpolygons.Markers.Clear();
         }
 
         string _tiffPath = "";
@@ -6779,10 +6754,12 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     continue;
                 }
 
-                //Falta por implementar
-                depth = 000;
-                lat = 000;
-                lon = 000;
+
+                string[] tmp = line.Split(",");
+
+                lat = tmp[0].ConvertToDouble();
+                lon = tmp[1].ConvertToDouble();
+                depth = tmp[2].ConvertToDouble();
 
                 points.Add(new PointLatLng(lat, lon));
                 depthList.Add(depth);
@@ -6801,7 +6778,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             //Crear el Gradiente de colores para evaluar la profundidad filtrada
             System.Windows.Media.GradientStopCollection grad = new System.Windows.Media.GradientStopCollection();
             grad.Add(new System.Windows.Media.GradientStop(System.Windows.Media.Colors.Red, 1));
-            grad.Add(new System.Windows.Media.GradientStop(System.Windows.Media.Colors.Red, 0.9));
+            grad.Add(new System.Windows.Media.GradientStop(System.Windows.Media.Colors.Red, 0.8));
+            grad.Add(new System.Windows.Media.GradientStop(System.Windows.Media.Colors.Green, 0.6));
             grad.Add(new System.Windows.Media.GradientStop(System.Windows.Media.Colors.Green, 0.5));
             grad.Add(new System.Windows.Media.GradientStop(System.Windows.Media.Colors.Blue, 0.1));
             grad.Add(new System.Windows.Media.GradientStop(System.Windows.Media.Colors.Blue, 0));
@@ -6810,6 +6788,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             echoSounderOverlay.Clear();
 
             double maxDepth = depthBackward.Max();
+            double minDepth = depthBackward.Min();
             LBL_Max_Depth.Text = maxDepth.ToString("N1") + "m";
             for (int i = 3; i < points.Count; i += 3)
             {
@@ -6817,7 +6796,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 route.Points.Add(points[i - 3]);
                 route.Points.Add(points[i]);
 
-                double off = depthBackward[i - 3] / maxDepth;
+                double off = (depthBackward[i - 3] - minDepth) / (maxDepth - minDepth);
                 System.Windows.Media.Color res = GetRelativeColor(grad, off);
 
                 route.Stroke = new Pen(Color.FromArgb(res.A, res.R, res.G, res.B), 10);
@@ -6890,6 +6869,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         private void MainMap_OnRouteLeave_1(GMapRoute item)
         {
             echoSounderOverlay.Markers[(int)item.Tag].IsVisible = false;
+        }
+
+        private void BUT_Load_KML_Click(object sender, EventArgs e)
+        {
+            kMLOverlayToolStripMenuItem_Click(sender, e);
         }
     }
 }
